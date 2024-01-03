@@ -1,0 +1,510 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave010_F05",
+      "transform": {
+        "translation": {
+          "x": -647.5,
+          "y": -822.5,
+          "z": 0.000107
+        }
+      }
+    }
+  ],
+  "switchable-fenceiron": [
+    {
+      "type": "switchable-fenceiron",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 549,
+          "y": 167,
+          "z": 0.00009918213
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "switchable-singleswitch": [
+    {
+      "type": "switchable-singleswitch",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": -837.5,
+          "y": 550,
+          "z": 7
+        }
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": -282.5,
+          "y": -2.5,
+          "z": -24.9999
+        }
+      }
+    }
+  ],
+  "pikmin-rock": [
+    {
+      "type": "pikmin-rock",
+      "infoType": "pikmin",
+      "color": "rock",
+      "state": "sprouts",
+      "amount": 5,
+      "disappearsAt": 51,
+      "replacedBy": "GEgg_C",
+      "transform": {
+        "translation": {
+          "x": -291.18457,
+          "y": -810.3584,
+          "z": -0.44649506
+        }
+      }
+    },
+    {
+      "type": "pikmin-rock",
+      "infoType": "pikmin",
+      "color": "rock",
+      "state": "fighting",
+      "amount": 5,
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": 320,
+          "y": 595,
+          "z": 0.00009918213
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAZUCCHINI",
+      "name": "Crew-Cut Gourd",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 90,
+      "transform": {
+        "translation": {
+          "x": -271.70477,
+          "y": 1054,
+          "z": -18.539131
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAYOSHICOOKIEB",
+      "name": "Cookie of Prosperity",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 50,
+      "transform": {
+        "translation": {
+          "x": 271.6005,
+          "y": 364.2735,
+          "z": 5.5275993
+        }
+      }
+    }
+  ],
+  "gate-crystal": [
+    {
+      "type": "gate-crystal",
+      "infoType": "gate",
+      "width": 175,
+      "health": 747,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 6,
+          "max": 6
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -662,
+          "y": 553,
+          "z": 5.1502013
+        },
+        "rotation": 90
+      }
+    },
+    {
+      "type": "gate-crystal",
+      "infoType": "gate",
+      "width": 275,
+      "health": 747,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 6,
+          "max": 6
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -49,
+          "y": -692,
+          "z": 30.150097
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 684.30554,
+          "y": -686.39124,
+          "z": -24.9999
+        }
+      }
+    }
+  ],
+  "candypop-rock": [
+    {
+      "type": "candypop-rock",
+      "infoType": "candypop",
+      "color": "rock",
+      "disappearsAt": 6,
+      "transform": {
+        "translation": {
+          "x": 310.67462,
+          "y": -307.3688,
+          "z": -24.999878
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMAKOCHAPPY",
+      "name": "Dwarf Bulbear",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 3,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -491.16675,
+          "y": 595.1029,
+          "z": -9.999939
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMACHAPPY",
+      "name": "Spotty Bulbear",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 12,
+      "health": 1800,
+      "seeds": 15,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1.5,
+        "eatBomb": 1,
+        "eatFreeze": 4.5,
+        "eatIceBomb": 1,
+        "eatPoison": 3,
+        "freeze": 45,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 20,
+        "oatchiRushFreezeRatio": 4,
+        "pikminHit": 0,
+        "purpleHit": 20
+      },
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTADICE6WHT",
+          "name": "Chance Totem",
+          "weight": 2,
+          "carryMax": 4,
+          "value": 20,
+          "amount": 3,
+          "chance": 1,
+          "min": 3,
+          "max": 3
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -262.5,
+          "y": -442.5,
+          "z": 45.00049
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMAKOCHAPPY",
+      "name": "Dwarf Bulbear",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 3,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -13.098999,
+          "y": -344.14328,
+          "z": 15
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMAKOCHAPPY",
+      "name": "Dwarf Bulbear",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 3,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -326.61758,
+          "y": 920.4931,
+          "z": -24.9999
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMAKOCHAPPY",
+      "name": "Dwarf Bulbear",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 3,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 360.66574,
+          "y": 472.4532,
+          "z": 14.998962
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMAKOCHAPPY",
+      "name": "Dwarf Bulbear",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 3,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -36.588287,
+          "y": -510.9373,
+          "z": 15
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KOGANE",
+      "name": "Iridescent Flint Beetle",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 200,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 1,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 3,
+          "max": 3
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 6,
+          "max": 6
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 10,
+          "max": 10
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 460,
+          "y": 820,
+          "z": 18
+        }
+      }
+    }
+  ]
+}

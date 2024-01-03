@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import '~react-contexify/dist/ReactContexify.css';
+
+@font-face {
+    font-family: 'Pikmin';
+    src: url('./assets/Pikmin.ttf');
+}

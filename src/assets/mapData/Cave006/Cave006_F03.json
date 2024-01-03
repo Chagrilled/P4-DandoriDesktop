@@ -1,0 +1,214 @@
+{
+  "cave-exit": [
+    {
+      "type": "cave-exit",
+      "infoType": "cave",
+      "toMapId": "Area002",
+      "toPortalId": 50,
+      "transform": {
+        "translation": {
+          "x": 240.87042,
+          "y": -1203.1849,
+          "z": 0.00009918213
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": 57.513428,
+          "y": -847.7927,
+          "z": 0.0001001358
+        },
+        "rotation": 180
+      }
+    }
+  ],
+  "pikmin-ice": [
+    {
+      "type": "pikmin-ice",
+      "infoType": "pikmin",
+      "color": "ice",
+      "state": "idle",
+      "amount": 5,
+      "disappearsAt": 51,
+      "replacedBy": "GEgg_C",
+      "transform": {
+        "translation": {
+          "x": 427,
+          "y": -142,
+          "z": 100.00009
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTABILLIARDBALL2",
+      "name": "Sphere of Family",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": 32.32611,
+          "y": -1042.9316,
+          "z": 31.155098
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 140.58241,
+          "y": 1067.1545,
+          "z": 75.0001
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "MAR",
+      "name": "Puffy Blowhog",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 7,
+      "health": 3000,
+      "seeds": 5,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "drops": [
+        {
+          "type": "castaway-normal",
+          "infoType": "castaway",
+          "isLeafling": false,
+          "isKoppaite": false,
+          "weight": 3,
+          "carryMax": 6,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -8.166016,
+          "y": -135.64484,
+          "z": 37.942993
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -584.5301,
+          "y": -156.9115,
+          "z": 15
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -535.691,
+          "y": -101.06665,
+          "z": 15
+        }
+      }
+    }
+  ]
+}

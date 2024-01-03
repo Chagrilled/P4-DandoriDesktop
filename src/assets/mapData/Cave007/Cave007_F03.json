@@ -1,0 +1,175 @@
+{
+  "cave-exit": [
+    {
+      "type": "cave-exit",
+      "infoType": "cave",
+      "toMapId": "Area002",
+      "toPortalId": 51,
+      "transform": {
+        "translation": {
+          "x": 664.0598,
+          "y": -556.8973,
+          "z": 57
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": 254,
+          "y": -335,
+          "z": 51.97435
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "shortcut-root": [
+    {
+      "type": "shortcut-root",
+      "infoType": "shortcut",
+      "transform": {
+        "translation": {
+          "x": 25,
+          "y": 825,
+          "z": 25
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 482.7317,
+          "y": 886.5994,
+          "z": 0.000099897385
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAMASK",
+      "name": "Expression Hider",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 150,
+      "transform": {
+        "translation": {
+          "x": 907,
+          "y": 88.05127,
+          "z": 93.38648
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "MITSUMOCHI",
+      "name": "Foolix",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 20,
+      "health": 12000,
+      "seeds": 30,
+      "freezeDrops": {
+        "bossType": "Boss",
+        "amount": 5,
+        "honeyChance": 0.7
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 5,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 10,
+        "freeze": 60,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 50
+      },
+      "drops": [
+        {
+          "type": "castaway-normal",
+          "infoType": "castaway",
+          "isLeafling": false,
+          "isKoppaite": false,
+          "weight": 3,
+          "carryMax": 6,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -421,
+          "y": -311,
+          "z": 140.0001
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": true,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 3,
+          "max": 3
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 10,
+          "max": 10
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 965.64795,
+          "y": -314.963,
+          "z": 85.3
+        }
+      }
+    }
+  ]
+}

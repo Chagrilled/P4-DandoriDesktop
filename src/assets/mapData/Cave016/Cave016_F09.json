@@ -1,0 +1,162 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave016_F10",
+      "transform": {
+        "translation": {
+          "x": 1088,
+          "y": 0,
+          "z": 75.00012
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": 833,
+          "y": -57,
+          "z": 75
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -1129.2883,
+          "y": 43.74402,
+          "z": -0.951049
+        }
+      }
+    }
+  ],
+  "water-swamp": [
+    {
+      "type": "water-swamp",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave016_F09_WaterBox00_D.png",
+        "amountToFreeze": 100,
+        "canSink": true
+      },
+      "transform": {
+        "translation": {
+          "x": 0.756836,
+          "y": 0,
+          "z": -58
+        },
+        "rotation": 180
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "DODORO",
+      "name": "Smoky Progg",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 5000,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 60,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 1.5,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 50
+      },
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTAMELON",
+          "name": "Wayward Moon",
+          "weight": 50,
+          "carryMax": 100,
+          "value": 200,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 20,
+          "max": 20
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 0,
+          "y": 15,
+          "z": 96
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": true,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 3,
+          "max": 3
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 10,
+          "max": 10
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -155,
+          "y": -687,
+          "z": 28.441605
+        }
+      }
+    }
+  ]
+}

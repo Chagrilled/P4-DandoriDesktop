@@ -1,0 +1,653 @@
+{
+  "water-water": [
+    {
+      "type": "water-water",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave033_F00_WaterBox00_D.png",
+        "amountToFreeze": 10
+      },
+      "transform": {
+        "translation": {
+          "x": 979.3756,
+          "y": 677.7356,
+          "z": -71
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": -1259.2156,
+          "y": -131.28758,
+          "z": 50.0001
+        }
+      }
+    }
+  ],
+  "breakable-spotcapnormal": [
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 499,
+          "y": -283,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 336,
+          "y": -113,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 316,
+          "y": -84,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 354,
+          "y": 835,
+          "z": 18.35101
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 262,
+          "y": 780,
+          "z": 18.999044
+        }
+      }
+    }
+  ],
+  "structure-wall": [
+    {
+      "type": "structure-wall",
+      "infoType": "structure",
+      "materialsNeeded": 14,
+      "transform": {
+        "translation": {
+          "x": 34,
+          "y": 412,
+          "z": -12.000076
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave033_F01",
+      "transform": {
+        "translation": {
+          "x": -700,
+          "y": 1120,
+          "z": 100.00012
+        }
+      }
+    }
+  ],
+  "switchable-fencenormal": [
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": -1071.0029,
+          "y": -137.1239,
+          "z": 50.0001
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "breakable-hydrojelly": [
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTAMATDOLLLB",
+          "name": "Empty Vase",
+          "weight": 10,
+          "carryMax": 20,
+          "value": 150,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -413.37357,
+          "y": -667.29584,
+          "z": 105
+        }
+      }
+    },
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-ice",
+          "infoType": "pikmin",
+          "color": "ice",
+          "state": "idle",
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -900,
+          "y": 645,
+          "z": 155
+        }
+      }
+    }
+  ],
+  "pikmin-ice": [
+    {
+      "type": "pikmin-ice",
+      "infoType": "pikmin",
+      "color": "ice",
+      "state": "sprouts",
+      "amount": 5,
+      "disappearsAt": 51,
+      "replacedBy": "GEgg_C",
+      "transform": {
+        "translation": {
+          "x": 433.54044,
+          "y": 1229.1654,
+          "z": 25.000092
+        }
+      }
+    },
+    {
+      "type": "pikmin-ice",
+      "infoType": "pikmin",
+      "color": "ice",
+      "state": "fighting",
+      "amount": 3,
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": -675.5608,
+          "y": -255.80267,
+          "z": 50.00009
+        }
+      }
+    },
+    {
+      "type": "pikmin-ice",
+      "infoType": "pikmin",
+      "color": "ice",
+      "state": "fighting",
+      "amount": 2,
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": -244.56079,
+          "y": -122.80267,
+          "z": 50.0001
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAMATDOLLLA",
+      "name": "Mama Doll Head",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 150,
+      "transform": {
+        "translation": {
+          "x": 1035,
+          "y": 612,
+          "z": 89.90502
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 415.589,
+          "y": -570.55334,
+          "z": 0.0001001358
+        }
+      }
+    }
+  ],
+  "breakable-pot": [
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -676.5744,
+          "y": 830.21655,
+          "z": 100.00012
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -626.7634,
+          "y": 795.1421,
+          "z": 100.00012
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -740,
+          "y": 812.0477,
+          "z": 100.00018
+        }
+      }
+    }
+  ],
+  "shortcut-pushbag": [
+    {
+      "type": "shortcut-pushbag",
+      "infoType": "shortcut",
+      "weight": 10,
+      "transform": {
+        "translation": {
+          "x": -182,
+          "y": -135,
+          "z": 98
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "breakable-kingcapnormal": [
+    {
+      "type": "breakable-kingcapnormal",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 8,
+          "max": 8
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 298,
+          "y": 826,
+          "z": 37.086353
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KOCHAPPY",
+      "name": "Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 100,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 460.56213,
+          "y": 597.42096,
+          "z": 12
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KOCHAPPY",
+      "name": "Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 100,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -761.88904,
+          "y": -247.6929,
+          "z": 62.0601
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "CHAPPY",
+      "name": "Bulborb",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 10,
+      "health": 1000,
+      "seeds": 10,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 1,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -365.85797,
+          "y": 365.53143,
+          "z": 140
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KOCHAPPY",
+      "name": "Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 100,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 279,
+          "y": 394,
+          "z": 12
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KOCHAPPY",
+      "name": "Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 100,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -588.5306,
+          "y": -274.624,
+          "z": 62.0601
+        }
+      }
+    }
+  ],
+  "misc-groupdropmanager": [
+    {
+      "type": "misc-groupdropmanager",
+      "infoType": "misc",
+      "radius": 100,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 287.42322,
+          "y": -142.10242,
+          "z": 0.21910048
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -141.31268,
+          "y": 604.2609,
+          "z": 116.16604
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -174.31268,
+          "y": 639.2609,
+          "z": 116.16604
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "base-onion": [
+    {
+      "type": "base-onion",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 611.1356,
+          "y": -1118.3147,
+          "z": 250.00021
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 396.93466,
+          "y": -1021.6553,
+          "z": 250.00021
+        }
+      }
+    }
+  ]
+}

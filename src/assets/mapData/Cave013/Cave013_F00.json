@@ -1,0 +1,357 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave013_F01",
+      "transform": {
+        "translation": {
+          "x": 744.0485,
+          "y": -277.96912,
+          "z": 50.000153
+        }
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": 825,
+          "y": 867.5,
+          "z": 0.00010681152
+        }
+      }
+    }
+  ],
+  "breakable-mound": [
+    {
+      "type": "breakable-mound",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTABILLIARDBALL5",
+          "name": "Sphere of Vitality",
+          "weight": 7,
+          "carryMax": 14,
+          "value": 110,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 700.0522,
+          "y": 435.25125,
+          "z": 105.10041
+        }
+      }
+    }
+  ],
+  "structure-slope": [
+    {
+      "type": "structure-slope",
+      "infoType": "structure",
+      "materialsNeeded": 15,
+      "transform": {
+        "translation": {
+          "x": 550,
+          "y": -112.5,
+          "z": 0.00009918213
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "pikmin-red": [
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "sprouts",
+      "amount": 5,
+      "disappearsAt": 51,
+      "replacedBy": "GEgg_C",
+      "transform": {
+        "translation": {
+          "x": 275,
+          "y": -769,
+          "z": 77
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTABILLIARDBALLCUE",
+      "name": "Sphere of Truth",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": 68,
+          "y": -550,
+          "z": 161
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTARAILWAYLINEE",
+      "name": "Thrill-Ride Track",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 150,
+      "transform": {
+        "translation": {
+          "x": -319.09198,
+          "y": 531.4716,
+          "z": 79.212364
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -305,
+          "y": -549.5,
+          "z": 1.0001001
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "RUSHER",
+      "name": "Tusked Blowhog",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 900,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 7,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": -302,
+          "y": 273.75,
+          "z": 21.66754
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "RUSHER",
+      "name": "Tusked Blowhog",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 900,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 7,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": 495.7849,
+          "y": 349.05493,
+          "z": 21
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "RUSHER",
+      "name": "Tusked Blowhog",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 900,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 7,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": 747.3266,
+          "y": 618.8184,
+          "z": 21.000004
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KURIONE",
+      "name": "Honeywisp",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 1,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 1,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.5,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.5,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 495,
+          "y": -505,
+          "z": 66
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KURIONE",
+      "name": "Honeywisp",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 1,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 1,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.5,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.5,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -860,
+          "y": 0,
+          "z": 16
+        }
+      }
+    }
+  ]
+}

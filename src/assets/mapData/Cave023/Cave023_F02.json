@@ -1,0 +1,230 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave023_F03",
+      "transform": {
+        "translation": {
+          "x": 5.769409,
+          "y": 956.6309,
+          "z": 0.000092
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 245,
+      "transform": {
+        "translation": {
+          "x": -108.47864,
+          "y": 569.9783,
+          "z": 0.00016784668
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "pikmin-rock": [
+    {
+      "type": "pikmin-rock",
+      "infoType": "pikmin",
+      "color": "rock",
+      "state": "sprouts",
+      "amount": 5,
+      "disappearsAt": 51,
+      "replacedBy": "GEgg_C",
+      "transform": {
+        "translation": {
+          "x": -666.5327,
+          "y": 218.9165,
+          "z": 25.000092
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -9.5,
+          "y": -891,
+          "z": 50.0001
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 575.43555,
+          "y": -172.78833,
+          "z": 15
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 654.5548,
+          "y": -147.71509,
+          "z": 15
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 620.9535,
+          "y": -250.89722,
+          "z": 15
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "HARI",
+      "name": "Porquillion",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 12,
+      "health": 5000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "Boss",
+        "amount": 5,
+        "honeyChance": 0.7
+      },
+      "damageInfo": {
+        "bomb": 3,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 25,
+        "oatchiRushFreezeRatio": 3.4,
+        "pikminHit": 0,
+        "purpleHit": 30
+      },
+      "drops": [
+        {
+          "type": "castaway-normal",
+          "infoType": "castaway",
+          "isLeafling": false,
+          "isKoppaite": false,
+          "weight": 3,
+          "carryMax": 6,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 10,
+          "max": 10
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -9.5,
+          "y": 5.896606,
+          "z": 99
+        }
+      }
+    }
+  ]
+}

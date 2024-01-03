@@ -1,0 +1,318 @@
+{
+  "cave-exit": [
+    {
+      "type": "cave-exit",
+      "infoType": "cave",
+      "toMapId": "Area010",
+      "toPortalId": 51,
+      "transform": {
+        "translation": {
+          "x": 137.5,
+          "y": -1162.5,
+          "z": 50.000076
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": 57.51066,
+          "y": -800.5,
+          "z": 50.9801
+        },
+        "rotation": -179.985
+      }
+    }
+  ],
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "portalId": 2,
+      "toMapId": "Cave022_F02",
+      "toPortalId": 1,
+      "toBaseId": 1,
+      "transform": {
+        "translation": {
+          "x": 4.13855,
+          "y": 1118.7712,
+          "z": 50.500183
+        }
+      }
+    }
+  ],
+  "castaway-leafling": [
+    {
+      "type": "castaway-leafling",
+      "infoType": "castaway",
+      "isLeafling": true,
+      "isKoppaite": false,
+      "weight": 3,
+      "carryMax": 6,
+      "transform": {
+        "translation": {
+          "x": 280.84454,
+          "y": -978.0499,
+          "z": 62.060097
+        }
+      }
+    }
+  ],
+  "firepit-lit": [
+    {
+      "type": "firepit-lit",
+      "infoType": "firepit",
+      "isLit": true,
+      "transform": {
+        "translation": {
+          "x": -267.6947,
+          "y": 895.64136,
+          "z": 50.000122
+        }
+      }
+    }
+  ],
+  "firepit-unlit": [
+    {
+      "type": "firepit-unlit",
+      "infoType": "firepit",
+      "isLit": false,
+      "transform": {
+        "translation": {
+          "x": 584.364,
+          "y": -134.36047,
+          "z": 51.00009
+        }
+      }
+    },
+    {
+      "type": "firepit-unlit",
+      "infoType": "firepit",
+      "isLit": false,
+      "transform": {
+        "translation": {
+          "x": -585.376,
+          "y": -137.5,
+          "z": 51.00009
+        }
+      }
+    }
+  ],
+  "breakable-hydrojelly": [
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -585,
+          "y": -140,
+          "z": 146.13522
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 4.014618,
+          "y": 1120.2698,
+          "z": 50.0001
+        }
+      }
+    },
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 1,
+      "transform": {
+        "translation": {
+          "x": 141.49142,
+          "y": -1049.918,
+          "z": 50.0001
+        }
+      }
+    }
+  ],
+  "misc-icicle": [
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 260.7101,
+          "y": -923.6985,
+          "z": 83
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 225,
+          "y": -525,
+          "z": 83
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 232.04048,
+          "y": -954.7704,
+          "z": 83
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 231.63593,
+          "y": -996.12695,
+          "z": 83
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 303.70663,
+          "y": -1022.9938,
+          "z": 83
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 302,
+          "y": -919,
+          "z": 83
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 333.32758,
+          "y": -993.4708,
+          "z": 83
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 330.59143,
+          "y": -951.0116,
+          "z": 83
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 260.7101,
+          "y": -1025.3015,
+          "z": 83
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 270,
+          "y": -475,
+          "z": 83
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "YUKIMUSHI",
+      "name": "Snowfake Fluttertail",
+      "weight": 15,
+      "carryMax": 30,
+      "value": 20,
+      "health": 6000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "Boss",
+        "amount": 5,
+        "honeyChance": 0.7
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 5,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 8,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 40
+      },
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTAICEPICK",
+          "name": "Shattering Lance",
+          "weight": 10,
+          "carryMax": 20,
+          "value": 150,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 209.95026,
+          "y": -142.72778,
+          "z": 81
+        }
+      }
+    }
+  ]
+}

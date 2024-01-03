@@ -1,0 +1,512 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave012_F01",
+      "transform": {
+        "translation": {
+          "x": -412.5,
+          "y": 675,
+          "z": -48.99991
+        }
+      }
+    }
+  ],
+  "gate-ice": [
+    {
+      "type": "gate-ice",
+      "infoType": "gate",
+      "width": 180,
+      "health": 1333,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 2,
+          "max": 2
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 61.930595,
+          "y": 31.846893,
+          "z": -14
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": -67.5,
+          "y": 785,
+          "z": -44.680855
+        }
+      }
+    }
+  ],
+  "breakable-hydrojelly": [
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "KINKAISTATION",
+          "name": "Gold Nugget",
+          "weight": 1,
+          "carryMax": 1,
+          "value": 5,
+          "amount": 5,
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 226.49994,
+          "y": -911,
+          "z": 28
+        }
+      }
+    },
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -415,
+          "y": 685,
+          "z": 17
+        }
+      }
+    },
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 410.7143,
+          "y": 952.5045,
+          "z": 9.320099
+        }
+      }
+    },
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-ice",
+          "infoType": "pikmin",
+          "color": "ice",
+          "state": "idle",
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -780.98474,
+          "y": -324.53278,
+          "z": 29
+        }
+      }
+    },
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -539.2857,
+          "y": -517.4955,
+          "z": 61.766964
+        }
+      }
+    }
+  ],
+  "hazardspout-ice": [
+    {
+      "type": "hazardspout-ice",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 809.5,
+          "y": 142,
+          "z": -25.5
+        }
+      }
+    },
+    {
+      "type": "hazardspout-ice",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -238.5,
+          "y": -685,
+          "z": 21.100098
+        }
+      }
+    },
+    {
+      "type": "hazardspout-ice",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -412.5,
+          "y": 410,
+          "z": -30
+        }
+      }
+    },
+    {
+      "type": "hazardspout-ice",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 355.80145,
+          "y": 325,
+          "z": -29
+        }
+      }
+    },
+    {
+      "type": "hazardspout-ice",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 62.47766,
+          "y": 435,
+          "z": -29
+        }
+      }
+    },
+    {
+      "type": "hazardspout-ice",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 292.5,
+          "y": 705,
+          "z": -29
+        }
+      }
+    }
+  ],
+  "candypop-white": [
+    {
+      "type": "candypop-white",
+      "infoType": "candypop",
+      "color": "white",
+      "changesAt": 50,
+      "changesTo": "ice",
+      "disappearsAt": 52,
+      "transform": {
+        "translation": {
+          "x": 411.5829,
+          "y": 952.09924,
+          "z": -45.67981
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 389.5193,
+          "y": -671.4327,
+          "z": 0.00010108948
+        }
+      }
+    }
+  ],
+  "hazardspout-poison": [
+    {
+      "type": "hazardspout-poison",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 537,
+          "y": -137,
+          "z": 0.76677847
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAKIWI",
+      "name": "Disguised Delicacy",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 40,
+      "transform": {
+        "translation": {
+          "x": -540,
+          "y": -534.02136,
+          "z": 87
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "KINKAISTATION",
+      "name": "Gold Nugget",
+      "amount": 10,
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "transform": {
+        "translation": {
+          "x": 402,
+          "y": -138,
+          "z": -23.9999
+        }
+      }
+    }
+  ],
+  "candypop-ice": [
+    {
+      "type": "candypop-ice",
+      "infoType": "candypop",
+      "color": "ice",
+      "disappearsAt": 6,
+      "transform": {
+        "translation": {
+          "x": -58.999985,
+          "y": 130.00005,
+          "z": -45.70337
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ICETANK",
+      "name": "Snowy Blowhog",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 5,
+      "health": 1000,
+      "seeds": 5,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -351.82938,
+          "y": -458.23053,
+          "z": 24.99878
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ICETANK",
+      "name": "Snowy Blowhog",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 5,
+      "health": 1000,
+      "seeds": 5,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -609.2218,
+          "y": -344.47522,
+          "z": 24.999634
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ICEFROG",
+      "name": "Chillyhop",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 7,
+      "health": 900,
+      "seeds": 8,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 7,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 263.5166,
+          "y": 517.4073,
+          "z": -23
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -850,
+          "y": -900,
+          "z": 20.7
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -910,
+          "y": -870,
+          "z": 20.7
+        }
+      }
+    }
+  ]
+}

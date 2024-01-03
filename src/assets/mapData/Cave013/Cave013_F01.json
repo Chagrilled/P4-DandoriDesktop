@@ -1,0 +1,470 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave013_F02",
+      "transform": {
+        "translation": {
+          "x": 137.5,
+          "y": 863,
+          "z": 26.959045
+        }
+      }
+    }
+  ],
+  "switchable-fenceiron": [
+    {
+      "type": "switchable-fenceiron",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": -405,
+          "y": 275,
+          "z": 0.000091552734
+        },
+        "rotation": -90
+      }
+    },
+    {
+      "type": "switchable-fenceiron",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": -962,
+          "y": 116,
+          "z": -124.99988
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "switchable-fenceiron",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": -405,
+          "y": -550,
+          "z": 0.00008583069
+        },
+        "rotation": 90
+      }
+    },
+    {
+      "type": "switchable-fenceiron",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 138,
+          "y": 680,
+          "z": 25.0001
+        },
+        "rotation": 180
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": -479,
+          "y": -275,
+          "z": -124.99991
+        }
+      }
+    }
+  ],
+  "ridable-movefloor": [
+    {
+      "type": "ridable-movefloor",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": -687.5,
+          "y": 25,
+          "z": -25.517456
+        },
+        "rotation": 90
+      }
+    },
+    {
+      "type": "ridable-movefloor",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": 962.5,
+          "y": 275,
+          "z": 0
+        },
+        "rotation": 180
+      }
+    }
+  ],
+  "switchable-singleswitch": [
+    {
+      "type": "switchable-singleswitch",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": -973,
+          "y": -134,
+          "z": 7.1602173
+        }
+      }
+    }
+  ],
+  "pikmin-yellow": [
+    {
+      "type": "pikmin-yellow",
+      "infoType": "pikmin",
+      "color": "yellow",
+      "state": "fighting",
+      "amount": 5,
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": 155,
+          "y": -175,
+          "z": -15.999786
+        }
+      }
+    }
+  ],
+  "gate-electric": [
+    {
+      "type": "gate-electric",
+      "infoType": "gate",
+      "width": 455,
+      "health": 5333,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 4,
+          "max": 4
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -75.08435,
+          "y": 123,
+          "z": 30.150097
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "hazardspout-fire": [
+    {
+      "type": "hazardspout-fire",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 575,
+          "y": 275,
+          "z": 20.000015
+        }
+      }
+    },
+    {
+      "type": "hazardspout-fire",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -1191,
+          "y": -516,
+          "z": -55
+        }
+      }
+    },
+    {
+      "type": "hazardspout-fire",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -941,
+          "y": 25,
+          "z": -105
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 137.5,
+          "y": -790,
+          "z": 0.000099897385
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAEFFECTSUNIT",
+      "name": "Soul Reverberator",
+      "weight": 15,
+      "carryMax": 30,
+      "value": 230,
+      "transform": {
+        "translation": {
+          "x": -970,
+          "y": 257,
+          "z": -97.86489
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTACANDLE",
+      "name": "Olfactory Sculpture",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 150,
+      "transform": {
+        "translation": {
+          "x": 1211.9407,
+          "y": 0.0004272461,
+          "z": 103.7051
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "BILLY",
+      "name": "Bearded Amprat",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 750,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 5,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 5
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 137,
+          "y": 369.05225,
+          "z": 20.673922
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "BILLY",
+      "name": "Bearded Amprat",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 750,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 5,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 5
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 136.99998,
+          "y": -264.95856,
+          "z": 6.0001106
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "NOMI",
+      "name": "Shearflea",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 45,
+      "seeds": 2,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -852.155,
+          "y": -295.9432,
+          "z": -113
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "NOMI",
+      "name": "Shearflea",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 45,
+      "seeds": 2,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -976.7357,
+          "y": -340.74695,
+          "z": -113
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KURIONE",
+      "name": "Honeywisp",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 1,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 1,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.5,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.5,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 570,
+          "y": -550,
+          "z": 16
+        }
+      }
+    }
+  ]
+}

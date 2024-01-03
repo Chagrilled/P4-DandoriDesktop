@@ -1,0 +1,475 @@
+{
+  "cave-exit": [
+    {
+      "type": "cave-exit",
+      "infoType": "cave",
+      "toMapId": "Area003",
+      "toPortalId": 50,
+      "transform": {
+        "translation": {
+          "x": 860,
+          "y": -135,
+          "z": 0.000095
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": 550,
+          "y": -195,
+          "z": 2
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "breakable-icebox": [
+    {
+      "type": "breakable-icebox",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 153.83325,
+          "y": -479.4453,
+          "z": 38.1801
+        }
+      }
+    },
+    {
+      "type": "breakable-icebox",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -481.64764,
+          "y": -369.6952,
+          "z": 36.99939
+        }
+      }
+    },
+    {
+      "type": "breakable-icebox",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 134.41089,
+          "y": 194.34091,
+          "z": 36.999588
+        }
+      }
+    }
+  ],
+  "breakable-hydrojelly": [
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-ice",
+          "infoType": "pikmin",
+          "color": "ice",
+          "state": "idle",
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -964.72906,
+          "y": -135.83934,
+          "z": 55.000122
+        }
+      }
+    },
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-ice",
+          "infoType": "pikmin",
+          "color": "ice",
+          "state": "idle",
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 145.01526,
+          "y": 687.4672,
+          "z": 29
+        }
+      }
+    },
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 860,
+          "y": -135,
+          "z": 69
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -344.49988,
+          "y": 887.062,
+          "z": 0.0001001358
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTARODAN",
+      "name": "Contemplation Station",
+      "weight": 50,
+      "carryMax": 100,
+      "value": 300,
+      "transform": {
+        "translation": {
+          "x": 710,
+          "y": -12,
+          "z": 90.33896
+        }
+      }
+    }
+  ],
+  "misc-icicle": [
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 146.41357,
+          "y": -420.01233,
+          "z": 26.000015
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 252.95215,
+          "y": 196.69519,
+          "z": 26.000015
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": -303.04785,
+          "y": 48.69519,
+          "z": 27
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": -240.04785,
+          "y": 14.69519,
+          "z": 26.000015
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": -449.58643,
+          "y": -273.01233,
+          "z": 32.00006
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 45.518433,
+          "y": 210.28732,
+          "z": 32
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 59.941895,
+          "y": 246.5773,
+          "z": 32
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 216.9419,
+          "y": 160.5773,
+          "z": 32
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": -481.58643,
+          "y": -66.01233,
+          "z": 32.00006
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 60.413574,
+          "y": -136.01233,
+          "z": 32.00006
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 201.41357,
+          "y": -428.01233,
+          "z": 33
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 14.185791,
+          "y": -162.63269,
+          "z": 32.00006
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": -538.04785,
+          "y": -58.30481,
+          "z": 26.000015
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": -501.04785,
+          "y": -310.3048,
+          "z": 26.000015
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": -387.04785,
+          "y": -260.3048,
+          "z": 26.000015
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": -440.04785,
+          "y": -531.3048,
+          "z": 26.000015
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": -402.04785,
+          "y": -478.3048,
+          "z": 26.000015
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": -174.04785,
+          "y": -373.3048,
+          "z": 26.000015
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": -196.58643,
+          "y": -330.01233,
+          "z": 32.00006
+        }
+      }
+    },
+    {
+      "type": "misc-icicle",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": -116.586426,
+          "y": -377.01233,
+          "z": 32.00006
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "YUKIFUTAKUCHIADULT",
+      "name": "Arctic Cannon Beetle",
+      "weight": 30,
+      "carryMax": 60,
+      "value": 20,
+      "health": 4500,
+      "seeds": 50,
+      "freezeDrops": {
+        "bossType": "Boss",
+        "amount": 5,
+        "honeyChance": 0.7
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 5,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 10,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 40
+      },
+      "drops": [
+        {
+          "type": "castaway-normal",
+          "infoType": "castaway",
+          "isLeafling": false,
+          "isKoppaite": false,
+          "weight": 3,
+          "carryMax": 6,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 15,
+          "max": 15
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -132.02405,
+          "y": -143.13924,
+          "z": 71.99957
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": true,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 3,
+          "max": 3
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 10,
+          "max": 10
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -138,
+          "y": -895,
+          "z": 29.299911
+        }
+      }
+    }
+  ]
+}

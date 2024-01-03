@@ -1,0 +1,534 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave007_F02",
+      "transform": {
+        "translation": {
+          "x": 778.13043,
+          "y": -857.22864,
+          "z": 100.00009
+        }
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": 396.87988,
+          "y": 1210.2839,
+          "z": 50.0001
+        }
+      }
+    }
+  ],
+  "misc-stick": [
+    {
+      "type": "misc-stick",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 6.9995046,
+          "y": -1100.8198,
+          "z": 186.41371
+        }
+      }
+    }
+  ],
+  "gate-dirt": [
+    {
+      "type": "gate-dirt",
+      "infoType": "gate",
+      "width": 145,
+      "health": 5333,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 4,
+          "max": 4
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 114,
+          "y": -77.00008,
+          "z": 130.1501
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "hazardspout-water": [
+    {
+      "type": "hazardspout-water",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 408,
+          "y": 206.5,
+          "z": 120
+        }
+      }
+    },
+    {
+      "type": "hazardspout-water",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 232,
+          "y": -956.5,
+          "z": 70
+        }
+      }
+    },
+    {
+      "type": "hazardspout-water",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -209,
+          "y": -853.5,
+          "z": 70
+        }
+      }
+    }
+  ],
+  "water-water": [
+    {
+      "type": "water-water",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave007_F01_WaterBox00_D.png",
+        "amountToFreeze": 10
+      },
+      "transform": {
+        "translation": {
+          "x": 126,
+          "y": 974.5,
+          "z": -10
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "pikmin-yellow": [
+    {
+      "type": "pikmin-yellow",
+      "infoType": "pikmin",
+      "color": "yellow",
+      "state": "sprouts",
+      "amount": 5,
+      "disappearsAt": 51,
+      "replacedBy": "GEgg_C",
+      "transform": {
+        "translation": {
+          "x": -140,
+          "y": -1204.5,
+          "z": 50.0001
+        }
+      }
+    }
+  ],
+  "castaway-normal": [
+    {
+      "type": "castaway-normal",
+      "infoType": "castaway",
+      "isLeafling": false,
+      "isKoppaite": false,
+      "weight": 3,
+      "carryMax": 6,
+      "transform": {
+        "translation": {
+          "x": 1117.7532,
+          "y": -143.87943,
+          "z": 138.18205
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAHANDBELL",
+      "name": "Time Marker",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 180,
+      "transform": {
+        "translation": {
+          "x": 341.5158,
+          "y": -188.00488,
+          "z": 182.2001
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAHANAFUDAB",
+      "name": "Talisman of Life (Cherry Blossom)",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 40,
+      "transform": {
+        "translation": {
+          "x": -414,
+          "y": -1246.5,
+          "z": 170.70361
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAKIWI",
+      "name": "Disguised Delicacy",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 40,
+      "transform": {
+        "translation": {
+          "x": -154,
+          "y": -389,
+          "z": 125.46272
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -874.17053,
+          "y": -133.24341,
+          "z": 7.560418
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -676,
+          "y": 43.5,
+          "z": 23.137302
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -642,
+          "y": 75.5,
+          "z": 23.232918
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ELECOTAKARA",
+      "name": "Anode Dweevil",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 300,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 10,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 430,
+          "y": -117.5,
+          "z": 124
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ELECOTAKARA",
+      "name": "Anode Dweevil",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 300,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 10,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 704,
+          "y": -129.5,
+          "z": 100.00009
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ELECOTAKARA",
+      "name": "Anode Dweevil",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 300,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 10,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -159,
+          "y": -250.5,
+          "z": 100.00009
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ELECOTAKARA",
+      "name": "Anode Dweevil",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 300,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 10,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 1099.6106,
+          "y": -149.08624,
+          "z": 145.46724
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "FROG",
+      "name": "Yellow Wollyhop",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 5,
+      "health": 900,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 7,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 127.576904,
+          "y": 948.26184,
+          "z": 50
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "FROG",
+      "name": "Yellow Wollyhop",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 5,
+      "health": 900,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 7,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -314.26184,
+          "y": -854.1654,
+          "z": 75
+        }
+      }
+    }
+  ]
+}

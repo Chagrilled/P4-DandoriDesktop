@@ -1,0 +1,829 @@
+{
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 167.94164,
+          "y": 697.77826,
+          "z": 25.0001
+        }
+      }
+    }
+  ],
+  "onion-purple": [
+    {
+      "type": "onion-purple",
+      "infoType": "onion",
+      "color": "purple",
+      "weight": 100,
+      "transform": {
+        "translation": {
+          "x": -433,
+          "y": -500,
+          "z": 150.1251
+        }
+      }
+    }
+  ],
+  "switchable-fencenormal": [
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": -414,
+          "y": 549.5,
+          "z": 75.0001
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "pikmin-ice": [
+    {
+      "type": "pikmin-ice",
+      "infoType": "pikmin",
+      "color": "ice",
+      "state": "idle",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": -990,
+          "y": 718,
+          "z": 75.0001
+        }
+      }
+    },
+    {
+      "type": "pikmin-ice",
+      "infoType": "pikmin",
+      "color": "ice",
+      "state": "sprouts",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": -523.2274,
+          "y": -247.10889,
+          "z": 75.0001
+        }
+      }
+    },
+    {
+      "type": "pikmin-ice",
+      "infoType": "pikmin",
+      "color": "ice",
+      "state": "sprouts",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": -291.22742,
+          "y": 631.8911,
+          "z": 25.0001
+        }
+      }
+    }
+  ],
+  "breakable-hydrojelly": [
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-purple",
+          "infoType": "pikmin",
+          "color": "purple",
+          "state": "idle",
+          "chance": 1,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -305,
+          "y": 270,
+          "z": 106
+        }
+      }
+    },
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-ice",
+          "infoType": "pikmin",
+          "color": "ice",
+          "state": "idle",
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -522,
+          "y": 1097,
+          "z": 57.140106
+        }
+      }
+    }
+  ],
+  "shortcut-squashbag": [
+    {
+      "type": "shortcut-squashbag",
+      "infoType": "shortcut",
+      "weight": 100,
+      "transform": {
+        "translation": {
+          "x": 420,
+          "y": 825,
+          "z": 60
+        },
+        "rotation": -90
+      }
+    },
+    {
+      "type": "shortcut-squashbag",
+      "infoType": "shortcut",
+      "weight": 50,
+      "transform": {
+        "translation": {
+          "x": -701,
+          "y": -1,
+          "z": 110
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "candypop-purple": [
+    {
+      "type": "candypop-purple",
+      "infoType": "candypop",
+      "color": "purple",
+      "transform": {
+        "translation": {
+          "x": -825,
+          "y": 1083,
+          "z": 78.00009
+        }
+      }
+    },
+    {
+      "type": "candypop-purple",
+      "infoType": "candypop",
+      "color": "purple",
+      "transform": {
+        "translation": {
+          "x": 1056,
+          "y": 553,
+          "z": 28.120098
+        }
+      }
+    }
+  ],
+  "tunnel-captain": [
+    {
+      "type": "tunnel-captain",
+      "infoType": "tunnel",
+      "tunnelId": "WarpCarryID_0",
+      "transform": {
+        "translation": {
+          "x": 0,
+          "y": 460,
+          "z": 45
+        }
+      }
+    },
+    {
+      "type": "tunnel-captain",
+      "infoType": "tunnel",
+      "tunnelId": "WarpCarryID_0",
+      "transform": {
+        "translation": {
+          "x": 0,
+          "y": 361,
+          "z": 99
+        }
+      }
+    }
+  ],
+  "shortcut-root": [
+    {
+      "type": "shortcut-root",
+      "infoType": "shortcut",
+      "transform": {
+        "translation": {
+          "x": 275,
+          "y": -350,
+          "z": 50.000107
+        },
+        "rotation": -180
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": 105,
+          "y": -883,
+          "z": 50.00006
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "breakable-mound": [
+    {
+      "type": "breakable-mound",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "miscitem-bomb",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -1345,
+          "y": 275,
+          "z": 99.90018
+        }
+      }
+    },
+    {
+      "type": "breakable-mound",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "creature",
+          "infoType": "creature",
+          "creatureId": "BABY",
+          "name": "Bulborb Larva",
+          "weight": 0,
+          "carryMax": 0,
+          "value": 0,
+          "health": 1,
+          "seeds": 0,
+          "freezeDrops": {
+            "bossType": "TekiS",
+            "amount": 1,
+            "honeyChance": 0.99
+          },
+          "damageInfo": {
+            "bomb": 1,
+            "eatBomb": 0,
+            "eatFreeze": 1,
+            "eatIceBomb": 0,
+            "eatPoison": 1,
+            "freeze": 1,
+            "freezeDamageRatio": 0.8,
+            "iceBomb": 1,
+            "oatchiRush": 1,
+            "oatchiRushFreezeRatio": 1,
+            "pikminHit": 1,
+            "purpleHit": 1
+          },
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -1251,
+          "y": -1066,
+          "z": 95
+        }
+      }
+    }
+  ],
+  "gate-crystal": [
+    {
+      "type": "gate-crystal",
+      "infoType": "gate",
+      "width": 175,
+      "health": 747,
+      "transform": {
+        "translation": {
+          "x": -935,
+          "y": -375,
+          "z": 109.150085
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "gate-dirt": [
+    {
+      "type": "gate-dirt",
+      "infoType": "gate",
+      "width": 145,
+      "health": 5333,
+      "transform": {
+        "translation": {
+          "x": -1157,
+          "y": 174,
+          "z": 105.150085
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "gate-ice": [
+    {
+      "type": "gate-ice",
+      "infoType": "gate",
+      "width": 180,
+      "health": 2667,
+      "transform": {
+        "translation": {
+          "x": 750,
+          "y": -168,
+          "z": 84.150085
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "hazardradial-floormushroom": [
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": 87.5,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -587,
+          "y": 810,
+          "z": 91
+        }
+      }
+    }
+  ],
+  "breakable-spotcapnormal": [
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -546,
+          "y": 788,
+          "z": 93
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -568,
+          "y": 830,
+          "z": 93
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -624,
+          "y": 801,
+          "z": 93
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "AMEBOZU",
+      "name": "Waterwraith",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 1800,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 30,
+        "oatchiRushFreezeRatio": 3,
+        "pikminHit": 0,
+        "purpleHit": 45
+      },
+      "transform": {
+        "translation": {
+          "x": -69.93042,
+          "y": -492.7854,
+          "z": 135
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMAKOCHAPPY",
+      "name": "Dwarf Bulbear",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 3,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -790.5279,
+          "y": 716.00635,
+          "z": 75.0001
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMAKOCHAPPY",
+      "name": "Dwarf Bulbear",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 3,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -915.5279,
+          "y": 616.00635,
+          "z": 75.0001
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KURAGE",
+      "name": "Lesser Spotted Jellyfloat",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 1500,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 0,
+        "eatIceBomb": 1,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": -990,
+          "y": 718,
+          "z": 107.1601
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMAKOCHAPPY",
+      "name": "Dwarf Bulbear",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 3,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -955.5279,
+          "y": 546.00635,
+          "z": 75.0001
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "FIRETANK",
+      "name": "Fiery Blowhog",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 5,
+      "health": 1000,
+      "seeds": 5,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": -107,
+          "y": -1067,
+          "z": 74
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ICETANK",
+      "name": "Snowy Blowhog",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 5,
+      "health": 1000,
+      "seeds": 5,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": -282,
+          "y": -877,
+          "z": 74
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "BIKKURIKINOKO",
+      "name": "Startle Spore",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 12,
+      "health": 2000,
+      "seeds": 12,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "transform": {
+        "translation": {
+          "x": 414,
+          "y": 135,
+          "z": 57
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KAREHAMBO",
+      "name": "Desiccated Skitter Leaf",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 74,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 691,
+          "y": -423,
+          "z": 66
+        }
+      },
+      "spawnNum": 5
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMAKOCHAPPY",
+      "name": "Dwarf Bulbear",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 3,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -414.5279,
+          "y": -139.99365,
+          "z": 75.0001
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "YUKIFUTAKUCHI",
+      "name": "Arctic Cannon Larva",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 900,
+      "seeds": 8,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 7,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": 824.6376,
+          "y": 828.81775,
+          "z": 37
+        }
+      }
+    }
+  ]
+}

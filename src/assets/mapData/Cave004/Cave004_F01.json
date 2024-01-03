@@ -1,0 +1,417 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "portalId": 2,
+      "toMapId": "Cave004_F00",
+      "toPortalId": 1,
+      "toBaseId": 1,
+      "transform": {
+        "translation": {
+          "x": -813.4767,
+          "y": -317.2708,
+          "z": 57.693577
+        }
+      }
+    }
+  ],
+  "cave-exit": [
+    {
+      "type": "cave-exit",
+      "infoType": "cave",
+      "toMapId": "Area001",
+      "toPortalId": 7,
+      "transform": {
+        "translation": {
+          "x": -1016.92163,
+          "y": 154.13611,
+          "z": 100.40097
+        }
+      }
+    }
+  ],
+  "hazardmisc-charcoal": [
+    {
+      "type": "hazardmisc-charcoal",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 4.102844,
+          "y": -11.965759,
+          "z": 57.000153
+        }
+      }
+    },
+    {
+      "type": "hazardmisc-charcoal",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -40.96469,
+          "y": 270.0691,
+          "z": 82.0001
+        }
+      }
+    },
+    {
+      "type": "hazardmisc-charcoal",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 30.035301,
+          "y": 249.06909,
+          "z": 82.0001
+        }
+      }
+    }
+  ],
+  "switchable-fenceiron": [
+    {
+      "type": "switchable-fenceiron",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 395,
+          "y": -551,
+          "z": 1.9998932
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "switchable-singleswitch": [
+    {
+      "type": "switchable-singleswitch",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 805.59863,
+          "y": -223.0531,
+          "z": 125.31184
+        }
+      }
+    }
+  ],
+  "shortcut-pushbag": [
+    {
+      "type": "shortcut-pushbag",
+      "infoType": "shortcut",
+      "weight": 10,
+      "transform": {
+        "translation": {
+          "x": 276.99622,
+          "y": 200.9823,
+          "z": 99
+        },
+        "rotation": 180
+      }
+    }
+  ],
+  "hazardradial-floorfire": [
+    {
+      "type": "hazardradial-floorfire",
+      "infoType": "hazard",
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": 4.102844,
+          "y": -11.965759,
+          "z": 25.00016
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floorfire",
+      "infoType": "hazard",
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": -1.897156,
+          "y": 259.03424,
+          "z": 50.0001
+        }
+      }
+    }
+  ],
+  "structure-slope": [
+    {
+      "type": "structure-slope",
+      "infoType": "structure",
+      "materialsNeeded": 22,
+      "transform": {
+        "translation": {
+          "x": -389.5701,
+          "y": 275,
+          "z": 51.60741
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "breakable-hydrojelly": [
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1124.1575,
+          "y": -355.29272,
+          "z": 55
+        }
+      }
+    },
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-ice",
+          "infoType": "pikmin",
+          "color": "ice",
+          "state": "idle",
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 37.01523,
+          "y": -428.53278,
+          "z": 37.85183
+        }
+      }
+    },
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "castaway-normal",
+          "infoType": "castaway",
+          "isLeafling": false,
+          "isKoppaite": false,
+          "weight": 3,
+          "carryMax": 6,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -825,
+          "y": 420,
+          "z": 155
+        }
+      }
+    },
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 664.47906,
+          "y": 210.95442,
+          "z": 70
+        }
+      }
+    }
+  ],
+  "pikmin-ice": [
+    {
+      "type": "pikmin-ice",
+      "infoType": "pikmin",
+      "color": "ice",
+      "state": "sprouts",
+      "amount": 5,
+      "disappearsAt": 51,
+      "replacedBy": "GEgg_C",
+      "transform": {
+        "translation": {
+          "x": 1220.999,
+          "y": -229.40439,
+          "z": -0.0011257031
+        }
+      }
+    }
+  ],
+  "candypop-red": [
+    {
+      "type": "candypop-red",
+      "infoType": "candypop",
+      "color": "red",
+      "disappearsAt": 6,
+      "replacedBy": "GEgg_C",
+      "transform": {
+        "translation": {
+          "x": 658,
+          "y": -636,
+          "z": 0.0001001358
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -813.4767,
+          "y": -317.2708,
+          "z": 57.693584
+        }
+      }
+    },
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 1,
+      "transform": {
+        "translation": {
+          "x": -1016.92163,
+          "y": 154.13611,
+          "z": 100.0001
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAPAPERCRANERED",
+      "name": "Skin of the Phoenix",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 40,
+      "transform": {
+        "translation": {
+          "x": 1109,
+          "y": -200,
+          "z": 140
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "KINKAISTATION",
+      "name": "Gold Nugget",
+      "amount": 10,
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "transform": {
+        "translation": {
+          "x": -10,
+          "y": 685,
+          "z": 50.00019
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAPUZZLEA",
+      "name": "Memory Fragment (Top Left)",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 50,
+      "transform": {
+        "translation": {
+          "x": 93.02977,
+          "y": 558.7801,
+          "z": 52.7136
+        }
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": 665,
+          "y": 208,
+          "z": 0.000099
+        }
+      }
+    }
+  ],
+  "misc-groupdropmanager": [
+    {
+      "type": "misc-groupdropmanager",
+      "infoType": "misc",
+      "radius": 117.25192,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 1074.1,
+          "y": -389.21606,
+          "z": 0.00009918213
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -610,
+          "y": -111,
+          "z": 73.227516
+        }
+      }
+    }
+  ]
+}

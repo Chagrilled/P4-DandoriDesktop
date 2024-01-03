@@ -1,0 +1,381 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave016_F02",
+      "transform": {
+        "translation": {
+          "x": 606.44507,
+          "y": 2.5,
+          "z": 0.000076
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": 293.98926,
+          "y": -58.446045,
+          "z": 0.00009999995
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -412.5,
+          "y": 595.2042,
+          "z": 0.000100016594
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAMUSICBOXB",
+      "name": "Mechanical Harp (Lullabies)",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 150,
+      "transform": {
+        "translation": {
+          "x": -721.1963,
+          "y": -435.69104,
+          "z": 15.63509
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -561.1921,
+          "y": 438.84424,
+          "z": 18.756737
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -620.8327,
+          "y": 416.47095,
+          "z": 19.484917
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KOCHAPPY",
+      "name": "Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 100,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -697.5,
+          "y": 87.5,
+          "z": 12
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KOCHAPPY",
+      "name": "Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 100,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -292.5,
+          "y": -92.5,
+          "z": 12
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KOCHAPPY",
+      "name": "Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 100,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -192.5,
+          "y": -172.5,
+          "z": 12
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KOCHAPPY",
+      "name": "Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 100,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -732.5,
+          "y": 187.5,
+          "z": 12
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "CHAPPY",
+      "name": "Bulborb",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 10,
+      "health": 1000,
+      "seeds": 10,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 1,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": -327.5,
+          "y": 127.5,
+          "z": 40
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "BIGCHAPPY_NIGHT",
+      "name": "Jumbo Bulborb",
+      "weight": 20,
+      "carryMax": 40,
+      "value": 15,
+      "health": 2500,
+      "seeds": 15,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 3,
+        "eatBomb": 1.5,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 5,
+        "freeze": 60,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 25,
+        "oatchiRushFreezeRatio": 3.4,
+        "pikminHit": 0,
+        "purpleHit": 30
+      },
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTAPAINTSRED",
+          "name": "Uniquely You Goo",
+          "weight": 3,
+          "carryMax": 6,
+          "value": 80,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 10,
+          "max": 10
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -672.5,
+          "y": -318.5,
+          "z": 43.00731
+        }
+      }
+    }
+  ]
+}

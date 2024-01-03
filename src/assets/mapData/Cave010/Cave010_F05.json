@@ -1,0 +1,326 @@
+{
+  "cave-exit": [
+    {
+      "type": "cave-exit",
+      "infoType": "cave",
+      "toMapId": "Area002",
+      "toPortalId": 54,
+      "transform": {
+        "translation": {
+          "x": -355,
+          "y": -640,
+          "z": 0.000091552734
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 170,
+      "transform": {
+        "translation": {
+          "x": -71,
+          "y": 9,
+          "z": 0.00010025501
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "water-water": [
+    {
+      "type": "water-water",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave010_F05_WaterBox00_D.png",
+        "amountToFreeze": 10
+      },
+      "transform": {
+        "translation": {
+          "x": -64.015015,
+          "y": -730.3662,
+          "z": -65
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "hazardspout-fire": [
+    {
+      "type": "hazardspout-fire",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 4.7802124,
+          "y": -760.2888,
+          "z": 39.0828
+        }
+      }
+    },
+    {
+      "type": "hazardspout-fire",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 371.2865,
+          "y": -558.4098,
+          "z": 20
+        }
+      }
+    },
+    {
+      "type": "hazardspout-fire",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 83.01898,
+          "y": -1049.5615,
+          "z": 80.00001
+        }
+      }
+    },
+    {
+      "type": "hazardspout-fire",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -81.428345,
+          "y": -1049.5615,
+          "z": 80.00001
+        }
+      }
+    },
+    {
+      "type": "hazardspout-fire",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -32.237534,
+          "y": -853.41846,
+          "z": 65.234505
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTADOGUHEAD",
+      "name": "Ancient Statue Head",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 200,
+      "transform": {
+        "translation": {
+          "x": 1.292725,
+          "y": -1183.2515,
+          "z": 133.13498
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 0,
+          "y": 1095,
+          "z": 0.000100016594
+        }
+      }
+    }
+  ],
+  "misc-groupdropmanager": [
+    {
+      "type": "misc-groupdropmanager",
+      "infoType": "misc",
+      "ignoreIds": [
+        "Kogane",
+        "Egg"
+      ],
+      "radius": 600,
+      "drops": [
+        {
+          "type": "castaway-normal",
+          "infoType": "castaway",
+          "isLeafling": false,
+          "isKoppaite": false,
+          "weight": 3,
+          "carryMax": 6,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 15,
+          "max": 15
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -10,
+          "y": 420,
+          "z": 0.0001373291
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 489.3081,
+          "y": 449.34418,
+          "z": 18
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 436.66748,
+          "y": 402.9709,
+          "z": 15
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINGCHAPPY",
+      "name": "Emperor Bulblax",
+      "weight": 15,
+      "carryMax": 30,
+      "value": 15,
+      "health": 3000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 3,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 8,
+        "freeze": 60,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1.5,
+        "oatchiRush": 30,
+        "oatchiRushFreezeRatio": 3,
+        "pikminHit": 0,
+        "purpleHit": 40
+      },
+      "transform": {
+        "translation": {
+          "x": -38,
+          "y": 443,
+          "z": 60
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINGCHAPPY",
+      "name": "Emperor Bulblax",
+      "weight": 15,
+      "carryMax": 30,
+      "value": 15,
+      "health": 3000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 3,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 8,
+        "freeze": 60,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1.5,
+        "oatchiRush": 30,
+        "oatchiRushFreezeRatio": 3,
+        "pikminHit": 0,
+        "purpleHit": 40
+      },
+      "transform": {
+        "translation": {
+          "x": 53,
+          "y": 362,
+          "z": 60
+        }
+      }
+    }
+  ]
+}

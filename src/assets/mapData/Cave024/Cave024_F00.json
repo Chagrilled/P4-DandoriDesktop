@@ -1,0 +1,474 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave024_F01",
+      "transform": {
+        "translation": {
+          "x": 402.1853,
+          "y": 25.601807,
+          "z": 2.344269
+        }
+      }
+    }
+  ],
+  "ridable-movefloor": [
+    {
+      "type": "ridable-movefloor",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": -688.1644,
+          "y": 33.072754,
+          "z": -71.33046
+        },
+        "rotation": 90
+      }
+    },
+    {
+      "type": "ridable-movefloor",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": 965.54956,
+          "y": 14.357178,
+          "z": 120.502045
+        },
+        "rotation": 180
+      }
+    },
+    {
+      "type": "ridable-movefloor",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": 961.66284,
+          "y": -276.0244,
+          "z": -24.827538
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "ridable-geyser": [
+    {
+      "type": "ridable-geyser",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": -409.90845,
+          "y": -353.66785,
+          "z": -42.999996
+        }
+      }
+    }
+  ],
+  "gate-dirt": [
+    {
+      "type": "gate-dirt",
+      "infoType": "gate",
+      "width": 145,
+      "health": 8000,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 6,
+          "max": 6
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -9.710541,
+          "y": 492.7185,
+          "z": -43.000008
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "shortcut-clipboardlow": [
+    {
+      "type": "shortcut-clipboardlow",
+      "infoType": "shortcut",
+      "weight": 20,
+      "transform": {
+        "translation": {
+          "x": -137.06091,
+          "y": -86.54266,
+          "z": -42.83987
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 21,
+      "transform": {
+        "translation": {
+          "x": -138.48816,
+          "y": 1044.7197,
+          "z": -75.00088
+        }
+      }
+    }
+  ],
+  "structure-bridge": [
+    {
+      "type": "structure-bridge",
+      "infoType": "structure",
+      "materialsNeeded": 27,
+      "transform": {
+        "translation": {
+          "x": 412.5,
+          "y": -447,
+          "z": 0
+        },
+        "rotation": 180
+      }
+    }
+  ],
+  "pikmin-wing": [
+    {
+      "type": "pikmin-wing",
+      "infoType": "pikmin",
+      "color": "wing",
+      "state": "sprouts",
+      "amount": 5,
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": 339.167,
+          "y": 550.25854,
+          "z": -74.99994
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 276.94348,
+          "y": -967.55505,
+          "z": 3.0000916
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTABILLIARDBALL8",
+      "name": "Sphere of Trust",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": -410,
+          "y": 405,
+          "z": -22.854391
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTADARTS",
+      "name": "Relentless Spear",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 60,
+      "transform": {
+        "translation": {
+          "x": 953.0326,
+          "y": 4.3049755,
+          "z": 153.4096
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTADICE12",
+      "name": "Long-Shot Totem",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 40,
+      "transform": {
+        "translation": {
+          "x": -888.9894,
+          "y": -823.7583,
+          "z": 16.080097
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "GASOTAKARA",
+      "name": "Venom Dweevil",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 300,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 10,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -415.17645,
+          "y": 406.2467,
+          "z": -30.009476
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "GASOTAKARA",
+      "name": "Venom Dweevil",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 300,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 10,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -382.53235,
+          "y": -816.17395,
+          "z": 24.618286
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "GASOTAKARA",
+      "name": "Venom Dweevil",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 300,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 10,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -624.97644,
+          "y": 430.6554,
+          "z": -45.04184
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "GASOTAKARA",
+      "name": "Venom Dweevil",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 300,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 10,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -791,
+          "y": -821.3394,
+          "z": -0.000328
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -768.3312,
+          "y": 826.25256,
+          "z": -59.4
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -748.0603,
+          "y": 785.3766,
+          "z": -59.400414
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -705.2771,
+          "y": 822.7582,
+          "z": -59.40049
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "water-swamp": [
+    {
+      "type": "water-swamp",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave016_F07_WaterBox00_D.png",
+        "amountToFreeze": 100,
+        "canSink": true
+      },
+      "transform": {
+        "translation": {
+          "x": 0,
+          "y": 0,
+          "z": -84
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": 743.8809,
+          "y": -55.745598,
+          "z": -0.05394745
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave016_F08",
+      "transform": {
+        "translation": {
+          "x": 1342.9951,
+          "y": -145.40158,
+          "z": 0.14015198
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -1538.0067,
+          "y": 7.193017,
+          "z": 0.00012350082
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "SAKADACHI",
+      "name": "Crusted Rumpup",
+      "weight": 20,
+      "carryMax": 40,
+      "value": 20,
+      "health": 5000,
+      "seeds": 30,
+      "freezeDrops": {
+        "bossType": "Boss",
+        "amount": 5,
+        "honeyChance": 0.7
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 5,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 10,
+        "freeze": 100,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 3,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 50
+      },
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTAMANGOSTEEN",
+          "name": "Dapper Blob",
+          "weight": 5,
+          "carryMax": 10,
+          "value": 40,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -277.7915,
+          "y": 5.376007,
+          "z": 81.000015
+        }
+      }
+    }
+  ]
+}

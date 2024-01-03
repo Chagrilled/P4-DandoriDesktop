@@ -1,0 +1,875 @@
+{
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": 266.5,
+          "y": -848.5,
+          "z": -0.48955446
+        }
+      }
+    }
+  ],
+  "switchable-fencenormal": [
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": 376.94992,
+          "y": -270.45758,
+          "z": 0.00009918213
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "water-water": [
+    {
+      "type": "water-water",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave010_F01_WaterBox00_D.png",
+        "amountToFreeze": 5
+      },
+      "transform": {
+        "translation": {
+          "x": 483.57742,
+          "y": 277.06708,
+          "z": -82.371315
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTATAKENOKO",
+      "name": "Anxious Sprout",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 90,
+      "transform": {
+        "translation": {
+          "x": 1059.6627,
+          "y": -7.9061966,
+          "z": -97
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAPAINTSBLK",
+      "name": "Ambiguous Goo",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 80,
+      "transform": {
+        "translation": {
+          "x": -566.6908,
+          "y": -820.99976,
+          "z": 8.542603
+        }
+      }
+    }
+  ],
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave010_F02",
+      "transform": {
+        "translation": {
+          "x": -866.15234,
+          "y": 556.5406,
+          "z": 24.817932
+        }
+      }
+    }
+  ],
+  "pikmin-rock": [
+    {
+      "type": "pikmin-rock",
+      "infoType": "pikmin",
+      "color": "rock",
+      "state": "fighting",
+      "amount": 5,
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": -381.8414,
+          "y": -413.2509,
+          "z": 0.000102996826
+        }
+      }
+    },
+    {
+      "type": "pikmin-rock",
+      "infoType": "pikmin",
+      "color": "rock",
+      "state": "fighting",
+      "amount": 5,
+      "disappearsAt": 51,
+      "replacedBy": "candypop-rock",
+      "candypopOffset": {
+        "X": 0,
+        "Y": 155.56754,
+        "Z": 0
+      },
+      "transform": {
+        "translation": {
+          "x": -136.8414,
+          "y": 675.74915,
+          "z": 24.965933
+        }
+      }
+    }
+  ],
+  "gate-crystal": [
+    {
+      "type": "gate-crystal",
+      "infoType": "gate",
+      "width": 175,
+      "health": 747,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 6,
+          "max": 6
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -670,
+          "y": 551,
+          "z": 55.150097
+        },
+        "rotation": 90
+      }
+    },
+    {
+      "type": "gate-crystal",
+      "infoType": "gate",
+      "width": 175,
+      "health": 1120,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 6,
+          "max": 6
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -550,
+          "y": -675,
+          "z": 30
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "gate-crystal",
+      "infoType": "gate",
+      "width": 175,
+      "health": 747,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 6,
+          "max": 6
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 273,
+          "y": -422,
+          "z": 30
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 143.13148,
+          "y": -144.75291,
+          "z": 0.0001001358
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TENTENCHAPPY",
+      "name": "Orange Bulborb",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 12,
+      "health": 1800,
+      "seeds": 12,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 1.5,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 711.18555,
+          "y": -110.0022,
+          "z": 15
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TENKOCHAPPY",
+      "name": "Dwarf Orange Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 200,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 5,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 1.5,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -392.57013,
+          "y": 53.1752,
+          "z": -12.939901
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TENKOCHAPPY",
+      "name": "Dwarf Orange Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 200,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 5,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 1.5,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -177.4711,
+          "y": 723.4766,
+          "z": 37
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TENKOCHAPPY",
+      "name": "Dwarf Orange Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 200,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 5,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 1.5,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -450.4651,
+          "y": -397.57706,
+          "z": 12
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TENKOCHAPPY",
+      "name": "Dwarf Orange Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 200,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 5,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 1.5,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -333.4651,
+          "y": -458.57706,
+          "z": 12
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TAMAGOMUSHI",
+      "name": "Mitite",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 1,
+      "seeds": 2,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "drops": [
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -298,
+          "y": 192,
+          "z": -10
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TAMAGOMUSHI",
+      "name": "Mitite",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 1,
+      "seeds": 2,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "drops": [
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -295,
+          "y": 196,
+          "z": -10
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TAMAGOMUSHI",
+      "name": "Mitite",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 1,
+      "seeds": 2,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "drops": [
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -298,
+          "y": 197,
+          "z": -10
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TAMAGOMUSHI",
+      "name": "Mitite",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 1,
+      "seeds": 2,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "drops": [
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -298,
+          "y": 198,
+          "z": -10
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TAMAGOMUSHI",
+      "name": "Mitite",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 1,
+      "seeds": 2,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "drops": [
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -290,
+          "y": 203,
+          "z": -10
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TAMAGOMUSHI",
+      "name": "Mitite",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 1,
+      "seeds": 2,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "drops": [
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -293,
+          "y": 193,
+          "z": -10
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TAMAGOMUSHI",
+      "name": "Mitite",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 1,
+      "seeds": 2,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "drops": [
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -294,
+          "y": 197,
+          "z": -10
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TAMAGOMUSHI",
+      "name": "Mitite",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 1,
+      "seeds": 2,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "drops": [
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -298,
+          "y": 195,
+          "z": -10
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TAMAGOMUSHI",
+      "name": "Mitite",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 1,
+      "seeds": 2,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "drops": [
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -294,
+          "y": 201,
+          "z": -10
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TAMAGOMUSHI",
+      "name": "Mitite",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 1,
+      "seeds": 2,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "drops": [
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -265,
+          "y": 209,
+          "z": -10
+        }
+      }
+    }
+  ]
+}

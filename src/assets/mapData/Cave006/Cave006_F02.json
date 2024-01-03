@@ -1,0 +1,491 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave006_F03",
+      "transform": {
+        "translation": {
+          "x": -0.067230225,
+          "y": -313.2555,
+          "z": 150.00012
+        }
+      }
+    }
+  ],
+  "ridable-geyser": [
+    {
+      "type": "ridable-geyser",
+      "infoType": "ridable",
+      "hasCrystal": true,
+      "transform": {
+        "translation": {
+          "x": 272.27594,
+          "y": -1061.0063,
+          "z": 182.0001
+        }
+      }
+    },
+    {
+      "type": "ridable-geyser",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": -547.71027,
+          "y": 74.20691,
+          "z": 182.00551
+        }
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": -282.91736,
+          "y": -1864.1257,
+          "z": 150.0001
+        }
+      }
+    },
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": -1034.3895,
+          "y": 966.48114,
+          "z": 200.00056
+        }
+      }
+    },
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": 273.67484,
+          "y": 1060.5483,
+          "z": 75.0001
+        }
+      }
+    }
+  ],
+  "hazardspout-fire": [
+    {
+      "type": "hazardspout-fire",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 823.45245,
+          "y": 878.9068,
+          "z": 94.99999
+        }
+      }
+    },
+    {
+      "type": "hazardspout-fire",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -551.28937,
+          "y": 824.7218,
+          "z": 220.0001
+        }
+      }
+    }
+  ],
+  "structure-bridge": [
+    {
+      "type": "structure-bridge",
+      "infoType": "structure",
+      "materialsNeeded": 29,
+      "transform": {
+        "translation": {
+          "x": -1.5220642,
+          "y": -969,
+          "z": 139.1242
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTATRAINB",
+      "name": "Middle-Management Tank Car",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": 4.7693787,
+          "y": 1700.9741,
+          "z": 226.6326
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTACOUNTER",
+      "name": "Internal-Clock Measurer",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 120,
+      "transform": {
+        "translation": {
+          "x": 240,
+          "y": 832,
+          "z": 339.14084
+        }
+      }
+    }
+  ],
+  "shortcut-clipboardlow": [
+    {
+      "type": "shortcut-clipboardlow",
+      "infoType": "shortcut",
+      "weight": 20,
+      "transform": {
+        "translation": {
+          "x": -138,
+          "y": 1925,
+          "z": 207.16022
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "pikmin-ice": [
+    {
+      "type": "pikmin-ice",
+      "infoType": "pikmin",
+      "color": "ice",
+      "state": "fighting",
+      "amount": 5,
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": -355,
+          "y": 1455,
+          "z": 125.0001
+        }
+      }
+    },
+    {
+      "type": "pikmin-ice",
+      "infoType": "pikmin",
+      "color": "ice",
+      "state": "sprouts",
+      "amount": 5,
+      "disappearsAt": 51,
+      "replacedBy": "GEgg_C",
+      "transform": {
+        "translation": {
+          "x": -551,
+          "y": -745,
+          "z": 200.0001
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 2.5679932,
+          "y": -1495.6809,
+          "z": 170.99062
+        }
+      }
+    },
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 1,
+      "guardedBy": [
+        "KABURI"
+      ],
+      "transform": {
+        "translation": {
+          "x": 559.48206,
+          "y": 426.7232,
+          "z": 75.0001
+        }
+      }
+    }
+  ],
+  "shortcut-squashbag": [
+    {
+      "type": "shortcut-squashbag",
+      "infoType": "shortcut",
+      "weight": 10,
+      "transform": {
+        "translation": {
+          "x": -302.0426,
+          "y": 274.734,
+          "z": 185.1751
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "FIRETANK",
+      "name": "Fiery Blowhog",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 5,
+      "health": 1000,
+      "seeds": 5,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 551.96497,
+          "y": 1260.099,
+          "z": 99.822464
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KABURI",
+      "name": "Joustmite",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 5,
+      "health": 450,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 15,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 2.66,
+        "oatchiRushFreezeRatio": 2.66,
+        "pikminHit": 0,
+        "purpleHit": 5
+      },
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 559.48206,
+          "y": 427.64032,
+          "z": 103
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KABURI",
+      "name": "Joustmite",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 5,
+      "health": 450,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 15,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 2.66,
+        "oatchiRushFreezeRatio": 2.66,
+        "pikminHit": 0,
+        "purpleHit": 5
+      },
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -408.3764,
+          "y": 1505.9269,
+          "z": 153.0001
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -794,
+          "y": 1120,
+          "z": 215
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -852.60815,
+          "y": 1142.6774,
+          "z": 215
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 871,
+          "y": 1374,
+          "z": 75.0001
+        }
+      }
+    }
+  ]
+}

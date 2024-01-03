@@ -1,0 +1,243 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave016_F16",
+      "transform": {
+        "translation": {
+          "x": 1102.8126,
+          "y": -318.07132,
+          "z": 0.000107
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": 650,
+          "y": -217,
+          "z": 0.0001001358
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "gate-dirt": [
+    {
+      "type": "gate-dirt",
+      "infoType": "gate",
+      "width": 145,
+      "health": 8000,
+      "transform": {
+        "translation": {
+          "x": 659,
+          "y": 332.5,
+          "z": 29.125362
+        },
+        "rotation": 90
+      }
+    },
+    {
+      "type": "gate-dirt",
+      "infoType": "gate",
+      "width": 145,
+      "health": 8000,
+      "transform": {
+        "translation": {
+          "x": -767.5,
+          "y": -201,
+          "z": 29.123882
+        },
+        "rotation": 180
+      }
+    }
+  ],
+  "candypop-purple": [
+    {
+      "type": "candypop-purple",
+      "infoType": "candypop",
+      "color": "purple",
+      "disappearsAt": 51,
+      "replacedBy": "GEgg_C",
+      "transform": {
+        "translation": {
+          "x": 798.25256,
+          "y": 279.94543,
+          "z": 3.197917
+        }
+      }
+    },
+    {
+      "type": "candypop-purple",
+      "infoType": "candypop",
+      "color": "purple",
+      "disappearsAt": 51,
+      "replacedBy": "GEgg_C",
+      "transform": {
+        "translation": {
+          "x": -827.2628,
+          "y": -425.93726,
+          "z": 3.000101
+        }
+      }
+    }
+  ],
+  "shortcut-root": [
+    {
+      "type": "shortcut-root",
+      "infoType": "shortcut",
+      "transform": {
+        "translation": {
+          "x": 0.23846436,
+          "y": -1.1198804,
+          "z": 0.00009918213
+        },
+        "rotation": 180
+      }
+    },
+    {
+      "type": "shortcut-root",
+      "infoType": "shortcut",
+      "transform": {
+        "translation": {
+          "x": -549.5925,
+          "y": -100.04199,
+          "z": 0.00010108948
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -416.92493,
+          "y": 680.61633,
+          "z": 0.00010108948
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "AMEBOZU",
+      "name": "Waterwraith",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 1800,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 30,
+        "oatchiRushFreezeRatio": 3,
+        "pikminHit": 0,
+        "purpleHit": 45
+      },
+      "transform": {
+        "translation": {
+          "x": 503.95538,
+          "y": -475.55017,
+          "z": 59.32186
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "AMEBOZU",
+      "name": "Waterwraith",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 1800,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 30,
+        "oatchiRushFreezeRatio": 3,
+        "pikminHit": 0,
+        "purpleHit": 45
+      },
+      "transform": {
+        "translation": {
+          "x": -296.38422,
+          "y": 270.12598,
+          "z": 60
+        }
+      }
+    }
+  ],
+  "misc-groupdropmanager": [
+    {
+      "type": "misc-groupdropmanager",
+      "infoType": "misc",
+      "radius": 700,
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTAJOYCONR",
+          "name": "Connection Detector",
+          "weight": 10,
+          "carryMax": 20,
+          "value": 150,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -9.00708,
+          "y": -211.39185,
+          "z": 0.00003896484
+        }
+      }
+    }
+  ]
+}

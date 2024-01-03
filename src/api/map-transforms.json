@@ -1,0 +1,506 @@
+{
+    "Area001": {
+        "rotation": -75,
+        "extentRadius": 6000
+    },
+    "Area002": {
+        "rotation": 154,
+        "extentRadius": 6000
+    },
+    "Area003": {
+        "rotation": 92,
+        "extentRadius": 6000
+    },
+    "Area004": {
+        "rotation": 55,
+        "extentRadius": 6000
+    },
+    "Area006": {
+        "rotation": 54,
+        "extentRadius": 6000
+    },
+    "Area010": {
+        "rotation": -90,
+        "extentRadius": 6000
+    },
+    "Area011": {
+        "rotation": -90,
+        "extentRadius": 6000
+    },
+    "Area500": {
+        "rotation": 0,
+        "extentRadius": 4000
+    },
+    "Cave000_F00": {
+        "rotation": 180,
+        "extentRadius": 2000
+    },
+    "Cave001_F00": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave002_F00": {
+        "rotation": 0,
+        "extentRadius": 2050
+    },
+    "Cave002_F01": {
+        "rotation": -60,
+        "extentRadius": 2000
+    },
+    "Cave003_F00": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "Cave004_F00": {
+        "rotation": -90,
+        "extentRadius": 2000
+    },
+    "Cave004_F01": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave005_F00": {
+        "rotation": -90,
+        "extentRadius": 2000
+    },
+    "Cave005_F01": {
+        "rotation": -90,
+        "extentRadius": 2000
+    },
+    "Cave006_F00": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "Cave006_F01": {
+        "rotation": 250,
+        "extentRadius": 2000
+    },
+    "Cave006_F02": {
+        "rotation": 90,
+        "extentRadius": 2500
+    },
+    "Cave006_F03": {
+        "rotation": -90,
+        "extentRadius": 2000
+    },
+    "Cave007_F00": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave007_F01": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "Cave007_F02": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "Cave007_F03": {
+        "rotation": 230,
+        "extentRadius": 2000
+    },
+    "Cave008_F00": {
+        "rotation": 180,
+        "extentRadius": 2000
+    },
+    "Cave009_F00": {
+        "rotation": 270,
+        "extentRadius": 2050
+    },
+    "Cave010_F00": {
+        "rotation": 45,
+        "extentRadius": 2000
+    },
+    "Cave010_F01": {
+        "rotation": -225,
+        "extentRadius": 2000
+    },
+    "Cave010_F02": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave010_F03": {
+        "rotation": 45,
+        "extentRadius": 2000
+    },
+    "Cave010_F04": {
+        "rotation": 495,
+        "extentRadius": 2000
+    },
+    "Cave010_F05": {
+        "rotation": 270,
+        "extentRadius": 2000
+    },
+    "Cave011_F00": {
+        "rotation": 90,
+        "extentRadius": 2600
+    },
+    "Cave011_F01": {
+        "rotation": -90,
+        "extentRadius": 2600
+    },
+    "Cave011_F02": {
+        "rotation": 90,
+        "extentRadius": 2600
+    },
+    "Cave011_F03": {
+        "rotation": 0,
+        "extentRadius": 2600
+    },
+    "Cave012_F00": {
+        "rotation": 150,
+        "extentRadius": 2000
+    },
+    "Cave012_F01": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave012_F02": {
+        "rotation": 316,
+        "extentRadius": 2000
+    },
+    "Cave013_F00": {
+        "rotation": 45,
+        "extentRadius": 2000
+    },
+    "Cave013_F01": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave013_F02": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "Cave013_F03": {
+        "rotation": -15,
+        "extentRadius": 2000
+    },
+    "Cave013_F04": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "Cave014_F00": {
+        "rotation": -75,
+        "extentRadius": 2000
+    },
+    "Cave014_F01": {
+        "rotation": 35,
+        "extentRadius": 4000
+    },
+    "Cave014_F02": {
+        "rotation": 245,
+        "extentRadius": 2000
+    },
+    "Cave014_F03": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave014_F04": {
+        "rotation": 215,
+        "extentRadius": 2000
+    },
+    "Cave015_F00": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "Cave016_F00": {
+        "rotation": 270,
+        "extentRadius": 2000
+    },
+    "Cave016_F01": {
+        "rotation": 270,
+        "extentRadius": 2000
+    },
+    "Cave016_F02": {
+        "rotation": 270,
+        "extentRadius": 2000
+    },
+    "Cave016_F03": {
+        "rotation": 180,
+        "extentRadius": 2000
+    },
+    "Cave016_F04": {
+        "rotation": 315,
+        "extentRadius": 2000
+    },
+    "Cave016_F05": {
+        "rotation": 360,
+        "extentRadius": 2000
+    },
+    "Cave016_F06": {
+        "rotation": 180,
+        "extentRadius": 2000
+    },
+    "Cave016_F07": {
+        "rotation": 0,
+        "extentRadius": 2600
+    },
+    "Cave016_F08": {
+        "rotation": 270,
+        "extentRadius": 2000
+    },
+    "Cave016_F09": {
+        "rotation": 0,
+        "extentRadius": 2600
+    },
+    "Cave016_F10": {
+        "rotation": 317,
+        "extentRadius": 2000
+    },
+    "Cave016_F11": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave016_F12": {
+        "rotation": 225,
+        "extentRadius": 2000
+    },
+    "Cave016_F13": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave016_F14": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave016_F15": {
+        "rotation": 270,
+        "extentRadius": 2000
+    },
+    "Cave016_F16": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "Cave016_F17": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave016_F18": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave016_F19": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave017_F00": {
+        "rotation": 180,
+        "extentRadius": 2000
+    },
+    "Cave018_F00": {
+        "rotation": 0,
+        "extentRadius": 2600
+    },
+    "Cave018_F01": {
+        "rotation": -90,
+        "extentRadius": 2500
+    },
+    "Cave018_F02": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "Cave019_F00": {
+        "rotation": -135,
+        "extentRadius": 2000
+    },
+    "Cave019_F01": {
+        "rotation": -90,
+        "extentRadius": 2000
+    },
+    "Cave019_F02": {
+        "rotation": 135,
+        "extentRadius": 2000
+    },
+    "Cave019_F03": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave019_F04": {
+        "rotation": 360,
+        "extentRadius": 2000
+    },
+    "Cave020_F00": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "Cave021_F00": {
+        "rotation": 180,
+        "extentRadius": 2000
+    },
+    "Cave021_F01": {
+        "rotation": 180,
+        "extentRadius": 2000
+    },
+    "Cave021_F02": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave021_F03": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave022_F00": {
+        "rotation": -90,
+        "extentRadius": 2000
+    },
+    "Cave022_F01": {
+        "rotation": -90,
+        "extentRadius": 2000
+    },
+    "Cave022_F02": {
+        "rotation": -90,
+        "extentRadius": 2000
+    },
+    "Cave022_F03": {
+        "rotation": -90,
+        "extentRadius": 2000
+    },
+    "Cave023_F00": {
+        "rotation": 45,
+        "extentRadius": 2000
+    },
+    "Cave023_F01": {
+        "rotation": -45,
+        "extentRadius": 2000
+    },
+    "Cave023_F02": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave023_F03": {
+        "rotation": 0,
+        "extentRadius": 2350
+    },
+    "Cave023_F04": {
+        "rotation": 135,
+        "extentRadius": 2000
+    },
+    "Cave024_F00": {
+        "rotation": 180,
+        "extentRadius": 2000
+    },
+    "Cave024_F01": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "Cave024_F02": {
+        "rotation": 270,
+        "extentRadius": 2000
+    },
+    "Cave024_F03": {
+        "rotation": 145,
+        "extentRadius": 2000
+    },
+    "Cave024_F04": {
+        "rotation": 180,
+        "extentRadius": 2000
+    },
+    "Cave025_F00": {
+        "rotation": 90,
+        "extentRadius": 2250
+    },
+    "Cave026_F00": {
+        "rotation": -90,
+        "extentRadius": 2000
+    },
+    "Cave026_F01": {
+        "rotation": 180,
+        "extentRadius": 2000
+    },
+    "Cave026_F02": {
+        "rotation": 135,
+        "extentRadius": 2000
+    },
+    "Cave027_F00": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave028_F00": {
+        "rotation": 180,
+        "extentRadius": 2000
+    },
+    "Cave029_F00": {
+        "rotation": 270,
+        "extentRadius": 2000
+    },
+    "Cave030_F00": {
+        "rotation": 180,
+        "extentRadius": 2600
+    },
+    "Cave031_F00": {
+        "rotation": 90,
+        "extentRadius": 2500
+    },
+    "Cave032_F00": {
+        "rotation": -180,
+        "extentRadius": 2000
+    },
+    "Cave033_F00": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave033_F01": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "Cave034_F00": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "Cave035_F00": {
+        "rotation": 180,
+        "extentRadius": 2000
+    },
+    "Cave035_F01": {
+        "rotation": 90,
+        "extentRadius": 2500
+    },
+    "Cave035_F02": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "Cave035_F03": {
+        "rotation": 90,
+        "extentRadius": 2000
+    },
+    "Cave035_F04": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "Cave035_F05": {
+        "rotation": -90,
+        "extentRadius": 2000
+    },
+    "Cave035_F06": {
+        "rotation": -90,
+        "extentRadius": 2000
+    },
+    "Cave035_F07": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "Cave035_F08": {
+        "rotation": -90,
+        "extentRadius": 2000
+    },
+    "Cave035_F09": {
+        "rotation": 180,
+        "extentRadius": 2000
+    },
+    "HeroStory001": {
+        "rotation": -75,
+        "extentRadius": 6000
+    },
+    "HeroStory002": {
+        "rotation": 154,
+        "extentRadius": 6000
+    },
+    "HeroStory003": {
+        "rotation": 92,
+        "extentRadius": 6000
+    },
+    "HeroStory010": {
+        "rotation": -90,
+        "extentRadius": 6000
+    }
+}

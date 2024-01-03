@@ -1,0 +1,872 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave018_F02",
+      "transform": {
+        "translation": {
+          "x": 93.444824,
+          "y": 75.87183,
+          "z": 33
+        }
+      }
+    }
+  ],
+  "water-swamp": [
+    {
+      "type": "water-swamp",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave018_F01_WaterBox00_D.png",
+        "amountToFreeze": 100,
+        "canSink": true
+      },
+      "transform": {
+        "translation": {
+          "x": 48.603363,
+          "y": -0.011475,
+          "z": -55
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "breakable-hydrojelly": [
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTATOMATOS",
+          "name": "Crush Nugget",
+          "weight": 2,
+          "carryMax": 4,
+          "value": 20,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 748.5989,
+          "y": 230.4238,
+          "z": 33
+        }
+      }
+    },
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 975.5394,
+          "y": 667.234,
+          "z": 60
+        }
+      }
+    }
+  ],
+  "pikmin-wing": [
+    {
+      "type": "pikmin-wing",
+      "infoType": "pikmin",
+      "color": "wing",
+      "state": "sprouts",
+      "amount": 5,
+      "disappearsAt": 51,
+      "replacedBy": "GEgg_C",
+      "transform": {
+        "translation": {
+          "x": 975.5394,
+          "y": 667.234,
+          "z": 0.0001
+        }
+      }
+    },
+    {
+      "type": "pikmin-wing",
+      "infoType": "pikmin",
+      "color": "wing",
+      "state": "fighting",
+      "amount": 5,
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": -269,
+          "y": -586,
+          "z": -0.45889926
+        }
+      }
+    }
+  ],
+  "breakable-pot": [
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -463.19528,
+          "y": 968.9244,
+          "z": 8.115224
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -478.90277,
+          "y": 1109.3579,
+          "z": 7.958438
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -455.91022,
+          "y": 1049.5474,
+          "z": 6.263752
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -516.31866,
+          "y": 1054.7355,
+          "z": 7.3150215
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -741.44696,
+          "y": 238.07057,
+          "z": 5.87312
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-wing",
+          "infoType": "pikmin",
+          "color": "wing",
+          "state": "idle",
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -813.48584,
+          "y": 186.84251,
+          "z": 5.922882
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -870.62054,
+          "y": 217.31618,
+          "z": 5.900635
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "KINKAISTATION",
+          "name": "Gold Nugget",
+          "weight": 1,
+          "carryMax": 1,
+          "value": 5,
+          "amount": 5,
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -374,
+          "y": -555,
+          "z": 6.000034
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -401.50668,
+          "y": 1007.73254,
+          "z": 7.6378713
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -747.62054,
+          "y": 181.31618,
+          "z": 5.364727
+        }
+      }
+    }
+  ],
+  "candypop-wing": [
+    {
+      "type": "candypop-wing",
+      "infoType": "candypop",
+      "color": "wing",
+      "disappearsAt": 51,
+      "replacedBy": "GEgg_C",
+      "transform": {
+        "translation": {
+          "x": 1193,
+          "y": 657,
+          "z": 5.0000114
+        }
+      }
+    }
+  ],
+  "onion-flarlic": [
+    {
+      "type": "onion-flarlic",
+      "infoType": "onion",
+      "color": "flarlic",
+      "weight": 5,
+      "transform": {
+        "translation": {
+          "x": 830,
+          "y": -1115,
+          "z": 25.125105
+        }
+      }
+    }
+  ],
+  "structure-bridge": [
+    {
+      "type": "structure-bridge",
+      "infoType": "structure",
+      "materialsNeeded": 34,
+      "transform": {
+        "translation": {
+          "x": 676.7096,
+          "y": -472.44492,
+          "z": 3.4520493
+        },
+        "rotation": -46.787
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 20,
+      "transform": {
+        "translation": {
+          "x": -489.76492,
+          "y": -693.11584,
+          "z": 5.8256226
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 10.329376,
+          "y": 1205.1088,
+          "z": 7.0001
+        }
+      }
+    },
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 1,
+      "guardedBy": [
+        "NumaSuitori"
+      ],
+      "transform": {
+        "translation": {
+          "x": 917.6791,
+          "y": -722.89124,
+          "z": 1.000099
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAPAPERCRANEBLU",
+      "name": "Sweat-Soaked Blue Bird",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 40,
+      "transform": {
+        "translation": {
+          "x": 828.89404,
+          "y": -207.7687,
+          "z": 21.756676
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAPAPERCRANERED",
+      "name": "Skin of the Phoenix",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 40,
+      "transform": {
+        "translation": {
+          "x": 812.4613,
+          "y": -137.00316,
+          "z": 18.273079
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "NUMASUITORI",
+      "name": "Bogswallow",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 10,
+      "health": 1000,
+      "seeds": 10,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 1.5,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTAKAKI",
+          "name": "Portable Sunset",
+          "weight": 10,
+          "carryMax": 20,
+          "value": 70,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -834,
+          "y": 620,
+          "z": 20.329865
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "NUMASUITORI",
+      "name": "Bogswallow",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 10,
+      "health": 1000,
+      "seeds": 10,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 1.5,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": 1087.5426,
+          "y": -888.61743,
+          "z": 20
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "NAMAZU",
+      "name": "Water Dumple",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 200,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 5,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 0,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -276.8032,
+          "y": -617.4625,
+          "z": 26.100174
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "NAMAZU",
+      "name": "Water Dumple",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 200,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 5,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 0,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 132.8162,
+          "y": -633.06946,
+          "z": 11.278137
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "BIGICETANK",
+      "name": "Blizzarding Blowhog",
+      "weight": 15,
+      "carryMax": 30,
+      "value": 15,
+      "health": 2000,
+      "seeds": 15,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 3,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 20,
+        "oatchiRushFreezeRatio": 4,
+        "pikminHit": 0,
+        "purpleHit": 30
+      },
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTAMUSCAT",
+          "name": "Dawn Pustules",
+          "weight": 15,
+          "carryMax": 30,
+          "value": 110,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 15,
+          "max": 15
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 825.6333,
+          "y": 467.05222,
+          "z": 69.32025
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "NAMAZU",
+      "name": "Water Dumple",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 200,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 5,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 0,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 746.2056,
+          "y": -707.32947,
+          "z": 21.153217
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "NAMAZU",
+      "name": "Water Dumple",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 200,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 5,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 0,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 1038.422,
+          "y": -647.8437,
+          "z": 20.73468
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "DOROMBO",
+      "name": "Muckerskate",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 45,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 799.4926,
+          "y": -75.86787,
+          "z": -2
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "DOROMBO",
+      "name": "Muckerskate",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 45,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 1234,
+          "y": -343,
+          "z": 14
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "DOROMBO",
+      "name": "Muckerskate",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 45,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -723,
+          "y": -70,
+          "z": 14.120384
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "DOROMBO",
+      "name": "Muckerskate",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 45,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 324,
+          "y": -592,
+          "z": 14.120247
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": true,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 3,
+          "max": 3
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 10,
+          "max": 10
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -544.09,
+          "y": -252.71643,
+          "z": 34.402008
+        }
+      }
+    }
+  ],
+  "misc-groupdropmanager": [
+    {
+      "type": "misc-groupdropmanager",
+      "infoType": "misc",
+      "radius": 150,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 10,
+          "max": 10
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -453.50595,
+          "y": 1040.7258,
+          "z": 6.3299828
+        }
+      }
+    }
+  ]
+}

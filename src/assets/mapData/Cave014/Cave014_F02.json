@@ -1,0 +1,850 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave014_F03",
+      "toPortalId": 2,
+      "toBaseId": 0,
+      "transform": {
+        "translation": {
+          "x": -1249.5,
+          "y": 550,
+          "z": 28.000092
+        }
+      }
+    },
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "portalId": 2,
+      "toMapId": "Cave014_F01",
+      "toPortalId": 1,
+      "toBaseId": 1,
+      "transform": {
+        "translation": {
+          "x": 448.91187,
+          "y": 871.39404,
+          "z": 0.498108
+        }
+      }
+    }
+  ],
+  "water-water": [
+    {
+      "type": "water-water",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave014_F02_WaterBox00_D.png",
+        "amountToFreeze": 5
+      },
+      "transform": {
+        "translation": {
+          "x": 145.5,
+          "y": 687.5,
+          "z": -58
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "water-water",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave014_F02_WaterBox01_D.png",
+        "amountToFreeze": 5
+      },
+      "transform": {
+        "translation": {
+          "x": -136.5,
+          "y": -944.5,
+          "z": -35
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "hazardspout-electric": [
+    {
+      "type": "hazardspout-electric",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 752.5,
+          "y": 825.5,
+          "z": 20.100098
+        }
+      }
+    },
+    {
+      "type": "hazardspout-electric",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -825.5,
+          "y": 5.5,
+          "z": 45
+        }
+      }
+    },
+    {
+      "type": "hazardspout-electric",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -576.5,
+          "y": -385.5,
+          "z": 45
+        }
+      }
+    },
+    {
+      "type": "hazardspout-electric",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -172.5,
+          "y": 550,
+          "z": 45.100098
+        }
+      }
+    },
+    {
+      "type": "hazardspout-electric",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 275,
+          "y": 0,
+          "z": 45
+        }
+      }
+    },
+    {
+      "type": "hazardspout-electric",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 2.5,
+          "y": -515.5,
+          "z": 45
+        }
+      }
+    }
+  ],
+  "switchable-fenceiron": [
+    {
+      "type": "switchable-fenceiron",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": -462.5,
+          "y": 0,
+          "z": 25.0001
+        },
+        "rotation": -90
+      }
+    },
+    {
+      "type": "switchable-fenceiron",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": 276,
+          "y": 137.5,
+          "z": 25.0001
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "switchable-fenceiron",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": 0,
+          "y": -672.5,
+          "z": 25.0001
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "switchable-fenceiron",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": 412.5,
+          "y": 0,
+          "z": 25.0001
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "gate-dirt": [
+    {
+      "type": "gate-dirt",
+      "infoType": "gate",
+      "width": 145,
+      "health": 2667,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 2,
+          "max": 2
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 1043.5,
+          "y": -141.5,
+          "z": 107
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "gate-dirt",
+      "infoType": "gate",
+      "width": 145,
+      "health": 8000,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 6,
+          "max": 6
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -1042.5,
+          "y": -475,
+          "z": 55
+        },
+        "rotation": 180
+      }
+    },
+    {
+      "type": "gate-dirt",
+      "infoType": "gate",
+      "width": 145,
+      "health": 5333,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 4,
+          "max": 4
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -926,
+          "y": 492.5,
+          "z": 55
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "pikmin-blue": [
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "sprouts",
+      "amount": 5,
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": -262.5,
+          "y": -262.5,
+          "z": 25.000122
+        }
+      }
+    },
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "sprouts",
+      "amount": 5,
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": 12.5,
+          "y": 912.5,
+          "z": 55.400208
+        }
+      }
+    }
+  ],
+  "switchable-singleswitch": [
+    {
+      "type": "switchable-singleswitch",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": -1100,
+          "y": -737.5,
+          "z": 60
+        }
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": -562.5,
+          "y": 302.5,
+          "z": 23.700073
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 448.91187,
+          "y": 871.39404,
+          "z": -0.002054453
+        }
+      }
+    },
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 2,
+      "guardedBy": [
+        "Hanachirashi"
+      ],
+      "transform": {
+        "translation": {
+          "x": 137.5,
+          "y": -275,
+          "z": 25.0001
+        }
+      }
+    },
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 1,
+      "transform": {
+        "translation": {
+          "x": -1249.5,
+          "y": 550,
+          "z": 28.0001
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAPUZZLEK",
+      "name": "Memory Fragment (Bottom...Probably?)",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 50,
+      "transform": {
+        "translation": {
+          "x": -187.7771,
+          "y": -495.47485,
+          "z": 77.7136
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAAVOCADO",
+      "name": "Scaly Custard",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 70,
+      "transform": {
+        "translation": {
+          "x": 520,
+          "y": -12,
+          "z": 159
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAPOTATO",
+      "name": "Child of the Earth",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 60,
+      "transform": {
+        "translation": {
+          "x": -259.27838,
+          "y": -1069.0355,
+          "z": -1
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ELECOTAKARA",
+      "name": "Anode Dweevil",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 300,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 10,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 573,
+          "y": -550,
+          "z": 49
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "AMEBOZU",
+      "name": "Waterwraith",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 1800,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 30,
+        "oatchiRushFreezeRatio": 3,
+        "pikminHit": 0,
+        "purpleHit": 45
+      },
+      "transform": {
+        "translation": {
+          "x": -551.5,
+          "y": -815.5,
+          "z": 74.85354
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "MAROFROG",
+      "name": "Wollyhop",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 7,
+      "health": 1300,
+      "seeds": 8,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -550,
+          "y": 600,
+          "z": 45
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "HANACHIRASHI",
+      "name": "Withering Blowhog",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "health": 1800,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 137.5,
+          "y": -275,
+          "z": 58
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "MAROFROG",
+      "name": "Wollyhop",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 7,
+      "health": 1300,
+      "seeds": 8,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 0,
+          "y": -1024.5,
+          "z": 20
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ELECOTAKARA",
+      "name": "Anode Dweevil",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 300,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 10,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 37.5,
+          "y": -375,
+          "z": 25.000092
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KABURI",
+      "name": "Joustmite",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 5,
+      "health": 450,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 15,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 2.66,
+        "oatchiRushFreezeRatio": 2.66,
+        "pikminHit": 0,
+        "purpleHit": 5
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -1053.5,
+          "y": -252.5,
+          "z": 53
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 304.5,
+          "y": -518.4999,
+          "z": 40
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 279.50012,
+          "y": -577.5001,
+          "z": 40
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 1407.5,
+          "y": 582.5,
+          "z": 43.3
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 1382.5,
+          "y": 528.5,
+          "z": 43
+        }
+      }
+    }
+  ]
+}

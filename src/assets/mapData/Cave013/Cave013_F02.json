@@ -1,0 +1,322 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave013_F03",
+      "transform": {
+        "translation": {
+          "x": -135.081,
+          "y": -688.5359,
+          "z": 105.353546
+        }
+      }
+    }
+  ],
+  "switchable-doubleswitch": [
+    {
+      "type": "switchable-doubleswitch",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 386,
+          "y": 500.5,
+          "z": 182
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "switchable-fan": [
+    {
+      "type": "switchable-fan",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": 115,
+          "y": 50,
+          "z": 175
+        }
+      }
+    },
+    {
+      "type": "switchable-fan",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": 825,
+          "y": -325,
+          "z": 150
+        }
+      }
+    },
+    {
+      "type": "switchable-fan",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": 212.5,
+          "y": 275,
+          "z": 50
+        }
+      }
+    },
+    {
+      "type": "switchable-fan",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": -275,
+          "y": 859,
+          "z": 150
+        }
+      }
+    },
+    {
+      "type": "switchable-fan",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": -2,
+          "y": 47,
+          "z": 175
+        }
+      }
+    }
+  ],
+  "platform-bounceshroom": [
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": -275,
+          "y": 137.5,
+          "z": 98
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": 391,
+          "y": 0,
+          "z": 50
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": 565,
+          "y": -275,
+          "z": 66
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": 550,
+          "y": 190,
+          "z": 140
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": -2,
+          "y": 310.5,
+          "z": 65
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": -139,
+          "y": -275,
+          "z": 110
+        }
+      }
+    }
+  ],
+  "switchable-conveyor": [
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 575,
+          "y": 0,
+          "z": 113
+        },
+        "rotation": -90
+      }
+    },
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 371,
+          "y": -275,
+          "z": 122
+        },
+        "rotation": 90
+      }
+    },
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 71,
+          "y": -275,
+          "z": 173
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "KINKAISTATION",
+      "name": "Gold Nugget",
+      "amount": 10,
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "transform": {
+        "translation": {
+          "x": 1100,
+          "y": -217.5,
+          "z": 23.316387
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTARAILWAYLINEC",
+      "name": "Turn-of-Events Track",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 150,
+      "transform": {
+        "translation": {
+          "x": -563.04083,
+          "y": 846.9457,
+          "z": 105.02509
+        }
+      }
+    }
+  ],
+  "ridable-zipline": [
+    {
+      "type": "ridable-zipline",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": -541.5639,
+          "y": -218.00455,
+          "z": 199.99982
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "shortcut-pushboxcardboard": [
+    {
+      "type": "shortcut-pushboxcardboard",
+      "infoType": "shortcut",
+      "weight": 10,
+      "transform": {
+        "translation": {
+          "x": -230.5,
+          "y": 550,
+          "z": 100.0001
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "candypop-wing": [
+    {
+      "type": "candypop-wing",
+      "infoType": "candypop",
+      "color": "wing",
+      "disappearsAt": 51,
+      "replacedBy": "GEgg_C",
+      "transform": {
+        "translation": {
+          "x": 0,
+          "y": 825,
+          "z": 200.0001
+        }
+      }
+    }
+  ],
+  "tunnel-any": [
+    {
+      "type": "tunnel-any",
+      "infoType": "tunnel",
+      "tunnelId": "TunnelID_0",
+      "transform": {
+        "translation": {
+          "x": 843,
+          "y": 1,
+          "z": 28
+        }
+      }
+    },
+    {
+      "type": "tunnel-any",
+      "infoType": "tunnel",
+      "tunnelId": "TunnelID_0",
+      "transform": {
+        "translation": {
+          "x": 854,
+          "y": 539,
+          "z": 178
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -937.5,
+          "y": 137.5,
+          "z": 75.0001
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,867 @@
+{
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -180.00305,
+          "y": 528.84766,
+          "z": 234.00012
+        }
+      }
+    }
+  ],
+  "switchable-fenceiron": [
+    {
+      "type": "switchable-fenceiron",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 736,
+          "y": -149,
+          "z": 62.912216
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTABILLIARDBALL2",
+      "name": "Sphere of Family",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": -62.674255,
+          "y": 1378.9326,
+          "z": 39.931854
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTABILLIARDBALL3",
+      "name": "Sphere of Heart",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": -173,
+          "y": 174,
+          "z": 250
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTABILLIARDBALL4",
+      "name": "Sphere of Beginnings",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": 846,
+          "y": -864.79596,
+          "z": 4.563057
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTABILLIARDBALL1",
+      "name": "Sphere of Desire",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": -478,
+          "y": 492,
+          "z": 196.15564
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTABILLIARDBALL5",
+      "name": "Sphere of Vitality",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": 591,
+          "y": -1633,
+          "z": 104.74822
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTABILLIARDBALL6",
+      "name": "Sphere of Calm",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": -693,
+          "y": 275,
+          "z": 100
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTABILLIARDBALL7",
+      "name": "Sphere of Good Fortune",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": 840,
+          "y": -415,
+          "z": 145
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTABILLIARDBALL8",
+      "name": "Sphere of Trust",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": 900,
+          "y": 851,
+          "z": 67.2481
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTABILLIARDBALL9",
+      "name": "Sphere of Support",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": -716,
+          "y": 1306.0002,
+          "z": 45.420525
+        }
+      }
+    }
+  ],
+  "switchable-singleswitch": [
+    {
+      "type": "switchable-singleswitch",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 690,
+          "y": -1637,
+          "z": 107.00004
+        }
+      }
+    }
+  ],
+  "misc-stick": [
+    {
+      "type": "misc-stick",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 849,
+          "y": -1398,
+          "z": 15.999992
+        }
+      }
+    }
+  ],
+  "hazardradial-floormushroom": [
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": 87.5,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 2,
+          "max": 2
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 496,
+          "y": -1105,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": -824,
+          "y": 1053,
+          "z": 16
+        }
+      }
+    }
+  ],
+  "breakable-spotcappoison": [
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 444,
+          "y": -1075,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 466,
+          "y": -1152,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 525,
+          "y": -1074,
+          "z": 15.999994
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -867,
+          "y": 1092,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -845,
+          "y": 1015,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -786,
+          "y": 1093,
+          "z": 16
+        }
+      }
+    }
+  ],
+  "onion-white": [
+    {
+      "type": "onion-white",
+      "infoType": "onion",
+      "color": "white",
+      "weight": 10,
+      "transform": {
+        "translation": {
+          "x": -1239.5,
+          "y": -409,
+          "z": 25
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": -1157.6339,
+          "y": -155,
+          "z": 0.00009536743
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "pikmin-wing": [
+    {
+      "type": "pikmin-wing",
+      "infoType": "pikmin",
+      "color": "wing",
+      "state": "fighting",
+      "amount": 3,
+      "transform": {
+        "translation": {
+          "x": 813.89056,
+          "y": -1234.5,
+          "z": -0.00088882446
+        }
+      }
+    },
+    {
+      "type": "pikmin-wing",
+      "infoType": "pikmin",
+      "color": "wing",
+      "state": "fighting",
+      "amount": 4,
+      "transform": {
+        "translation": {
+          "x": 922.2938,
+          "y": -1171.5,
+          "z": 0.000088
+        }
+      }
+    },
+    {
+      "type": "pikmin-wing",
+      "infoType": "pikmin",
+      "color": "wing",
+      "state": "sprouts",
+      "amount": 7,
+      "transform": {
+        "translation": {
+          "x": -930,
+          "y": 1219,
+          "z": 0.00010699034
+        }
+      }
+    }
+  ],
+  "pikmin-white": [
+    {
+      "type": "pikmin-white",
+      "infoType": "pikmin",
+      "color": "white",
+      "state": "fighting",
+      "amount": 3,
+      "transform": {
+        "translation": {
+          "x": 241.75531,
+          "y": 1339.7976,
+          "z": 0.000091552734
+        }
+      }
+    },
+    {
+      "type": "pikmin-white",
+      "infoType": "pikmin",
+      "color": "white",
+      "state": "fighting",
+      "amount": 4,
+      "transform": {
+        "translation": {
+          "x": 300.49188,
+          "y": 1371.3495,
+          "z": 0.000091552734
+        }
+      }
+    },
+    {
+      "type": "pikmin-white",
+      "infoType": "pikmin",
+      "color": "white",
+      "state": "sprouts",
+      "amount": 7,
+      "transform": {
+        "translation": {
+          "x": -820,
+          "y": -262,
+          "z": 0.00010681152
+        }
+      }
+    }
+  ],
+  "switchable-fencenormal": [
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": -976,
+          "y": -274,
+          "z": 0.00009727478
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "pikmin-rock": [
+    {
+      "type": "pikmin-rock",
+      "infoType": "pikmin",
+      "color": "rock",
+      "state": "sprouts",
+      "amount": 7,
+      "transform": {
+        "translation": {
+          "x": -1577,
+          "y": 276,
+          "z": 0.000107
+        }
+      }
+    }
+  ],
+  "platform-bounceshroom": [
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": -792.5,
+          "y": 530,
+          "z": -20
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": -655,
+          "y": 530,
+          "z": 35
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": -340,
+          "y": 655,
+          "z": 140
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": 550,
+          "y": 667.5,
+          "z": -15
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": -825,
+          "y": 32,
+          "z": -20
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": -825,
+          "y": -73,
+          "z": -10
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": -625.5,
+          "y": -275,
+          "z": -30
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": 529,
+          "y": -420,
+          "z": -27
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": 529,
+          "y": -309,
+          "z": 27
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": 529,
+          "y": 15,
+          "z": 42
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 644.34155,
+          "y": 1371.6451,
+          "z": 15
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 653.14136,
+          "y": 1404.4866,
+          "z": 15
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 674.34143,
+          "y": 1346.645,
+          "z": 15
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "FUTAKUCHI",
+      "name": "Armored Cannon Larva",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 900,
+      "seeds": 8,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 7,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": -450.5,
+          "y": -592,
+          "z": 77
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "SHIPPOZAKO",
+      "name": "Miniature Snootwhacker",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 500,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 15,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 5,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 3
+      },
+      "transform": {
+        "translation": {
+          "x": 976.79376,
+          "y": -1245,
+          "z": 19.999992
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "SHIPPOZAKO",
+      "name": "Miniature Snootwhacker",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 500,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 15,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 5,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 3
+      },
+      "transform": {
+        "translation": {
+          "x": 757.8936,
+          "y": -1262.8625,
+          "z": 19.999992
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "SHIPPO",
+      "name": "Mammoth Snootwhacker",
+      "weight": 20,
+      "carryMax": 40,
+      "value": 20,
+      "health": 7000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "Boss",
+        "amount": 5,
+        "honeyChance": 0.7
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 60,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 3,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 50
+      },
+      "drops": [
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -1107.1456,
+          "y": 274.48706,
+          "z": 50
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 170,
+          "y": 1325,
+          "z": 12
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 350.00006,
+          "y": 1454.9996,
+          "z": 12
+        }
+      }
+    }
+  ]
+}

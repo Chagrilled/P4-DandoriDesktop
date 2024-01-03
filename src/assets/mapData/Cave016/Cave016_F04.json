@@ -1,0 +1,231 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave016_F05",
+      "transform": {
+        "translation": {
+          "x": 910,
+          "y": 2.5,
+          "z": 0.000122
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 170,
+      "transform": {
+        "translation": {
+          "x": 550,
+          "y": -68.12125,
+          "z": 0.000107
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -126.29602,
+          "y": 3.829834,
+          "z": 0.00010061264
+        }
+      }
+    }
+  ],
+  "misc-groupdropmanager": [
+    {
+      "type": "misc-groupdropmanager",
+      "infoType": "misc",
+      "radius": 700,
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTALAFRANCE",
+          "name": "Tremendous Sniffer",
+          "weight": 12,
+          "carryMax": 24,
+          "value": 90,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 20,
+          "max": 20
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -121.64746,
+          "y": -4.335205,
+          "z": -5.1176224
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": true,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 3,
+          "max": 3
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 10,
+          "max": 10
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -132.70093,
+          "y": -648.7489,
+          "z": 28.299896
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINGCHAPPY",
+      "name": "Emperor Bulblax",
+      "weight": 15,
+      "carryMax": 30,
+      "value": 15,
+      "health": 3000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 3,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 8,
+        "freeze": 60,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1.5,
+        "oatchiRush": 30,
+        "oatchiRushFreezeRatio": 3,
+        "pikminHit": 0,
+        "purpleHit": 40
+      },
+      "transform": {
+        "translation": {
+          "x": -37.32074,
+          "y": 215.35648,
+          "z": 60.980385
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINGCHAPPY",
+      "name": "Emperor Bulblax",
+      "weight": 15,
+      "carryMax": 30,
+      "value": 15,
+      "health": 3000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 3,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 8,
+        "freeze": 60,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1.5,
+        "oatchiRush": 30,
+        "oatchiRushFreezeRatio": 3,
+        "pikminHit": 0,
+        "purpleHit": 40
+      },
+      "transform": {
+        "translation": {
+          "x": 73.499084,
+          "y": -246.05908,
+          "z": 61.177216
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINGCHAPPY",
+      "name": "Emperor Bulblax",
+      "weight": 15,
+      "carryMax": 30,
+      "value": 15,
+      "health": 3000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 3,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 8,
+        "freeze": 60,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1.5,
+        "oatchiRush": 30,
+        "oatchiRushFreezeRatio": 3,
+        "pikminHit": 0,
+        "purpleHit": 40
+      },
+      "transform": {
+        "translation": {
+          "x": -408.25854,
+          "y": -311.7464,
+          "z": 60
+        }
+      }
+    }
+  ]
+}

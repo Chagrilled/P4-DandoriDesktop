@@ -1,0 +1,616 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave024_F03",
+      "transform": {
+        "translation": {
+          "x": -1176.5107,
+          "y": 690.2896,
+          "z": 0.000084
+        }
+      }
+    }
+  ],
+  "ridable-movefloor": [
+    {
+      "type": "ridable-movefloor",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": -687.5001,
+          "y": -136.14337,
+          "z": -25
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": -136.4527,
+          "y": 773.43884,
+          "z": -125.000206
+        }
+      }
+    },
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": -1018.95874,
+          "y": -661.40125,
+          "z": 26.000183
+        }
+      }
+    }
+  ],
+  "ridable-geyser": [
+    {
+      "type": "ridable-geyser",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": 681.1084,
+          "y": 894.4686,
+          "z": -67.839775
+        }
+      }
+    },
+    {
+      "type": "ridable-geyser",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": -493.01605,
+          "y": 695.10785,
+          "z": -92.83976
+        }
+      }
+    },
+    {
+      "type": "ridable-geyser",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": 649.5724,
+          "y": -58.905396,
+          "z": 4.160099
+        }
+      }
+    }
+  ],
+  "candypop-wing": [
+    {
+      "type": "candypop-wing",
+      "infoType": "candypop",
+      "color": "wing",
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": -965.4527,
+          "y": -1281.0833,
+          "z": 0.00009441376
+        }
+      }
+    },
+    {
+      "type": "candypop-wing",
+      "infoType": "candypop",
+      "color": "wing",
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": -1008.13495,
+          "y": 964.0908,
+          "z": 2.1467829
+        }
+      }
+    }
+  ],
+  "switchable-fencenormal": [
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": -689,
+          "y": 1062.9175,
+          "z": 0.00009536743
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": 137,
+          "y": 1654.3848,
+          "z": 25.00013
+        },
+        "rotation": 180
+      }
+    }
+  ],
+  "shortcut-pushboxcardboard": [
+    {
+      "type": "shortcut-pushboxcardboard",
+      "infoType": "shortcut",
+      "weight": 10,
+      "transform": {
+        "translation": {
+          "x": 139.97534,
+          "y": 1191.7571,
+          "z": 0.000100000005
+        },
+        "rotation": -180
+      }
+    }
+  ],
+  "hazardspout-bubble": [
+    {
+      "type": "hazardspout-bubble",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -687.32965,
+          "y": 381.22583,
+          "z": 20.100092
+        }
+      }
+    },
+    {
+      "type": "hazardspout-bubble",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 168.75739,
+          "y": -441.34943,
+          "z": 20.100098
+        }
+      }
+    }
+  ],
+  "castaway-leafling": [
+    {
+      "type": "castaway-leafling",
+      "infoType": "castaway",
+      "isLeafling": true,
+      "isKoppaite": false,
+      "weight": 3,
+      "carryMax": 6,
+      "transform": {
+        "translation": {
+          "x": -436.88644,
+          "y": 1238.2963,
+          "z": 132
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTABILLIARDBALL3",
+      "name": "Sphere of Heart",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": 115.80286,
+          "y": 1736.2228,
+          "z": 77.03884
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAFRUITSPICKPNK",
+      "name": "Heart Sword",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "transform": {
+        "translation": {
+          "x": -799,
+          "y": -843,
+          "z": 89.132034
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAFRUITSPICKPNK",
+      "name": "Heart Sword",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "transform": {
+        "translation": {
+          "x": -840,
+          "y": -891,
+          "z": 89.13203
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 953.3887,
+          "y": -206.21588,
+          "z": 0.00010108948
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "MAR",
+      "name": "Puffy Blowhog",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 7,
+      "health": 3000,
+      "seeds": 5,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 52.820984,
+          "y": -308.05115,
+          "z": 32.15815
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "MARIGUMO",
+      "name": "Arachnode",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 450,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 10,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 0,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 313.9267,
+          "y": 408.18744,
+          "z": 32.002686
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "MAR",
+      "name": "Puffy Blowhog",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 7,
+      "health": 3000,
+      "seeds": 5,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -143.04904,
+          "y": 1351.0916,
+          "z": 37.15882
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "AWADAKO",
+      "name": "Waddlepus",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 5,
+      "health": 900,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 7,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": 866.60266,
+          "y": 308.75076,
+          "z": 29.19122
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "AWADAKO",
+      "name": "Waddlepus",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 5,
+      "health": 900,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 7,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": -627.4032,
+          "y": -803.6505,
+          "z": 27.192196
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "MARIGUMO",
+      "name": "Arachnode",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 450,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 10,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 0,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 344.61157,
+          "y": -539.88416,
+          "z": 32.159058
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "MARIGUMO",
+      "name": "Arachnode",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 450,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 10,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 0,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -439.18445,
+          "y": 1299.5847,
+          "z": 31.3
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 1281.5,
+          "y": 434,
+          "z": 15.6
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 1307.5,
+          "y": 389,
+          "z": 15.6
+        }
+      }
+    }
+  ]
+}

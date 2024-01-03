@@ -1,0 +1,323 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave016_F09",
+      "transform": {
+        "translation": {
+          "x": 860,
+          "y": -142.5,
+          "z": 50.00009
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": 546,
+          "y": -194.5,
+          "z": 50.474564
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "candypop-blue": [
+    {
+      "type": "candypop-blue",
+      "infoType": "candypop",
+      "color": "blue",
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": -386.8158,
+          "y": 695.5099,
+          "z": 53.923508
+        }
+      }
+    },
+    {
+      "type": "candypop-blue",
+      "infoType": "candypop",
+      "color": "blue",
+      "disappearsAt": 51,
+      "replacedBy": "GEgg_C",
+      "transform": {
+        "translation": {
+          "x": -147.5539,
+          "y": -975.61237,
+          "z": 58.89795
+        }
+      }
+    }
+  ],
+  "water-water": [
+    {
+      "type": "water-water",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave016_F08_WaterBox00_D.png",
+        "amountToFreeze": 50
+      },
+      "transform": {
+        "translation": {
+          "x": -204.85135,
+          "y": -138.36098,
+          "z": -8.429441
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "breakable-pot": [
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -495.68552,
+          "y": -520.6815,
+          "z": 45.60076
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 153.06845,
+          "y": -411.67432,
+          "z": 0.000214
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 87.67682,
+          "y": -473.09518,
+          "z": 0.000122
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -573.25977,
+          "y": -118.58002,
+          "z": 0.0001001358
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -602.2385,
+          "y": -62.272644,
+          "z": 0.00009918213
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -548.57336,
+          "y": -49.584534,
+          "z": 0.00010108948
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 88.94055,
+          "y": -418.089,
+          "z": 0.000122
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 2,
+          "max": 2
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -538.72107,
+          "y": -484.63416,
+          "z": 45.17472
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 121.54059,
+          "y": 174.51764,
+          "z": 0.00009727478
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 66.227295,
+          "y": 818.9177,
+          "z": 50.0001
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": true,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 3,
+          "max": 3
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 10,
+          "max": 10
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 720.365,
+          "y": -293.59802,
+          "z": 86.53445
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "DAMAGUMOCANNON",
+      "name": "Man-at-Legs",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 5000,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 8,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 60,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 1.5,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 50
+      },
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTAFRUITSPICKYEL",
+          "name": "Bright Sword",
+          "weight": 1,
+          "carryMax": 1,
+          "value": 5,
+          "amount": 2,
+          "chance": 1,
+          "min": 2,
+          "max": 2
+        },
+        {
+          "type": "miscitem-bomb",
+          "infoType": "misc",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 3,
+          "max": 3
+        },
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTAFRUITSPICKORN",
+          "name": "Heroic Sword",
+          "weight": 1,
+          "carryMax": 1,
+          "value": 5,
+          "amount": 2,
+          "chance": 1,
+          "min": 2,
+          "max": 2
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -145.64014,
+          "y": -144.8894,
+          "z": 106.809784
+        }
+      }
+    }
+  ]
+}

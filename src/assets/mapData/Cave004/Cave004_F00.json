@@ -1,0 +1,221 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave004_F01",
+      "toPortalId": 2,
+      "toBaseId": 0,
+      "transform": {
+        "translation": {
+          "x": 747,
+          "y": -528.18207,
+          "z": 80.0001
+        }
+      }
+    }
+  ],
+  "breakable-hydrojelly": [
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-ice",
+          "infoType": "pikmin",
+          "color": "ice",
+          "state": "idle",
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -938.2274,
+          "y": 186.89117,
+          "z": 111.257935
+        }
+      }
+    },
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 152.13037,
+          "y": -342.44476,
+          "z": 137.62646
+        }
+      }
+    },
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-ice",
+          "infoType": "pikmin",
+          "color": "ice",
+          "state": "idle",
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 901.7726,
+          "y": 266.89117,
+          "z": 78
+        }
+      }
+    }
+  ],
+  "water-water": [
+    {
+      "type": "water-water",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave004_F00_WaterBox00_D.png",
+        "amountToFreeze": 5
+      },
+      "transform": {
+        "translation": {
+          "x": -298.20526,
+          "y": 271.93707,
+          "z": -3
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "water-water",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave004_F00_WaterBox01_D.png",
+        "amountToFreeze": 10
+      },
+      "transform": {
+        "translation": {
+          "x": 545.57886,
+          "y": -66.72235,
+          "z": -4.9981976
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": -701.4596,
+          "y": 425.63257,
+          "z": 50.0001
+        }
+      }
+    }
+  ],
+  "cave-exit": [
+    {
+      "type": "cave-exit",
+      "infoType": "cave",
+      "portalId": 2,
+      "toMapId": "Area001",
+      "toPortalId": 6,
+      "transform": {
+        "translation": {
+          "x": 595,
+          "y": 324.5,
+          "z": 50.0001
+        }
+      }
+    }
+  ],
+  "pikmin-ice": [
+    {
+      "type": "pikmin-ice",
+      "infoType": "pikmin",
+      "color": "ice",
+      "state": "idle",
+      "amount": 5,
+      "disappearsAt": 51,
+      "replacedBy": "candypop-ice",
+      "candypopOffset": {
+        "X": -685,
+        "Y": 135,
+        "Z": 5
+      },
+      "transform": {
+        "translation": {
+          "x": -297.93475,
+          "y": 271.77075,
+          "z": 45
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 1,
+      "transform": {
+        "translation": {
+          "x": 747,
+          "y": -348.18207,
+          "z": 80.0001
+        }
+      }
+    },
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 595,
+          "y": 324.5,
+          "z": 50.0001
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAHANAFUDAA",
+      "name": "Talisman of Life (Crane)",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 40,
+      "transform": {
+        "translation": {
+          "x": 168.02402,
+          "y": -323.99927,
+          "z": 150
+        }
+      }
+    }
+  ],
+  "candypop-ice": [
+    {
+      "type": "candypop-ice",
+      "infoType": "candypop",
+      "color": "ice",
+      "disappearsAt": 11,
+      "transform": {
+        "translation": {
+          "x": 839.6687,
+          "y": 404.3405,
+          "z": 50.0001
+        }
+      }
+    }
+  ]
+}

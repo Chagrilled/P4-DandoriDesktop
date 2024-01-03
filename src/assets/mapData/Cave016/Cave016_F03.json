@@ -1,0 +1,535 @@
+{
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": 60.009827,
+          "y": -864.5108,
+          "z": 50.0001
+        },
+        "rotation": 180
+      }
+    }
+  ],
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave016_F04",
+      "transform": {
+        "translation": {
+          "x": 1.1284027,
+          "y": -1114.9473,
+          "z": 51.23995
+        }
+      }
+    }
+  ],
+  "breakable-spotcapnormal": [
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1282.0778,
+          "y": -606.0055,
+          "z": 143
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1368.243,
+          "y": -534.84814,
+          "z": 143.16982
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1169.4019,
+          "y": -568.7618,
+          "z": 143.0901
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1411.6168,
+          "y": -471.88306,
+          "z": 143.0901
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1154.1516,
+          "y": -241.0705,
+          "z": 143
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1192.2487,
+          "y": -248.60925,
+          "z": 143.0901
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1410.243,
+          "y": -512.84814,
+          "z": 143
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1426.6168,
+          "y": -384.88306,
+          "z": 143.0901
+        }
+      }
+    }
+  ],
+  "hazardradial-floormushroom": [
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 1232.2004,
+          "y": -413.47614,
+          "z": 141
+        }
+      }
+    }
+  ],
+  "ridable-geyser": [
+    {
+      "type": "ridable-geyser",
+      "infoType": "ridable",
+      "hasCrystal": true,
+      "transform": {
+        "translation": {
+          "x": -290.49475,
+          "y": -204.0232,
+          "z": 31.999874
+        }
+      }
+    }
+  ],
+  "shortcut-clipboardlow": [
+    {
+      "type": "shortcut-clipboardlow",
+      "infoType": "shortcut",
+      "weight": 20,
+      "transform": {
+        "translation": {
+          "x": -0.14257812,
+          "y": -779.0724,
+          "z": 82.1601
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -687.29956,
+          "y": -239.05408,
+          "z": 0.000092983246
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 522.07434,
+          "y": -640.2084,
+          "z": 89.5
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 577.27167,
+          "y": -620.4286,
+          "z": 89.6
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "YUKIFUTAKUCHIADULT",
+      "name": "Arctic Cannon Beetle",
+      "weight": 30,
+      "carryMax": 60,
+      "value": 20,
+      "health": 4500,
+      "seeds": 50,
+      "freezeDrops": {
+        "bossType": "Boss",
+        "amount": 5,
+        "honeyChance": 0.7
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 5,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 10,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 40
+      },
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTAGOLFBALL",
+          "name": "Orbital Communication Sphere",
+          "weight": 5,
+          "carryMax": 10,
+          "value": 40,
+          "amount": 3,
+          "chance": 1,
+          "min": 3,
+          "max": 3
+        },
+        {
+          "type": "miscitem-icebomb",
+          "infoType": "misc",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 1249.0476,
+          "y": -415.66156,
+          "z": 197
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TENKOCHAPPY",
+      "name": "Dwarf Orange Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 200,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 5,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 1.5,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 258,
+          "y": -68,
+          "z": 87
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TENKOCHAPPY",
+      "name": "Dwarf Orange Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 200,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 5,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 1.5,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 32,
+          "y": -507,
+          "z": 62
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TENKOCHAPPY",
+      "name": "Dwarf Orange Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 200,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 5,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 1.5,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 583,
+          "y": -511,
+          "z": 87
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TENKOCHAPPY",
+      "name": "Dwarf Orange Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 200,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 5,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 1.5,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -188,
+          "y": -443,
+          "z": 61.999996
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TENKOCHAPPY",
+      "name": "Dwarf Orange Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 200,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 5,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 1.5,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 519,
+          "y": -536,
+          "z": 87
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TENKOCHAPPY",
+      "name": "Dwarf Orange Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 200,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 5,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 1.5,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -134,
+          "y": -395,
+          "z": 61.999996
+        }
+      }
+    }
+  ]
+}

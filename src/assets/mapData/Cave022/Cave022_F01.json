@@ -1,0 +1,588 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave022_F02",
+      "toPortalId": 2,
+      "toBaseId": 0,
+      "transform": {
+        "translation": {
+          "x": -550,
+          "y": -884.0905,
+          "z": 1.000099
+        }
+      }
+    },
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "portalId": 2,
+      "toMapId": "Cave022_F00",
+      "toPortalId": 1,
+      "toBaseId": 1,
+      "transform": {
+        "translation": {
+          "x": 521.2844,
+          "y": 450.1516,
+          "z": -48.999878
+        }
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 25,
+      "transform": {
+        "translation": {
+          "x": 1045.9154,
+          "y": -969.3462,
+          "z": -51.30057
+        }
+      }
+    }
+  ],
+  "breakable-icebox": [
+    {
+      "type": "breakable-icebox",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 134.93945,
+          "y": 411.7173,
+          "z": -11.819901
+        }
+      }
+    },
+    {
+      "type": "breakable-icebox",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -584.6089,
+          "y": 478.8097,
+          "z": -18.525024
+        }
+      }
+    },
+    {
+      "type": "breakable-icebox",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -286.5981,
+          "y": -669.8677,
+          "z": 44.0001
+        }
+      }
+    }
+  ],
+  "breakable-straw": [
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 501.38623,
+          "y": -10.4104,
+          "z": -47.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 597.4348,
+          "y": -8.855957,
+          "z": -47.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 551.0149,
+          "y": 40.234314,
+          "z": -48.9999
+        }
+      }
+    }
+  ],
+  "pikmin-rock": [
+    {
+      "type": "pikmin-rock",
+      "infoType": "pikmin",
+      "color": "rock",
+      "state": "sprouts",
+      "amount": 5,
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": -21.291931,
+          "y": 933.2296,
+          "z": -40.82453
+        }
+      }
+    },
+    {
+      "type": "pikmin-rock",
+      "infoType": "pikmin",
+      "color": "rock",
+      "state": "sprouts",
+      "amount": 5,
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": 594.87286,
+          "y": -457.83594,
+          "z": -40.631374
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTARINGO",
+      "name": "Insect Condo",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 90,
+      "transform": {
+        "translation": {
+          "x": -1041.2334,
+          "y": -419.04846,
+          "z": 48.2351
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTATOMATOS",
+      "name": "Crush Nugget",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 20,
+      "transform": {
+        "translation": {
+          "x": -767.93835,
+          "y": 852.15656,
+          "z": -24.352009
+        }
+      }
+    }
+  ],
+  "gate-ice": [
+    {
+      "type": "gate-ice",
+      "infoType": "gate",
+      "width": 180,
+      "health": 1333,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 2,
+          "max": 2
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -624.58374,
+          "y": -793.44446,
+          "z": 36.1501
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "structure-slope": [
+    {
+      "type": "structure-slope",
+      "infoType": "structure",
+      "materialsNeeded": 20,
+      "transform": {
+        "translation": {
+          "x": -274.72287,
+          "y": 24.196045,
+          "z": -48.9999
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "shortcut-pushbag": [
+    {
+      "type": "shortcut-pushbag",
+      "infoType": "shortcut",
+      "weight": 10,
+      "transform": {
+        "translation": {
+          "x": -318.16064,
+          "y": -414.0456,
+          "z": 50
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "hazardspout-ice": [
+    {
+      "type": "hazardspout-ice",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 823.0121,
+          "y": -271.1458,
+          "z": -27.899902
+        }
+      }
+    }
+  ],
+  "switchable-fencenormal": [
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": 947.311,
+          "y": 137.5,
+          "z": -47.999905
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 521.6145,
+          "y": 449.313,
+          "z": -48.9999
+        }
+      }
+    },
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 1,
+      "transform": {
+        "translation": {
+          "x": -550,
+          "y": -875,
+          "z": 1.0000997
+        }
+      }
+    }
+  ],
+  "gate-crystal": [
+    {
+      "type": "gate-crystal",
+      "infoType": "gate",
+      "width": 175,
+      "health": 1120,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 6,
+          "max": 6
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -919,
+          "y": -413,
+          "z": 36.1501
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "firepit-lit": [
+    {
+      "type": "firepit-lit",
+      "infoType": "firepit",
+      "isLit": true,
+      "transform": {
+        "translation": {
+          "x": 17.354828,
+          "y": -660.7827,
+          "z": -48.9999
+        }
+      }
+    }
+  ],
+  "firepit-unlit": [
+    {
+      "type": "firepit-unlit",
+      "infoType": "firepit",
+      "isLit": false,
+      "transform": {
+        "translation": {
+          "x": -758.66626,
+          "y": 207.54166,
+          "z": -48.9999
+        }
+      }
+    },
+    {
+      "type": "firepit-unlit",
+      "infoType": "firepit",
+      "isLit": false,
+      "transform": {
+        "translation": {
+          "x": 330,
+          "y": 195,
+          "z": -48.9999
+        }
+      }
+    }
+  ],
+  "candypop-ice": [
+    {
+      "type": "candypop-ice",
+      "infoType": "candypop",
+      "color": "ice",
+      "disappearsAt": 6,
+      "transform": {
+        "translation": {
+          "x": -826.1025,
+          "y": 441.247,
+          "z": -43.83441
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ICEKOCHAPPY",
+      "name": "Dwarf Frosty Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 100,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -489.4682,
+          "y": -248.84827,
+          "z": 13
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ICECHAPPY",
+      "name": "Frosty Bulborb",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 10,
+      "health": 1000,
+      "seeds": 12,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 1.5,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -645.06836,
+          "y": -506.58417,
+          "z": 40.00006
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ICEMAR",
+      "name": "Icy Blowhog",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 7,
+      "health": 3000,
+      "seeds": 5,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTASTARFRUIT",
+          "name": "Stellar Extrusion",
+          "weight": 5,
+          "carryMax": 10,
+          "value": 40,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 835.6378,
+          "y": -708.18054,
+          "z": -16.840145
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ICEFROG",
+      "name": "Chillyhop",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 7,
+      "health": 900,
+      "seeds": 8,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 7,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -219,
+          "y": 410,
+          "z": -23.874878
+        }
+      }
+    }
+  ]
+}

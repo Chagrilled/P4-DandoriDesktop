@@ -1,0 +1,6272 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "portalId": 50,
+      "toMapId": "Cave018_F00",
+      "transform": {
+        "translation": {
+          "x": 1153.453,
+          "y": -2750.6274,
+          "z": 430.01538
+        }
+      }
+    },
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "portalId": 52,
+      "toMapId": "Cave016_F00",
+      "transform": {
+        "translation": {
+          "x": 2899.8857,
+          "y": 3186.5715,
+          "z": 160.00008
+        }
+      }
+    },
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "portalId": 53,
+      "toMapId": "Cave019_F00",
+      "transform": {
+        "translation": {
+          "x": -2607.5925,
+          "y": -3157.6768,
+          "z": 100.00009
+        }
+      }
+    }
+  ],
+  "structure-bridge": [
+    {
+      "type": "structure-bridge",
+      "infoType": "structure",
+      "materialsNeeded": 75,
+      "transform": {
+        "translation": {
+          "x": 1472.7028,
+          "y": 547.44415,
+          "z": 298
+        },
+        "rotation": -90.837
+      }
+    }
+  ],
+  "tunnel-captain": [
+    {
+      "type": "tunnel-captain",
+      "infoType": "tunnel",
+      "tunnelId": "WarpCarryID_0",
+      "transform": {
+        "translation": {
+          "x": -1258.1215,
+          "y": -1418.2815,
+          "z": 119.10193
+        }
+      }
+    },
+    {
+      "type": "tunnel-captain",
+      "infoType": "tunnel",
+      "tunnelId": "WarpCarryID_0",
+      "transform": {
+        "translation": {
+          "x": -836.3856,
+          "y": -1333.3123,
+          "z": 119
+        }
+      }
+    },
+    {
+      "type": "tunnel-captain",
+      "infoType": "tunnel",
+      "tunnelId": "TunnelID_1",
+      "transform": {
+        "translation": {
+          "x": -1490.8982,
+          "y": 347.62027,
+          "z": 68.5
+        }
+      }
+    },
+    {
+      "type": "tunnel-captain",
+      "infoType": "tunnel",
+      "tunnelId": "TunnelID_1",
+      "transform": {
+        "translation": {
+          "x": -1298.189,
+          "y": 701.23193,
+          "z": 69.5
+        }
+      }
+    }
+  ],
+  "structure-wall": [
+    {
+      "type": "structure-wall",
+      "infoType": "structure",
+      "materialsNeeded": 21,
+      "transform": {
+        "translation": {
+          "x": 117.752914,
+          "y": -144.86221,
+          "z": 187
+        },
+        "rotation": -35.151
+      }
+    }
+  ],
+  "hazardradial-floormushroom": [
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": -3813.3577,
+          "y": -1085.0569,
+          "z": 65.99467
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": -866.8488,
+          "y": -1829.0697,
+          "z": 266.5032
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": true,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": -800.1753,
+          "y": 1179.7213,
+          "z": 66.10759
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": true,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 659.1629,
+          "y": 2099.9626,
+          "z": 65.99995
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 2517.145,
+          "y": -2171.6733,
+          "z": 354.58032
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 1829,
+          "y": -943,
+          "z": 96.221954
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 2125,
+          "y": -373,
+          "z": 96.249084
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 2770,
+          "y": -1675,
+          "z": 355
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": -1295,
+          "y": 2089,
+          "z": 63.49086
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": -2440.2837,
+          "y": 1498.9813,
+          "z": 66.00002
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 2293.1626,
+          "y": 1868.008,
+          "z": 175
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": true,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 2143,
+          "y": 539,
+          "z": 225.99976
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": true,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 221.9094,
+          "y": 2102.6233,
+          "z": 66.08008
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": -2957.4795,
+          "y": -8.7769165,
+          "z": 125
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": true,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 1093.4911,
+          "y": 341.23712,
+          "z": 67.0801
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 1728,
+          "y": -546,
+          "z": 96.13742
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": -1726.2051,
+          "y": 1617.6987,
+          "z": 63.631264
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": -2488,
+          "y": 426,
+          "z": 66.00008
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": -3660,
+          "y": -1663,
+          "z": 65.994675
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 1834,
+          "y": -2402,
+          "z": 396.09543
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": -2584.2795,
+          "y": -3075.6226,
+          "z": 115.99998
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": -2545.78,
+          "y": -2627.648,
+          "z": 114
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": -2190.4717,
+          "y": -2877.6208,
+          "z": 115.999985
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": true,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 831,
+          "y": -1018,
+          "z": 66.01546
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": 504,
+          "y": -1078,
+          "z": 66.01546
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": 701,
+          "y": -1318,
+          "z": 66.01546
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": true,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 369,
+          "y": -1379,
+          "z": 66
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": 273,
+          "y": -908,
+          "z": 66.01546
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": -1716,
+          "y": 782,
+          "z": 216
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": -1660,
+          "y": 592,
+          "z": 215
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": 961.9442,
+          "y": 3124.2075,
+          "z": 114.5784
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": -2332.879,
+          "y": -1567.3427,
+          "z": 66.000114
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": -2439.0732,
+          "y": -1334.3718,
+          "z": 65.75928
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": -2028.7175,
+          "y": -1290.3271,
+          "z": 65.24873
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": -3777,
+          "y": -2603,
+          "z": 176.08011
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 1100,
+          "y": 2354,
+          "z": 66
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": -476.63153,
+          "y": 569.05646,
+          "z": 355.71057
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": true,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": -3929,
+          "y": -119,
+          "z": 146.00006
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 548,
+          "y": -1964,
+          "z": 186.08011
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 1292,
+          "y": -3242,
+          "z": 366.10764
+        }
+      }
+    }
+  ],
+  "gate-dirt": [
+    {
+      "type": "gate-dirt",
+      "infoType": "gate",
+      "width": 375,
+      "health": 8000,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 6,
+          "max": 6
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -2682,
+          "y": -299,
+          "z": 80.15009
+        },
+        "rotation": -5
+      }
+    }
+  ],
+  "hazardspout-poison": [
+    {
+      "type": "hazardspout-poison",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -3182.138,
+          "y": 1117.4457,
+          "z": 150.0001
+        }
+      }
+    },
+    {
+      "type": "hazardspout-poison",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -3116.5054,
+          "y": 964.1982,
+          "z": 157.18413
+        }
+      }
+    },
+    {
+      "type": "hazardspout-poison",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -3192.9321,
+          "y": 1269.2113,
+          "z": 150
+        }
+      }
+    }
+  ],
+  "shortcut-pushboxcardboard": [
+    {
+      "type": "shortcut-pushboxcardboard",
+      "infoType": "shortcut",
+      "weight": 10,
+      "transform": {
+        "translation": {
+          "x": -3039.8354,
+          "y": 815.0394,
+          "z": 130.00009
+        },
+        "rotation": 170
+      }
+    }
+  ],
+  "platform-bounceshroom": [
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": 2450.8853,
+          "y": -570.19,
+          "z": 130.30022
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": 3096,
+          "y": -1213,
+          "z": 292
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": 2384.6138,
+          "y": -265,
+          "z": 130
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": 2945,
+          "y": -1172,
+          "z": 195
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": 2537.117,
+          "y": -824.60406,
+          "z": 130
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": -3388,
+          "y": -153,
+          "z": 150
+        }
+      }
+    },
+    {
+      "type": "platform-bounceshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": -3210,
+          "y": -70,
+          "z": 150
+        }
+      }
+    }
+  ],
+  "cave-challenge": [
+    {
+      "type": "cave-challenge",
+      "infoType": "cave",
+      "portalId": 54,
+      "transform": {
+        "translation": {
+          "x": 327.21506,
+          "y": 982.73456,
+          "z": 320.25745
+        }
+      }
+    },
+    {
+      "type": "cave-challenge",
+      "infoType": "cave",
+      "portalId": 55,
+      "transform": {
+        "translation": {
+          "x": -1860.7852,
+          "y": 220.73456,
+          "z": 55.92972
+        }
+      }
+    },
+    {
+      "type": "cave-challenge",
+      "infoType": "cave",
+      "portalId": 56,
+      "transform": {
+        "translation": {
+          "x": -2794.9858,
+          "y": 1309.6101,
+          "z": 159.88393
+        }
+      }
+    }
+  ],
+  "cave-battle": [
+    {
+      "type": "cave-battle",
+      "infoType": "cave",
+      "portalId": 5,
+      "transform": {
+        "translation": {
+          "x": -1204.0057,
+          "y": 1422.5608,
+          "z": 189.99924
+        }
+      }
+    }
+  ],
+  "breakable-spotcapnormal": [
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -2870,
+          "y": 111,
+          "z": 128.09012
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -2866,
+          "y": -132,
+          "z": 128.09012
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -3066,
+          "y": 92,
+          "z": 128.0901
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 2337.8008,
+          "y": 1734.0544,
+          "z": 178.09009
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 2412.7185,
+          "y": 1882.7075,
+          "z": 178.09007
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1180.7019,
+          "y": -3327.7188,
+          "z": 368.1054
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1428.4908,
+          "y": -3215.465,
+          "z": 368.14023
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -2627.4126,
+          "y": -2976.081,
+          "z": 118.090096
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -2461.555,
+          "y": -3120.612,
+          "z": 118.09011
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1370,
+          "y": -3221,
+          "z": 363.58276
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -2883,
+          "y": 66,
+          "z": 123.567604
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 2441,
+          "y": 1861,
+          "z": 173.56758
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 2143,
+          "y": 1914,
+          "z": 173.5676
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -2715,
+          "y": -3102,
+          "z": 113.56759
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -2465,
+          "y": -3159,
+          "z": 113.5676
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -2180,
+          "y": -3054,
+          "z": 118.60858
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -2169,
+          "y": -2905,
+          "z": 119.164375
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -2205,
+          "y": -2770,
+          "z": 118.53173
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -2179,
+          "y": -2871,
+          "z": 114.71941
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -2153,
+          "y": -2703,
+          "z": 114.24629
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -3647,
+          "y": -2530,
+          "z": 178.09009
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -3654.5,
+          "y": -2664.25,
+          "z": 178.09012
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -3821,
+          "y": -2491,
+          "z": 173.5676
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -3891.9172,
+          "y": -2542.6453,
+          "z": 173.5676
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -3870,
+          "y": -2480,
+          "z": 178.09009
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 995,
+          "y": 2305,
+          "z": 68.10882
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1064,
+          "y": 2492,
+          "z": 68.114265
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1237,
+          "y": 2396,
+          "z": 68.096115
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1010,
+          "y": 2232,
+          "z": 68.10559
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1184,
+          "y": 2291,
+          "z": 63.582703
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -370,
+          "y": 591,
+          "z": 357.85907
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -501,
+          "y": 417,
+          "z": 358
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -623,
+          "y": 613,
+          "z": 358.1053
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -464,
+          "y": 426,
+          "z": 354.67953
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 540,
+          "y": -1958,
+          "z": 188.01917
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 660,
+          "y": -2020,
+          "z": 187.83107
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 397,
+          "y": -1952,
+          "z": 187.6611
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 601,
+          "y": -1821,
+          "z": 188.06744
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 574,
+          "y": -1982,
+          "z": 188.0122
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 2481.1016,
+          "y": -2229.602,
+          "z": 358.1054
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 2489,
+          "y": -2190,
+          "z": 353.58292
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 2600.1016,
+          "y": -2308.602,
+          "z": 358.1054
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 2481.1016,
+          "y": -2068.602,
+          "z": 358.1054
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 2642,
+          "y": -2095,
+          "z": 353.58292
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -3859,
+          "y": -1078,
+          "z": 68.08712
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -3759,
+          "y": -960,
+          "z": 63.565956
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -3895,
+          "y": -1072,
+          "z": 63.565956
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -3827,
+          "y": -1243,
+          "z": 68.08712
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -3646,
+          "y": -1141,
+          "z": 63.565956
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -886,
+          "y": -1960,
+          "z": 269.0978
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -834,
+          "y": -1787,
+          "z": 269.0978
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -822,
+          "y": -1732,
+          "z": 269.0978
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -1023,
+          "y": -1785,
+          "z": 269.0978
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -704,
+          "y": -1812,
+          "z": 264.0928
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -896,
+          "y": -1924,
+          "z": 264.55444
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -1671,
+          "y": 573,
+          "z": 219.31685
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -1703,
+          "y": 770,
+          "z": 219.38864
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -1710,
+          "y": 809,
+          "z": 219.70258
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1198.1014,
+          "y": -3138.602,
+          "z": 368.10532
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1226,
+          "y": -3103,
+          "z": 363.58282
+        }
+      }
+    }
+  ],
+  "switchable-fencenormal": [
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": 114.95111,
+          "y": 543.28394,
+          "z": 339.4503
+        },
+        "rotation": 48.379
+      }
+    }
+  ],
+  "water-swamp": [
+    {
+      "type": "water-swamp",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Area006_WaterBox00_D.png",
+        "amountToFreeze": 20,
+        "canSink": false
+      },
+      "transform": {
+        "translation": {
+          "x": -1730,
+          "y": -290,
+          "z": -13
+        },
+        "rotation": 20
+      }
+    },
+    {
+      "type": "water-swamp",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Area006_WaterBox01_D.png",
+        "amountToFreeze": 80,
+        "canSink": true
+      },
+      "transform": {
+        "translation": {
+          "x": -4100,
+          "y": 924,
+          "z": -26
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "water-swamp",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Area006_WaterBox02_D.png",
+        "amountToFreeze": 30,
+        "canSink": true
+      },
+      "transform": {
+        "translation": {
+          "x": 2937,
+          "y": -461,
+          "z": 19
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "water-swamp",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Area006_WaterBox03_D.png",
+        "amountToFreeze": 15,
+        "canSink": false
+      },
+      "transform": {
+        "translation": {
+          "x": -3253,
+          "y": -1428,
+          "z": -20
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "water-swamp",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Area006_WaterBox04_D.png",
+        "amountToFreeze": 30,
+        "canSink": true
+      },
+      "transform": {
+        "translation": {
+          "x": 2178,
+          "y": 3208,
+          "z": 105
+        },
+        "rotation": 10
+      }
+    },
+    {
+      "type": "water-swamp",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Area006_WaterBox05_D.png",
+        "amountToFreeze": 15,
+        "canSink": false
+      },
+      "transform": {
+        "translation": {
+          "x": -1126,
+          "y": 3222,
+          "z": -5
+        },
+        "rotation": -35
+      }
+    }
+  ],
+  "structure-slope": [
+    {
+      "type": "structure-slope",
+      "infoType": "structure",
+      "materialsNeeded": 15,
+      "transform": {
+        "translation": {
+          "x": 587,
+          "y": 2561,
+          "z": 50.000122
+        },
+        "rotation": 150
+      }
+    }
+  ],
+  "shortcut-stringup": [
+    {
+      "type": "shortcut-stringup",
+      "infoType": "shortcut",
+      "weight": 5,
+      "transform": {
+        "translation": {
+          "x": 1866,
+          "y": -44,
+          "z": 215
+        },
+        "rotation": -135
+      }
+    }
+  ],
+  "platform-chargeshroom": [
+    {
+      "type": "platform-chargeshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": -753,
+          "y": 1852,
+          "z": 50.00009
+        }
+      }
+    },
+    {
+      "type": "platform-chargeshroom",
+      "infoType": "platform",
+      "transform": {
+        "translation": {
+          "x": -777.44995,
+          "y": 2126.9487,
+          "z": 53
+        }
+      }
+    }
+  ],
+  "breakable-spotcappoison": [
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1015.70496,
+          "y": 3085.8596,
+          "z": 115.20186
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 956.83777,
+          "y": 3104.342,
+          "z": 114.57681
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 919.33484,
+          "y": 3061.492,
+          "z": 114.34519
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 974.31714,
+          "y": 3185.405,
+          "z": 116.08011
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 886.1083,
+          "y": 3160.925,
+          "z": 116.08767
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 948.5348,
+          "y": 3209.1204,
+          "z": 118.57297
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1010.5847,
+          "y": 3136.663,
+          "z": 116.31623
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1042.3171,
+          "y": 3116.405,
+          "z": 116.0801
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1020.31714,
+          "y": 3169.405,
+          "z": 116.080124
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 925.78125,
+          "y": 3119.1711,
+          "z": 115.96268
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1015.5847,
+          "y": 3051.663,
+          "z": 116.88986
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 711,
+          "y": 1994,
+          "z": 66.59888
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 562,
+          "y": 2127,
+          "z": 66.59888
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 630,
+          "y": 2020,
+          "z": 66.59888
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 583,
+          "y": 2169,
+          "z": 66.59888
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 765,
+          "y": 2180,
+          "z": 66.59888
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -3813,
+          "y": -80,
+          "z": 146.00006
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -3916,
+          "y": -243,
+          "z": 146.00006
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -3915,
+          "y": -3,
+          "z": 146
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 997,
+          "y": 281,
+          "z": 65.91382
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1132.5095,
+          "y": 225.00577,
+          "z": 65.91382
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1147.3474,
+          "y": 466.825,
+          "z": 65.91382
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 793,
+          "y": -952,
+          "z": 66.09585
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 766,
+          "y": -988,
+          "z": 66.09585
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 851,
+          "y": -1130,
+          "z": 66.09585
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 669,
+          "y": -988,
+          "z": 66.09585
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 933,
+          "y": -887,
+          "z": 66.09585
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -775,
+          "y": 1339,
+          "z": 66.32899
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -662,
+          "y": 1168,
+          "z": 66.48587
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -695,
+          "y": 1149,
+          "z": 67.04427
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -873,
+          "y": 1171,
+          "z": 66.250435
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -933,
+          "y": 1188,
+          "z": 66.29148
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 2253,
+          "y": 465,
+          "z": 226.07951
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1999,
+          "y": 620,
+          "z": 226.07951
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 2025,
+          "y": 584,
+          "z": 226.07951
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 2272,
+          "y": 643,
+          "z": 226.07951
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 2079,
+          "y": 418,
+          "z": 226.07951
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 2162,
+          "y": 558,
+          "z": 226.07951
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 2831,
+          "y": -1699,
+          "z": 356.03476
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 2801,
+          "y": -1663,
+          "z": 356.03476
+        }
+      }
+    }
+  ],
+  "base-onion": [
+    {
+      "type": "base-onion",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -132.10266,
+          "y": -3087.2463,
+          "z": 350.0154
+        }
+      }
+    },
+    {
+      "type": "base-onion",
+      "infoType": "base",
+      "baseId": 1,
+      "guardedBy": [
+        "Egg",
+        "BigEgg"
+      ],
+      "transform": {
+        "translation": {
+          "x": 2857.5737,
+          "y": 743.6593,
+          "z": 160.0001
+        }
+      }
+    },
+    {
+      "type": "base-onion",
+      "infoType": "base",
+      "baseId": 2,
+      "guardedBy": [
+        "StickyFloor",
+        "HageDamagumo"
+      ],
+      "transform": {
+        "translation": {
+          "x": -2329.9578,
+          "y": -1413.5415,
+          "z": 50.5
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -65.1962,
+          "y": -3312.1206,
+          "z": 350.36832
+        }
+      }
+    },
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 1,
+      "transform": {
+        "translation": {
+          "x": 3057.344,
+          "y": 868.30035,
+          "z": 160.0001
+        }
+      }
+    },
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 2,
+      "transform": {
+        "translation": {
+          "x": -2100.508,
+          "y": -1364.5742,
+          "z": 50.5
+        }
+      }
+    }
+  ],
+  "ridable-geyser": [
+    {
+      "type": "ridable-geyser",
+      "infoType": "ridable",
+      "hasCrystal": true,
+      "transform": {
+        "translation": {
+          "x": 2101,
+          "y": 2624,
+          "z": 197
+        }
+      }
+    },
+    {
+      "type": "ridable-geyser",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": -4300,
+          "y": 1027,
+          "z": 77.17792
+        }
+      }
+    }
+  ],
+  "pile-glowpellets": [
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": 2737.3352,
+          "y": -1426.6483,
+          "z": 339.95578
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": 2398.635,
+          "y": -2249.6365,
+          "z": 340.0154
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": -889.0298,
+          "y": -757.82495,
+          "z": 288.4243
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 809.7024,
+          "y": 803.12476,
+          "z": 50.00009
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 3094.7024,
+          "y": -1615.8752,
+          "z": 400.02377
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": -89.03573,
+          "y": -2843.412,
+          "z": 349.7114
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": 1555.8558,
+          "y": -1032.3949,
+          "z": 80.42777
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 20,
+      "transform": {
+        "translation": {
+          "x": -1046.0964,
+          "y": -104.38985,
+          "z": 290.1001
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 20,
+      "transform": {
+        "translation": {
+          "x": -1140.5471,
+          "y": -2969.7126,
+          "z": 239.77252
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": -2569.5432,
+          "y": -3013.848,
+          "z": 99.43546
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 20,
+      "transform": {
+        "translation": {
+          "x": 368.60114,
+          "y": -1622.2568,
+          "z": 51.710236
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -798.6853,
+          "y": -2220.021,
+          "z": 250.0154
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 896.9616,
+          "y": -2999.8591,
+          "z": 351.34848
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": 1213.4343,
+          "y": -2402.4053,
+          "z": 430.78183
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 1728.7024,
+          "y": -2798.8752,
+          "z": 377.79855
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 20,
+      "transform": {
+        "translation": {
+          "x": 1119.7024,
+          "y": -1076.8752,
+          "z": 50.0001
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": 1028.7024,
+          "y": -946.87524,
+          "z": 50.015728
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": 889.7024,
+          "y": -936.87524,
+          "z": 50.01574
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 20,
+      "transform": {
+        "translation": {
+          "x": 2549.7024,
+          "y": 3183.1248,
+          "z": 160.00017
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 2449.7024,
+          "y": 3113.1248,
+          "z": 160.00014
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": 2524.7024,
+          "y": 3277.1248,
+          "z": 160.00015
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 1913.7024,
+          "y": 3113.1248,
+          "z": 159.10643
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 2242.7024,
+          "y": 2604.1248,
+          "z": 160.00021
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 2149.7024,
+          "y": 2023.1248,
+          "z": 160.00005
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 1539.7024,
+          "y": 3423.1248,
+          "z": 153.64088
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": 2102.7024,
+          "y": 3655.1248,
+          "z": 160.0002
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 2219.7024,
+          "y": 3383.1248,
+          "z": 150.00017
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 1609.7024,
+          "y": 2803.1248,
+          "z": 169.7032
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": 2323.7734,
+          "y": -40.75415,
+          "z": 209.99939
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": 2763.7734,
+          "y": 449.24585,
+          "z": 160
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": 3195.7734,
+          "y": 562.24585,
+          "z": 160.00015
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": 2934.7734,
+          "y": 855.24585,
+          "z": 160.00002
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": 2713.7734,
+          "y": 109.24585,
+          "z": 156.92307
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 3083.7734,
+          "y": 292.24585,
+          "z": 130.17027
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": 1813.7734,
+          "y": 69.24585,
+          "z": 209.99884
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 676.7024,
+          "y": 1230.1248,
+          "z": 57.941742
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 539.7024,
+          "y": 2353.1248,
+          "z": 49.999798
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 199.7024,
+          "y": 1773.1248,
+          "z": 55.613213
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": 93.70239,
+          "y": 2404.1248,
+          "z": 136.29288
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 16.702393,
+          "y": 2462.1248,
+          "z": 139.16368
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 549.7024,
+          "y": 3313.1248,
+          "z": 99.2992
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 339.7024,
+          "y": 3083.1248,
+          "z": 97.91212
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 729.7024,
+          "y": 3053.1248,
+          "z": 99.89478
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -670.2976,
+          "y": 1640.1248,
+          "z": 50.155724
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -1080.2976,
+          "y": 803.12476,
+          "z": 51.60541
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -1470.2976,
+          "y": 993.12476,
+          "z": 50.436646
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "transform": {
+        "translation": {
+          "x": -1540.2976,
+          "y": 203.12476,
+          "z": 49.53351
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": -723.2976,
+          "y": 1449.1248,
+          "z": 50.25286
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 1623.7734,
+          "y": 429.24585,
+          "z": 299.96606
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 2073.7734,
+          "y": 689.24585,
+          "z": 209.99986
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 435.77344,
+          "y": 536.24585,
+          "z": 291.3547
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 143.77344,
+          "y": 679.24585,
+          "z": 313.3364
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 25,
+      "transform": {
+        "translation": {
+          "x": -26.226562,
+          "y": 449.24585,
+          "z": 339.5583
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 1193.7734,
+          "y": -140.75415,
+          "z": 50.016888
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 843.77344,
+          "y": -530.75415,
+          "z": 50.01555
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 1543.7736,
+          "y": 1449.2458,
+          "z": 101.93161
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 2043.7734,
+          "y": 1579.2458,
+          "z": 160.0001
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": 864.46735,
+          "y": -1731.4366,
+          "z": 57.449375
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": 1106.5602,
+          "y": -1226.1295,
+          "z": 51.921806
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 314.37952,
+          "y": -2552.3735,
+          "z": 350.1701
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 1733.5583,
+          "y": -1597.1962,
+          "z": 188.69344
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": 1703.7906,
+          "y": -68.23005,
+          "z": 80.68538
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": -1112.8591,
+          "y": -1698.836,
+          "z": 251.6995
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "transform": {
+        "translation": {
+          "x": -1688.217,
+          "y": -1665.4243,
+          "z": 50.000114
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -3590.2454,
+          "y": -2255.724,
+          "z": 100.0001
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": -50.29002,
+          "y": -2262.3584,
+          "z": 346.054
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -963.5471,
+          "y": -2662.7126,
+          "z": 250.00238
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": 2540.7532,
+          "y": -1101.3911,
+          "z": 171.45424
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 720.5364,
+          "y": -2455.3137,
+          "z": 350.01532
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -218.86037,
+          "y": -1293.9137,
+          "z": 100.017265
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -29.776041,
+          "y": -846.3505,
+          "z": 155.01555
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": -2636.238,
+          "y": -479.6995,
+          "z": 50.00875
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -3332.7932,
+          "y": -752.8728,
+          "z": 48.08757
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -3838.8267,
+          "y": -962.1816,
+          "z": 49.998535
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -2482.5354,
+          "y": -1368.4185,
+          "z": 50.000217
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 20,
+      "transform": {
+        "translation": {
+          "x": -3609.9783,
+          "y": -163.8626,
+          "z": 130.0001
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -3136.7815,
+          "y": 163.82909,
+          "z": 110.000084
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -2810.453,
+          "y": 1134.7406,
+          "z": 160.00009
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -2002.4165,
+          "y": -1890.3107,
+          "z": 50.02523
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -2332.7773,
+          "y": -2595.4443,
+          "z": 99.94323
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": -3154.3923,
+          "y": -2360.0137,
+          "z": 49.999588
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -3688.0815,
+          "y": -2243.786,
+          "z": 100.00009
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -474.02252,
+          "y": -1143.8868,
+          "z": 100.016884
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": -1964.2377,
+          "y": -2699.825,
+          "z": 100.00007
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": -986.2856,
+          "y": -2263.009,
+          "z": 275.00003
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -2845.6584,
+          "y": -2767.276,
+          "z": 98.143364
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -1147.9197,
+          "y": -3005.4526,
+          "z": 244.2108
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": -3708.739,
+          "y": -2544.5107,
+          "z": 160.00012
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -2202.7815,
+          "y": 542.8291,
+          "z": 50.5161
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -1422.3058,
+          "y": -1368.9132,
+          "z": 99.26798
+        }
+      }
+    },
+    {
+      "type": "pile-glowpellets",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": -28.024632,
+          "y": -520.13715,
+          "z": 180.01558
+        }
+      }
+    }
+  ],
+  "breakable-mound": [
+    {
+      "type": "breakable-mound",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "creature",
+          "infoType": "creature",
+          "creatureId": "BABY",
+          "name": "Bulborb Larva",
+          "weight": 0,
+          "carryMax": 0,
+          "value": 0,
+          "health": 1,
+          "seeds": 0,
+          "freezeDrops": {
+            "bossType": "TekiS",
+            "amount": 1,
+            "honeyChance": 0.99
+          },
+          "damageInfo": {
+            "bomb": 1,
+            "eatBomb": 0,
+            "eatFreeze": 1,
+            "eatIceBomb": 0,
+            "eatPoison": 1,
+            "freeze": 1,
+            "freezeDamageRatio": 0.8,
+            "iceBomb": 1,
+            "oatchiRush": 1,
+            "oatchiRushFreezeRatio": 1,
+            "pikminHit": 1,
+            "purpleHit": 1
+          },
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 1042,
+          "y": -2625,
+          "z": 450.01532
+        }
+      }
+    },
+    {
+      "type": "breakable-mound",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "creature",
+          "infoType": "creature",
+          "creatureId": "BABY",
+          "name": "Bulborb Larva",
+          "weight": 0,
+          "carryMax": 0,
+          "value": 0,
+          "health": 1,
+          "seeds": 0,
+          "freezeDrops": {
+            "bossType": "TekiS",
+            "amount": 1,
+            "honeyChance": 0.99
+          },
+          "damageInfo": {
+            "bomb": 1,
+            "eatBomb": 0,
+            "eatFreeze": 1,
+            "eatIceBomb": 0,
+            "eatPoison": 1,
+            "freeze": 1,
+            "freezeDamageRatio": 0.8,
+            "iceBomb": 1,
+            "oatchiRush": 1,
+            "oatchiRushFreezeRatio": 1,
+            "pikminHit": 1,
+            "purpleHit": 1
+          },
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -1196,
+          "y": -719,
+          "z": 310.10004
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "DODORO",
+      "name": "Smoky Progg",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 5000,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 60,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 1.5,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 50
+      },
+      "transform": {
+        "translation": {
+          "x": 2279.1846,
+          "y": 90.030014,
+          "z": 306.22015
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "DODORO",
+      "name": "Smoky Progg",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 5000,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 60,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 1.5,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 50
+      },
+      "transform": {
+        "translation": {
+          "x": -274.8252,
+          "y": 346.93375,
+          "z": 437.23898
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "DODORO",
+      "name": "Smoky Progg",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 5000,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 60,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 1.5,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 50
+      },
+      "transform": {
+        "translation": {
+          "x": 3090,
+          "y": 20,
+          "z": 166.09177
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "DODORO",
+      "name": "Smoky Progg",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 5000,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 60,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 1.5,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 50
+      },
+      "transform": {
+        "translation": {
+          "x": 553.48096,
+          "y": -1959.9331,
+          "z": 266.00006
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "DODORO",
+      "name": "Smoky Progg",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 5000,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 60,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 1.5,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 50
+      },
+      "transform": {
+        "translation": {
+          "x": -972,
+          "y": 1632,
+          "z": 286
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "NOMI",
+      "name": "Shearflea",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 45,
+      "seeds": 2,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 2558,
+          "y": 1859,
+          "z": 171.99992
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "THROWEATER",
+      "name": "Grubchucker",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 12,
+      "health": 5000,
+      "seeds": 15,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 3,
+        "eatBomb": 0,
+        "eatFreeze": 4.5,
+        "eatIceBomb": 0,
+        "eatPoison": 3,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 20,
+        "oatchiRushFreezeRatio": 2.72,
+        "pikminHit": 0,
+        "purpleHit": 30
+      },
+      "transform": {
+        "translation": {
+          "x": 2484,
+          "y": 1718,
+          "z": 223.99994
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "NOMI",
+      "name": "Shearflea",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 45,
+      "seeds": 2,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 2558,
+          "y": 1579,
+          "z": 171.87555
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "NOMI",
+      "name": "Shearflea",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 45,
+      "seeds": 2,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 2428,
+          "y": 1619,
+          "z": 171.99997
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "NOMI",
+      "name": "Shearflea",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 45,
+      "seeds": 2,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 2438,
+          "y": 1959,
+          "z": 171.99994
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "BIGKINGCHAPPY",
+      "name": "Sovereign Bulblax",
+      "weight": 30,
+      "carryMax": 60,
+      "value": 20,
+      "health": 8000,
+      "seeds": 50,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 15,
+        "eatBomb": 10,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 15,
+        "freeze": 100,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 3,
+        "oatchiRush": 60,
+        "oatchiRushFreezeRatio": 2,
+        "pikminHit": 0,
+        "purpleHit": 100
+      },
+      "transform": {
+        "translation": {
+          "x": 980,
+          "y": -1040,
+          "z": 158.01546
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINGCHAPPY",
+      "name": "Emperor Bulblax",
+      "weight": 15,
+      "carryMax": 30,
+      "value": 15,
+      "health": 3000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 3,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 8,
+        "freeze": 60,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1.5,
+        "oatchiRush": 30,
+        "oatchiRushFreezeRatio": 3,
+        "pikminHit": 0,
+        "purpleHit": 40
+      },
+      "transform": {
+        "translation": {
+          "x": 2200,
+          "y": 190,
+          "z": 269.99966
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINGCHAPPY",
+      "name": "Emperor Bulblax",
+      "weight": 15,
+      "carryMax": 30,
+      "value": 15,
+      "health": 3000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 3,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 8,
+        "freeze": 60,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1.5,
+        "oatchiRush": 30,
+        "oatchiRushFreezeRatio": 3,
+        "pikminHit": 0,
+        "purpleHit": 40
+      },
+      "transform": {
+        "translation": {
+          "x": -560,
+          "y": 1370,
+          "z": 109.99986
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINGCHAPPY",
+      "name": "Emperor Bulblax",
+      "weight": 15,
+      "carryMax": 30,
+      "value": 15,
+      "health": 3000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 3,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 8,
+        "freeze": 60,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1.5,
+        "oatchiRush": 30,
+        "oatchiRushFreezeRatio": 3,
+        "pikminHit": 0,
+        "purpleHit": 40
+      },
+      "transform": {
+        "translation": {
+          "x": 1860,
+          "y": -650,
+          "z": 140.2497
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TOBIKABURI",
+      "name": "Flighty Joustmite",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 5,
+      "health": 600,
+      "seeds": 8,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 2.66,
+        "oatchiRushFreezeRatio": 2.66,
+        "pikminHit": 0,
+        "purpleHit": 5
+      },
+      "transform": {
+        "translation": {
+          "x": -1260,
+          "y": 980,
+          "z": 396
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TOBIKABURI",
+      "name": "Flighty Joustmite",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 5,
+      "health": 600,
+      "seeds": 8,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 2.66,
+        "oatchiRushFreezeRatio": 2.66,
+        "pikminHit": 0,
+        "purpleHit": 5
+      },
+      "transform": {
+        "translation": {
+          "x": 360,
+          "y": 610,
+          "z": 544.39746
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKAJIOKOSHI",
+      "name": "Moldy Slooch",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 1,
+        "eatIceBomb": 1,
+        "eatPoison": 0,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 7.5,
+        "purpleHit": 3
+      },
+      "transform": {
+        "translation": {
+          "x": 1068,
+          "y": -580,
+          "z": 76.01546
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKAJIOKOSHI",
+      "name": "Moldy Slooch",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 1,
+        "eatIceBomb": 1,
+        "eatPoison": 0,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 7.5,
+        "purpleHit": 3
+      },
+      "transform": {
+        "translation": {
+          "x": 2518,
+          "y": 1230,
+          "z": 185.90216
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "BIKKURIKINOKO",
+      "name": "Startle Spore",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 12,
+      "health": 2000,
+      "seeds": 12,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "transform": {
+        "translation": {
+          "x": 490,
+          "y": 1980,
+          "z": 81.99992
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TOBIKABURI",
+      "name": "Flighty Joustmite",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 5,
+      "health": 600,
+      "seeds": 8,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 2.66,
+        "oatchiRushFreezeRatio": 2.66,
+        "pikminHit": 0,
+        "purpleHit": 5
+      },
+      "transform": {
+        "translation": {
+          "x": -1020,
+          "y": 980,
+          "z": 396
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 936,
+          "y": 166,
+          "z": 62.015457
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 1136,
+          "y": 226,
+          "z": 62.015457
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "BIKKURIKINOKO",
+      "name": "Startle Spore",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 12,
+      "health": 2000,
+      "seeds": 12,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "transform": {
+        "translation": {
+          "x": 1690,
+          "y": 3410,
+          "z": 182.30846
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "BIKKURIKINOKO",
+      "name": "Startle Spore",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 12,
+      "health": 2000,
+      "seeds": 12,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "transform": {
+        "translation": {
+          "x": 1740,
+          "y": 2930,
+          "z": 192.00012
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TENTENCHAPPY",
+      "name": "Orange Bulborb",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 12,
+      "health": 1800,
+      "seeds": 12,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 1.5,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "transform": {
+        "translation": {
+          "x": -430,
+          "y": 1990,
+          "z": 89.99992
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 1606,
+          "y": -794,
+          "z": 92.17499
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 1506,
+          "y": -834,
+          "z": 92.215096
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 2326,
+          "y": 1116,
+          "z": 177.13443
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TENTENCHAPPY",
+      "name": "Orange Bulborb",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 12,
+      "health": 1800,
+      "seeds": 12,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 1.5,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "transform": {
+        "translation": {
+          "x": 2100,
+          "y": -920,
+          "z": 120.24968
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TENTENCHAPPY",
+      "name": "Orange Bulborb",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 12,
+      "health": 1800,
+      "seeds": 12,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 1.5,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "transform": {
+        "translation": {
+          "x": 290,
+          "y": -1080,
+          "z": 90.01546
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "HARI",
+      "name": "Porquillion",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 12,
+      "health": 5000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "Boss",
+        "amount": 5,
+        "honeyChance": 0.7
+      },
+      "damageInfo": {
+        "bomb": 3,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 25,
+        "oatchiRushFreezeRatio": 3.4,
+        "pikminHit": 0,
+        "purpleHit": 30
+      },
+      "transform": {
+        "translation": {
+          "x": 510,
+          "y": 3120,
+          "z": 151.95789
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "THROWEATER",
+      "name": "Grubchucker",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 12,
+      "health": 5000,
+      "seeds": 15,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 3,
+        "eatBomb": 0,
+        "eatFreeze": 4.5,
+        "eatIceBomb": 0,
+        "eatPoison": 3,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 20,
+        "oatchiRushFreezeRatio": 2.72,
+        "pikminHit": 0,
+        "purpleHit": 30
+      },
+      "transform": {
+        "translation": {
+          "x": 1104,
+          "y": 2358,
+          "z": 114
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TENTENCHAPPY",
+      "name": "Orange Bulborb",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 12,
+      "health": 1800,
+      "seeds": 12,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 1.5,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "transform": {
+        "translation": {
+          "x": -430,
+          "y": 1690,
+          "z": 89.99992
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TENTENCHAPPY",
+      "name": "Orange Bulborb",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 12,
+      "health": 1800,
+      "seeds": 12,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 1.5,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "transform": {
+        "translation": {
+          "x": 2600,
+          "y": 1310,
+          "z": 199.77217
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKAJIOKOSHI",
+      "name": "Moldy Slooch",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 1,
+        "eatIceBomb": 1,
+        "eatPoison": 0,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 7.5,
+        "purpleHit": 3
+      },
+      "transform": {
+        "translation": {
+          "x": 868,
+          "y": -420,
+          "z": 76.01546
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMAKOCHAPPY",
+      "name": "Dwarf Bulbear",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 3,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -1972,
+          "y": -2943,
+          "z": 114.13043
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMAKOCHAPPY",
+      "name": "Dwarf Bulbear",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 3,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -1897,
+          "y": -2864,
+          "z": 112.672485
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMAKOCHAPPY",
+      "name": "Dwarf Bulbear",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 3,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -1825,
+          "y": -2939,
+          "z": 114.12518
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMAKOCHAPPY",
+      "name": "Dwarf Bulbear",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 3,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -2432,
+          "y": -973,
+          "z": 68.12062
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMAKOCHAPPY",
+      "name": "Dwarf Bulbear",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 3,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -2469,
+          "y": -1122,
+          "z": 70.210144
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMAKOCHAPPY",
+      "name": "Dwarf Bulbear",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 3,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -2265,
+          "y": -1075,
+          "z": 66.40167
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMACHAPPY",
+      "name": "Spotty Bulbear",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 12,
+      "health": 1800,
+      "seeds": 15,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1.5,
+        "eatBomb": 1,
+        "eatFreeze": 4.5,
+        "eatIceBomb": 1,
+        "eatPoison": 3,
+        "freeze": 45,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 20,
+        "oatchiRushFreezeRatio": 4,
+        "pikminHit": 0,
+        "purpleHit": 20
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 1052.1768,
+          "y": 461.17825,
+          "z": 94.87449
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMACHAPPY",
+      "name": "Spotty Bulbear",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 12,
+      "health": 1800,
+      "seeds": 15,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1.5,
+        "eatBomb": 1,
+        "eatFreeze": 4.5,
+        "eatIceBomb": 1,
+        "eatPoison": 3,
+        "freeze": 45,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 20,
+        "oatchiRushFreezeRatio": 4,
+        "pikminHit": 0,
+        "purpleHit": 20
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -727.75323,
+          "y": -41.864693,
+          "z": 335.2666
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMACHAPPY",
+      "name": "Spotty Bulbear",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 12,
+      "health": 1800,
+      "seeds": 15,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1.5,
+        "eatBomb": 1,
+        "eatFreeze": 4.5,
+        "eatIceBomb": 1,
+        "eatPoison": 3,
+        "freeze": 45,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 20,
+        "oatchiRushFreezeRatio": 4,
+        "pikminHit": 0,
+        "purpleHit": 20
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -3048.3281,
+          "y": -2293.68,
+          "z": 94.99991
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMAKOCHAPPY",
+      "name": "Dwarf Bulbear",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 3,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 996.3059,
+          "y": 385.92963,
+          "z": 64.95181
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMAKOCHAPPY",
+      "name": "Dwarf Bulbear",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 3,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 971.3085,
+          "y": 488.16882,
+          "z": 67.44229
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMACHAPPY",
+      "name": "Spotty Bulbear",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 12,
+      "health": 1800,
+      "seeds": 15,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1.5,
+        "eatBomb": 1,
+        "eatFreeze": 4.5,
+        "eatIceBomb": 1,
+        "eatPoison": 3,
+        "freeze": 45,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 20,
+        "oatchiRushFreezeRatio": 4,
+        "pikminHit": 0,
+        "purpleHit": 20
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -2310.5842,
+          "y": -1237.3638,
+          "z": 95.00012
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "DODORO",
+      "name": "Smoky Progg",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 5000,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 60,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 1.5,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 50
+      },
+      "transform": {
+        "translation": {
+          "x": 298.5987,
+          "y": -448.64835,
+          "z": 276.01834
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KUMAKOCHAPPY",
+      "name": "Dwarf Bulbear",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 3,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 924.1771,
+          "y": 459.8028,
+          "z": 66.9978
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINGCHAPPY",
+      "name": "Emperor Bulblax",
+      "weight": 15,
+      "carryMax": 30,
+      "value": 15,
+      "health": 3000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 3,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 8,
+        "freeze": 60,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1.5,
+        "oatchiRush": 30,
+        "oatchiRushFreezeRatio": 3,
+        "pikminHit": 0,
+        "purpleHit": 40
+      },
+      "transform": {
+        "translation": {
+          "x": -1701,
+          "y": 1674,
+          "z": 107.52892
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -3420,
+          "y": -1949,
+          "z": 61.99845
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -3548,
+          "y": -2046,
+          "z": 59.948074
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINGCHAPPY",
+      "name": "Emperor Bulblax",
+      "weight": 15,
+      "carryMax": 30,
+      "value": 15,
+      "health": 3000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 3,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 8,
+        "freeze": 60,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1.5,
+        "oatchiRush": 30,
+        "oatchiRushFreezeRatio": 3,
+        "pikminHit": 0,
+        "purpleHit": 40
+      },
+      "transform": {
+        "translation": {
+          "x": -2369,
+          "y": 1434,
+          "z": 109.203995
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKAJIOKOSHI",
+      "name": "Moldy Slooch",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 1,
+        "eatIceBomb": 1,
+        "eatPoison": 0,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 7.5,
+        "purpleHit": 3
+      },
+      "transform": {
+        "translation": {
+          "x": -1692.559,
+          "y": -1784.4938,
+          "z": 76.010315
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKAJIOKOSHI",
+      "name": "Moldy Slooch",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 1,
+        "eatIceBomb": 1,
+        "eatPoison": 0,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 7.5,
+        "purpleHit": 3
+      },
+      "transform": {
+        "translation": {
+          "x": -1535.6514,
+          "y": -1607.4791,
+          "z": 102.243996
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -969,
+          "y": -192,
+          "z": 302.1
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -880,
+          "y": -509,
+          "z": 302.0974
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -1059,
+          "y": -452,
+          "z": 302.09436
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "DODORO",
+      "name": "Smoky Progg",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 5000,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 60,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 1.5,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 50
+      },
+      "transform": {
+        "translation": {
+          "x": -1061.2549,
+          "y": 1613.1127,
+          "z": 285.99915
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINGCHAPPY",
+      "name": "Emperor Bulblax",
+      "weight": 15,
+      "carryMax": 30,
+      "value": 15,
+      "health": 3000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 3,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 8,
+        "freeze": 60,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1.5,
+        "oatchiRush": 30,
+        "oatchiRushFreezeRatio": 3,
+        "pikminHit": 0,
+        "purpleHit": 40
+      },
+      "transform": {
+        "translation": {
+          "x": -1103,
+          "y": -893,
+          "z": 358.36914
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKAJIOKOSHI",
+      "name": "Moldy Slooch",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 1,
+        "eatIceBomb": 1,
+        "eatPoison": 0,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 7.5,
+        "purpleHit": 3
+      },
+      "transform": {
+        "translation": {
+          "x": -605.15216,
+          "y": -2091.7742,
+          "z": 276.79797
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKAJIOKOSHI",
+      "name": "Moldy Slooch",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 1,
+        "eatIceBomb": 1,
+        "eatPoison": 0,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 7.5,
+        "purpleHit": 3
+      },
+      "transform": {
+        "translation": {
+          "x": -823.04736,
+          "y": -1939.2025,
+          "z": 276.39868
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -3500.8423,
+          "y": 1034.7814,
+          "z": 62.057514
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -3467.0251,
+          "y": 877.77985,
+          "z": 62.14817
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -2652.7947,
+          "y": 1712.9171,
+          "z": 63.354538
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -2618.9778,
+          "y": 1555.9154,
+          "z": 62
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -2554.007,
+          "y": 1666.8514,
+          "z": 62
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKAJIOKOSHI",
+      "name": "Moldy Slooch",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 1,
+        "eatIceBomb": 1,
+        "eatPoison": 0,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 7.5,
+        "purpleHit": 3
+      },
+      "transform": {
+        "translation": {
+          "x": -2436.7554,
+          "y": -43.850773,
+          "z": 77.84866
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 2306,
+          "y": -1864,
+          "z": 317.3445
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 2306,
+          "y": -1714,
+          "z": 298.56564
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 2475,
+          "y": -1785,
+          "z": 347.56628
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -1109,
+          "y": -1105,
+          "z": 288.94733
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -1058,
+          "y": -1374,
+          "z": 262.39954
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -3704,
+          "y": -1016,
+          "z": 61.99652
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "HAGEDAMAGUMO",
+      "name": "Baldy Long Legs",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 3700,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "Boss",
+        "amount": 5,
+        "honeyChance": 0.7
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 45,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 1.5,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 40
+      },
+      "transform": {
+        "translation": {
+          "x": 521,
+          "y": -2982,
+          "z": 396.29297
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "HAGEDAMAGUMO",
+      "name": "Baldy Long Legs",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 3700,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "Boss",
+        "amount": 5,
+        "honeyChance": 0.7
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 45,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 1.5,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 40
+      },
+      "transform": {
+        "translation": {
+          "x": 521,
+          "y": -2944,
+          "z": 396.29297
+        }
+      }
+    }
+  ]
+}

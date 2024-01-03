@@ -1,0 +1,288 @@
+{
+  "cave-exit": [
+    {
+      "type": "cave-exit",
+      "infoType": "cave",
+      "toMapId": "Area004",
+      "toPortalId": 54,
+      "transform": {
+        "translation": {
+          "x": -1207.7421,
+          "y": -796.13464,
+          "z": 50.00013
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 395,
+      "transform": {
+        "translation": {
+          "x": -1213.5,
+          "y": -543.5,
+          "z": 49
+        },
+        "rotation": 45
+      }
+    },
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 395,
+      "transform": {
+        "translation": {
+          "x": 388.5,
+          "y": 543.5,
+          "z": 50
+        },
+        "rotation": -135
+      }
+    }
+  ],
+  "gate-dirt": [
+    {
+      "type": "gate-dirt",
+      "infoType": "gate",
+      "width": 270,
+      "health": 46667,
+      "transform": {
+        "translation": {
+          "x": 277.071,
+          "y": -527.07104,
+          "z": 80.150116
+        },
+        "rotation": 135
+      }
+    },
+    {
+      "type": "gate-dirt",
+      "infoType": "gate",
+      "width": 270,
+      "health": 23333,
+      "transform": {
+        "translation": {
+          "x": -1060,
+          "y": 145,
+          "z": 82.48268
+        },
+        "rotation": -67.5
+      }
+    },
+    {
+      "type": "gate-dirt",
+      "infoType": "gate",
+      "width": 270,
+      "health": 11667,
+      "transform": {
+        "translation": {
+          "x": -47.071014,
+          "y": 557.6729,
+          "z": 80
+        },
+        "rotation": -155.5
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 1110,
+          "y": -2.49942,
+          "z": 0.00010061264
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAGCCONWB",
+      "name": "Winged Freedom Sculpture",
+      "weight": 20,
+      "carryMax": 40,
+      "value": 300,
+      "transform": {
+        "translation": {
+          "x": 372.27206,
+          "y": 780.2721,
+          "z": 83.667595
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "DAMAGUMOCANNON",
+      "name": "Man-at-Legs",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 5000,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 8,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 60,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 1.5,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 50
+      },
+      "drops": [
+        {
+          "type": "castaway-normal",
+          "infoType": "castaway",
+          "isLeafling": false,
+          "isKoppaite": false,
+          "weight": 3,
+          "carryMax": 6,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 15,
+          "max": 15
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -409.99963,
+          "y": -2.499237,
+          "z": 148.34691
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": true,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 3,
+          "max": 3
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 10,
+          "max": 10
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 374.0086,
+          "y": -788.8265,
+          "z": 78.3
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -1187.1428,
+          "y": 729.95355,
+          "z": 65.600006
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -1187.9067,
+          "y": 765.68896,
+          "z": 65.600006
+        }
+      }
+    }
+  ]
+}

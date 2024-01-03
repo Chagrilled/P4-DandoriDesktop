@@ -1,0 +1,543 @@
+{
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 10,
+      "transform": {
+        "translation": {
+          "x": 89.56979,
+          "y": -255.794,
+          "z": 50.00001
+        }
+      }
+    }
+  ],
+  "cave-exit": [
+    {
+      "type": "cave-exit",
+      "infoType": "cave",
+      "toMapId": "Area001",
+      "toPortalId": 4,
+      "transform": {
+        "translation": {
+          "x": 552,
+          "y": -1054.0544,
+          "z": 49.48746
+        }
+      }
+    }
+  ],
+  "castaway-normal": [
+    {
+      "type": "castaway-normal",
+      "infoType": "castaway",
+      "isLeafling": false,
+      "isKoppaite": false,
+      "weight": 3,
+      "carryMax": 6,
+      "transform": {
+        "translation": {
+          "x": 549.70557,
+          "y": -741.635,
+          "z": 65
+        }
+      }
+    }
+  ],
+  "breakable-pot": [
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 830.9091,
+          "y": 289.47336,
+          "z": 49.999916
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 892.6327,
+          "y": 267.3994,
+          "z": 50.0001
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 771.84,
+          "y": 263.57895,
+          "z": 50.0001
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 2,
+          "max": 2
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 113.653145,
+          "y": 449.61688,
+          "z": 49.99961
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -549.10596,
+          "y": 377.52634,
+          "z": -0.00020599365
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -613.6663,
+          "y": 392.71823,
+          "z": -1.0930405
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -331.1454,
+          "y": -258.43457,
+          "z": 0.06304009
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -377.6948,
+          "y": -296.64227,
+          "z": 0.0010659198
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -485.53378,
+          "y": 393,
+          "z": 0.00019073486
+        }
+      }
+    }
+  ],
+  "shortcut-pushbag": [
+    {
+      "type": "shortcut-pushbag",
+      "infoType": "shortcut",
+      "weight": 10,
+      "transform": {
+        "translation": {
+          "x": 44.323334,
+          "y": 1,
+          "z": 100.2501
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "breakable-hydrojelly": [
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 2,
+          "max": 2
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 493.5,
+          "y": -445.5,
+          "z": 78
+        }
+      }
+    },
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 579.5,
+          "y": -414.5,
+          "z": 105
+        }
+      }
+    }
+  ],
+  "pikmin-ice": [
+    {
+      "type": "pikmin-ice",
+      "infoType": "pikmin",
+      "color": "ice",
+      "state": "fighting",
+      "amount": 5,
+      "disappearsAt": 51,
+      "replacedBy": "candypop-ice",
+      "candypopOffset": {
+        "X": 1000,
+        "Y": -1000,
+        "Z": 0
+      },
+      "transform": {
+        "translation": {
+          "x": -229.5,
+          "y": 964.5,
+          "z": 50.00009
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAPAINTSAQU",
+      "name": "Refreshing Goo",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 80,
+      "transform": {
+        "translation": {
+          "x": 740.8137,
+          "y": -201.54724,
+          "z": 58.542595
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTACOMPASS",
+      "name": "Director of Destiny",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": -698.86346,
+          "y": 164.1148,
+          "z": 65.908
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -560.31915,
+          "y": -709.537,
+          "z": 0.000099897385
+        }
+      }
+    }
+  ],
+  "onion-flarlic": [
+    {
+      "type": "onion-flarlic",
+      "infoType": "onion",
+      "color": "flarlic",
+      "weight": 5,
+      "transform": {
+        "translation": {
+          "x": 766.5228,
+          "y": 522.6247,
+          "z": 76.12547
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "UJINKOA",
+      "name": "Female Sheargrub",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 45,
+      "seeds": 1,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -555.59155,
+          "y": -5.346924,
+          "z": 7.2499924
+        }
+      },
+      "spawnNum": 3
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "UJINKOB",
+      "name": "Male Sheargrub",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 45,
+      "seeds": 2,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 379.3936,
+          "y": 48.23298,
+          "z": 57.25
+        }
+      },
+      "spawnNum": 2
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ICETANK",
+      "name": "Snowy Blowhog",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 5,
+      "health": 1000,
+      "seeds": 5,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -121.5,
+          "y": 996.5,
+          "z": 74
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "UJINKOA",
+      "name": "Female Sheargrub",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 45,
+      "seeds": 1,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 315.0538,
+          "y": 181.79477,
+          "z": 57.25
+        }
+      }
+    }
+  ],
+  "misc-groupdropmanager": [
+    {
+      "type": "misc-groupdropmanager",
+      "infoType": "misc",
+      "ignoreIds": [
+        "Kochappy",
+        "Mush"
+      ],
+      "radius": 125,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -374.16232,
+          "y": -264.78314,
+          "z": 0.104325
+        }
+      }
+    },
+    {
+      "type": "misc-groupdropmanager",
+      "infoType": "misc",
+      "ignoreIds": [
+        "Kochappy",
+        "Mush",
+        "CrackPotL",
+        "CrackPotS"
+      ],
+      "radius": 120,
+      "drops": [
+        {
+          "type": "pikmin-ice",
+          "infoType": "pikmin",
+          "color": "ice",
+          "state": "idle",
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 817.2479,
+          "y": 251.11688,
+          "z": 50.0001
+        }
+      }
+    },
+    {
+      "type": "misc-groupdropmanager",
+      "infoType": "misc",
+      "ignoreIds": [
+        "Kochappy",
+        "Mush"
+      ],
+      "radius": 69.201416,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 2,
+          "max": 2
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -600.3122,
+          "y": 416.39087,
+          "z": 0.000102996826
+        }
+      }
+    }
+  ]
+}

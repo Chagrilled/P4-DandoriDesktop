@@ -1,0 +1,90 @@
+{
+  "cave-exit": [
+    {
+      "type": "cave-exit",
+      "infoType": "cave",
+      "toMapId": "Area006",
+      "toPortalId": 52,
+      "transform": {
+        "translation": {
+          "x": -205.08919,
+          "y": -1033.1902,
+          "z": 0.0001001358
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 0,
+          "y": -912.5,
+          "z": 0.0001001358
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "BOSSINU",
+      "name": "Ancient Sirehound",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 9000,
+      "seeds": 0,
+      "damageInfo": {
+        "bomb": 20,
+        "eatBomb": 10,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 20,
+        "freeze": 150,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 3,
+        "oatchiRush": 70,
+        "oatchiRushFreezeRatio": 2,
+        "pikminHit": 0,
+        "purpleHit": 100
+      },
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTACOLLAR",
+          "name": "Gift of Friendship",
+          "weight": 12,
+          "carryMax": 24,
+          "value": 80,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "castaway-normal",
+          "infoType": "castaway",
+          "isLeafling": false,
+          "isKoppaite": false,
+          "weight": 3,
+          "carryMax": 6,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 0,
+          "y": 408.4,
+          "z": 110
+        }
+      }
+    }
+  ]
+}

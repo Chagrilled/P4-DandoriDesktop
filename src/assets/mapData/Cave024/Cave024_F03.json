@@ -1,0 +1,671 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave024_F04",
+      "transform": {
+        "translation": {
+          "x": 1304.663,
+          "y": -1104.628,
+          "z": -24.99992
+        }
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 20,
+      "transform": {
+        "translation": {
+          "x": 14,
+          "y": -1307.5,
+          "z": -49.99991
+        }
+      }
+    }
+  ],
+  "switchable-conveyor": [
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": 823,
+          "y": 282.5,
+          "z": 0
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": 823,
+          "y": 547.5,
+          "z": 0
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": 275,
+          "y": 1097.5,
+          "z": 0
+        },
+        "rotation": -90
+      }
+    },
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": 1102,
+          "y": -826.5,
+          "z": -11
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": 549.18835,
+          "y": -1375.5,
+          "z": -39
+        },
+        "rotation": 90
+      }
+    },
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": -823,
+          "y": -7.5,
+          "z": -49
+        },
+        "rotation": -90
+      }
+    },
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": 5,
+          "y": -819.5,
+          "z": -53.000008
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": 5,
+          "y": -554.5,
+          "z": -68
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": -274,
+          "y": -554.5,
+          "z": -68
+        },
+        "rotation": -180
+      }
+    },
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": -274,
+          "y": -819.5,
+          "z": -55
+        },
+        "rotation": -180
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "KINKAISTATION",
+      "name": "Gold Nugget",
+      "amount": 15,
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "transform": {
+        "translation": {
+          "x": -1108.0581,
+          "y": 280.5,
+          "z": -24.9999
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTACASINOCHIP100",
+      "name": "Disk of Surprising Wisdom",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 100,
+      "transform": {
+        "translation": {
+          "x": -232,
+          "y": 1092.5,
+          "z": 1.5075912
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAPUZZLEH",
+      "name": "Memory Fragment (Right Edge)",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 50,
+      "transform": {
+        "translation": {
+          "x": -1371,
+          "y": 8.5,
+          "z": -22.286201
+        }
+      }
+    }
+  ],
+  "pikmin-wing": [
+    {
+      "type": "pikmin-wing",
+      "infoType": "pikmin",
+      "color": "wing",
+      "state": "idle",
+      "amount": 5,
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": 160.68677,
+          "y": -1248.8859,
+          "z": -49.9999
+        }
+      }
+    },
+    {
+      "type": "pikmin-wing",
+      "infoType": "pikmin",
+      "color": "wing",
+      "state": "idle",
+      "amount": 5,
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": 684,
+          "y": 964.5,
+          "z": 3.0001
+        }
+      }
+    }
+  ],
+  "structure-bridge": [
+    {
+      "type": "structure-bridge",
+      "infoType": "structure",
+      "materialsNeeded": 23,
+      "transform": {
+        "translation": {
+          "x": 419,
+          "y": -277.5,
+          "z": -74.99991
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "switchable-doubleswitch": [
+    {
+      "type": "switchable-doubleswitch",
+      "infoType": "switchable",
+      "switchId": "switch01",
+      "transform": {
+        "translation": {
+          "x": 228,
+          "y": -79.07477,
+          "z": -32.997253
+        },
+        "rotation": 180
+      }
+    }
+  ],
+  "ridable-geyser": [
+    {
+      "type": "ridable-geyser",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": 277,
+          "y": 364.5,
+          "z": -43
+        }
+      }
+    },
+    {
+      "type": "ridable-geyser",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": -275,
+          "y": 742.5,
+          "z": 32
+        }
+      }
+    },
+    {
+      "type": "ridable-geyser",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": -1027,
+          "y": -259.5,
+          "z": 7
+        }
+      }
+    }
+  ],
+  "candypop-white": [
+    {
+      "type": "candypop-white",
+      "infoType": "candypop",
+      "color": "white",
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": 827.9416,
+          "y": -1577.475,
+          "z": -25.000381
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 1090.4889,
+          "y": -344.0925,
+          "z": 0.000100016594
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KURAGE",
+      "name": "Lesser Spotted Jellyfloat",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 1500,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 0,
+        "eatIceBomb": 1,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 164,
+          "y": -1249.5002,
+          "z": -17.839909
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KURAGE",
+      "name": "Lesser Spotted Jellyfloat",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 1500,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 0,
+        "eatIceBomb": 1,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -149,
+          "y": -1227.5,
+          "z": -18
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KURAGE",
+      "name": "Lesser Spotted Jellyfloat",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 1500,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 0,
+        "eatIceBomb": 1,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 685.00024,
+          "y": 964.49963,
+          "z": 35.160095
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "FIREOTAKARA",
+      "name": "Fiery Dweevil",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 300,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 10,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -157,
+          "y": 1247.5,
+          "z": 24
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "FIREOTAKARA",
+      "name": "Fiery Dweevil",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 300,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 10,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -192,
+          "y": 929.5,
+          "z": 24
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "OOKURAGE",
+      "name": "Greater Spotted Jellyfloat",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 2500,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1.5,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 3,
+        "freeze": 60,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -39,
+          "y": -6.5,
+          "z": -21.590988
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -29,
+          "y": 1361.5,
+          "z": 15.6
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -3,
+          "y": 1396.5,
+          "z": 15.6
+        }
+      }
+    }
+  ]
+}

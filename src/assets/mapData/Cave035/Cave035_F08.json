@@ -1,0 +1,360 @@
+{
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -3.5,
+          "y": 385,
+          "z": 0.00009918213
+        }
+      }
+    }
+  ],
+  "pikmin-rock": [
+    {
+      "type": "pikmin-rock",
+      "infoType": "pikmin",
+      "color": "rock",
+      "state": "sprouts",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": -959,
+          "y": 497,
+          "z": -0.25302765
+        }
+      }
+    }
+  ],
+  "candypop-purple": [
+    {
+      "type": "candypop-purple",
+      "infoType": "candypop",
+      "color": "purple",
+      "transform": {
+        "translation": {
+          "x": 816,
+          "y": -968,
+          "z": 24.978127
+        }
+      }
+    },
+    {
+      "type": "candypop-purple",
+      "infoType": "candypop",
+      "color": "purple",
+      "transform": {
+        "translation": {
+          "x": -595,
+          "y": -939,
+          "z": 0.00010108948
+        }
+      }
+    },
+    {
+      "type": "candypop-purple",
+      "infoType": "candypop",
+      "color": "purple",
+      "transform": {
+        "translation": {
+          "x": 525,
+          "y": 406,
+          "z": -0.044628065
+        }
+      }
+    }
+  ],
+  "gate-crystal": [
+    {
+      "type": "gate-crystal",
+      "infoType": "gate",
+      "width": 175,
+      "health": 1120,
+      "transform": {
+        "translation": {
+          "x": -694,
+          "y": -682,
+          "z": 33.1
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "gate-crystal",
+      "infoType": "gate",
+      "width": 175,
+      "health": 1120,
+      "transform": {
+        "translation": {
+          "x": 277,
+          "y": 550,
+          "z": 30.150146
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "switchable-fencenormal": [
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": 137,
+          "y": -690,
+          "z": 0.00009536743
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "breakable-mound": [
+    {
+      "type": "breakable-mound",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -402,
+          "y": 1127,
+          "z": 21.200104
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "MITSUMOCHI",
+      "name": "Foolix",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 20,
+      "health": 12000,
+      "seeds": 30,
+      "freezeDrops": {
+        "bossType": "Boss",
+        "amount": 5,
+        "honeyChance": 0.7
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 5,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 10,
+        "freeze": 60,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 50
+      },
+      "transform": {
+        "translation": {
+          "x": 135,
+          "y": -1101,
+          "z": 91.31885
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "BIGUJINKO",
+      "name": "Mama Sheargrub",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 10,
+      "health": 1000,
+      "seeds": 10,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1.5,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": -825,
+          "y": 195,
+          "z": 30.150146
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "BIGUJINKO",
+      "name": "Mama Sheargrub",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 10,
+      "health": 1000,
+      "seeds": 10,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1.5,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": -405,
+          "y": -370,
+          "z": 30
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINGCHAPPY",
+      "name": "Emperor Bulblax",
+      "weight": 15,
+      "carryMax": 30,
+      "value": 15,
+      "health": 3000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 3,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 8,
+        "freeze": 60,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1.5,
+        "oatchiRush": 30,
+        "oatchiRushFreezeRatio": 3,
+        "pikminHit": 0,
+        "purpleHit": 40
+      },
+      "transform": {
+        "translation": {
+          "x": 119,
+          "y": -259,
+          "z": 60.30017
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "SNAKECROW",
+      "name": "Burrowing Snagret",
+      "weight": 15,
+      "carryMax": 30,
+      "value": 15,
+      "health": 2500,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "Boss",
+        "amount": 5,
+        "honeyChance": 0.7
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 3,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 8,
+        "freeze": 60,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 1.5,
+        "oatchiRush": 25,
+        "oatchiRushFreezeRatio": 3.4,
+        "pikminHit": 0,
+        "purpleHit": 30
+      },
+      "transform": {
+        "translation": {
+          "x": 963,
+          "y": -260,
+          "z": 109
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "HARI",
+      "name": "Porquillion",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 12,
+      "health": 5000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "Boss",
+        "amount": 5,
+        "honeyChance": 0.7
+      },
+      "damageInfo": {
+        "bomb": 3,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 25,
+        "oatchiRushFreezeRatio": 3.4,
+        "pikminHit": 0,
+        "purpleHit": 30
+      },
+      "transform": {
+        "translation": {
+          "x": -538.51904,
+          "y": 692.19116,
+          "z": 54
+        }
+      }
+    }
+  ]
+}

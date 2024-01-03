@@ -1,0 +1,178 @@
+{
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 1,
+      "transform": {
+        "translation": {
+          "x": 15.743088,
+          "y": 1367.7227,
+          "z": 280.0001
+        }
+      }
+    },
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 396.93466,
+          "y": -1021.6553,
+          "z": 250.00021
+        }
+      }
+    }
+  ],
+  "base-onion": [
+    {
+      "type": "base-onion",
+      "infoType": "base",
+      "baseId": 1,
+      "transform": {
+        "translation": {
+          "x": 611.1356,
+          "y": -1118.3147,
+          "z": 250.00021
+        }
+      }
+    },
+    {
+      "type": "base-onion",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 611.1356,
+          "y": -1118.3147,
+          "z": 250.00021
+        }
+      }
+    }
+  ],
+  "onion-red": [
+    {
+      "type": "onion-red",
+      "infoType": "onion",
+      "color": "red",
+      "weight": 3,
+      "transform": {
+        "translation": {
+          "x": -225.60611,
+          "y": -1719.027,
+          "z": 263.9663
+        }
+      }
+    }
+  ],
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave000_F00",
+      "toPortalId": 2,
+      "toBaseId": 0,
+      "transform": {
+        "translation": {
+          "x": 930,
+          "y": 625,
+          "z": 310.011
+        }
+      }
+    },
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "portalId": 2,
+      "toMapId": "Cave000_F00",
+      "toPortalId": 1,
+      "toBaseId": 1,
+      "transform": {
+        "translation": {
+          "x": 1230.5168,
+          "y": -424.98935,
+          "z": 298.33176
+        }
+      }
+    }
+  ],
+  "cave-challenge": [
+    {
+      "type": "cave-challenge",
+      "infoType": "cave",
+      "portalId": 3,
+      "transform": {
+        "translation": {
+          "x": 1252.5413,
+          "y": -1373.358,
+          "z": 252.11
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAHORNBELL",
+      "name": "Path Creator",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 100,
+      "transform": {
+        "translation": {
+          "x": -246,
+          "y": -559,
+          "z": 329.134
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAHIMEFORK",
+      "name": "Noble Bident",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 50,
+      "transform": {
+        "translation": {
+          "x": 938.81165,
+          "y": -1270.2954,
+          "z": 306.64877
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAGBASP",
+      "name": "Stone of Advancement",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 150,
+      "transform": {
+        "translation": {
+          "x": 169.47473,
+          "y": -1992.6018,
+          "z": 394.04263
+        }
+      }
+    }
+  ],
+  "shortcut-root": [
+    {
+      "type": "shortcut-root",
+      "infoType": "shortcut",
+      "transform": {
+        "translation": {
+          "x": -1052.5927,
+          "y": 1022.2104,
+          "z": 300.00034
+        },
+        "rotation": 60
+      }
+    }
+  ]
+}

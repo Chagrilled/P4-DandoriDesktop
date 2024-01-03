@@ -1,0 +1,723 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave022_F01",
+      "toPortalId": 2,
+      "toBaseId": 0,
+      "transform": {
+        "translation": {
+          "x": -414.53003,
+          "y": 654.50146,
+          "z": -74.4998
+        }
+      }
+    }
+  ],
+  "breakable-straw": [
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -460.52844,
+          "y": 404.50623,
+          "z": -74.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -406.06958,
+          "y": 368.62457,
+          "z": -74.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -364.55627,
+          "y": 421.4806,
+          "z": -74.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 281,
+          "y": 600,
+          "z": -74.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 261.10938,
+          "y": 551,
+          "z": -74.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 283,
+          "y": 502,
+          "z": -74.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 887.54944,
+          "y": 323.10822,
+          "z": -24.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 941.68256,
+          "y": 274.65314,
+          "z": -24.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 889.5239,
+          "y": 223.13562,
+          "z": -24.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -791.4374,
+          "y": -48.766235,
+          "z": -49.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 461.0417,
+          "y": -670.0665,
+          "z": -74.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 411.58673,
+          "y": -623.23236,
+          "z": -74.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 364.06915,
+          "y": -675.0408,
+          "z": -74.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -655.77435,
+          "y": -41.366486,
+          "z": -49.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -714.1802,
+          "y": 47.763214,
+          "z": -49.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -723.5165,
+          "y": -23.957016,
+          "z": -49.9999
+        }
+      }
+    }
+  ],
+  "cave-exit": [
+    {
+      "type": "cave-exit",
+      "infoType": "cave",
+      "portalId": 2,
+      "toMapId": "Area010",
+      "toPortalId": 56,
+      "disabledPikmin": {
+        "blue": true,
+        "yellow": true,
+        "rock": true,
+        "wing": true,
+        "purple": true,
+        "white": true,
+        "ice": true
+      },
+      "transform": {
+        "translation": {
+          "x": 1.2141113,
+          "y": 661.9595,
+          "z": -74.99981
+        }
+      }
+    }
+  ],
+  "hazardradial-floorfire": [
+    {
+      "type": "hazardradial-floorfire",
+      "infoType": "hazard",
+      "radius": 262.5,
+      "transform": {
+        "translation": {
+          "x": 459.94403,
+          "y": -257.7948,
+          "z": -76.301735
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floorfire",
+      "infoType": "hazard",
+      "radius": 262.5,
+      "transform": {
+        "translation": {
+          "x": -471.37378,
+          "y": -359.45792,
+          "z": -51.301365
+        }
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": 408.79004,
+          "y": 806.50555,
+          "z": -74.9999
+        }
+      }
+    }
+  ],
+  "switchable-fencenormal": [
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": 805.78375,
+          "y": -274,
+          "z": -74.9999
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAISOBEYAKI",
+      "name": "Deceptive Snack",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 40,
+      "transform": {
+        "translation": {
+          "x": 409.77893,
+          "y": -833.3529,
+          "z": -43.00006
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAPRETZEL",
+      "name": "Puzzle Snack",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": 958.6723,
+          "y": 46.806274,
+          "z": 38.070114
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAWAFFLE",
+      "name": "Cushion Cake",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": -346.95007,
+          "y": -388.14856,
+          "z": 63.517593
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTATAKOWIENER",
+      "name": "Octoplus",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 40,
+      "transform": {
+        "translation": {
+          "x": -1009,
+          "y": 33,
+          "z": -27.917969
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAFRUITSPICKORN",
+      "name": "Heroic Sword",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "transform": {
+        "translation": {
+          "x": -968,
+          "y": 1,
+          "z": -45.86828
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 0.343994,
+          "y": 661.9625,
+          "z": -74.9999
+        }
+      }
+    },
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 1,
+      "transform": {
+        "translation": {
+          "x": -410.40613,
+          "y": 643.794,
+          "z": -74.9999
+        }
+      }
+    }
+  ],
+  "firepit-lit": [
+    {
+      "type": "firepit-lit",
+      "infoType": "firepit",
+      "isLit": true,
+      "transform": {
+        "translation": {
+          "x": 449.1516,
+          "y": -251.15042,
+          "z": -76.299904
+        }
+      }
+    }
+  ],
+  "firepit-unlit": [
+    {
+      "type": "firepit-unlit",
+      "infoType": "firepit",
+      "isLit": false,
+      "transform": {
+        "translation": {
+          "x": 533.1516,
+          "y": 383.8496,
+          "z": -76.299904
+        }
+      }
+    },
+    {
+      "type": "firepit-unlit",
+      "infoType": "firepit",
+      "isLit": false,
+      "transform": {
+        "translation": {
+          "x": -153.15527,
+          "y": -16.009766,
+          "z": -51.299866
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "FIRECHAPPY",
+      "name": "Fiery Bulblax",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 12,
+      "health": 2000,
+      "seeds": 15,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1.5,
+        "eatBomb": 1,
+        "eatFreeze": 4.5,
+        "eatIceBomb": 1,
+        "eatPoison": 3,
+        "freeze": 45,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 20,
+        "oatchiRushFreezeRatio": 4,
+        "pikminHit": 0,
+        "purpleHit": 20
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 355.80902,
+          "y": -356.27213,
+          "z": -32.301613
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TOBIKABURI",
+      "name": "Flighty Joustmite",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 5,
+      "health": 600,
+      "seeds": 8,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 2.66,
+        "oatchiRushFreezeRatio": 2.66,
+        "pikminHit": 0,
+        "purpleHit": 5
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -114.217896,
+          "y": -284.28333,
+          "z": -21.859905
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KAJIOKOSHI",
+      "name": "Pyroclasmic Slooch",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 1,
+        "eatIceBomb": 1,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 0,
+        "purpleHit": 3
+      },
+      "transform": {
+        "translation": {
+          "x": -426.78632,
+          "y": -280.37994,
+          "z": -21.30112
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KAJIOKOSHI",
+      "name": "Pyroclasmic Slooch",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 1,
+        "eatIceBomb": 1,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 0,
+        "purpleHit": 3
+      },
+      "transform": {
+        "translation": {
+          "x": -520.6166,
+          "y": -465.16663,
+          "z": -21.30112
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KOGANE",
+      "name": "Iridescent Flint Beetle",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 200,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 1,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 3,
+          "max": 3
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 7,
+          "max": 7
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 10,
+          "max": 10
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -414,
+          "y": -761,
+          "z": -32
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 691.92957,
+          "y": 539.3198,
+          "z": -60
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 657.63306,
+          "y": 571.7182,
+          "z": -60
+        }
+      }
+    }
+  ]
+}

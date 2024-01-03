@@ -1,0 +1,990 @@
+{
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "KINKAISTATION",
+      "name": "Gold Nugget",
+      "amount": 50,
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "transform": {
+        "translation": {
+          "x": 252,
+          "y": -1046,
+          "z": 0.8829384
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "KINKAISTATION",
+      "name": "Gold Nugget",
+      "amount": 39,
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "transform": {
+        "translation": {
+          "x": 1049.7476,
+          "y": -392.03418,
+          "z": 25.000097
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "KINKAISTATION",
+      "name": "Gold Nugget",
+      "amount": 50,
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "transform": {
+        "translation": {
+          "x": -693,
+          "y": 923.7894,
+          "z": -0.160789
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAWHISTLE",
+      "name": "Emperor Whistle",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 80,
+      "transform": {
+        "translation": {
+          "x": 722,
+          "y": -1204,
+          "z": 36.2402
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAWHISTLE",
+      "name": "Emperor Whistle",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 80,
+      "transform": {
+        "translation": {
+          "x": 639,
+          "y": -1170,
+          "z": 36.240204
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTASMALLBELL",
+      "name": "Spouse Alert",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 70,
+      "transform": {
+        "translation": {
+          "x": -975,
+          "y": -464,
+          "z": 17.280201
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTASMALLBELL",
+      "name": "Spouse Alert",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 70,
+      "transform": {
+        "translation": {
+          "x": -813,
+          "y": -316,
+          "z": 17.085098
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTASMALLBELL",
+      "name": "Spouse Alert",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 70,
+      "transform": {
+        "translation": {
+          "x": -860,
+          "y": -516,
+          "z": 17.085098
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAOCARINABRN",
+      "name": "Ambiguous Hostel",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 150,
+      "transform": {
+        "translation": {
+          "x": -539,
+          "y": 832,
+          "z": 10.021754
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAHANDBELL",
+      "name": "Time Marker",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 180,
+      "transform": {
+        "translation": {
+          "x": -412,
+          "y": 1055,
+          "z": 82.400215
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAHORNBELL",
+      "name": "Path Creator",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 100,
+      "transform": {
+        "translation": {
+          "x": 945,
+          "y": -1080,
+          "z": 48.84543
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTACASTANETS",
+      "name": "Harmonic Synthesizer",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": -826.81775,
+          "y": 109.78015,
+          "z": 0.0906883
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAHARMONICA",
+      "name": "Wind Detector",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": 1324.5155,
+          "y": -275.18372,
+          "z": 34.045097
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAHORNBELL",
+      "name": "Path Creator",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 100,
+      "transform": {
+        "translation": {
+          "x": 446,
+          "y": -909,
+          "z": 23.902763
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAOCARINABRN",
+      "name": "Ambiguous Hostel",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 150,
+      "transform": {
+        "translation": {
+          "x": 374.72345,
+          "y": -822.6375,
+          "z": 18.51294
+        }
+      }
+    }
+  ],
+  "switchable-doubleswitch": [
+    {
+      "type": "switchable-doubleswitch",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": -4,
+          "y": 580,
+          "z": 32
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "hazardradial-floormushroom": [
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": true,
+      "radius": -1,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -553,
+          "y": 693,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": true,
+      "radius": -1,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 963,
+          "y": -272,
+          "z": 41.080097
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 142,
+          "y": -1100,
+          "z": 14.922775
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": -73,
+          "y": -1330,
+          "z": 16.108887
+        }
+      }
+    }
+  ],
+  "breakable-spotcappoison": [
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -668,
+          "y": 679,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -511,
+          "y": 580,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -627,
+          "y": 760,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1059,
+          "y": -198,
+          "z": 41
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 817,
+          "y": -337,
+          "z": 41
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 1003,
+          "y": -128,
+          "z": 41
+        }
+      }
+    }
+  ],
+  "breakable-crystal": [
+    {
+      "type": "breakable-crystal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 560,
+          "y": 517,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-crystal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 473,
+          "y": 330,
+          "z": 16
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "switchId": "switch00",
+      "width": 170,
+      "transform": {
+        "translation": {
+          "x": -271.00073,
+          "y": -345.0055,
+          "z": 0
+        },
+        "rotation": -90
+      }
+    },
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "switchId": "switch00",
+      "width": 170,
+      "transform": {
+        "translation": {
+          "x": -277,
+          "y": 481,
+          "z": 2
+        },
+        "rotation": -90
+      }
+    },
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "switchId": "switch00",
+      "width": 170,
+      "transform": {
+        "translation": {
+          "x": 65.00037,
+          "y": -692.9994,
+          "z": 0
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "switchId": "switch00",
+      "width": 170,
+      "transform": {
+        "translation": {
+          "x": 66.99927,
+          "y": 133.9945,
+          "z": 0
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "switchId": "switch00",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": 904.99927,
+          "y": -701.0055,
+          "z": 25.000097
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "switchId": "switch00",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": 545.99927,
+          "y": -333.0055,
+          "z": 26.000097
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "candypop-white": [
+    {
+      "type": "candypop-white",
+      "infoType": "candypop",
+      "color": "white",
+      "transform": {
+        "translation": {
+          "x": 773,
+          "y": -810,
+          "z": 24.978127
+        }
+      }
+    },
+    {
+      "type": "candypop-white",
+      "infoType": "candypop",
+      "color": "white",
+      "transform": {
+        "translation": {
+          "x": 671,
+          "y": -889,
+          "z": 24.887217
+        }
+      }
+    }
+  ],
+  "breakable-spotcapnormal": [
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 231,
+          "y": -1222,
+          "z": 18
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 266,
+          "y": -1179,
+          "z": 19.290874
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 156,
+          "y": -940,
+          "z": 18.050186
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 40,
+          "y": -1104,
+          "z": 16.29142
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 75,
+          "y": -1211,
+          "z": 17.460983
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -49,
+          "y": -1368,
+          "z": 17.963135
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -106,
+          "y": -1360,
+          "z": 18
+        }
+      }
+    }
+  ],
+  "switchable-fencenormal": [
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": 546,
+          "y": -1100,
+          "z": 25.46574
+        },
+        "rotation": -90
+      }
+    },
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": -961,
+          "y": 410,
+          "z": 0.0001001358
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 137.5,
+          "y": -275,
+          "z": 0.00009918213
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "IWAKKO",
+      "name": "Skutterchuck",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 488,
+          "y": 460,
+          "z": 20
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKAJIOKOSHI",
+      "name": "Moldy Slooch",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 1,
+        "eatIceBomb": 1,
+        "eatPoison": 0,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.4,
+        "oatchiRushFreezeRatio": 1.4,
+        "pikminHit": 7.5,
+        "purpleHit": 3
+      },
+      "transform": {
+        "translation": {
+          "x": -497,
+          "y": 670,
+          "z": 26
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "IWAKKO",
+      "name": "Skutterchuck",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 597,
+          "y": 350,
+          "z": 20
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KABURI",
+      "name": "Joustmite",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 5,
+      "health": 450,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 15,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 2.66,
+        "oatchiRushFreezeRatio": 2.66,
+        "pikminHit": 0,
+        "purpleHit": 5
+      },
+      "transform": {
+        "translation": {
+          "x": -576,
+          "y": -963,
+          "z": 28
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 867,
+          "y": -178,
+          "z": 37
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KINOKOCHAPPY",
+      "name": "Moldy Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 150,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 3,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 7.5,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": 952,
+          "y": -333,
+          "z": 37
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "FUTAKUCHI",
+      "name": "Armored Cannon Larva",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 900,
+      "seeds": 8,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 7,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": 141,
+          "y": -1441,
+          "z": 12
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -1086,
+          "y": -244,
+          "z": 14.600099
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -1084,
+          "y": -297,
+          "z": 14.600099
+        }
+      }
+    }
+  ]
+}

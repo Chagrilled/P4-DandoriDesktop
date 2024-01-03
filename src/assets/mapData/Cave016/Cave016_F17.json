@@ -1,0 +1,210 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave016_F18",
+      "transform": {
+        "translation": {
+          "x": 2.8875122,
+          "y": 1409.2179,
+          "z": 25.000107
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": 59.046722,
+          "y": 1010.00476,
+          "z": 25.000097
+        },
+        "rotation": 180
+      }
+    }
+  ],
+  "candypop-blue": [
+    {
+      "type": "candypop-blue",
+      "infoType": "candypop",
+      "color": "blue",
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": 202.86017,
+          "y": -1013.9739,
+          "z": 24.99952
+        }
+      }
+    },
+    {
+      "type": "candypop-blue",
+      "infoType": "candypop",
+      "color": "blue",
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": -157.83795,
+          "y": -803.9182,
+          "z": 25.0001
+        }
+      }
+    },
+    {
+      "type": "candypop-blue",
+      "infoType": "candypop",
+      "color": "blue",
+      "disappearsAt": 51,
+      "replacedBy": "GEgg_C",
+      "transform": {
+        "translation": {
+          "x": 803.26135,
+          "y": 129.32959,
+          "z": 25.0001
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 0.519348,
+          "y": -1162.4342,
+          "z": 25.000093
+        }
+      }
+    }
+  ],
+  "water-water": [
+    {
+      "type": "water-water",
+      "infoType": "water",
+      "normal": {
+        "amountToFreeze": 50
+      },
+      "transform": {
+        "translation": {
+          "x": -28.074768,
+          "y": 153.77588,
+          "z": -35
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": true,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 3,
+          "max": 3
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 10,
+          "max": 10
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -356.98666,
+          "y": -962.2843,
+          "z": 53.3
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "BIGKINGCHAPPY",
+      "name": "Sovereign Bulblax",
+      "weight": 30,
+      "carryMax": 60,
+      "value": 20,
+      "health": 8000,
+      "seeds": 50,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 15,
+        "eatBomb": 10,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 15,
+        "freeze": 100,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 3,
+        "oatchiRush": 60,
+        "oatchiRushFreezeRatio": 2,
+        "pikminHit": 0,
+        "purpleHit": 100
+      },
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTASHUTTERGLASSES",
+          "name": "Don't-See-It Specs",
+          "weight": 12,
+          "carryMax": 24,
+          "value": 180,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-bomb",
+          "infoType": "misc",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 2,
+          "max": 2
+        },
+        {
+          "type": "miscitem-icebomb",
+          "infoType": "misc",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 2,
+          "max": 2
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 2.5,
+          "y": 237.13501,
+          "z": 137.99945
+        }
+      }
+    }
+  ]
+}

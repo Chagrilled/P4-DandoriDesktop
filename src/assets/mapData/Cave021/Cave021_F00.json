@@ -1,0 +1,501 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave021_F01",
+      "transform": {
+        "translation": {
+          "x": -802.9045,
+          "y": -258.42114,
+          "z": 26.000097
+        }
+      }
+    }
+  ],
+  "water-water": [
+    {
+      "type": "water-water",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave021_F00_WaterBox00_D.png",
+        "amountToFreeze": 15
+      },
+      "transform": {
+        "translation": {
+          "x": -280,
+          "y": -700,
+          "z": -34
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "water-water",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave021_F00_WaterBox01_D.png",
+        "amountToFreeze": 15
+      },
+      "transform": {
+        "translation": {
+          "x": -410,
+          "y": 137,
+          "z": -32
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "hazardspout-bubble": [
+    {
+      "type": "hazardspout-bubble",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -560.58295,
+          "y": 820.2148,
+          "z": 45.100098
+        }
+      }
+    },
+    {
+      "type": "hazardspout-bubble",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -542.58185,
+          "y": -307.62592,
+          "z": 46.100098
+        }
+      }
+    },
+    {
+      "type": "hazardspout-bubble",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -386.68353,
+          "y": -729.8794,
+          "z": -3.8999004
+        }
+      }
+    }
+  ],
+  "breakable-hydrojelly": [
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-ice",
+          "infoType": "pikmin",
+          "color": "ice",
+          "state": "idle",
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 271.0944,
+          "y": 543.92346,
+          "z": 80
+        }
+      }
+    },
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 5.880768,
+          "y": 310.60297,
+          "z": 101
+        }
+      }
+    }
+  ],
+  "gate-ice": [
+    {
+      "type": "gate-ice",
+      "infoType": "gate",
+      "width": 180,
+      "health": 4000,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 6,
+          "max": 6
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 107.57625,
+          "y": 75.03143,
+          "z": 61.150093
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 15,
+      "transform": {
+        "translation": {
+          "x": -4.243347,
+          "y": 541.41187,
+          "z": 25.00019
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTALEMON",
+      "name": "Face Wrinkler",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 60,
+      "transform": {
+        "translation": {
+          "x": -554.2171,
+          "y": -1074.9468,
+          "z": 81.81038
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTASQUEEZER",
+      "name": "Merciless Extractor",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": -326.72708,
+          "y": 824.8695,
+          "z": 47
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAGRAPEFRUIT",
+      "name": "Astringent Clump",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 90,
+      "transform": {
+        "translation": {
+          "x": -226.58105,
+          "y": -60.45775,
+          "z": 23.06847
+        }
+      }
+    }
+  ],
+  "tunnel-any": [
+    {
+      "type": "tunnel-any",
+      "infoType": "tunnel",
+      "tunnelId": "TunnelID_0",
+      "transform": {
+        "translation": {
+          "x": 86,
+          "y": 1102,
+          "z": 78
+        }
+      }
+    },
+    {
+      "type": "tunnel-any",
+      "infoType": "tunnel",
+      "tunnelId": "TunnelID_0",
+      "transform": {
+        "translation": {
+          "x": -86,
+          "y": 830,
+          "z": 53
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 719.00586,
+          "y": -188.93115,
+          "z": 75.0001
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "HARIUO",
+      "name": "Pricklepuff",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 5,
+      "health": 300,
+      "seeds": 8,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 2.66,
+        "oatchiRushFreezeRatio": 2.66,
+        "pikminHit": 0,
+        "purpleHit": 3
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -427.4527,
+          "y": -721.01697,
+          "z": 3
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "AMEMBO",
+      "name": "Skeeterskate",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 45,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -593.37244,
+          "y": 304.85938,
+          "z": -3.6613922
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "NISEZAKO",
+      "name": "Gildemandwee",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 5,
+      "health": 500,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 1,
+        "eatPoison": 1,
+        "freeze": 15,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 5,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 3
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 452.76685,
+          "y": 1017.0463,
+          "z": 49
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "AMEMBO",
+      "name": "Skeeterskate",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 45,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 1,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -352.55,
+          "y": 83.985504,
+          "z": -7.778675
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "creature",
+          "infoType": "creature",
+          "creatureId": "NISEZAKO",
+          "name": "Gildemandwee",
+          "weight": 5,
+          "carryMax": 10,
+          "value": 5,
+          "health": 500,
+          "seeds": 6,
+          "freezeDrops": {
+            "bossType": "TekiM",
+            "amount": 1,
+            "honeyChance": 0.9
+          },
+          "damageInfo": {
+            "bomb": 1,
+            "eatBomb": 1,
+            "eatFreeze": 1.5,
+            "eatIceBomb": 1,
+            "eatPoison": 1,
+            "freeze": 15,
+            "freezeDamageRatio": 0.8,
+            "iceBomb": 1,
+            "oatchiRush": 5,
+            "oatchiRushFreezeRatio": 5,
+            "pikminHit": 0,
+            "purpleHit": 3
+          },
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -793.8385,
+          "y": 940.76355,
+          "z": 40
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 254.5402,
+          "y": 1118.4739,
+          "z": 40
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave006_F01",
+      "transform": {
+        "translation": {
+          "x": -688.5105,
+          "y": 840.61224,
+          "z": 0.000099
+        }
+      }
+    }
+  ],
+  "gate-dirt": [
+    {
+      "type": "gate-dirt",
+      "infoType": "gate",
+      "width": 295,
+      "health": 5333,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 4,
+          "max": 4
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -68.27936,
+          "y": -196.10504,
+          "z": 30.150066
+        },
+        "rotation": 45
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTASMALLBELL",
+      "name": "Spouse Alert",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 70,
+      "transform": {
+        "translation": {
+          "x": -324.79755,
+          "y": -511.79077,
+          "z": 193.08972
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAPUZZLEC",
+      "name": "Memory Fragment (Top...Probably?)",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 50,
+      "transform": {
+        "translation": {
+          "x": 605,
+          "y": 550,
+          "z": 77.71361
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTALIGHTUPRINGYEL",
+      "name": "Hoop of Fortune",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 130,
+      "transform": {
+        "translation": {
+          "x": -487,
+          "y": 74,
+          "z": -20.98566
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -166.14948,
+          "y": 77.51625,
+          "z": -27.999905
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "BABYCROW",
+      "name": "Downy Snagret",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 0,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -686.5797,
+          "y": -608.2355,
+          "z": 24.999996
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "BABYCROW",
+      "name": "Downy Snagret",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 0,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -76.84604,
+          "y": 520.409,
+          "z": 27.321194
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "BABYCROW",
+      "name": "Downy Snagret",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 300,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 7,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 0,
+        "purpleHit": 1.5
+      },
+      "transform": {
+        "translation": {
+          "x": -597.9485,
+          "y": 502.5686,
+          "z": 25
+        }
+      }
+    }
+  ]
+}

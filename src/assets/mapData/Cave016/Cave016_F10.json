@@ -1,0 +1,338 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave016_F11",
+      "transform": {
+        "translation": {
+          "x": 577.2141,
+          "y": 408.89124,
+          "z": -25.045425
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": 405.75208,
+          "y": 470.1953,
+          "z": -25.021023
+        },
+        "rotation": 90.001
+      }
+    }
+  ],
+  "water-water": [
+    {
+      "type": "water-water",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave016_F10_WaterBox00_D.png",
+        "amountToFreeze": 5
+      },
+      "transform": {
+        "translation": {
+          "x": -219.02356,
+          "y": -681.5198,
+          "z": -90
+        },
+        "rotation": 90
+      }
+    },
+    {
+      "type": "water-water",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave016_F10_WaterBox01_D.png",
+        "amountToFreeze": 5
+      },
+      "transform": {
+        "translation": {
+          "x": 691.86206,
+          "y": -278.01318,
+          "z": -90
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTACASINOCHIP50",
+      "name": "Disk of Amusing Wisdom",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 50,
+      "transform": {
+        "translation": {
+          "x": 263.15015,
+          "y": 121.708435,
+          "z": -23.492401
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTACASINOCHIP25",
+      "name": "Disk of Sorrowful Wisdom",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 25,
+      "transform": {
+        "translation": {
+          "x": 201.03845,
+          "y": 70.475525,
+          "z": -23.492401
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAPAINTSGRN",
+      "name": "Neon Goo",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 80,
+      "transform": {
+        "translation": {
+          "x": -654.4603,
+          "y": 45.662476,
+          "z": 8.059913
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTABILLIARDBALL1",
+      "name": "Sphere of Desire",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": 827.0813,
+          "y": -1090.5537,
+          "z": -55
+        }
+      }
+    }
+  ],
+  "switchable-fencenormal": [
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": -550.23914,
+          "y": 554.15466,
+          "z": 0.44038963
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "misc-pullrope": [
+    {
+      "type": "misc-pullrope",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 829.645,
+          "y": -985.81335,
+          "z": -24.99984
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "candypop-blue": [
+    {
+      "type": "candypop-blue",
+      "infoType": "candypop",
+      "color": "blue",
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": 77.07019,
+          "y": 968.1438,
+          "z": -49.9999
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -319.4032,
+          "y": 912.40076,
+          "z": -49.9999
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": true,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 3,
+          "max": 3
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 10,
+          "max": 10
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -550.0171,
+          "y": 447.36078,
+          "z": 28.5
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "PATROLLER",
+      "name": "Bloomcap Bloyster",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 5,
+      "health": 3000,
+      "seeds": 15,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 3,
+        "eatBomb": 1.5,
+        "eatFreeze": 4.5,
+        "eatIceBomb": 1,
+        "eatPoison": 3,
+        "freeze": 45,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 20,
+        "oatchiRushFreezeRatio": 4,
+        "pikminHit": 0,
+        "purpleHit": 30
+      },
+      "transform": {
+        "translation": {
+          "x": 281.8715,
+          "y": -590.6055,
+          "z": 4.9999924
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "PATROLLER",
+      "name": "Bloomcap Bloyster",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 5,
+      "health": 3000,
+      "seeds": 15,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 3,
+        "eatBomb": 1.5,
+        "eatFreeze": 4.5,
+        "eatIceBomb": 1,
+        "eatPoison": 3,
+        "freeze": 45,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 20,
+        "oatchiRushFreezeRatio": 4,
+        "pikminHit": 0,
+        "purpleHit": 30
+      },
+      "transform": {
+        "translation": {
+          "x": 477.96463,
+          "y": -144.13599,
+          "z": 3.3507385
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "PATROLLER",
+      "name": "Bloomcap Bloyster",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 5,
+      "health": 3000,
+      "seeds": 15,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 3,
+        "eatBomb": 1.5,
+        "eatFreeze": 4.5,
+        "eatIceBomb": 1,
+        "eatPoison": 3,
+        "freeze": 45,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 20,
+        "oatchiRushFreezeRatio": 4,
+        "pikminHit": 0,
+        "purpleHit": 30
+      },
+      "transform": {
+        "translation": {
+          "x": -808.2679,
+          "y": -330.77252,
+          "z": 30
+        }
+      }
+    }
+  ]
+}

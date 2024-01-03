@@ -1,0 +1,2402 @@
+{
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAHEROPARTSAD",
+      "name": "Pilot's Seat",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 0,
+      "transform": {
+        "translation": {
+          "x": 3338.4565,
+          "y": 504.85938,
+          "z": 440.59283
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAHEROPARTSM",
+      "name": "Repair-Type Bolt",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 0,
+      "transform": {
+        "translation": {
+          "x": 2957.2126,
+          "y": -2165.8884,
+          "z": 609.89343
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAHEROPARTSP",
+      "name": "Interstellar Radio",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 0,
+      "transform": {
+        "translation": {
+          "x": 868.693,
+          "y": 2184.611,
+          "z": 283.24136
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAHEROPARTSY",
+      "name": "Automatic Gear",
+      "weight": 15,
+      "carryMax": 30,
+      "value": 0,
+      "transform": {
+        "translation": {
+          "x": -698,
+          "y": 506,
+          "z": 408.91458
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAHEROPARTSH",
+      "name": "Geiger Counter",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 0,
+      "transform": {
+        "translation": {
+          "x": 1842,
+          "y": -925,
+          "z": 711.9752
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAHEROPARTSQ",
+      "name": "Extraordinary Bolt",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 0,
+      "transform": {
+        "translation": {
+          "x": 2623.3455,
+          "y": -3968.861,
+          "z": 766.26965
+        }
+      }
+    }
+  ],
+  "base-onion": [
+    {
+      "type": "base-onion",
+      "infoType": "base",
+      "baseId": 1,
+      "transform": {
+        "translation": {
+          "x": -190.30975,
+          "y": -2600.3005,
+          "z": 103.00017
+        }
+      }
+    },
+    {
+      "type": "base-onion",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -1141.0902,
+          "y": 2724.9968,
+          "z": 297
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 1,
+      "transform": {
+        "translation": {
+          "x": 28.42218,
+          "y": -2517.9668,
+          "z": 103.00017
+        }
+      }
+    },
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -1322.1783,
+          "y": 2874.1682,
+          "z": 297
+        }
+      }
+    }
+  ],
+  "ridable-zipline": [
+    {
+      "type": "ridable-zipline",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": 1997,
+          "y": -627,
+          "z": 268.5868
+        },
+        "rotation": -94
+      }
+    }
+  ],
+  "switchable-fan": [
+    {
+      "type": "switchable-fan",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 2067,
+          "y": 150,
+          "z": 51.36169
+        }
+      }
+    },
+    {
+      "type": "switchable-fan",
+      "infoType": "switchable",
+      "switchId": "CirculatorSwitch01",
+      "transform": {
+        "translation": {
+          "x": 775,
+          "y": -3461,
+          "z": 149.99997
+        }
+      }
+    },
+    {
+      "type": "switchable-fan",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 1247,
+          "y": -374,
+          "z": 50
+        }
+      }
+    },
+    {
+      "type": "switchable-fan",
+      "infoType": "switchable",
+      "switchId": "switch005",
+      "transform": {
+        "translation": {
+          "x": 1218,
+          "y": -2075,
+          "z": 547.3608
+        }
+      }
+    },
+    {
+      "type": "switchable-fan",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": -496.88602,
+          "y": 732.1684,
+          "z": 81.570496
+        }
+      }
+    }
+  ],
+  "ridable-movefloor": [
+    {
+      "type": "ridable-movefloor",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": 2960,
+          "y": -439,
+          "z": 678
+        },
+        "rotation": -90
+      }
+    },
+    {
+      "type": "ridable-movefloor",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": 1986,
+          "y": -3459,
+          "z": 736
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "ridable-movefloor",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": -474,
+          "y": -545,
+          "z": 866
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "tunnel-captain": [
+    {
+      "type": "tunnel-captain",
+      "infoType": "tunnel",
+      "tunnelId": "TunnelID_02",
+      "transform": {
+        "translation": {
+          "x": -816,
+          "y": -1548,
+          "z": 120.1001
+        }
+      }
+    },
+    {
+      "type": "tunnel-captain",
+      "infoType": "tunnel",
+      "tunnelId": "TunnelID_02",
+      "transform": {
+        "translation": {
+          "x": -588,
+          "y": -805,
+          "z": 913.45966
+        }
+      }
+    }
+  ],
+  "shortcut-pushbag": [
+    {
+      "type": "shortcut-pushbag",
+      "infoType": "shortcut",
+      "weight": 10,
+      "transform": {
+        "translation": {
+          "x": 553,
+          "y": -841,
+          "z": 100
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "shortcut-pushbag",
+      "infoType": "shortcut",
+      "weight": 10,
+      "transform": {
+        "translation": {
+          "x": 109.08861,
+          "y": -1218.3207,
+          "z": 149.99997
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "switchable-doubleswitch": [
+    {
+      "type": "switchable-doubleswitch",
+      "infoType": "switchable",
+      "switchId": "CirculatorSwitch01",
+      "transform": {
+        "translation": {
+          "x": 1399,
+          "y": -3458,
+          "z": 462.76382
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "breakable-pot": [
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -782,
+          "y": -1569,
+          "z": 100.00007
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -784.02203,
+          "y": -1515.149,
+          "z": 100.00007
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -733.02203,
+          "y": -1540.149,
+          "z": 100.00007
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -210,
+          "y": -1651,
+          "z": 100.00006
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 580,
+          "y": -2310,
+          "z": 640.10345
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 955.9731,
+          "y": -1807.5789,
+          "z": 640.10345
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 410,
+          "y": -1852,
+          "z": 640.10345
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 472,
+          "y": -1792,
+          "z": 640.10345
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -151,
+          "y": -1605,
+          "z": 100.00006
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 414,
+          "y": -1783,
+          "z": 640.10345
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 887,
+          "y": -1773,
+          "z": 640.10345
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 635,
+          "y": -2340,
+          "z": 640.10345
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 3697,
+          "y": 2609.7139,
+          "z": 5.3581
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 3649,
+          "y": 2658.7139,
+          "z": 5.3581004
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 3712,
+          "y": 2677.7139,
+          "z": 5.3581004
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -1086,
+          "y": 736,
+          "z": 295.67075
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -1127,
+          "y": 789,
+          "z": 295.67075
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -1026,
+          "y": 774,
+          "z": 295.67075
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -1211.8116,
+          "y": 1960.6293,
+          "z": 295.26047
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -1207.7083,
+          "y": 2055.148,
+          "z": 295.26096
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -1131.7291,
+          "y": 2002.4454,
+          "z": 295.26083
+        }
+      }
+    }
+  ],
+  "structure-slope": [
+    {
+      "type": "structure-slope",
+      "infoType": "structure",
+      "materialsNeeded": 20,
+      "transform": {
+        "translation": {
+          "x": 3130,
+          "y": -3619,
+          "z": 690.0001
+        },
+        "rotation": 2
+      }
+    }
+  ],
+  "hazardspout-fire": [
+    {
+      "type": "hazardspout-fire",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 2887,
+          "y": -3297,
+          "z": 718.0633
+        }
+      }
+    }
+  ],
+  "shortcut-stringdown": [
+    {
+      "type": "shortcut-stringdown",
+      "infoType": "shortcut",
+      "weight": 5,
+      "transform": {
+        "translation": {
+          "x": 718.17365,
+          "y": -4035,
+          "z": 347.4607
+        },
+        "rotation": -90
+      }
+    },
+    {
+      "type": "shortcut-stringdown",
+      "infoType": "shortcut",
+      "weight": 5,
+      "transform": {
+        "translation": {
+          "x": 2072,
+          "y": 1034,
+          "z": 31.167656
+        },
+        "rotation": 167
+      }
+    }
+  ],
+  "gate-electric": [
+    {
+      "type": "gate-electric",
+      "infoType": "gate",
+      "width": 255,
+      "health": 5333,
+      "transform": {
+        "translation": {
+          "x": 2548,
+          "y": -1121,
+          "z": 720.1509
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "water-water": [
+    {
+      "type": "water-water",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Area010_WaterBox00_D.png",
+        "amountToFreeze": 15
+      },
+      "transform": {
+        "translation": {
+          "x": 2909,
+          "y": -1953,
+          "z": 570.00244
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "miscitem-icebomb": [
+    {
+      "type": "miscitem-icebomb",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 2865,
+          "y": -864,
+          "z": 727.9091
+        }
+      },
+      "rebirthInterval": 2
+    }
+  ],
+  "breakable-hydrojelly": [
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "miscitem-icebomb",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 1578,
+          "y": -3499,
+          "z": 486.8375
+        }
+      }
+    },
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "miscitem-icebomb",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 1578,
+          "y": -3392,
+          "z": 486.8375
+        }
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 1022,
+          "y": -3936,
+          "z": 342.4357
+        }
+      }
+    },
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 1679,
+          "y": -2338,
+          "z": 100.00007
+        }
+      }
+    }
+  ],
+  "tunnel-any": [
+    {
+      "type": "tunnel-any",
+      "infoType": "tunnel",
+      "tunnelId": "TunnelID_0",
+      "transform": {
+        "translation": {
+          "x": 2501.7417,
+          "y": -2557.0376,
+          "z": 132.18988
+        }
+      }
+    },
+    {
+      "type": "tunnel-any",
+      "infoType": "tunnel",
+      "tunnelId": "TunnelID_0",
+      "transform": {
+        "translation": {
+          "x": 2744.292,
+          "y": -2564.2825,
+          "z": 718
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "switchId": "FenceFall01",
+      "width": 370,
+      "transform": {
+        "translation": {
+          "x": 2665,
+          "y": -2735,
+          "z": 690.0001
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "pikmin-yellow": [
+    {
+      "type": "pikmin-yellow",
+      "infoType": "pikmin",
+      "color": "yellow",
+      "state": "idle",
+      "amount": 4,
+      "transform": {
+        "translation": {
+          "x": 3521,
+          "y": 1781,
+          "z": 140.1001
+        }
+      }
+    },
+    {
+      "type": "pikmin-yellow",
+      "infoType": "pikmin",
+      "color": "yellow",
+      "state": "idle",
+      "amount": 4,
+      "transform": {
+        "translation": {
+          "x": 193.70523,
+          "y": 1123.3573,
+          "z": 201.37181
+        }
+      }
+    },
+    {
+      "type": "pikmin-yellow",
+      "infoType": "pikmin",
+      "color": "yellow",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 3589,
+          "y": 1794.7852,
+          "z": 140.1001
+        }
+      }
+    },
+    {
+      "type": "pikmin-yellow",
+      "infoType": "pikmin",
+      "color": "yellow",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 1262,
+          "y": 3315,
+          "z": 60.017517
+        }
+      }
+    },
+    {
+      "type": "pikmin-yellow",
+      "infoType": "pikmin",
+      "color": "yellow",
+      "state": "idle",
+      "amount": 3,
+      "transform": {
+        "translation": {
+          "x": -313.44257,
+          "y": -778.38135,
+          "z": 90.0005
+        }
+      }
+    },
+    {
+      "type": "pikmin-yellow",
+      "infoType": "pikmin",
+      "color": "yellow",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 2423.0854,
+          "y": 2178.7852,
+          "z": 0.0001
+        }
+      }
+    },
+    {
+      "type": "pikmin-yellow",
+      "infoType": "pikmin",
+      "color": "yellow",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 2348.0854,
+          "y": 2108.7852,
+          "z": 0.0001
+        }
+      }
+    },
+    {
+      "type": "pikmin-yellow",
+      "infoType": "pikmin",
+      "color": "yellow",
+      "state": "idle",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 1583,
+          "y": 3423,
+          "z": 255.23235
+        }
+      }
+    },
+    {
+      "type": "pikmin-yellow",
+      "infoType": "pikmin",
+      "color": "yellow",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 1483,
+          "y": 3275,
+          "z": 119.09008
+        }
+      }
+    },
+    {
+      "type": "pikmin-yellow",
+      "infoType": "pikmin",
+      "color": "yellow",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 364.7051,
+          "y": 1254.3573,
+          "z": 5.500099
+        }
+      }
+    },
+    {
+      "type": "pikmin-yellow",
+      "infoType": "pikmin",
+      "color": "yellow",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": -198.44257,
+          "y": -739.38135,
+          "z": 69.999954
+        }
+      }
+    },
+    {
+      "type": "pikmin-yellow",
+      "infoType": "pikmin",
+      "color": "yellow",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": -441.44257,
+          "y": -726.38135,
+          "z": 110.00038
+        }
+      }
+    },
+    {
+      "type": "pikmin-yellow",
+      "infoType": "pikmin",
+      "color": "yellow",
+      "state": "idle",
+      "amount": 2,
+      "transform": {
+        "translation": {
+          "x": 2090,
+          "y": -632,
+          "z": 268.5868
+        }
+      }
+    },
+    {
+      "type": "pikmin-yellow",
+      "infoType": "pikmin",
+      "color": "yellow",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 2228,
+          "y": -613,
+          "z": 268.5868
+        }
+      }
+    },
+    {
+      "type": "pikmin-yellow",
+      "infoType": "pikmin",
+      "color": "yellow",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 2222,
+          "y": -617,
+          "z": 268.5868
+        }
+      }
+    }
+  ],
+  "pikmin-red": [
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "fighting",
+      "amount": 3,
+      "transform": {
+        "translation": {
+          "x": 1110.8153,
+          "y": 3926.5342,
+          "z": 0.0001
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 2260.0854,
+          "y": 2405.7852,
+          "z": 279.86508
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "idle",
+      "amount": 2,
+      "transform": {
+        "translation": {
+          "x": 3563.0854,
+          "y": 2784.7852,
+          "z": 112.93046
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "fighting",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 554.7052,
+          "y": 1284.3573,
+          "z": 5.500122
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "fighting",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 607.7052,
+          "y": 1324.3573,
+          "z": 5.500122
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "fighting",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 991.7052,
+          "y": 1363.3573,
+          "z": 5.500122
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "fighting",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 830.7052,
+          "y": 1480.3573,
+          "z": 5.500122
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "fighting",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 1221.7052,
+          "y": 1407.3573,
+          "z": 5.500122
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "fighting",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 718.8153,
+          "y": 3931.5342,
+          "z": 0.000101
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 2033.3152,
+          "y": 1444.748,
+          "z": 26.04237
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 2124.3152,
+          "y": 1479.748,
+          "z": 26.12635
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 2058.3152,
+          "y": 1492.748,
+          "z": 26.058231
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": -1836.2949,
+          "y": 2185.3574,
+          "z": 295.67075
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": -1862.2949,
+          "y": 2210.3574,
+          "z": 295.67075
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": -1710.2949,
+          "y": 1096.3574,
+          "z": 301.67075
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 2232.0854,
+          "y": 2483.7852,
+          "z": 277.86508
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 2263.0854,
+          "y": 2461.7852,
+          "z": 278.86508
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 2233.0854,
+          "y": 2393.7852,
+          "z": 279.86508
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 2221.0854,
+          "y": 2447.7852,
+          "z": 276.86508
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "idle",
+      "amount": 3,
+      "transform": {
+        "translation": {
+          "x": 2059,
+          "y": -635,
+          "z": 268.58676
+        }
+      }
+    }
+  ],
+  "pikmin-blue": [
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": -669.9652,
+          "y": -142.61061,
+          "z": 51.17787
+        }
+      }
+    },
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 1996,
+          "y": 3283,
+          "z": 0.0001
+        }
+      }
+    },
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "idle",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 2153.3152,
+          "y": 967.748,
+          "z": 5.500099
+        }
+      }
+    },
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 285.7051,
+          "y": 1157.3573,
+          "z": 5.500099
+        }
+      }
+    },
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "fighting",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 1085.7051,
+          "y": 2991.3574,
+          "z": 5.500099
+        }
+      }
+    },
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "fighting",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 913.7051,
+          "y": 2979.3574,
+          "z": 96.736015
+        }
+      }
+    },
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "fighting",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 913.7051,
+          "y": 2797.3574,
+          "z": 95.990425
+        }
+      }
+    },
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "idle",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": -430.34933,
+          "y": 3966.9622,
+          "z": 18.861692
+        }
+      }
+    },
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 103.70511,
+          "y": 1467.3573,
+          "z": 5.500099
+        }
+      }
+    },
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": -681.68945,
+          "y": -116.20153,
+          "z": 56.17787
+        }
+      }
+    },
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": -667.3384,
+          "y": -108.849815,
+          "z": 45.638237
+        }
+      }
+    },
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": -644.4119,
+          "y": -113.86079,
+          "z": 44.42098
+        }
+      }
+    },
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": -647.80914,
+          "y": -142.5811,
+          "z": 45.517677
+        }
+      }
+    },
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 2055,
+          "y": 3294,
+          "z": 0.0001
+        }
+      }
+    },
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 2070,
+          "y": 3263,
+          "z": 0.0001
+        }
+      }
+    },
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 2028,
+          "y": 3243,
+          "z": 0.0001
+        }
+      }
+    },
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "idle",
+      "amount": 1,
+      "transform": {
+        "translation": {
+          "x": 1971,
+          "y": 3230,
+          "z": 0.0001
+        }
+      }
+    },
+    {
+      "type": "pikmin-blue",
+      "infoType": "pikmin",
+      "color": "blue",
+      "state": "idle",
+      "amount": 3,
+      "transform": {
+        "translation": {
+          "x": 2080,
+          "y": -648,
+          "z": 268.58676
+        }
+      }
+    }
+  ],
+  "switchable-singleswitch": [
+    {
+      "type": "switchable-singleswitch",
+      "infoType": "switchable",
+      "switchId": "FenceFall01",
+      "transform": {
+        "translation": {
+          "x": 2884,
+          "y": -3301,
+          "z": 748.9289
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ICEMAR",
+      "name": "Icy Blowhog",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 7,
+      "health": 3000,
+      "seeds": 5,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 6,
+          "max": 6
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 1715.7893,
+          "y": -2588.1284,
+          "z": 136.6765
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "HARI",
+      "name": "Porquillion",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 12,
+      "health": 5000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "Boss",
+        "amount": 5,
+        "honeyChance": 0.7
+      },
+      "damageInfo": {
+        "bomb": 3,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 25,
+        "oatchiRushFreezeRatio": 3.4,
+        "pikminHit": 0,
+        "purpleHit": 30
+      },
+      "transform": {
+        "translation": {
+          "x": 561,
+          "y": 2229,
+          "z": 305.35138
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "RUSHER",
+      "name": "Tusked Blowhog",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 900,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 7,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": -382.47974,
+          "y": -1852.9856,
+          "z": 120.99997
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "RUSHER",
+      "name": "Tusked Blowhog",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 900,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 7,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": 64.37537,
+          "y": -1607.1362,
+          "z": 120.99997
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KURIONE",
+      "name": "Honeywisp",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 1,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 1,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.5,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.5,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 1518.5786,
+          "y": 9.289288,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "NISEBOSS",
+      "name": "Gildemander",
+      "weight": 20,
+      "carryMax": 40,
+      "value": 20,
+      "health": 6000,
+      "seeds": 30,
+      "freezeDrops": {
+        "bossType": "Boss",
+        "amount": 5,
+        "honeyChance": 0.7
+      },
+      "damageInfo": {
+        "bomb": 10,
+        "eatBomb": 8,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 10,
+        "freeze": 60,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 3,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 50
+      },
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 3090,
+          "y": 2465,
+          "z": 95.35748
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "HARI",
+      "name": "Porquillion",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 12,
+      "health": 5000,
+      "seeds": 20,
+      "freezeDrops": {
+        "bossType": "Boss",
+        "amount": 5,
+        "honeyChance": 0.7
+      },
+      "damageInfo": {
+        "bomb": 3,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 25,
+        "oatchiRushFreezeRatio": 3.4,
+        "pikminHit": 0,
+        "purpleHit": 30
+      },
+      "transform": {
+        "translation": {
+          "x": 717.139,
+          "y": 2229.5293,
+          "z": 305.08127
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "SHIPPOZAKO",
+      "name": "Miniature Snootwhacker",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 500,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 15,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 5,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 3
+      },
+      "transform": {
+        "translation": {
+          "x": -583,
+          "y": 429,
+          "z": 421.03528
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "NISEZAKO",
+      "name": "Gildemandwee",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 5,
+      "health": 500,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 1,
+        "eatPoison": 1,
+        "freeze": 15,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 5,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 3
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 2,
+          "max": 2
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 2404,
+          "y": -1669,
+          "z": 128.51639
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "NISEZAKO",
+      "name": "Gildemandwee",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 5,
+      "health": 500,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 1,
+        "eatPoison": 1,
+        "freeze": 15,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 5,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 3
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 2,
+          "max": 2
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -351,
+          "y": -4002,
+          "z": 123.99997
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "BILLY",
+      "name": "Bearded Amprat",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 750,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 5,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 5
+      },
+      "transform": {
+        "translation": {
+          "x": 2100,
+          "y": -1027,
+          "z": 712
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ICETANK",
+      "name": "Snowy Blowhog",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 5,
+      "health": 1000,
+      "seeds": 5,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": 1482,
+          "y": -2296,
+          "z": 123.99997
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "DAMAGUMOCANNON",
+      "name": "Man-at-Legs",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 5000,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 8,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 60,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 1.5,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 50
+      },
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTAHEROPARTSG",
+          "name": "Chronos Reactor",
+          "weight": 30,
+          "carryMax": 60,
+          "value": 0,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 721,
+          "y": -1923,
+          "z": 700.40344
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "SHIPPOZAKO",
+      "name": "Miniature Snootwhacker",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 500,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 15,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 5,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 3
+      },
+      "transform": {
+        "translation": {
+          "x": 3420.2585,
+          "y": -1685.2019,
+          "z": 830
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ICETANK",
+      "name": "Snowy Blowhog",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 5,
+      "health": 1000,
+      "seeds": 5,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": 597,
+          "y": -3981,
+          "z": 123.99997
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KEMEKUJI",
+      "name": "Toady Bloyster",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 7,
+      "health": 1500,
+      "seeds": 10,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 1.5,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "transform": {
+        "translation": {
+          "x": 2891,
+          "y": -1998,
+          "z": 620.3863
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "SHIPPOZAKO",
+      "name": "Miniature Snootwhacker",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 500,
+      "seeds": 6,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 15,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 5,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 3
+      },
+      "transform": {
+        "translation": {
+          "x": 3013.2585,
+          "y": 470.7981,
+          "z": 430.30002
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "WATEROTAKARA",
+      "name": "Hydro Dweevil",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 2,
+      "health": 300,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 10,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": 2843.2676,
+          "y": -3871.6118,
+          "z": 740.0001
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 3153,
+          "y": -896,
+          "z": 733
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 3113,
+          "y": -941,
+          "z": 733
+        }
+      }
+    }
+  ],
+  "misc-groupdropmanager": [
+    {
+      "type": "misc-groupdropmanager",
+      "infoType": "misc",
+      "radius": 50,
+      "drops": [
+        {
+          "type": "pikmin-red",
+          "infoType": "pikmin",
+          "color": "red",
+          "state": "idle",
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -1217,
+          "y": 1961,
+          "z": 295.67075
+        }
+      }
+    },
+    {
+      "type": "misc-groupdropmanager",
+      "infoType": "misc",
+      "radius": 100,
+      "drops": [
+        {
+          "type": "pikmin-blue",
+          "infoType": "pikmin",
+          "color": "blue",
+          "state": "idle",
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 3684,
+          "y": 2654,
+          "z": 5.358101
+        }
+      }
+    },
+    {
+      "type": "misc-groupdropmanager",
+      "infoType": "misc",
+      "radius": 150,
+      "drops": [
+        {
+          "type": "pikmin-yellow",
+          "infoType": "pikmin",
+          "color": "yellow",
+          "state": "idle",
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -1078,
+          "y": 786,
+          "z": 295.67075
+        }
+      }
+    }
+  ]
+}

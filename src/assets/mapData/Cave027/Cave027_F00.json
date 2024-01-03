@@ -1,0 +1,1110 @@
+{
+  "firepit-lit": [
+    {
+      "type": "firepit-lit",
+      "infoType": "firepit",
+      "isLit": true,
+      "transform": {
+        "translation": {
+          "x": -565,
+          "y": -1247.5,
+          "z": 0.000099
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "KINKAISTATION",
+      "name": "Gold Nugget",
+      "amount": 60,
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "transform": {
+        "translation": {
+          "x": 822.55664,
+          "y": -862.1299,
+          "z": 75.00009
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "KINKAISTATION",
+      "name": "Gold Nugget",
+      "amount": 40,
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "transform": {
+        "translation": {
+          "x": 1270.2734,
+          "y": 411.2622,
+          "z": 0.000091552734
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "KINKAISTATION",
+      "name": "Gold Nugget",
+      "amount": 50,
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "transform": {
+        "translation": {
+          "x": -2.7265625,
+          "y": -1147.7378,
+          "z": 0.00010681152
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "KINKAISTATION",
+      "name": "Gold Nugget",
+      "amount": 71,
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "transform": {
+        "translation": {
+          "x": -822.67596,
+          "y": 1136.1025,
+          "z": 0.00010681152
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAHANDBELL",
+      "name": "Time Marker",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 180,
+      "transform": {
+        "translation": {
+          "x": 1296.5,
+          "y": -552,
+          "z": 157.20012
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTARAPPA",
+      "name": "Mega Horn",
+      "weight": 15,
+      "carryMax": 30,
+      "value": 250,
+      "transform": {
+        "translation": {
+          "x": 164,
+          "y": -969,
+          "z": 32.1501
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTACASTANETS",
+      "name": "Harmonic Synthesizer",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": -826,
+          "y": -1016,
+          "z": 18.090096
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAHARMONICA",
+      "name": "Wind Detector",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": -1003.5233,
+          "y": 686.96576,
+          "z": 9.045175
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAGARAGARA",
+      "name": "Shake-a-Smile",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 180,
+      "transform": {
+        "translation": {
+          "x": -974,
+          "y": 963,
+          "z": 23.6176
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAOCARINABRN",
+      "name": "Ambiguous Hostel",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 150,
+      "transform": {
+        "translation": {
+          "x": 301,
+          "y": 1263,
+          "z": 18.021454
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAWHISTLE",
+      "name": "Emperor Whistle",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 80,
+      "transform": {
+        "translation": {
+          "x": 1031.531,
+          "y": 1031.3997,
+          "z": 41.0551
+        }
+      }
+    }
+  ],
+  "switchable-conveyor": [
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 270.5,
+          "y": -686,
+          "z": 38
+        },
+        "rotation": -90
+      }
+    },
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 549.5,
+          "y": 414,
+          "z": -2
+        },
+        "rotation": -90
+      }
+    },
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 1.5,
+          "y": 689,
+          "z": -2
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 828.5,
+          "y": 141,
+          "z": 38
+        },
+        "rotation": 180
+      }
+    },
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": -271.5,
+          "y": -412,
+          "z": -2
+        },
+        "rotation": 180
+      }
+    }
+  ],
+  "candypop-wing": [
+    {
+      "type": "candypop-wing",
+      "infoType": "candypop",
+      "color": "wing",
+      "transform": {
+        "translation": {
+          "x": -289,
+          "y": 383.5,
+          "z": 4.282194
+        }
+      }
+    },
+    {
+      "type": "candypop-wing",
+      "infoType": "candypop",
+      "color": "wing",
+      "transform": {
+        "translation": {
+          "x": -413.33145,
+          "y": -1377.8588,
+          "z": 4.319549
+        }
+      }
+    },
+    {
+      "type": "candypop-wing",
+      "infoType": "candypop",
+      "color": "wing",
+      "transform": {
+        "translation": {
+          "x": 1077.25,
+          "y": -678,
+          "z": 75.0001
+        }
+      }
+    },
+    {
+      "type": "candypop-wing",
+      "infoType": "candypop",
+      "color": "wing",
+      "transform": {
+        "translation": {
+          "x": 1152.75,
+          "y": -612,
+          "z": 79.20284
+        }
+      }
+    },
+    {
+      "type": "candypop-wing",
+      "infoType": "candypop",
+      "color": "wing",
+      "transform": {
+        "translation": {
+          "x": 557,
+          "y": 1508.5,
+          "z": 0.000095
+        }
+      }
+    },
+    {
+      "type": "candypop-wing",
+      "infoType": "candypop",
+      "color": "wing",
+      "transform": {
+        "translation": {
+          "x": 621,
+          "y": 1404.5,
+          "z": 4.222397
+        }
+      }
+    }
+  ],
+  "firepit-unlit": [
+    {
+      "type": "firepit-unlit",
+      "infoType": "firepit",
+      "isLit": false,
+      "transform": {
+        "translation": {
+          "x": -2,
+          "y": 1236,
+          "z": 0.000093
+        }
+      }
+    },
+    {
+      "type": "firepit-unlit",
+      "infoType": "firepit",
+      "isLit": false,
+      "transform": {
+        "translation": {
+          "x": -1112,
+          "y": 137.5,
+          "z": 0.000199
+        }
+      }
+    }
+  ],
+  "switchable-doubleswitch": [
+    {
+      "type": "switchable-doubleswitch",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 542,
+          "y": -371.5,
+          "z": 107
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -96.209015,
+          "y": 337.10822,
+          "z": 0.00009894371
+        }
+      }
+    }
+  ],
+  "breakable-straw": [
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -877,
+          "y": 512.5,
+          "z": 0
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 138,
+          "y": 1284.5,
+          "z": 0.00009441376
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 143,
+          "y": 1208.5,
+          "z": 0.000094
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 170,
+          "y": 1133.5,
+          "z": 0.000094
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 322,
+          "y": 1103.5,
+          "z": 0.000094
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 243,
+          "y": 1108.5,
+          "z": 0.000094
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 552,
+          "y": 1261.5,
+          "z": 0.00009918213
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 832.0098,
+          "y": 1402.2303,
+          "z": 0.000091552734
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 823.02435,
+          "y": 1473.643,
+          "z": 0.00009727478
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 708,
+          "y": 1260.5,
+          "z": 0.00009918213
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 821,
+          "y": 1332.5,
+          "z": 0.000092
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 784,
+          "y": 1266.5,
+          "z": 0.000092
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 666.5,
+          "y": -316.5,
+          "z": 75.00009
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 691,
+          "y": -136.5,
+          "z": 75.00009
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -826,
+          "y": 547.5,
+          "z": 0
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 690,
+          "y": -252.5,
+          "z": 75.00009
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -773,
+          "y": 513.5,
+          "z": 0
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 663,
+          "y": -191.5,
+          "z": 75.00009
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 689,
+          "y": -371.5,
+          "z": 75.00012
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 660,
+          "y": -85.5,
+          "z": 75.00009
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 665.5,
+          "y": -421.5,
+          "z": 75.00012
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 638.5,
+          "y": -469,
+          "z": 75.00009
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 576,
+          "y": -450,
+          "z": 75.00009
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 515,
+          "y": -464,
+          "z": 75.00009
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 448,
+          "y": -446.5,
+          "z": 75.00009
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 627,
+          "y": 1269.5,
+          "z": 0.000099
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TOBIKABURI",
+      "name": "Flighty Joustmite",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 5,
+      "health": 600,
+      "seeds": 8,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1.5,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 2.66,
+        "oatchiRushFreezeRatio": 2.66,
+        "pikminHit": 0,
+        "purpleHit": 5
+      },
+      "transform": {
+        "translation": {
+          "x": -691.99976,
+          "y": 824.49994,
+          "z": 28.140106
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "MAR",
+      "name": "Puffy Blowhog",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 7,
+      "health": 3000,
+      "seeds": 5,
+      "freezeDrops": {
+        "bossType": "TekiL",
+        "amount": 3,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "transform": {
+        "translation": {
+          "x": -825.5,
+          "y": -284.5,
+          "z": 14.660099
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "SARAI",
+      "name": "Swooping Snitchbug",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 1000,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 5,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 5
+      },
+      "transform": {
+        "translation": {
+          "x": 972.5,
+          "y": 1364.5,
+          "z": 14.522375
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "SARAI",
+      "name": "Swooping Snitchbug",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 1000,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 5,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 5
+      },
+      "transform": {
+        "translation": {
+          "x": 781.5,
+          "y": 1103.5,
+          "z": 12.060101
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "SARAI",
+      "name": "Swooping Snitchbug",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 1000,
+      "seeds": 4,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 20,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 5,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 5
+      },
+      "transform": {
+        "translation": {
+          "x": 964.5,
+          "y": 558.5,
+          "z": 12.060101
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TOBINKO",
+      "name": "Shearwig",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 74,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -204.5,
+          "y": -758.5,
+          "z": 7.722397
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TOBINKO",
+      "name": "Shearwig",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 74,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -111.5,
+          "y": -835.5,
+          "z": 7.722397
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TOBINKO",
+      "name": "Shearwig",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 74,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -83.5,
+          "y": -719.5,
+          "z": 7.722397
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "TOBINKO",
+      "name": "Shearwig",
+      "weight": 1,
+      "carryMax": 1,
+      "value": 1,
+      "health": 74,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 1,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1,
+        "oatchiRushFreezeRatio": 1,
+        "pikminHit": 0,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -188.31601,
+          "y": -884.4686,
+          "z": 7.722397
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": true,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 3,
+          "max": 3
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 10,
+          "max": 10
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 1103.5,
+          "y": 1714.5,
+          "z": 27.5
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": true,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 0.75,
+          "min": 3,
+          "max": 3
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 0.2,
+          "min": 10,
+          "max": 10
+        },
+        {
+          "type": "miscitem-spicy",
+          "infoType": "misc",
+          "chance": 0.05,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -1280.5,
+          "y": -691.5,
+          "z": 27.5
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -367,
+          "y": 687,
+          "z": 15
+        }
+      }
+    }
+  ]
+}

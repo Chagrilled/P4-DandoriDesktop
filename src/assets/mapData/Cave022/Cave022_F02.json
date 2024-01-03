@@ -1,0 +1,634 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave022_F03",
+      "toPortalId": 2,
+      "toBaseId": 0,
+      "transform": {
+        "translation": {
+          "x": -824.1967,
+          "y": -691.65137,
+          "z": -97.99991
+        }
+      }
+    },
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "portalId": 2,
+      "toMapId": "Cave022_F01",
+      "toPortalId": 1,
+      "toBaseId": 1,
+      "transform": {
+        "translation": {
+          "x": -902.4725,
+          "y": 727.59717,
+          "z": -98.99991
+        }
+      }
+    }
+  ],
+  "breakable-icebox": [
+    {
+      "type": "breakable-icebox",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -776.3129,
+          "y": 514.8315,
+          "z": 15
+        }
+      }
+    },
+    {
+      "type": "breakable-icebox",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 977.8181,
+          "y": 848.53,
+          "z": -37.199013
+        }
+      }
+    },
+    {
+      "type": "breakable-icebox",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 417.8181,
+          "y": -741.47,
+          "z": -61.19925
+        }
+      }
+    }
+  ],
+  "firepit-lit": [
+    {
+      "type": "firepit-lit",
+      "infoType": "firepit",
+      "isLit": true,
+      "transform": {
+        "translation": {
+          "x": -411.25403,
+          "y": -493.9641,
+          "z": -73.9999
+        }
+      }
+    }
+  ],
+  "water-water": [
+    {
+      "dynamic": {
+        "image": "T_ui_Map_Cave022_F02_WaterBox00_ChangeDist_D.png",
+        "amountToFreeze": 5
+      },
+      "type": "water-water",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave022_F02_WaterBox00_D.png",
+        "amountToFreeze": 5
+      },
+      "transform": {
+        "translation": {
+          "x": -789.4903,
+          "y": -116.91708,
+          "z": -155
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "hazardspout-ice": [
+    {
+      "type": "hazardspout-ice",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 408.92078,
+          "y": -487.03482,
+          "z": -78.8999
+        }
+      }
+    },
+    {
+      "type": "hazardspout-ice",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 409.2975,
+          "y": -101.36517,
+          "z": -78.8999
+        }
+      }
+    },
+    {
+      "type": "hazardspout-ice",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -963.08954,
+          "y": 157.09076,
+          "z": -77.8999
+        }
+      }
+    }
+  ],
+  "breakable-straw": [
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 253.29822,
+          "y": 274.75153,
+          "z": -97.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 311.66663,
+          "y": 322.38422,
+          "z": -98.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 312.74988,
+          "y": 229.80127,
+          "z": -98.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -639.6537,
+          "y": 633.79004,
+          "z": -43.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -719.6453,
+          "y": 470.56604,
+          "z": -20.999899
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -537.38544,
+          "y": 552.7582,
+          "z": -43.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -565.9874,
+          "y": 488.5739,
+          "z": -43.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -627.17737,
+          "y": 459.8404,
+          "z": -43.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -572.6537,
+          "y": 612.79004,
+          "z": -43.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-straw",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -699.6537,
+          "y": 603.79004,
+          "z": -43.9999
+        }
+      }
+    }
+  ],
+  "switchable-fencenormal": [
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": 795.07837,
+          "y": 479.49988,
+          "z": -73.623085
+        },
+        "rotation": 180
+      }
+    },
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": 954.41736,
+          "y": 479.49988,
+          "z": -73.98789
+        },
+        "rotation": 180
+      }
+    }
+  ],
+  "switchable-singleswitch": [
+    {
+      "type": "switchable-singleswitch",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": -824.4743,
+          "y": -137.77463,
+          "z": -99
+        }
+      }
+    }
+  ],
+  "breakable-hydrojelly": [
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 413.5923,
+          "y": -744.5375,
+          "z": -44.998474
+        }
+      }
+    },
+    {
+      "type": "breakable-hydrojelly",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 2.978943,
+          "y": 419.77783,
+          "z": -2.8647614
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "switchId": "switch00",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": -745,
+          "y": -416.4743,
+          "z": -98.9999
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAPAPAYA",
+      "name": "Seed Hive",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 90,
+      "transform": {
+        "translation": {
+          "x": -140,
+          "y": -61,
+          "z": -32.7949
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAMIKAN",
+      "name": "Citrus Lump",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 60,
+      "transform": {
+        "translation": {
+          "x": -622.7742,
+          "y": 548.6064,
+          "z": 3.710655
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -901.87085,
+          "y": 726.8009,
+          "z": -98.9999
+        }
+      }
+    },
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 1,
+      "transform": {
+        "translation": {
+          "x": -823.0124,
+          "y": -691.43036,
+          "z": -98.9999
+        }
+      }
+    }
+  ],
+  "firepit-unlit": [
+    {
+      "type": "firepit-unlit",
+      "infoType": "firepit",
+      "isLit": false,
+      "transform": {
+        "translation": {
+          "x": 2.9789429,
+          "y": 419.77783,
+          "z": -97.9999
+        }
+      }
+    }
+  ],
+  "candypop-ice": [
+    {
+      "type": "candypop-ice",
+      "infoType": "candypop",
+      "color": "ice",
+      "disappearsAt": 6,
+      "transform": {
+        "translation": {
+          "x": 699.4258,
+          "y": 12.868717,
+          "z": -88.704
+        }
+      }
+    }
+  ],
+  "candypop-red": [
+    {
+      "type": "candypop-red",
+      "infoType": "candypop",
+      "color": "red",
+      "disappearsAt": 6,
+      "transform": {
+        "translation": {
+          "x": 915,
+          "y": 320,
+          "z": -92.9521
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "YUKIFUTAKUCHI",
+      "name": "Arctic Cannon Larva",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 900,
+      "seeds": 8,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 7,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": 907.7462,
+          "y": 667.0187,
+          "z": -56.598732
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "YUKIFUTAKUCHI",
+      "name": "Arctic Cannon Larva",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 900,
+      "seeds": 8,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 7,
+        "oatchiRushFreezeRatio": 5,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "transform": {
+        "translation": {
+          "x": -276.86182,
+          "y": -274.61856,
+          "z": -55.441463
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ICESENBEI",
+      "name": "Freezecake",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 7,
+      "health": 1000,
+      "seeds": 10,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTALIME",
+          "name": "Zest Bomb",
+          "weight": 7,
+          "carryMax": 14,
+          "value": 60,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 575.0548,
+          "y": -428.60468,
+          "z": -53
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ICETANK",
+      "name": "Snowy Blowhog",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 5,
+      "health": 1000,
+      "seeds": 5,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 0,
+        "freezeDamageRatio": 0,
+        "iceBomb": 0,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -533.3414,
+          "y": 324.1397,
+          "z": -75
+        }
+      }
+    }
+  ]
+}

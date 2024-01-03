@@ -1,0 +1,208 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave016_F15",
+      "transform": {
+        "translation": {
+          "x": 992.2092,
+          "y": -61.868362,
+          "z": 25.000092
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 245,
+      "transform": {
+        "translation": {
+          "x": 632.5377,
+          "y": -30.205902,
+          "z": 25.0001
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "candypop-blue": [
+    {
+      "type": "candypop-blue",
+      "infoType": "candypop",
+      "color": "blue",
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": 655.1401,
+          "y": 757.0545,
+          "z": 25.50003
+        }
+      }
+    },
+    {
+      "type": "candypop-blue",
+      "infoType": "candypop",
+      "color": "blue",
+      "disappearsAt": 51,
+      "replacedBy": "GEgg_C",
+      "transform": {
+        "translation": {
+          "x": -688.05096,
+          "y": -342.42584,
+          "z": 124.99964
+        }
+      }
+    }
+  ],
+  "water-water": [
+    {
+      "type": "water-water",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave016_F14_WaterBox00_D.png",
+        "amountToFreeze": 10
+      },
+      "transform": {
+        "translation": {
+          "x": -499.79575,
+          "y": 379.94986,
+          "z": -9.001298
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "water-swamp": [
+    {
+      "type": "water-swamp",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave016_F14_WaterBox01_D.png",
+        "amountToFreeze": 10,
+        "canSink": false
+      },
+      "transform": {
+        "translation": {
+          "x": 62.634476,
+          "y": 477.35614,
+          "z": -45.99774
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "hazardspout-water": [
+    {
+      "type": "hazardspout-water",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -545.9193,
+          "y": 892.7577,
+          "z": 145
+        }
+      }
+    },
+    {
+      "type": "hazardspout-water",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 71.36046,
+          "y": 789.15204,
+          "z": 120
+        }
+      }
+    },
+    {
+      "type": "hazardspout-water",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 71.36046,
+          "y": 331.42105,
+          "z": 120
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 68.75,
+          "y": -838.06824,
+          "z": 75.0001
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "HAGEDAMAGUMO",
+      "name": "Baldy Long Legs",
+      "weight": 0,
+      "carryMax": 0,
+      "value": 0,
+      "health": 3700,
+      "seeds": 0,
+      "freezeDrops": {
+        "bossType": "Boss",
+        "amount": 5,
+        "honeyChance": 0.7
+      },
+      "damageInfo": {
+        "bomb": 5,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 45,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 1.5,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 40
+      },
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTABUTTONMETAL",
+          "name": "Trap Lid",
+          "weight": 1,
+          "carryMax": 2,
+          "value": 20,
+          "amount": 10,
+          "chance": 1,
+          "min": 10,
+          "max": 10
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 20,
+          "max": 20
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 16.403015,
+          "y": 215.93875,
+          "z": 142.70967
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,542 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave010_F04",
+      "transform": {
+        "translation": {
+          "x": -816.4396,
+          "y": 828.99005,
+          "z": -0.538193
+        }
+      }
+    }
+  ],
+  "shortcut-clipboardlow": [
+    {
+      "type": "shortcut-clipboardlow",
+      "infoType": "shortcut",
+      "weight": 20,
+      "transform": {
+        "translation": {
+          "x": -107.796265,
+          "y": -274.9999,
+          "z": 32.160103
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "water-water": [
+    {
+      "type": "water-water",
+      "infoType": "water",
+      "normal": {
+        "image": "T_ui_Map_Cave010_F03_WaterBox00_D.png",
+        "amountToFreeze": 10
+      },
+      "transform": {
+        "translation": {
+          "x": -55.013275,
+          "y": -207.16356,
+          "z": -133.75037
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "KINKAISTATION",
+      "name": "Gold Nugget",
+      "amount": 20,
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "transform": {
+        "translation": {
+          "x": 538.59766,
+          "y": -826.46655,
+          "z": -49.9999
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTADUCKM",
+      "name": "Planetary Rubber Cutie",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 40,
+      "transform": {
+        "translation": {
+          "x": 1125.1864,
+          "y": 270.65158,
+          "z": 26.989944
+        }
+      }
+    }
+  ],
+  "switchable-fenceiron": [
+    {
+      "type": "switchable-fenceiron",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": -825.02856,
+          "y": -142.06242,
+          "z": 0.00009536743
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "switchable-fenceiron",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 825.41327,
+          "y": 424.63196,
+          "z": 100.00009
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "switchable-fenceiron",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 977.5,
+          "y": 275,
+          "z": -0.067173004
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "switchable-singleswitch": [
+    {
+      "type": "switchable-singleswitch",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 825,
+          "y": 700,
+          "z": 132
+        }
+      }
+    }
+  ],
+  "tunnel-oatchi": [
+    {
+      "type": "tunnel-oatchi",
+      "infoType": "tunnel",
+      "tunnelId": "HappyDoorID_0",
+      "transform": {
+        "translation": {
+          "x": 237.32544,
+          "y": 267.0165,
+          "z": 44.219715
+        }
+      }
+    },
+    {
+      "type": "tunnel-oatchi",
+      "infoType": "tunnel",
+      "tunnelId": "HappyDoorID_0",
+      "transform": {
+        "translation": {
+          "x": 828.01575,
+          "y": 937.8264,
+          "z": 144.2201
+        }
+      }
+    }
+  ],
+  "hazardspout-fire": [
+    {
+      "type": "hazardspout-fire",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 811.0265,
+          "y": 273.24396,
+          "z": 23.799765
+        }
+      }
+    },
+    {
+      "type": "hazardspout-fire",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 272.66656,
+          "y": -546.01904,
+          "z": -29.899902
+        }
+      }
+    },
+    {
+      "type": "hazardspout-fire",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 824.0265,
+          "y": -417.75604,
+          "z": 20.100111
+        }
+      }
+    }
+  ],
+  "pikmin-rock": [
+    {
+      "type": "pikmin-rock",
+      "infoType": "pikmin",
+      "color": "rock",
+      "state": "fighting",
+      "amount": 5,
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": 550,
+          "y": -105,
+          "z": 0.00010000186
+        }
+      }
+    }
+  ],
+  "hazardradial-floorfire": [
+    {
+      "type": "hazardradial-floorfire",
+      "infoType": "hazard",
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": -826,
+          "y": 645,
+          "z": 0.000092
+        }
+      }
+    }
+  ],
+  "hazardmisc-charcoal": [
+    {
+      "type": "hazardmisc-charcoal",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -863,
+          "y": 629,
+          "z": 32.00009
+        }
+      }
+    },
+    {
+      "type": "hazardmisc-charcoal",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -783,
+          "y": 655,
+          "z": 32.00009
+        }
+      }
+    }
+  ],
+  "gate-crystal": [
+    {
+      "type": "gate-crystal",
+      "infoType": "gate",
+      "width": 200,
+      "health": 1120,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 6,
+          "max": 6
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 384,
+          "y": 249,
+          "z": 31.1501
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -751.80286,
+          "y": -401.55692,
+          "z": 0.000099897385
+        }
+      }
+    }
+  ],
+  "candypop-rock": [
+    {
+      "type": "candypop-rock",
+      "infoType": "candypop",
+      "color": "rock",
+      "disappearsAt": 6,
+      "transform": {
+        "translation": {
+          "x": -1198.4872,
+          "y": 277.1253,
+          "z": -0.000061035156
+        }
+      }
+    }
+  ],
+  "candypop-red": [
+    {
+      "type": "candypop-red",
+      "infoType": "candypop",
+      "color": "red",
+      "disappearsAt": 6,
+      "transform": {
+        "translation": {
+          "x": -825,
+          "y": -620,
+          "z": 5.7129135
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ARIKUI",
+      "name": "Whiptongue Bulborb",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 12,
+      "health": 1300,
+      "seeds": 12,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 1.5,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 526.3894,
+          "y": -121.78677,
+          "z": 45
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KOCHAPPY_NIGHT",
+      "name": "Albino Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 200,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 5,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 1.5,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -757.39233,
+          "y": 343.13376,
+          "z": 12.060097
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "ARIKUI",
+      "name": "Whiptongue Bulborb",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 12,
+      "health": 1300,
+      "seeds": 12,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 1.5,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 14,
+        "oatchiRushFreezeRatio": 3.89,
+        "pikminHit": 0,
+        "purpleHit": 15
+      },
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTACANDYSTICK",
+          "name": "Sweet Stumble-Not",
+          "weight": 7,
+          "carryMax": 14,
+          "value": 60,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -826.4475,
+          "y": 278.56174,
+          "z": 43.944836
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KOCHAPPY_NIGHT",
+      "name": "Albino Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 200,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 5,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 1.5,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -934.39233,
+          "y": 203.13376,
+          "z": 12.060097
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "KOCHAPPY_NIGHT",
+      "name": "Albino Dwarf Bulborb",
+      "weight": 3,
+      "carryMax": 6,
+      "value": 3,
+      "health": 200,
+      "seeds": 3,
+      "freezeDrops": {
+        "bossType": "TekiS",
+        "amount": 1,
+        "honeyChance": 0.99
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 0,
+        "eatFreeze": 1,
+        "eatIceBomb": 0,
+        "eatPoison": 1,
+        "freeze": 5,
+        "freezeDamageRatio": 0.8,
+        "iceBomb": 1,
+        "oatchiRush": 1.2,
+        "oatchiRushFreezeRatio": 1.2,
+        "pikminHit": 1.5,
+        "purpleHit": 1
+      },
+      "transform": {
+        "translation": {
+          "x": -747.39233,
+          "y": 204.13376,
+          "z": 12.060093
+        }
+      }
+    }
+  ]
+}

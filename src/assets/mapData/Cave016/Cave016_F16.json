@@ -1,0 +1,130 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave016_F17",
+      "transform": {
+        "translation": {
+          "x": 932.4049,
+          "y": -101.71544,
+          "z": 50.000122
+        }
+      }
+    }
+  ],
+  "ridable-geyser": [
+    {
+      "type": "ridable-geyser",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": 143.83864,
+          "y": -198,
+          "z": 30
+        }
+      }
+    },
+    {
+      "type": "ridable-geyser",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": 417.3583,
+          "y": -618,
+          "z": 30
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": 534.8851,
+          "y": 192.42754,
+          "z": 50.00016
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -560.93463,
+          "y": 254.65848,
+          "z": -49.9999
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "QUEEN",
+      "name": "Empress Bulblax",
+      "weight": 20,
+      "carryMax": 40,
+      "value": 20,
+      "health": 5000,
+      "seeds": 50,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 8,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 100,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 3,
+        "oatchiRush": 60,
+        "oatchiRushFreezeRatio": 2,
+        "pikminHit": 0,
+        "purpleHit": 100
+      },
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTADRAGONFRUIT",
+          "name": "Fire-Breathing Feast",
+          "weight": 20,
+          "carryMax": 40,
+          "value": 170,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 252.22638,
+          "y": -408,
+          "z": 90.00006
+        }
+      }
+    }
+  ]
+}

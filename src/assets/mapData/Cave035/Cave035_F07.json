@@ -1,0 +1,925 @@
+{
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 137.5,
+          "y": 375,
+          "z": -49.9999
+        }
+      }
+    }
+  ],
+  "breakable-pot": [
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-white",
+          "infoType": "pikmin",
+          "color": "white",
+          "state": "idle",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -239.84076,
+          "y": -174.73608,
+          "z": -49.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-white",
+          "infoType": "pikmin",
+          "color": "white",
+          "state": "idle",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -231.67502,
+          "y": -249.82681,
+          "z": -49.99991
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-white",
+          "infoType": "pikmin",
+          "color": "white",
+          "state": "idle",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -303.13733,
+          "y": -230.8024,
+          "z": -49.99991
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-white",
+          "infoType": "pikmin",
+          "color": "white",
+          "state": "idle",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -230.13733,
+          "y": -86.8024,
+          "z": -49.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-white",
+          "infoType": "pikmin",
+          "color": "white",
+          "state": "idle",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -294.67502,
+          "y": -89.82681,
+          "z": -49.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-white",
+          "infoType": "pikmin",
+          "color": "white",
+          "state": "idle",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -249.84076,
+          "y": -23.736084,
+          "z": -49.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-white",
+          "infoType": "pikmin",
+          "color": "white",
+          "state": "idle",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -323.13733,
+          "y": -32.8024,
+          "z": -49.99991
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-white",
+          "infoType": "pikmin",
+          "color": "white",
+          "state": "idle",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -263.13733,
+          "y": -315.8024,
+          "z": -49.99991
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 283.10764,
+          "y": 561.53613,
+          "z": -49.999897
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 188.52542,
+          "y": 656.5358,
+          "z": -49.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 228.43597,
+          "y": 606.22144,
+          "z": -49.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 289.3271,
+          "y": 641.36694,
+          "z": -49.9999
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-white",
+          "infoType": "pikmin",
+          "color": "white",
+          "state": "idle",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -323.13733,
+          "y": -285.8024,
+          "z": -49.99991
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "drops": [
+        {
+          "type": "pikmin-white",
+          "infoType": "pikmin",
+          "color": "white",
+          "state": "idle",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -314.84076,
+          "y": -159.73608,
+          "z": -49.9999
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAPUMPKIN",
+      "name": "Mysterious Carriage",
+      "weight": 30,
+      "carryMax": 60,
+      "value": 150,
+      "transform": {
+        "translation": {
+          "x": 72,
+          "y": -276,
+          "z": -10.803698
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTATAKENOKO",
+      "name": "Anxious Sprout",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 90,
+      "transform": {
+        "translation": {
+          "x": -330.06793,
+          "y": 653.6997,
+          "z": -3.0843008
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTASWEETPOTATO",
+      "name": "Daughter of the Earth",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": 825,
+          "y": -730,
+          "z": -90.28587
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAMIKAN",
+      "name": "Citrus Lump",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 60,
+      "transform": {
+        "translation": {
+          "x": 543,
+          "y": 165,
+          "z": 67.1851
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAMIKAN",
+      "name": "Citrus Lump",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 60,
+      "transform": {
+        "translation": {
+          "x": 658,
+          "y": 133,
+          "z": 67.1851
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAEGGPLANT",
+      "name": "Foolish Fruit",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 80,
+      "transform": {
+        "translation": {
+          "x": -5,
+          "y": 605,
+          "z": -22.864902
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTATOMATOM",
+      "name": "Love Nugget",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 90,
+      "transform": {
+        "translation": {
+          "x": 518,
+          "y": -697,
+          "z": -10.804897
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTADRAGONFRUIT",
+      "name": "Fire-Breathing Feast",
+      "weight": 20,
+      "carryMax": 40,
+      "value": 170,
+      "transform": {
+        "translation": {
+          "x": -599,
+          "y": -678,
+          "z": -2.113411
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAZUCCHINI",
+      "name": "Crew-Cut Gourd",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 90,
+      "transform": {
+        "translation": {
+          "x": 704,
+          "y": 606,
+          "z": -23.507656
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTARINGO",
+      "name": "Insect Condo",
+      "weight": 12,
+      "carryMax": 24,
+      "value": 90,
+      "transform": {
+        "translation": {
+          "x": -1021,
+          "y": -436,
+          "z": -3.5554912
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "KINKAISTATION",
+      "name": "Gold Nugget",
+      "amount": 20,
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "transform": {
+        "translation": {
+          "x": -419,
+          "y": 272,
+          "z": -49.99991
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "KINKAISTATION",
+      "name": "Gold Nugget",
+      "amount": 40,
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "transform": {
+        "translation": {
+          "x": 480,
+          "y": -195,
+          "z": -49.99991
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "KINKAISTATION",
+      "name": "Gold Nugget",
+      "amount": 30,
+      "weight": 1,
+      "carryMax": 1,
+      "value": 5,
+      "transform": {
+        "translation": {
+          "x": -775,
+          "y": -228,
+          "z": -49.99991
+        }
+      }
+    }
+  ],
+  "switchable-fencenormal": [
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": -275,
+          "y": 535,
+          "z": -49.99997
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": -434.5,
+          "y": 535,
+          "z": -49.99997
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": -410,
+          "y": -443,
+          "z": -49.99994
+        },
+        "rotation": -90
+      }
+    },
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": 550,
+          "y": -546,
+          "z": -49.99991
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "misc-pullrope": [
+    {
+      "type": "misc-pullrope",
+      "infoType": "misc",
+      "transform": {
+        "translation": {
+          "x": 824,
+          "y": -636,
+          "z": -49.99991
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "shortcut-root": [
+    {
+      "type": "shortcut-root",
+      "infoType": "shortcut",
+      "transform": {
+        "translation": {
+          "x": -550,
+          "y": -180,
+          "z": -49.9999
+        },
+        "rotation": 180
+      }
+    }
+  ],
+  "shortcut-squashbag": [
+    {
+      "type": "shortcut-squashbag",
+      "infoType": "shortcut",
+      "weight": 50,
+      "transform": {
+        "translation": {
+          "x": 274,
+          "y": -21,
+          "z": -15
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "shortcut-pushboxcardboard": [
+    {
+      "type": "shortcut-pushboxcardboard",
+      "infoType": "shortcut",
+      "weight": 10,
+      "transform": {
+        "translation": {
+          "x": 200,
+          "y": -704,
+          "z": -49.99994
+        },
+        "rotation": -90
+      }
+    }
+  ],
+  "candypop-purple": [
+    {
+      "type": "candypop-purple",
+      "infoType": "candypop",
+      "color": "purple",
+      "transform": {
+        "translation": {
+          "x": 1087,
+          "y": 382,
+          "z": -46.898727
+        }
+      }
+    }
+  ],
+  "breakable-kingcappoison": [
+    {
+      "type": "breakable-kingcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 924,
+          "y": 384,
+          "z": -18
+        }
+      }
+    }
+  ],
+  "breakable-spotcappoison": [
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 925,
+          "y": 321,
+          "z": -30.8
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 940,
+          "y": 443,
+          "z": -30.8
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 891,
+          "y": 440,
+          "z": -30.8
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -576,
+          "y": 676,
+          "z": -34
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -488,
+          "y": 650,
+          "z": -34
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -528,
+          "y": 593,
+          "z": -34
+        }
+      }
+    }
+  ],
+  "pikmin-white": [
+    {
+      "type": "pikmin-white",
+      "infoType": "pikmin",
+      "color": "white",
+      "state": "sprouts",
+      "amount": 5,
+      "transform": {
+        "translation": {
+          "x": 81.00189,
+          "y": -276.8144,
+          "z": -49.999905
+        }
+      }
+    }
+  ],
+  "hazardradial-floormushroom": [
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": -542,
+          "y": 646,
+          "z": -33.9199
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": -121,
+          "y": 384,
+          "z": -33.9199
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": -419,
+          "y": 272,
+          "z": -34
+        }
+      }
+    }
+  ],
+  "breakable-spotcapnormal": [
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -543,
+          "y": 224,
+          "z": -32
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -467,
+          "y": 361,
+          "z": -32
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -339,
+          "y": 345,
+          "z": -32
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -297,
+          "y": 292,
+          "z": -32
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -327,
+          "y": 179,
+          "z": -32
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -447,
+          "y": 129,
+          "z": -32
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -144,
+          "y": 352,
+          "z": -32
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -114,
+          "y": 401,
+          "z": -32
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcapnormal",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -184,
+          "y": 373,
+          "z": -32
+        }
+      }
+    }
+  ],
+  "misc-groupdropmanager": [
+    {
+      "type": "misc-groupdropmanager",
+      "infoType": "misc",
+      "radius": 150,
+      "drops": [
+        {
+          "type": "pikmin-white",
+          "infoType": "pikmin",
+          "color": "white",
+          "state": "idle",
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 190,
+          "y": 601,
+          "z": -49.999817
+        }
+      }
+    }
+  ],
+  "breakable-egg": [
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 328.27045,
+          "y": -518.70154,
+          "z": 15
+        }
+      }
+    },
+    {
+      "type": "breakable-egg",
+      "infoType": "breakable",
+      "isBig": false,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 366,
+          "y": -489,
+          "z": 15
+        }
+      }
+    }
+  ]
+}

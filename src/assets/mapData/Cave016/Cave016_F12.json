@@ -1,0 +1,466 @@
+{
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": -357.7954,
+          "y": 144.12088,
+          "z": 0.00016103522
+        },
+        "rotation": 180
+      }
+    }
+  ],
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave016_F13",
+      "transform": {
+        "translation": {
+          "x": -158.53638,
+          "y": 551.29675,
+          "z": 0.000091552734
+        }
+      }
+    }
+  ],
+  "hazardradial-floormushroom": [
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": true,
+      "radius": -1,
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTAPUZZLEG",
+          "name": "Memory Fragment (Center Right)",
+          "weight": 2,
+          "carryMax": 4,
+          "value": 50,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -300.5,
+          "y": -262,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": true,
+      "radius": -1,
+      "transform": {
+        "translation": {
+          "x": 125.5,
+          "y": -283,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floormushroom",
+      "infoType": "hazard",
+      "isPoison": false,
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": -142.85474,
+          "y": -557.4988,
+          "z": 15.999817
+        }
+      }
+    }
+  ],
+  "breakable-spotcappoison": [
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -328.14517,
+          "y": -424.66437,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -390.3959,
+          "y": -368.91937,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 277.1266,
+          "y": -248.63641,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 106.30127,
+          "y": -120.44824,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -257.83264,
+          "y": -129.00977,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -409.6609,
+          "y": -138.0014,
+          "z": 16.000122
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 113.68591,
+          "y": -423.3462,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 237.97638,
+          "y": -376.0965,
+          "z": 18
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -444.24915,
+          "y": -228.91138,
+          "z": 16.000671
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 22.93042,
+          "y": -186.21606,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 207.48303,
+          "y": -210.49567,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -303.02808,
+          "y": -336.49237,
+          "z": 16
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -173.40887,
+          "y": -603.0167,
+          "z": 16.000229
+        }
+      }
+    },
+    {
+      "type": "breakable-spotcappoison",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -196.85864,
+          "y": -535.89966,
+          "z": 15.999741
+        }
+      }
+    }
+  ],
+  "hazardspout-poison": [
+    {
+      "type": "hazardspout-poison",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -16.115417,
+          "y": -487.52527,
+          "z": 19.999603
+        }
+      }
+    },
+    {
+      "type": "hazardspout-poison",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -79.5,
+          "y": -116,
+          "z": 20
+        }
+      }
+    }
+  ],
+  "breakable-pot": [
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -418.4823,
+          "y": 420.10913,
+          "z": 0.000091552734
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -470.1584,
+          "y": 381.9513,
+          "z": -0.014157812
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 411.5177,
+          "y": 189.10913,
+          "z": 0.000092
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 368.84155,
+          "y": 150.9513,
+          "z": -0.014158
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": 456.84155,
+          "y": 150.9513,
+          "z": -0.014158
+        }
+      }
+    }
+  ],
+  "candypop-white": [
+    {
+      "type": "candypop-white",
+      "infoType": "candypop",
+      "color": "white",
+      "disappearsAt": 51,
+      "replacedBy": "GEgg_C",
+      "transform": {
+        "translation": {
+          "x": -145.5,
+          "y": -821,
+          "z": 0.00009918213
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 573.2169,
+          "y": 430.3839,
+          "z": 0.0001001358
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "NISEBOSS",
+      "name": "Gildemander",
+      "weight": 20,
+      "carryMax": 40,
+      "value": 20,
+      "health": 6000,
+      "seeds": 30,
+      "freezeDrops": {
+        "bossType": "Boss",
+        "amount": 5,
+        "honeyChance": 0.7
+      },
+      "damageInfo": {
+        "bomb": 10,
+        "eatBomb": 8,
+        "eatFreeze": 6,
+        "eatIceBomb": 1,
+        "eatPoison": 10,
+        "freeze": 60,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 3,
+        "oatchiRush": 40,
+        "oatchiRushFreezeRatio": 2.5,
+        "pikminHit": 0,
+        "purpleHit": 50
+      },
+      "drops": [
+        {
+          "type": "treasure",
+          "infoType": "treasure",
+          "treasureId": "OTAPUMPKIN",
+          "name": "Mysterious Carriage",
+          "weight": 30,
+          "carryMax": 60,
+          "value": 150,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -81.07666,
+          "y": -284.3239,
+          "z": 90
+        }
+      }
+    }
+  ],
+  "misc-groupdropmanager": [
+    {
+      "type": "misc-groupdropmanager",
+      "infoType": "misc",
+      "radius": 115.04442,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 2,
+          "max": 2
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 406.5,
+          "y": 152,
+          "z": 0.00009918213
+        }
+      }
+    },
+    {
+      "type": "misc-groupdropmanager",
+      "infoType": "misc",
+      "radius": 115.04442,
+      "drops": [
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "min": 3,
+          "max": 3
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -451.5,
+          "y": 375,
+          "z": 0.000099
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,411 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave010_F01",
+      "transform": {
+        "translation": {
+          "x": -545.5485,
+          "y": 948.6513,
+          "z": -0.02478
+        }
+      }
+    }
+  ],
+  "hazardspout-fire": [
+    {
+      "type": "hazardspout-fire",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -275.84192,
+          "y": 41.949493,
+          "z": 20.1001
+        }
+      }
+    },
+    {
+      "type": "hazardspout-fire",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -0.8497925,
+          "y": 245.5138,
+          "z": -30.01773
+        }
+      }
+    },
+    {
+      "type": "hazardspout-fire",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -633.9919,
+          "y": 383.2422,
+          "z": 20.00016
+        }
+      }
+    }
+  ],
+  "gate-dirt": [
+    {
+      "type": "gate-dirt",
+      "infoType": "gate",
+      "width": 220,
+      "health": 5333,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 4,
+          "max": 4
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -474.89346,
+          "y": -502.50012,
+          "z": 30.1501
+        },
+        "rotation": -90
+      }
+    },
+    {
+      "type": "gate-dirt",
+      "infoType": "gate",
+      "width": 170,
+      "health": 5333,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 4,
+          "max": 4
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -472.60052,
+          "y": 699.8142,
+          "z": 32.00992
+        },
+        "rotation": 180
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 12,
+      "transform": {
+        "translation": {
+          "x": -1088,
+          "y": 429.5,
+          "z": -0.012852684
+        }
+      }
+    }
+  ],
+  "switchable-fencenormal": [
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": -730.02716,
+          "y": 138.25383,
+          "z": 0.00010108948
+        },
+        "rotation": 65
+      }
+    }
+  ],
+  "hazardradial-floorfire": [
+    {
+      "type": "hazardradial-floorfire",
+      "infoType": "hazard",
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": -823.7805,
+          "y": -34.299847,
+          "z": 0.00010681152
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floorfire",
+      "infoType": "hazard",
+      "radius": 87.5,
+      "transform": {
+        "translation": {
+          "x": 503.62012,
+          "y": -114.23859,
+          "z": -49.9999
+        }
+      }
+    },
+    {
+      "type": "hazardradial-floorfire",
+      "infoType": "hazard",
+      "radius": 175,
+      "transform": {
+        "translation": {
+          "x": 129,
+          "y": -123,
+          "z": -49.9999
+        }
+      }
+    }
+  ],
+  "hazardmisc-charcoal": [
+    {
+      "type": "hazardmisc-charcoal",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": -825.78424,
+          "y": -35.53524,
+          "z": 32.000107
+        }
+      }
+    },
+    {
+      "type": "hazardmisc-charcoal",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 506.8219,
+          "y": -112.59143,
+          "z": -17.859802
+        }
+      }
+    },
+    {
+      "type": "hazardmisc-charcoal",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 177.46751,
+          "y": -56.44268,
+          "z": -17.860352
+        }
+      }
+    },
+    {
+      "type": "hazardmisc-charcoal",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 177.46751,
+          "y": -191.44269,
+          "z": -17.860352
+        }
+      }
+    },
+    {
+      "type": "hazardmisc-charcoal",
+      "infoType": "hazard",
+      "transform": {
+        "translation": {
+          "x": 53.538513,
+          "y": -124.42178,
+          "z": -18.860598
+        }
+      }
+    }
+  ],
+  "pikmin-red": [
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "fighting",
+      "amount": 5,
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": -549.66486,
+          "y": 222.2916,
+          "z": 0.00009918213
+        }
+      }
+    },
+    {
+      "type": "pikmin-red",
+      "infoType": "pikmin",
+      "color": "red",
+      "state": "sprouts",
+      "amount": 5,
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": 555,
+          "y": -420,
+          "z": -49.9999
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": -924.5563,
+          "y": -506.40594,
+          "z": 0.00009918213
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTACROISSANT",
+      "name": "Flaky Temptation",
+      "weight": 7,
+      "carryMax": 14,
+      "value": 110,
+      "transform": {
+        "translation": {
+          "x": 535,
+          "y": 62,
+          "z": -27.885292
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAPUZZLEL",
+      "name": "Memory Fragment (Bottom Right)",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 50,
+      "transform": {
+        "translation": {
+          "x": -281,
+          "y": -126,
+          "z": 2.7136002
+        }
+      }
+    }
+  ],
+  "candypop-red": [
+    {
+      "type": "candypop-red",
+      "infoType": "candypop",
+      "color": "red",
+      "disappearsAt": 6,
+      "transform": {
+        "translation": {
+          "x": -1120.3232,
+          "y": -523.64886,
+          "z": 0.000030517578
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "CHAPPY",
+      "name": "Bulborb",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 10,
+      "health": 1000,
+      "seeds": 10,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 1,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 361.0125,
+          "y": -101.72473,
+          "z": -9.799904
+        }
+      }
+    },
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "CHAPPY",
+      "name": "Bulborb",
+      "weight": 10,
+      "carryMax": 20,
+      "value": 10,
+      "health": 1000,
+      "seeds": 10,
+      "freezeDrops": {
+        "bossType": "TekiM",
+        "amount": 1,
+        "honeyChance": 0.9
+      },
+      "damageInfo": {
+        "bomb": 1,
+        "eatBomb": 1,
+        "eatFreeze": 3,
+        "eatIceBomb": 1,
+        "eatPoison": 1,
+        "freeze": 30,
+        "freezeDamageRatio": 0.6,
+        "iceBomb": 1,
+        "oatchiRush": 10,
+        "oatchiRushFreezeRatio": 3.75,
+        "pikminHit": 0,
+        "purpleHit": 10
+      },
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -469.9447,
+          "y": 195.07458,
+          "z": 40.0002
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave010_F03",
+      "transform": {
+        "translation": {
+          "x": 0,
+          "y": 930,
+          "z": 0.000092
+        }
+      }
+    }
+  ],
+  "gate-numbered": [
+    {
+      "type": "gate-numbered",
+      "infoType": "gate",
+      "width": 145,
+      "transform": {
+        "translation": {
+          "x": -57,
+          "y": 550,
+          "z": -0.0064086914
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 35,
+          "y": -874,
+          "z": 0.00009930134
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTACASINOCHIP1",
+      "name": "Disk of Joyous Wisdom",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 1,
+      "transform": {
+        "translation": {
+          "x": -173.56636,
+          "y": 810.95074,
+          "z": 26.649513
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTACASINOCHIP1",
+      "name": "Disk of Joyous Wisdom",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 1,
+      "transform": {
+        "translation": {
+          "x": -114.56299,
+          "y": 734.88,
+          "z": 21.40435
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTACASINOCHIP1",
+      "name": "Disk of Joyous Wisdom",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 1,
+      "transform": {
+        "translation": {
+          "x": -158.93117,
+          "y": 719.51355,
+          "z": 21.40435
+        }
+      }
+    }
+  ],
+  "creature": [
+    {
+      "type": "creature",
+      "infoType": "creature",
+      "creatureId": "QUEEN",
+      "name": "Empress Bulblax",
+      "weight": 20,
+      "carryMax": 40,
+      "value": 20,
+      "health": 5000,
+      "seeds": 50,
+      "freezeDrops": {
+        "bossType": "BigBoss",
+        "amount": 10,
+        "honeyChance": 0.6
+      },
+      "damageInfo": {
+        "bomb": 8,
+        "eatBomb": 0,
+        "eatFreeze": 0,
+        "eatIceBomb": 0,
+        "eatPoison": 0,
+        "freeze": 100,
+        "freezeDamageRatio": 0.4,
+        "iceBomb": 3,
+        "oatchiRush": 60,
+        "oatchiRushFreezeRatio": 2,
+        "pikminHit": 0,
+        "purpleHit": 100
+      },
+      "drops": [
+        {
+          "type": "castaway-normal",
+          "infoType": "castaway",
+          "isLeafling": false,
+          "isKoppaite": false,
+          "weight": 3,
+          "carryMax": 6,
+          "chance": 1,
+          "min": 1,
+          "max": 1
+        },
+        {
+          "type": "miscitem-honey",
+          "infoType": "misc",
+          "chance": 1,
+          "revisitOnly": true,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 30.000435,
+          "y": 60,
+          "z": 89.99999
+        }
+      }
+    }
+  ]
+}

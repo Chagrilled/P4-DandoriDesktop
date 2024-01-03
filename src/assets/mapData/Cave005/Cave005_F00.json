@@ -1,0 +1,297 @@
+{
+  "cave-entrance": [
+    {
+      "type": "cave-entrance",
+      "infoType": "cave",
+      "toMapId": "Cave005_F01",
+      "transform": {
+        "translation": {
+          "x": 415.1964,
+          "y": -1092.6165,
+          "z": 77.34391
+        }
+      }
+    }
+  ],
+  "gate-dirt": [
+    {
+      "type": "gate-dirt",
+      "infoType": "gate",
+      "width": 145,
+      "health": 5333,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 4,
+          "max": 4
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": 469.61084,
+          "y": -710.5697,
+          "z": 105.14901
+        },
+        "rotation": 180
+      }
+    }
+  ],
+  "switchable-doubleswitch": [
+    {
+      "type": "switchable-doubleswitch",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": -104.41528,
+          "y": -250.13074,
+          "z": 106.99953
+        },
+        "rotation": 180
+      }
+    }
+  ],
+  "switchable-conveyor": [
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 137.5,
+          "y": -412,
+          "z": 75
+        },
+        "rotation": -90
+      }
+    },
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": 138,
+          "y": 412.5,
+          "z": 13.5
+        },
+        "rotation": -90
+      }
+    },
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": -412,
+          "y": 412.5,
+          "z": 25
+        },
+        "rotation": 90
+      }
+    },
+    {
+      "type": "switchable-conveyor",
+      "infoType": "switchable",
+      "switchId": "switch00",
+      "transform": {
+        "translation": {
+          "x": -138,
+          "y": 140,
+          "z": 52
+        },
+        "rotation": 0
+      }
+    }
+  ],
+  "switchable-fencenormal": [
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": 687.88,
+          "y": -16.292908,
+          "z": 75.0001
+        },
+        "rotation": 0
+      }
+    },
+    {
+      "type": "switchable-fencenormal",
+      "infoType": "switchable",
+      "transform": {
+        "translation": {
+          "x": -858.1865,
+          "y": 138,
+          "z": 26.006342
+        },
+        "rotation": 90
+      }
+    }
+  ],
+  "ridable-geyser": [
+    {
+      "type": "ridable-geyser",
+      "infoType": "ridable",
+      "transform": {
+        "translation": {
+          "x": -651.36255,
+          "y": -120.98114,
+          "z": 57
+        }
+      }
+    }
+  ],
+  "breakable-pot": [
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -907.2584,
+          "y": 240.79257,
+          "z": 24.99955
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -1003.27515,
+          "y": 281.9358,
+          "z": 24.999687
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -969.74023,
+          "y": 227.0947,
+          "z": 24.999733
+        }
+      }
+    },
+    {
+      "type": "breakable-pot",
+      "infoType": "breakable",
+      "transform": {
+        "translation": {
+          "x": -940.8684,
+          "y": 294.89783,
+          "z": 25.000175
+        }
+      }
+    }
+  ],
+  "pile-materials": [
+    {
+      "type": "pile-materials",
+      "infoType": "pile",
+      "amount": 20,
+      "transform": {
+        "translation": {
+          "x": 633.3169,
+          "y": -387.69604,
+          "z": 75.00001
+        }
+      }
+    }
+  ],
+  "pikmin-yellow": [
+    {
+      "type": "pikmin-yellow",
+      "infoType": "pikmin",
+      "color": "yellow",
+      "state": "sprouts",
+      "amount": 5,
+      "disappearsAt": 51,
+      "transform": {
+        "translation": {
+          "x": -396.33606,
+          "y": -412.5089,
+          "z": 75.0001
+        }
+      }
+    }
+  ],
+  "treasure": [
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAFINGERBOARD",
+      "name": "Personal-Injury Plank",
+      "weight": 5,
+      "carryMax": 10,
+      "value": 80,
+      "transform": {
+        "translation": {
+          "x": 867,
+          "y": -134,
+          "z": 181.0302
+        }
+      }
+    },
+    {
+      "type": "treasure",
+      "infoType": "treasure",
+      "treasureId": "OTAPUZZLED",
+      "name": "Memory Fragment (Top Right)",
+      "weight": 2,
+      "carryMax": 4,
+      "value": 50,
+      "transform": {
+        "translation": {
+          "x": -984.7115,
+          "y": 92.24266,
+          "z": 27.713596
+        }
+      }
+    }
+  ],
+  "base-beagle": [
+    {
+      "type": "base-beagle",
+      "infoType": "base",
+      "baseId": 0,
+      "transform": {
+        "translation": {
+          "x": 682.41235,
+          "y": 538.15356,
+          "z": 20.99061
+        }
+      }
+    }
+  ],
+  "misc-groupdropmanager": [
+    {
+      "type": "misc-groupdropmanager",
+      "infoType": "misc",
+      "radius": 150,
+      "drops": [
+        {
+          "type": "pile-materials",
+          "infoType": "pile",
+          "chance": 1,
+          "min": 5,
+          "max": 5
+        }
+      ],
+      "transform": {
+        "translation": {
+          "x": -955.7699,
+          "y": 263.71045,
+          "z": 25.000122
+        }
+      }
+    }
+  ]
+}
