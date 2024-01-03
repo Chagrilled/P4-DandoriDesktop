@@ -83,7 +83,7 @@ Once you want to output these to your emulator, use `Tools > Deploy to Emulator`
 
 The object editor is currently very primitive, and basically just displays JSON on screen like a worse IDE. However it only displays the things people usually want to edit, so can be a little faster to use in that regard.
 
-The design philosophy is a little weird for this one. There are far far too many parameters for me to build a UI around each one and make it look really good, and many are often deeply nested in JSON, and due to the coverage of our understanding of parameters, this nesting is often helpful to discerning something's purpose. So I left it all in.
+The design philosophy is a little weird for this one. There are far far too many parameters for me to build a UI around each one and make it look really good, and many are often deeply nested in JSON, and due to the coverage of our understanding of parameters, this nesting is often helpful to discern something's purpose. So I left it all in.
 
 ## 🐛 Bug Reporting/Feature Requests
 
