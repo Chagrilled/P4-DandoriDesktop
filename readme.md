@@ -87,7 +87,7 @@ The design philosophy is a little weird for this one. There are far far too many
 
 ## 🐛 Bug Reporting/Feature Requests
 
-Bugs will be bountiful. Please check the [🐛bug list](#-bug-reportingfeature-requests)/existing issues before posting.
+Bugs will be bountiful. Please check the [🐛bug list](#-bugsknown-issues)/existing issues before posting.
 
 If you find one, plese use the devtools (while they still exist in the prod build) to copy/screencap any error traces from the JavaScript console, and (ideally) create an [issue](https://github.com/Chagrilled/P4-DandoriDesktop/issues) on the repo so I can keep them tracked. Be sure to include as much as you can to help me reproduce (potentially including your game file in question if relevant).
 
@@ -159,6 +159,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ❌ Work out why BigFireTank doesn't get a model
 - ❌ Night teki files
 - ❌ Unit tests (lol)
+- ❌ GitHub issue template
 
 </details>
 
