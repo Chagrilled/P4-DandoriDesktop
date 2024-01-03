@@ -28,11 +28,11 @@ Currently supports:
 
 ## 🛠️ Setup/Workflow
 
-DDT reads and writes to local game files that must be decoded from extracted `.uasset` files. It is assumed you have these files already.
+DDT reads and writes to local game files that must be decoded to their JSON forms from extracted `.uasset` files. It is assumed you have these files already.
 
 Use the `Settings` menu to set 4 things:
 
-- `Carrot4 Folder` - Folder containing your game file structure - this should contain `Maps/` and `Placeables/`
+- `Carrot4 Folder` - Folder containing your game file structure as JSON - this should contain `Maps/` and `Placeables/`
 - `Encoder Folder` - Folder containing [P4UassetEditor](https://gamebanana.com/tools/15077). Assumes the files/folders are not renamed
 - `castoc Folder` - Folder containing `castoc`. Assumes the files/folders are not renamed
 - `Output Paks Folder` - Folder (probably) in your emulator you want your built mod's outputs to go to
