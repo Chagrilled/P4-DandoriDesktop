@@ -6,8 +6,8 @@ Special thanks goes to Dodiou to making [DandoriDB](https://github.com/Dodiou/Da
 
 
 - [🌸 Dandori Desktop](#-dandori-desktop)
-   * [🛠️ Setup/Workflow](#%EF%B8%8F-setupworkflow-setupworkflow)
-   * [✏️ Editing](#%EF%B8%8F-editing-editing)
+   * [🛠️ Setup/Workflow](#%EF%B8%8F-setupworkflow)
+   * [✏️ Editing](#%EF%B8%8F-editing)
       + [🗺️ Maps](#%EF%B8%8F-maps)
       + [📦️ Objects](#%EF%B8%8F-objects)
    * [🐛 Bug Reporting/Feature Requests](#-bug-reportingfeature-requests)
