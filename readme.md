@@ -143,7 +143,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅❗ Debounce all inputs 
 - ❌ kurage fall AI - cave024_f03 - how is FallStart defined in the AI bytes?
 - ❌ Get default flags for each mob type? are they even flags
-- ❌ Do water boxes
+- ✅ Do water boxes
 - ✅ Option to flip internal and English names in dropdowns/infopanels
 - ✅ Support misc items as drops
 - ❌ Vertical coordinates - idk what to do about this since we're on a 2D plane
