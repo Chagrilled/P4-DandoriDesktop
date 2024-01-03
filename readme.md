@@ -6,14 +6,14 @@ Special thanks goes to Dodiou to making [DandoriDB](https://github.com/Dodiou/Da
 
 
 - [🌸 Dandori Desktop](#-dandori-desktop)
-   * [🛠️ Setup/Workflow](#-setupworkflow)
-   * [✏️ Editing](#-editing)
-      + [🗺️ Maps](#-maps)
-      + [📦️ Objects](-#objects)
+   * [🛠️ Setup/Workflow](#%EF%B8%8F-setupworkflow-setupworkflow)
+   * [✏️ Editing](#%EF%B8%8F-editing-editing)
+      + [🗺️ Maps](#%EF%B8%8F-maps)
+      + [📦️ Objects](#%EF%B8%8F-objects)
    * [🐛 Bug Reporting/Feature Requests](#-bug-reportingfeature-requests)
-   * [👷‍♂️ Developer Notes](#-developer-notes)
+   * [👷‍♂️ Developer Notes](#%EF%B8%8F-developer-notes)
       + [🤖 AI](#-ai)
-   * [🏗️ To Do List:](#-to-do-list)
+   * [🏗️ To Do List:](#%EF%B8%8F-to-do-list)
    * [🐛 Bugs/known issues:](#-bugsknown-issues)
 
 Currently supports:
