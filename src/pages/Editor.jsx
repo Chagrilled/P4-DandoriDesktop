@@ -30,6 +30,7 @@ export const Editor = () => {
     }, [entityId]);
 
     useEffect(() => {
+        window.electron.ipcRenderer.on('fileNameRequest', () => window.electron.ipcRenderer.sendFileName(`G${entityId}`));
         window.electron.ipcRenderer.on('saveRequest', async () => {
             const res = await window.electron.ipcRenderer.saveEntities(entityData);
             if (res) {
@@ -53,6 +54,7 @@ export const Editor = () => {
             }
         });
         return () => {
+            window.electron.ipcRenderer.removeAllListeners('fileNameRequest');
             window.electron.ipcRenderer.removeAllListeners('saveRequest');
         };
     });

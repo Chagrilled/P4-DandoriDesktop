@@ -240,6 +240,12 @@ const createWindow = (id, options = {}) => {
                     click: () => {
                         spawn(config.emulatorFile);
                     }
+                },
+                {
+                    label: 'Open in IDE',
+                    click: () => {
+                        mainWindow.webContents.send('fileNameRequest');
+                    }
                 }
             ]
         },
@@ -308,6 +314,25 @@ ipcMain.on('saveEntities', (event, entityData) => {
     });
 
     return mainWindow.webContents.send('successNotify', 'Saved all entities');
+});
+
+ipcMain.on('fileNameRequest', (event, fileName) => {
+    let filePath = '';
+    if (fileName.startsWith('G')) {
+        // Teki
+        filePath = join(config.gameDir, 'Placeables', 'Teki', `${fileName}.json`);
+    } else {
+        const mapPath = getMapPath(fileName);
+        const day = fileName.startsWith('Cave') || fileName === 'Area011' ? '' : '_Day';
+        filePath = join(mapPath, `AP_${fileName}_P_Teki${day}.json`);
+    }
+
+    if (process.platform === 'win32') {
+        // Workround
+        spawn('explorer.exe', [filePath]);
+    } else {
+        shell.openPath(filePath);
+    }
 });
 
 ipcMain.on('openFolder', (event) => {

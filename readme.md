@@ -75,6 +75,8 @@ Once you want to output these to your emulator, use `Tools > Deploy to Emulator`
 
 🖱️ Right click to use the creation menu to add new entities
 
+⌨️ You can also use ctrl+Z to undo any _map entity_ you delete
+
 ❗`castoc`'s error reporting doesn't seem so good (or it's how I invoke it), and it doesn't actually report a failure. If you don't get the full load of toast messages, ending in `Paks copied to "D:/your/output/folder"` then you may want to run the tools manually to see what's going on.
 
 ❗For the most part, the app is not fully user-safe and will not try to protect your inputs. Therefore, ensure you are keeping your input data in the correct types - array remain strict arrays, lists of strings (like `ignoreList` are correctly formatted - `["Kochappy", "Mush"]`) etc.

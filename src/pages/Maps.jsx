@@ -24,6 +24,7 @@ export const Maps = () => {
     }, [mapId]);
 
     useEffect(() => {
+        window.electron.ipcRenderer.on('fileNameRequest', () => window.electron.ipcRenderer.sendFileName(mapId));
         window.electron.ipcRenderer.on('saveRequest', async () => {
             const res = await window.electron.ipcRenderer.saveMaps(mapId, mapMarkerData);
             if (res) {
@@ -48,6 +49,8 @@ export const Maps = () => {
         });
         return () => {
             window.electron.ipcRenderer.removeAllListeners('saveRequest');
+            window.electron.ipcRenderer.removeAllListeners('fileNameRequest');
+
         };
     });
 

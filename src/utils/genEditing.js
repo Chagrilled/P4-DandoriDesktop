@@ -63,8 +63,9 @@ export const parseGDMDrops = drops => {
         }
     const invSize = drops[index];
 
-    index += 12; // There's a -1,-1 (255*4, 255*4) after, idk what they do
+    index += 4; // There's a -1,-1 (255*4, 255*4) after, idk what they do
     for (let i = 0; i < invSize; i++) {
+        index += 8; // Skip the two -1 bytes at the start of each item
         const minDrops = drops[index];
         index += 4;
         const maxDrops = drops[index];
@@ -277,7 +278,7 @@ export const constructGDMAI = (drops, aiStatic, { groupingRadius, ignoreList, in
         bytes.push(...floatBytes(parseFloat(drop.dropChance)));
         bytes.push(drop.bRegistGenerator ? 1 : 0, 0, 0, 0);
         if (drop.dropCondition && drop.dropCondition != 'None') {
-            bytes.push(1, 0, 0, 0);
+            bytes.push(255, 255, 255, 255, 255, 255, 255, 255); // GDMs seem to start each item with two -1 bytes
             bytes.push(parseInt(drop.dropCondition));
             bytes.push(0, 0, 0, 0); // We'll 0 dropCondInt for now, idk what -1 is for
             bytes.push(...NONE_BYTES); // Force dropCondName to None for now.

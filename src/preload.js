@@ -14,6 +14,7 @@ contextBridge.exposeInMainWorld("electron", {
         saveMaps: (mapId, entities) => ipcRenderer.invoke('saveMaps', mapId, entities),
         saveEntities: (entityData) => ipcRenderer.send('saveEntities', entityData),
         getTekis: () => ipcRenderer.send('getTekis'),
-        getEntityData: (entity) => ipcRenderer.invoke('getEntityData', entity)
+        getEntityData: (entity) => ipcRenderer.invoke('getEntityData', entity),
+        sendFileName: (fileName) => ipcRenderer.send('fileNameRequest', fileName)
     }
 });
