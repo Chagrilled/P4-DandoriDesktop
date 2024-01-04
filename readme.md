@@ -163,6 +163,8 @@ The bytes I construct are then spliced together with the base template for that 
 - ❌ Unit tests (lol)
 - ❌ GitHub issue template
 - ❌ Flint beetle drops
+- ❌ How skutterchucks start with bombs - probably a CustomParameter
+- ❌ Move [5,6] of `params` to a u16?
 
 </details>
 
@@ -180,6 +182,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ❌ Not a bug - `Internal Names First` only affects the creature list, as I doubt anyone knows/wants the treasure/misc items named internally. It was mainly to seek to them faster via the dropdowns. Let me know if this is weird or not.
 - ❓ Scientific notation numbers are transformed to standard form. Conversion is correct, so unsure if problematic. GJumpPoint_LivingRoom in Area010 is an example
 - ❌ The entire UI - yes I know, styling is not my idea of fun.
+- 🐛 Fix inventories where bSetTerritory is true - this causes 4 more bytes to exist, which would mess up the inventory byte (cave007_F00 minimochi egg drop)
 - 🐛 Flint beetle drops are different to normal enemies
 
 </details>
