@@ -11,7 +11,7 @@ import { protectNumbers, unprotectNumbers, setFloats } from './utils/utils';
 import { version } from '../package.json';
 
 const CONFIG_PATH = join(`${app.getPath('userData')}`, "config.json");
-
+const TEKI = 'Teki';
 const DEFAULT_CONFIG = {
     gameDir: '',
     placeablesDir: '',
@@ -51,6 +51,11 @@ app.on('activate', () => {
     }
 });
 
+/*****************************
+ * ***************************
+ *   Window Config
+ * ***************************
+ *****************************/
 const createWindow = (id, options = {}) => {
     // Create the browser window.
     mainWindow = new BrowserWindow({
@@ -269,7 +274,13 @@ const createWindow = (id, options = {}) => {
     mainWindow.webContents.openDevTools();
 };
 
-// Anything using path/Node modules has to be in the main process
+/*****************************
+ * ***************************
+ *   Node Stocks
+ * ***************************
+ *****************************/
+
+// Anything using path/Node modules has to be in the main process - maybe could go into a nodeUtils file
 const getMapPath = (mapId) => {
     const AREA_PATH = join(`${config.gameDir}`, "Maps", "Main", "Area");
     const CAVE_PATH = join(`${config.gameDir}`, "Maps", "Madori", "Cave");
@@ -282,6 +293,20 @@ const getMapPath = (mapId) => {
     else mapPath = join(AREA_PATH, mapId, "ActorPlacementInfo");
     return mapPath;
 };
+
+const getFilePath = (mapId, type) => {
+    const areaId = mapId.startsWith('HeroStory') ? `Area${mapId.slice(-3)}` : mapId;
+    const mapPath = getMapPath(areaId);
+    const hero = mapId.startsWith('HeroStory') ? '_Hero' : '';
+    const day = mapId.startsWith('HeroStory') || mapId.startsWith('Cave') || mapId === 'Area011' ? '' : '_Day';
+    return join(mapPath, `AP_${areaId}_P${hero}_${type}${day}.json`);
+};
+
+/*****************************
+ * ***************************
+ *   IPC Handlers
+ * ***************************
+ *****************************/
 
 ipcMain.on('saveEntities', (event, entityData) => {
     const floats = {};
@@ -322,9 +347,7 @@ ipcMain.on('fileNameRequest', (event, fileName) => {
         // Teki
         filePath = join(config.gameDir, 'Placeables', 'Teki', `${fileName}.json`);
     } else {
-        const mapPath = getMapPath(fileName);
-        const day = fileName.startsWith('Cave') || fileName === 'Area011' ? '' : '_Day';
-        filePath = join(mapPath, `AP_${fileName}_P_Teki${day}.json`);
+        filePath = getFilePath(fileName, TEKI);
     }
 
     if (process.platform === 'win32') {
@@ -465,8 +488,7 @@ ipcMain.handle('saveMaps', async (event, mapId, data) => {
         ],
         Extra: rawData.teki.Extra
     };
-    const mapPath = getMapPath(mapId);
-    const day = mapId.startsWith('Cave') || mapId === 'Area011' ? '' : '_Day';
+    const mapPath = getFilePath(mapId, TEKI);
     const floats = {};
     // JS truncates the .0 from a float as soon as it touches it 
     // Because there are no floats in JS, just "number", decimals included, so 4 == 4.0
@@ -477,7 +499,7 @@ ipcMain.handle('saveMaps', async (event, mapId, data) => {
 
     const stringData = unprotectNumbers(swf(floats)(newJson, null, 2));
     try {
-        await promises.writeFile(join(mapPath, `AP_${mapId}_P_Teki${day}.json`), stringData);
+        await promises.writeFile(mapPath, stringData);
         return 0; //idk return status codes or something
     } catch (e) {
         console.log(e);
@@ -486,21 +508,13 @@ ipcMain.handle('saveMaps', async (event, mapId, data) => {
 });
 
 ipcMain.handle('readMapData', async (event, mapId) => {
-    const mapPath = getMapPath(mapId);
+    const mapPath = getFilePath(mapId, TEKI);
 
-    // if (mapId.startsWith('HeroStory')) {
-    //     const areaId = 'Area' + mapId.slice(-3);
-    //     mapPath = `/${areaId}/olimar.json`;
-    // }
-    // else {
-    //     dataUrl += `/${mapId}/day.json`;
-    // }
-    const day = mapId.startsWith('Cave') || mapId === 'Area011' ? '' : '_Day';
     let tekiFile;
     try {
-        tekiFile = await promises.readFile(join(mapPath, `AP_${mapId}_P_Teki${day}.json`), { encoding: 'utf-8' });
+        tekiFile = await promises.readFile(mapPath, { encoding: 'utf-8' });
     } catch (e) {
-        mainWindow.webContents.send('errorNotify', `Failed reading teki data from: ${join(mapPath, `AP_${mapId}_P_Teki${day}.json`)}`);
+        mainWindow.webContents.send('errorNotify', `Failed reading teki data from: ${mapPath}`);
         return { creature: [] };
     }
     tekiFile = JSON.parse(protectNumbers(tekiFile));
@@ -541,6 +555,12 @@ ipcMain.handle('readMapData', async (event, mapId) => {
     return { creature };
 });
 
+/*****************************
+ * ***************************
+ *   Functions
+ * ***************************
+ *****************************/
+
 const getTekis = (force) => {
     const entities = [];
     readdir(`${join(config.gameDir, 'Placeables', 'Teki')}`, (err, files) => {
@@ -572,10 +592,18 @@ const readMaps = (force) => {
         if (err) {
             console.error(err);
             // TOOD: return error toast
-            return mainWindow.webContents.send('errorNotify', `Failed to read maps from: ${AREA_PATH}`);
+            mainWindow.webContents.send('errorNotify', `Failed to read main area maps from: ${AREA_PATH}`);
             // return mainWindow.webContents.send('getMaps', { maps: [] });
         }
         maps.push(...areaMaps);
+        areaMaps.forEach(map => {
+            try {
+                accessSync(join(AREA_PATH, map, 'ActorPlacementInfo', `AP_${map}_P_Hero_Teki.json`));
+                maps.push(`HeroStory${map.slice(-3)}`);
+            } catch (e) {
+                // don't care 
+            }
+        });
         readdir(CAVE_PATH, async (err, caveMaps) => {
             if (err) {
                 // TODO: return error toast and maps
@@ -599,6 +627,12 @@ const readMaps = (force) => {
     });
 };
 
+
+/*****************************
+ * ***************************
+ *   Config Reading
+ * ***************************
+ *****************************/
 try {
     accessSync(CONFIG_PATH, constants.F_OK);
     const data = readFileSync(CONFIG_PATH, { encoding: "utf-8" });
