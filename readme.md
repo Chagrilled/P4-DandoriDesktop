@@ -116,7 +116,7 @@ DDT is an Electron app (built from electron-forge) made with React + Tailwind (n
 
 It also contains quite a lot of idiosyncracies from DandoriDB, as I based it off that, so some logic from there had to be mangled to work locally, and I opted not to stick with some of its conventions.
 
-Much of the data used in name maps/defaults has been scraped from the game files. [scrape.js](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/scrape.js) contains the code used to produce `tekiData.json` which is a list of every possible value that keys in the ActorGeneratorList (AGL)s can have for each creature.
+Much of the data used in name maps/defaults has been scraped from the game files. [scrape.js](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/scrape.js) contains the code used to produce `entity.json` which is a list of every possible value that keys in the ActorGeneratorList (AGL)s can have for each creature.
 
 ### 🤖 AI
 

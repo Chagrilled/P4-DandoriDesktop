@@ -1,4 +1,4 @@
-import { default as tekiData } from '../api/tekiData.json';
+import { default as entityData } from '../api/entityData.json';
 import { floatToByteArr, intToByteArr, bytesToInt } from './bytes';
 import { setFloats, getNameFromAsset } from './utils';
 
@@ -41,12 +41,14 @@ export const ASP_FIELDS = [
 export const getReadAIFunc = (creatureId) => {
     if (creatureId === 'GroupDropManager') return parseGDMDrops;
     if (creatureId === 'ActorSpawner') return parseActorSpawnerDrops;
+    if (creatureId === 'BurrowDemejako') return () => ({ parsed: [] });
     return parseTekiDrops;
 };
 
 export const getConstructAIFunc = (creatureId) => {
     if (creatureId === 'GroupDropManager') return constructGDMAI;
     if (creatureId === 'ActorSpawner') return constructActorSpawnerAI;
+    if (creatureId === 'BurrowDemejako') return (_, ai) => ai;
     return constructCreatureAI;
 };
 
@@ -212,7 +214,7 @@ export const parseTekiDrops = drops => {
     if (invSize === 0) {
         return { parsed, inventoryEnd: 28 };
     }
-
+    console.log("drops", drops);
     let index = 24; // start of the first item
     for (let i = 0; i < invSize; i++) {
         const slot = {};
@@ -522,7 +524,7 @@ export const constructTeki = (actor, mapId) => {
         Transform: transforms,
         GenerateInfo: {
             EnableSave: true,
-            DebugUniqueId: tekiData[actor.creatureId].DebugUniqueId[0], // Not unique - just grab one?
+            DebugUniqueId: entityData[actor.creatureId].DebugUniqueId[0], // Not unique - just grab one?
             ActorGlobalId: "None",
             GenerateNum: parseInt(actor.generateNum),
             GenerateRadius: parseFloat(actor.generateRadius),
@@ -540,7 +542,7 @@ export const constructTeki = (actor, mapId) => {
             CurrNum: 1,
             ExpireProgress: 0,
             RebirthInterval: 3,
-            SaveFlag: tekiData[actor.creatureId].SaveFlag[0],
+            SaveFlag: entityData[actor.creatureId].SaveFlag[0],
             MyID: -1,
             RefID: -1,
             RebirthInfoFlags: 0,
@@ -563,21 +565,21 @@ export const constructTeki = (actor, mapId) => {
         ActorSerializeParameter: {
             ...ASP_FIELDS.reduce((acc, key) => ({
                 ...acc,
-                [key]: tekiData[actor.creatureId][key][0] // Grab the first thing from the dump data.
+                [key]: entityData[actor.creatureId][key][0] // Grab the first thing from the dump data.
                 // Aside from AI (drops), and CakAudioTable(?), they're the same per actor type 
             }), {}),
             AI: {
-                Static: getConstructAIFunc(actor.creatureId)(actor.drops.parsed, tekiData[actor.creatureId].AI[0].Static, {
+                Static: getConstructAIFunc(actor.creatureId)(actor.drops.parsed, entityData[actor.creatureId].AI[0].Static, {
                     groupingRadius: actor?.groupingRadius,
                     ignoreList: actor?.ignoreList
                 }),
-                Dynamic: tekiData[actor.creatureId].AI[0].Dynamic
+                Dynamic: entityData[actor.creatureId].AI[0].Dynamic
             }
         },
         SubLevelName: mapId,
         TeamId: "ETeamIdEditor::No",
-        GenerateFlags: tekiData[actor.creatureId].GenerateFlags[0],
-        OriginalPhysicsRadiusZ: tekiData[actor.creatureId].OriginalPhysicsRadiusZ[0],
+        GenerateFlags: entityData[actor.creatureId].GenerateFlags[0],
+        OriginalPhysicsRadiusZ: entityData[actor.creatureId].OriginalPhysicsRadiusZ[0],
         LastNavPos: transforms.Translation,
         CarcassFlags: 0,
         RefOriginalGenID: -1

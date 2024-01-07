@@ -99,6 +99,9 @@ readdirSync('Main/Area').forEach(areaDir => {
     const tekiFile = readFileSync(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Teki${day}.json`, { encoding: 'utf-8' });
     const jsonTeki = JSON.parse(protectNumbers(tekiFile));
     parser(jsonTeki);
+    const objFile = readFileSync(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Objects${day}.json`, { encoding: 'utf-8' });
+    const jsonObj = JSON.parse(protectNumbers(objFile));
+    parser(jsonObj);
 });
 
 readdirSync('Madori/Cave').forEach(cave => {
@@ -107,6 +110,9 @@ readdirSync('Madori/Cave').forEach(cave => {
         const tekiFile = readFileSync(`Madori/Cave/${cave}/${subLevel}/ActorPlacementInfo/AP_${subLevel}_P_Teki.json`, { encoding: 'utf-8' });
         const jsonTeki = JSON.parse(protectNumbers(tekiFile));
         parser(jsonTeki);
+        const objFile = readFileSync(`Madori/Cave/${cave}/${subLevel}/ActorPlacementInfo/AP_${subLevel}_P_Objects.json`, { encoding: 'utf-8' });
+        const jsonObj = JSON.parse(protectNumbers(objFile));
+        parser(jsonObj);
     });
 });
 
