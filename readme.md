@@ -7,7 +7,7 @@ Special thanks goes to Dodiou to making [DandoriDB](https://github.com/Dodiou/Da
 
 - [🌸 Dandori Desktop](#-dandori-desktop)
    * [🛠️ Setup/Workflow](#%EF%B8%8F-setupworkflow)
-      + [⛏️ Extracting Maps](#-extracting-maps)
+      + [⛏️ Extracting Maps](#%EF%B8%8F-extracting-maps)
    * [✏️ Editing](#%EF%B8%8F-editing)
       + [🗺️ Maps](#%EF%B8%8F-maps)
       + [📦️ Objects](#%EF%B8%8F-objects)
