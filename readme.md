@@ -7,6 +7,7 @@ Special thanks goes to Dodiou to making [DandoriDB](https://github.com/Dodiou/Da
 
 - [🌸 Dandori Desktop](#-dandori-desktop)
    * [🛠️ Setup/Workflow](#%EF%B8%8F-setupworkflow)
+      + [⛏️ Extracting Maps](#-extracting-maps)
    * [✏️ Editing](#%EF%B8%8F-editing)
       + [🗺️ Maps](#%EF%B8%8F-maps)
       + [📦️ Objects](#%EF%B8%8F-objects)
@@ -28,11 +29,11 @@ Currently supports:
 
 ## 🛠️ Setup/Workflow
 
-DDT reads and writes to local game files that must be decoded to their JSON forms from extracted `.uasset` files. It is assumed you have these files already.
+DDT reads and writes to local game files that must be decoded to their JSON forms from **extracted `.uasset`** files. It is assumed you have these files already.
 
 Use the `Settings` menu to set 4 things:
 
-- `Carrot4 Folder` - Folder containing your game file structure as JSON - this should contain `Maps/` and `Placeables/`
+- `Carrot4 Folder` - Folder containing your game file structure as JSON - this folder should contain `Maps/` and `Placeables/`
 - `Encoder Folder` - Folder containing [P4UassetEditor](https://gamebanana.com/tools/15077). Assumes the files/folders are not renamed
 - `castoc Folder` - Folder containing `castoc`. Assumes the files/folders are not renamed
 - `Output Paks Folder` - Folder (probably) in your emulator you want your built mod's outputs to go to
@@ -41,9 +42,9 @@ My folder structure looks like:
 
 ```
 Desktop/
-├── P4UassetEditor/
+├── P4UassetEditor/ // <-- This is my 'Encoder Folder'
 │   ├── _EDIT/
-│   │   └── Carrot4/
+│   │   └── Carrot4/ // <-- this is my 'Carrot4 Folder'
 │   │       ├── Maps/
 │   │       │   ├── Main/
 │   │       │   |   └── ...
@@ -51,7 +52,7 @@ Desktop/
 │   │       └── Placeables
 │   ├── _OUTPUT
 │   └── encode.bat
-└── castoc/
+└── castoc/ // <-- This is my 'castoc Folder'
     ├── _EDIT/
     │   └── Carrot4/
     │       └── Content/
@@ -62,6 +63,18 @@ Desktop/
 ```
 
 Within my map folders, I _only_ have `ActorPlacementInfo/AP_...Teki.json`.
+
+### ⛏️ Extracting Maps
+
+Because you only really want to package files you need into your mod, I've made it easy to fish them out of a raw export of the `Maps` folder.
+
+- From FModel, right click `Maps` and `Export Raw Data (.uasset)
+- Use P4UassetEditor to decode the `Maps` folder which now contains JSON.
+- From DDT, go to `Tools` > `Extract Teki/Object Files from Maps`
+- Select your _decoded_ `Maps/` folder (which should contain `Main` and `Madori`)
+- You should end up with a folder in there called `DandoriDesktop-Carrot4`. This folder contains just the teki/object files it needs.
+- Drag that folder to your P4UassetEditor's `_EDIT` folder and rename it `Carrot4`.
+- Set your `Carrot4 Folder` in DDT to this folder. 
 
 ## ✏️ Editing
 
@@ -161,10 +174,19 @@ The bytes I construct are then spliced together with the base template for that 
 - ❌ Work out why BigFireTank doesn't get a model
 - ❌ Night teki files
 - ❌ Unit tests (lol)
-- ❌ GitHub issue template
+- ✅ GitHub issue template
 - ❌ Flint beetle drops
 - ❌ How skutterchucks start with bombs - probably a CustomParameter
-- ❌ Move [5,6] of `params` to a u16?
+- ✅ Make `params` actually the fields they are now I know what it is
+- ❌ Make an MSI for Yoshi3
+- ✅ RebirthLater/RebirthInterval
+- ✅ Extract JSONs button
+- ✅ Send a message if people's uasset isn't the decoded `Content` array
+- ❌ Support raw JSON exports later on
+- ✅ Fix icons for night enemies in caves
+- ❌ Support raw JSON exports later on
+- ❌ Dandori battle maps - where/what even are they?
+- ✅ Support castaway drops (untested in game, but AI looks correct)
 
 </details>
 
@@ -182,7 +204,8 @@ The bytes I construct are then spliced together with the base template for that 
 - ❌ Not a bug - `Internal Names First` only affects the creature list, as I doubt anyone knows/wants the treasure/misc items named internally. It was mainly to seek to them faster via the dropdowns. Let me know if this is weird or not.
 - ❓ Scientific notation numbers are transformed to standard form. Conversion is correct, so unsure if problematic. GJumpPoint_LivingRoom in Area010 is an example
 - ❌ The entire UI - yes I know, styling is not my idea of fun.
-- 🐛 Fix inventories where bSetTerritory is true - this causes 4 more bytes to exist, which would mess up the inventory byte (cave007_F00 minimochi egg drop)
+- ✅ Fix inventories where bSetTerritory is true - this causes 4 more bytes to exist, which would mess up the inventory byte (cave007_F00 minimochi egg drop)
 - 🐛 Flint beetle drops are different to normal enemies
+- ✅ DebouncedInput doesn't get to reinitialise state when swapping to a new entity, and thus doesn't refresh when a new InfoPanel is rendered
 
 </details>

@@ -1,5 +1,5 @@
 import React from "react";
-import { ActorSpawnerCustomParameter, DropConditions, DropConditions_Named } from "../../../api/types";
+import { ActorSpawnerCustomParameter, DropConditions, DropConditions_Named, GameRulePermissionFlags } from "../../../api/types";
 import { getNameFromAsset, getPathType } from "../../../utils/utils";
 import { Card } from "./Card";
 import { DebouncedInput } from "../DebouncedInput";
@@ -7,12 +7,13 @@ import { DebouncedInput } from "../DebouncedInput";
 const iconMap = {
     "Objects/Otakara": 'treasure',
     "WorkObjects/Shizai": "miscitem",
+    "Objects/Survivor": "castaway",
     Teki: 'creature',
     Items: 'miscitem',
     Pikmin: 'pikmin'
 };
 
-export const DropCard = ({ drop, updateDrops, isActorSpawner }) => {
+export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
     const nameSuffix = drop.dropCondition == DropConditions.SALVAGE_ITEM ? ' (Revisit only)' : '';
 
     const type = getPathType(drop.assetName);
@@ -26,7 +27,7 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner }) => {
         <>
             <div>
                 <b>Sphere radius</b>:&nbsp;
-                <DebouncedInput value={drop.sphereRadius} changeFunc={(e) => updateDrops(e, drop, "sphereRadius")} />
+                <DebouncedInput value={drop.sphereRadius} changeFunc={(v) => updateDrops(v, drop, "sphereRadius")} ddId={ddId} />
             </div>
             <div className="flex">
                 <b>Infinite spawn</b>:
@@ -39,11 +40,11 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner }) => {
             </div>
             <div>
                 <b>Spawn interval</b>:&nbsp;
-                <DebouncedInput value={drop.spawnInterval} changeFunc={(e) => updateDrops(e, drop, "spawnInterval")} />
+                <DebouncedInput value={drop.spawnInterval} changeFunc={(v) => updateDrops(v, drop, "spawnInterval")} ddId={ddId} />
             </div>
             <div>
                 <b>Spawn limit</b>:&nbsp;
-                <DebouncedInput value={drop.spawnLimit} changeFunc={(e) => updateDrops(e, drop, "spawnLimit")} />
+                <DebouncedInput value={drop.spawnLimit} changeFunc={(v) => updateDrops(v, drop, "spawnLimit")} ddId={ddId} />
             </div>
             <div className="flex">
                 <b>Random rotation</b>:&nbsp;
@@ -71,12 +72,12 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner }) => {
         <>
             <span>
                 <b>Amount</b>:&nbsp;
-                <DebouncedInput value={amountStr} changeFunc={(e) => updateDrops(e, drop, "amount")} />
+                <DebouncedInput value={amountStr} changeFunc={(v) => updateDrops(v, drop, "amount")} ddId={ddId} />
             </span>
             {
                 <span>
                     <b>Chance</b>:
-                    <DebouncedInput value={Math.round(drop.dropChance * 100) + '%'} changeFunc={(e) => updateDrops(e, drop, "dropChance")} />
+                    <DebouncedInput value={Math.round(drop.dropChance * 100) + '%'} changeFunc={(v) => updateDrops(v, drop, "dropChance")} ddId={ddId}/>
                 </span>
             }
             <div>
@@ -95,45 +96,56 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner }) => {
                 <b>Flags</b>:&nbsp;
                 <DebouncedInput
                     className="max-w-[7em] bg-sky-1000"
-                    changeFunc={(e) => updateDrops(e, drop, "flags")}
+                    changeFunc={(v) => updateDrops(v, drop, "flags")}
                     type="text"
                     value={JSON.stringify(drop.flags).replaceAll(',', ', ')}
+                    ddId={ddId}
                 />
             </div>}
             <div>
-                <b>Params</b>:&nbsp;
+                <b>CustomFloatParameter</b>:&nbsp;
                 <DebouncedInput
-                    changeFunc={(e) => updateDrops(e, drop, "params")}
+                    changeFunc={(v) => updateDrops(v, drop, "customFloatParameter")}
                     className="bg-sky-1000"
-                    type="text"
-                    value={JSON.stringify(drop.params).replaceAll(',', ', ')}
+                    type="number"
+                    value={drop.customFloatParam}
+                    ddId={ddId}
                 />
             </div>
+            <div>
+                <b>GameRulePermissionFlag</b>:&nbsp;
+                <select
+                    className="w-full bg-sky-1000 max-w-[50%]"
+                    value={drop.gameRulePermissionFlag || 0}
+                    onChange={(e) => updateDrops(e.target.value, drop, "gameRulePermissionFlag")}
+                >
+                    {GameRulePermissionFlags.map((flag) =>
+                        <option key={flag} value={flag}>{flag}</option>
+                    )}
+                </select>
+            </div>
+            <div>
+                <b>bSetTerritory</b>:&nbsp;
+                <input
+                    type="checkbox"
+                    checked={drop.bSetTerritory}
+                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    onChange={(e) => updateDrops(e.target.checked, drop, "bSetTerritory")}
+                />
+            </div>
+            {drop.bSetTerritory ? ["x", "y", "z", "halfHeight", "radius"].map(key => (
+                <div key={key}>
+                    <b>{key}</b>:&nbsp;
+                    <DebouncedInput
+                        changeFunc={(v) => updateDrops(v, drop, key)}
+                        className="bg-sky-1000 max-w-[5em]"
+                        type="number"
+                        value={drop[key] || 0.0}
+                        ddId={ddId}
+                    />
+                </div>
+            )) : ''}
         </>;
-
-    // if (iconMap[type] === 'treasure' || iconMap[type] === 'creature') {
-    //     // TODO: type this out better
-    //     if (iconMap[type] === 'treasure') {
-    //         mappedName = TreasureNames[object];
-    //     }
-    //     else mappedName = CreatureNames[object];
-
-    //     return <ValueCard
-    //         type={iconMap[type]}
-    //         id={object}
-    //         name={mappedName + nameSuffix}
-    //         amount={drop.minDrops} // all creatures/treasures have the same min and max
-    //         extras={footerFragment}
-    //         drop={drop}
-    //         updateDrops={updateDrops}
-    //     />;
-    // }
-
-    // if (iconMap[type] === 'treasure') {
-    //     mappedName = TreasureNames[object];
-    // }
-    // else if (iconMap[type] === 'creature') mappedName = CreatureNames[object];
-    // else 
 
     const imageProps = {};
     if (iconMap[type] === 'treasure' || iconMap[type] === 'creature') {

@@ -1,8 +1,13 @@
 import { default as tekiData } from '../api/tekiData.json';
-import { floatToByteArr, intToByteArr } from './bytes';
-import { setFloats } from './utils';
+import { floatToByteArr, intToByteArr, bytesToInt } from './bytes';
+import { setFloats, getNameFromAsset } from './utils';
 
 export const NONE_BYTES = [5, 0, 0, 0, 78, 111, 110, 101, 0];
+
+const CustomParameterOverrides = {
+    SurvivorA: "SVSleep000",
+    SurvivorLeaf: "LFSleep003" // There are like 13 different LFSleeps, so I just picked the one that is used for a teki drop
+};
 
 // This seems constant for DropUniqueDebugID, OuterIndex and SuperIndex and PublicExportHash
 // Might be computed for the game's contents when unmodded. Who knows what happens if it no longer matches
@@ -65,20 +70,20 @@ export const parseGDMDrops = drops => {
 
     index += 4; // There's a -1,-1 (255*4, 255*4) after, idk what they do
     for (let i = 0; i < invSize; i++) {
+        const slot = {};
         index += 8; // Skip the two -1 bytes at the start of each item
-        const minDrops = drops[index];
+        slot.minDrops = drops[index];
         index += 4;
-        const maxDrops = drops[index];
+        slot.maxDrops = drops[index];
         index += 4;
-        const dropChance = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+        slot.dropChance = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
         index += 4;
-        const bRegistGenerator = drops[index];
+        slot.bRegistGenerator = drops[index];
         index += 4;
-        let dropCondition;
         if (drops[index] == 1) {
             const dcLength = drops[index]; // I think it's the number of objects in the DC array - it's always 1 or 0
             index += 4;
-            dropCondition = drops[index];
+            slot.dropCondition = drops[index];
             index += 4;
             const dropCondInt = drops[index]; // This looks like a float tbh, rather than an int, but is always 0 or -1
             index += 1;
@@ -88,20 +93,29 @@ export const parseGDMDrops = drops => {
         const assetLength = drops[index];
         index += 4;
         const asciiString = drops.slice(index, index + assetLength - 1); // We don't want the null terminator in the string
-        const assetName = String.fromCharCode.apply(null, asciiString);
+        slot.assetName = String.fromCharCode.apply(null, asciiString);
         index += assetLength;
         index += drops[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
-        const params = drops.slice(index, index + 10);
-        index += 10;
-        parsed.push({
-            minDrops,
-            maxDrops,
-            assetName,
-            bRegistGenerator,
-            dropCondition,
-            params,
-            dropChance
-        });
+
+        slot.customFloatParam = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+        index += 4;
+        slot.gameRulePermissionFlag = bytesToInt(drops.slice(index, index + 2).join(','));
+        index += 2;
+        slot.bSetTerritory = drops[index];
+        index += 4;
+        if (slot.bSetTerritory) {
+            slot.x = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+            slot.y = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+            slot.z = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+            slot.halfHeight = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+            slot.radius = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+        }
+        parsed.push(slot);
     }
     while (drops[index] != 255 && index < drops.length) {
         console.log("iterating to find inventory end");
@@ -201,23 +215,24 @@ export const parseTekiDrops = drops => {
 
     let index = 24; // start of the first item
     for (let i = 0; i < invSize; i++) {
-        const id = drops[index];
+        const slot = {};
+        slot.id = drops[index];
         index += 4;
-        const flags = drops.slice(index, index + 4);
+        slot.flags = drops.slice(index, index + 4);
         index += 4;
-        const minDrops = drops[index];
+        slot.minDrops = drops[index];
         index += 4;
-        const maxDrops = drops[index];
+        slot.maxDrops = drops[index];
         index += 4;
-        const dropChance = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+        slot.dropChance = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
         index += 4;
-        const bRegistGenerator = drops[index];
+        slot.bRegistGenerator = drops[index];
         index += 4;
         let dropCondition;
         if (drops[index] == 1) {
-            const one = drops[index]; // no clue what this byte does
+            const one = drops[index]; // I think this just signifies an object is in the dropconditions array
             index += 4;
-            dropCondition = drops[index];
+            slot.dropCondition = drops[index];
             index += 4;
             const dropCondInt = drops[index];
             index += 1;
@@ -227,22 +242,30 @@ export const parseTekiDrops = drops => {
         const assetLength = drops[index];
         index += 4;
         const asciiString = drops.slice(index, index + assetLength - 1); // We don't want the null terminator in the string
-        const assetName = String.fromCharCode.apply(null, asciiString);
+        slot.assetName = String.fromCharCode.apply(null, asciiString);
         index += assetLength;
         index += drops[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
-        const params = drops.slice(index, index + 10);
-        index += 10;
-        parsed.push({
-            id,
-            minDrops,
-            maxDrops,
-            assetName,
-            bRegistGenerator,
-            dropCondition,
-            flags,
-            params,
-            dropChance
-        });
+        slot.customFloatParam = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+        index += 4;
+        slot.gameRulePermissionFlag = bytesToInt(drops.slice(index, index + 2).join(','));
+        index += 2;
+        slot.bSetTerritory = drops[index];
+        index += 4;
+        if (slot.bSetTerritory) {
+            slot.x = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+            slot.y = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+            slot.z = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+            slot.halfHeight = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+            slot.radius = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+        }
+        // const params = drops.slice(index, index + 10);
+        // index += 10;
+        parsed.push(slot);
     }
     while (drops[index] != 255 && index < drops.length) {
         console.log("iterating to find inventory end");
@@ -278,23 +301,44 @@ export const constructGDMAI = (drops, aiStatic, { groupingRadius, ignoreList, in
         bytes.push(...floatBytes(parseFloat(drop.dropChance)));
         bytes.push(drop.bRegistGenerator ? 1 : 0, 0, 0, 0);
         if (drop.dropCondition && drop.dropCondition != 'None') {
-            bytes.push(255, 255, 255, 255, 255, 255, 255, 255); // GDMs seem to start each item with two -1 bytes
-            bytes.push(parseInt(drop.dropCondition));
-            bytes.push(0, 0, 0, 0); // We'll 0 dropCondInt for now, idk what -1 is for
+            bytes.push(parseInt(drop.dropCondition), 0, 0, 0);
+            bytes.push(0); // We'll 0 dropCondInt for now, idk what -1 is for
             bytes.push(...NONE_BYTES); // Force dropCondName to None for now.
             bytes.push(0); // Also zero demoFlag for now too
         }
         else bytes.push(0, 0, 0, 0);
-        const lengthBytes = intToByteArr(drop.assetName.length + 1).reverse();
+        let lengthBytes = intToByteArr(drop.assetName.length + 1).reverse();
 
         bytes.push(
             ...lengthBytes,
             ...drop.assetName.split('').map(char => char.charCodeAt(0)),
             0
         );
-        bytes.push(...NONE_BYTES);
-        if (typeof drops.params == 'string') drop.params = JSON.parse(drop.params);
-        bytes.push(...drop.params);
+        const actorName = getNameFromAsset(drop.assetName);
+
+        if (actorName.includes("Survivor")) { // Push custom sleep params if survivor
+            lengthBytes = intToByteArr(CustomParameterOverrides[actorName].length + 1).reverse();
+
+            bytes.push(
+                ...lengthBytes,
+                ...CustomParameterOverrides[actorName].split('').map(char => char.charCodeAt(0)),
+                0
+            );
+        }
+        else bytes.push(...NONE_BYTES);
+
+        bytes.push(...floatBytes(parseFloat(drop.customFloatParam)));
+        bytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag)).reverse().slice(0, 2));
+        bytes.push(drop.bSetTerritory ? 1 : 0, 0, 0, 0);
+        if (drop.bSetTerritory) {
+            bytes.push(...floatBytes(parseFloat(drop.x || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.y || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.z || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.halfHeight || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.radius || 0.0)));
+        }
+        // if (typeof drops.params == 'string') drop.params = JSON.parse(drop.params);
+        // bytes.push(...drop.params);
     });
 
     bytes.push(255, 255, 255, 255);
@@ -395,16 +439,38 @@ export const constructCreatureAI = (drops, aiStatic, { inventoryEnd }) => {
             slotBytes.push(0); // Also zero demoFlag for now too
         }
         else slotBytes.push(0, 0, 0, 0);
-        const lengthBytes = intToByteArr(drop.assetName.length + 1).reverse();
+        let lengthBytes = intToByteArr(drop.assetName.length + 1).reverse();
 
         slotBytes.push(
             ...lengthBytes,
             ...drop.assetName.split('').map(char => char.charCodeAt(0)),
             0
         );
-        slotBytes.push(...NONE_BYTES);
-        if (typeof drops.params == 'string') drop.params = JSON.parse(drop.params);
-        slotBytes.push(...drop.params);
+
+        const actorName = getNameFromAsset(drop.assetName);
+        if (actorName.includes("Survivor")) { // Push custom sleep params if survivor
+            lengthBytes = intToByteArr(CustomParameterOverrides[actorName].length + 1).reverse();
+
+            slotBytes.push(
+                ...lengthBytes,
+                ...CustomParameterOverrides[actorName].split('').map(char => char.charCodeAt(0)),
+                0
+            );
+        }
+        else slotBytes.push(...NONE_BYTES);
+
+        // if (typeof drops.params == 'string') drop.params = JSON.parse(drop.params);
+        // slotBytes.push(...drop.params);
+        slotBytes.push(...floatBytes(parseFloat(drop.customFloatParam)));
+        slotBytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag)).reverse().slice(0, 2));
+        slotBytes.push(drop.bSetTerritory ? 1 : 0, 0, 0, 0);
+        if (drop.bSetTerritory) {
+            slotBytes.push(...floatBytes(parseFloat(drop.x || 0.0)));
+            slotBytes.push(...floatBytes(parseFloat(drop.y || 0.0)));
+            slotBytes.push(...floatBytes(parseFloat(drop.z || 0.0)));
+            slotBytes.push(...floatBytes(parseFloat(drop.halfHeight || 0.0)));
+            slotBytes.push(...floatBytes(parseFloat(drop.radius || 0.0)));
+        }
         inventoryBytes.push(...slotBytes);
     });
     inventoryBytes.push(255, 255, 255, 255);

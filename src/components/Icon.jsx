@@ -1,10 +1,9 @@
 import React from "react";
 import { getIconOptions } from "./Map/FeatureStyles";
 
-export const Icon = ({ icon, tooltip }) =>
-    <span className={'DandoriDB__icon ' + icon} title={tooltip} />;
-
 export const MarkerIcon = ({ type, id, size = 'small' }) => {
+    console.log("Icon", type, id)
+    if (id?.startsWith('night')) id = id.replace('night', '');
 
     const src = !id
         ? getIconOptions(type).src

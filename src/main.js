@@ -12,6 +12,7 @@ import { version } from '../package.json';
 
 const CONFIG_PATH = join(`${app.getPath('userData')}`, "config.json");
 const TEKI = 'Teki';
+const OBJECTS = 'Objects';
 const DEFAULT_CONFIG = {
     gameDir: '',
     placeablesDir: '',
@@ -241,7 +242,7 @@ const createWindow = (id, options = {}) => {
                     }
                 },
                 {
-                    label: 'Open Emulator',
+                    label: 'Open Emulator (Admin Startup Required)',
                     click: () => {
                         spawn(config.emulatorFile);
                     }
@@ -250,6 +251,84 @@ const createWindow = (id, options = {}) => {
                     label: 'Open in IDE',
                     click: () => {
                         mainWindow.webContents.send('fileNameRequest');
+                    }
+                },
+                {
+                    label: 'Extract Teki/Object Files from Maps',
+                    click: () => {
+                        dialog.showOpenDialog(mainWindow, {
+                            properties: ['openDirectory'],
+                            title: 'Select your Maps folder',
+                            multiSelections: false,
+                            buttonLabel: "This is my Maps/ folder"
+                        }).then(async result => {
+                            if (result.filePaths && !result.canceled) {
+                                const AREA_PATH = join(`${result.filePaths[0]}`, "Main", "Area");
+                                const CAVE_PATH = join(`${result.filePaths[0]}`, "Madori", "Cave");
+                                await promises.mkdir(join(result.filePaths[0], 'DandoriDesktop-Carrot4', 'Maps'), { recursive: true });
+                                await promises.mkdir(join(result.filePaths[0], 'DandoriDesktop-Carrot4', 'Maps', 'Main', 'Area'), { recursive: true });
+                                await promises.mkdir(join(result.filePaths[0], 'DandoriDesktop-Carrot4', 'Maps', 'Madori', 'Cave'), { recursive: true });
+                                const exportAreaPath = join(result.filePaths[0], 'DandoriDesktop-Carrot4', 'Maps', 'Main', 'Area');
+                                const exportCavePath = join(result.filePaths[0], 'DandoriDesktop-Carrot4', 'Maps', 'Madori', 'Cave');
+
+                                console.log(AREA_PATH);
+                                readdir(AREA_PATH, (err, areaMaps) => {
+                                    console.log("areaMap", areaMaps);
+                                    if (err) {
+                                        return mainWindow.webContents.send('errorNotify', `Could not find any maps in ${AREA_PATH}`);
+                                    }
+                                    areaMaps.forEach(async map => {
+                                        if (map === 'Area500') return;
+                                        const fileNames = [
+                                            "Teki_Day",
+                                            "Teki_Night",
+                                            "Objects_Day",
+                                            "Objects_Night",
+                                            "Hero_Teki",
+                                            "Hero_Objects",
+                                            "Teki",
+                                            "Objects"
+                                        ];
+                                        await promises.mkdir(join(exportAreaPath, map, 'ActorPlacementInfo'), { recursive: true });
+
+                                        fileNames.forEach(async file => {
+                                            try {
+                                                const mapPath = join(map, 'ActorPlacementInfo', `AP_${map}_P_${file}.json`);
+                                                accessSync(join(AREA_PATH, mapPath));
+                                                await promises.cp(join(AREA_PATH, mapPath), join(exportAreaPath, mapPath));
+                                            } catch (e) { }
+                                        });
+                                    });
+                                    readdir(CAVE_PATH, async (err, caveMaps) => {
+                                        console.log("caveMaps", caveMaps);
+                                        if (err) {
+                                            shell.openPath(result.filePaths[0]);
+                                            mainWindow.webContents.send('errorNotify', 'Could not read cave maps');
+                                            return mainWindow.webContents.send('successNotify', "Main area files copied - This is your Carrot4 folder. Put it in UassetEditor's _EDIT folder.");
+                                        }
+                                        const caves = await Promise.all([...caveMaps.map(path => promises.readdir(join(CAVE_PATH, path)))]);
+                                        caves.flat().forEach(async subfloor => {
+                                            console.log(subfloor);
+                                            const [cave] = subfloor.split('_');
+                                            const fileNames = [
+                                                "Teki",
+                                                "Objects"
+                                            ];
+                                            await promises.mkdir(join(exportCavePath, cave, subfloor, 'ActorPlacementInfo'), { recursive: true });
+                                            fileNames.forEach(async file => {
+                                                const mapPath = join(cave, subfloor, 'ActorPlacementInfo', `AP_${subfloor}_P_${file}.json`);
+                                                try {
+                                                    accessSync(join(CAVE_PATH, mapPath));
+                                                } catch (e) { }
+                                                await promises.cp(join(CAVE_PATH, mapPath), join(exportCavePath, mapPath));
+                                            });
+                                        });
+                                        shell.openPath(result.filePaths[0]);
+                                        return mainWindow.webContents.send('successNotify', "Files copied - This is your Carrot4 folder. Put it in UassetEditor's _EDIT folder.");
+                                    });
+                                });
+                            }
+                        });
                     }
                 }
             ]
@@ -462,7 +541,8 @@ ipcMain.handle('saveMaps', async (event, mapId, data) => {
                 },
                 RebirthInfo: {
                     ...aglData.RebirthInfo,
-                    RebirthType: actor.rebirthType
+                    RebirthType: actor.rebirthType,
+                    RebirthInterval: actor.rebirthInterval
                 },
                 ActorSerializeParameter: {
                     ...aglData.ActorSerializeParameter,
@@ -492,7 +572,7 @@ ipcMain.handle('saveMaps', async (event, mapId, data) => {
     const floats = {};
     // JS truncates the .0 from a float as soon as it touches it 
     // Because there are no floats in JS, just "number", decimals included, so 4 == 4.0
-    // However that means our data will get changed, and P4 _probably
+    // However that means our data will get changed, and P4 _probably_
     // wants its floats to still be floats, unlike JS. Therefore do some 
     // really janky string replacing to keep the precision on x.0 floats
     ["X", "Y", "Z", "W", "GenerateRadius", "OriginalPhysicsRadiusZ"].forEach(k => floats[k] = 'float');
@@ -521,6 +601,13 @@ ipcMain.handle('readMapData', async (event, mapId) => {
     // console.log(tekiFile.Content[0].ActorGeneratorList);
     rawData.teki = tekiFile;
 
+    // Catch people with weird teki files. I think this is when they export raw JSON rather than decode a uasset
+    // Later on we can work around that to support both, but that's not important now
+    if (!Array.isArray(rawData.teki.Content)) {
+        mainWindow.webContents.send('errorNotify', 'Couldn\'t read JSON - Map is missing the Content array. Did you export the raw uasset and decode it?');
+        return { creature: [] };
+    }
+
     const creature = rawData.teki.Content[0].ActorGeneratorList.map(teki => {
         // Unify our ID and the raw ID, so we can ensure we save back to the right one
         // In case array orders change (they shouldn't?)
@@ -543,6 +630,7 @@ ipcMain.handle('readMapData', async (event, mapId) => {
             generateNum: parseInt(teki.GenerateInfo.GenerateNum),
             generateRadius: parseFloat(teki.GenerateInfo.GenerateRadius), // sometimes these decide to be strings. Persuade them not to be.
             rebirthType: teki.RebirthInfo.RebirthType,
+            rebirthInterval: teki.RebirthInfo.RebirthInterval,
             outlineFolderPath: teki.OutlineFolderPath, // Handle these better than including them then excluding them
             drops: {
                 parsed,

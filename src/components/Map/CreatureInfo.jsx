@@ -3,12 +3,7 @@ import { CreatureNames, RebirthTypes } from "../../api/types";
 import { useConfig } from '../../hooks/useconfig';
 import { DebouncedInput } from './DebouncedInput';
 
-const {
-    NoRebirth,
-    AlwaysRebirth,
-    RebirthFullExplore
-} = RebirthTypes;
-const editableFields = ["generateNum", "generateRadius", "X", "Y", "Z", "groupingRadius"];
+const editableFields = ["generateNum", "generateRadius", "X", "Y", "Z", "groupingRadius", "rebirthInterval"];
 const ignoreFields = ["drops", "type", "infoType", "ddId", "outlineFolderPath"];
 
 const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId) => {
@@ -50,14 +45,14 @@ export const CreatureInfo = ({ obj, mapMarkerData, setMapData, parent, ddId }) =
             const fullKey = `${parent || ''}${parent ? '.' : ''}${key}`;
             return <li key={fullKey}>
                 <b>{key}</b>:&nbsp;
-                <DebouncedInput changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, fullKey, ddId)} value={value} type="number" />
+                <DebouncedInput changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, fullKey, ddId)} value={value} type="number" ddId={ddId}/>
             </li>;
         }
 
         if (key === 'ignoreList') {
             return <li key={key}>
                 <b>{key}</b>:&nbsp;
-                <DebouncedInput changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, key, ddId)} value={value} />
+                <DebouncedInput changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, key, ddId)} value={value} ddId={ddId} />
             </li>;
         }
 
@@ -83,9 +78,7 @@ export const CreatureInfo = ({ obj, mapMarkerData, setMapData, parent, ddId }) =
             return <li key={key}>
                 <b>rebirthType</b>:
                 <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, key, ddId)}>
-                    <option value={NoRebirth}>{NoRebirth}</option>
-                    <option value={AlwaysRebirth}>{AlwaysRebirth}</option>
-                    <option value={RebirthFullExplore}>{RebirthFullExplore}</option>
+                    {Object.values(RebirthTypes).map(rebirthType => <option key={rebirthType} value={rebirthType}>{rebirthType}</option>)}
                 </select>
             </li>;
         }

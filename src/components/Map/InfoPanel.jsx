@@ -7,14 +7,21 @@ import { CardList } from "./Card/CardList";
 import { getNameFromAsset } from "../../utils/utils";
 import { CreatureInfo } from "./CreatureInfo";
 
+// The number of extra indices adding these objects to the struct changes by
+const inventoryMutators = {
+    bSetTerritory: 20,
+    dropCondition: 15
+};
+
 const updateDrops = (value, mapMarkerData, setMapData, ddId, drop, key, dropDeleteStack, setDropDeleteStack) => {
-    if (!value && key !== 'delete') return;
+    console.log("val", value);
+    // if (!value && key !== 'delete') return;
     const newMapData = mapMarkerData.creature.map(creature => {
         if (creature.ddId == ddId) {
             creature.drops.parsed = creature.drops.parsed.map(d => {
                 if (d.id == drop.id) {
                     let newVal;
-                    if (["flags", "params"].includes(key)) {
+                    if (["flags"].includes(key)) {
                         newVal = JSON.parse(value);
                     }
                     else if (key === 'amount') {
@@ -28,7 +35,7 @@ const updateDrops = (value, mapMarkerData, setMapData, ddId, drop, key, dropDele
                     else if (key == 'dropChance') {
                         newVal = parseFloat(value.split('%')[0]) / 100;
                     }
-                    else if (['infiniteSpawn', 'randomRotation'].includes(key)) {
+                    else if (['infiniteSpawn', 'randomRotation', 'bSetTerritory'].includes(key)) {
                         newVal = value ? 1 : 0;
                     }
                     else if (key == 'delete') {
@@ -42,12 +49,13 @@ const updateDrops = (value, mapMarkerData, setMapData, ddId, drop, key, dropDele
                         const isCreature = CreatureNames[selectVal];
                         const isMisc = MiscNames[selectVal];
                         const isGimmick = GimmickNames[selectVal];
-
+                        const isCastaway = value.includes('Survivor');
                         let midPath;
                         if (isTreasure) midPath = 'Objects/Otakara';
                         if (isCreature) midPath = 'Teki';
                         if (isMisc) midPath = 'Items';
                         if (isGimmick) midPath = 'WorkObjects/Shizai'; // won't work for all gimmicks
+                        if (isCastaway) midPath = 'Objects/Survivor';
                         newVal = `/Game/Carrot4/Placeables/${midPath}/G${selectVal}.G${selectVal}_C`;
                     }
                     else newVal = value;
@@ -60,6 +68,8 @@ const updateDrops = (value, mapMarkerData, setMapData, ddId, drop, key, dropDele
                     ...d
                 };
             }).filter(d => !!d);
+            // if (creature.drops.inventoryEnd) // pretty sure we don't want to change this - it tracks the orignal inv end to splice it back on. Doesn't matter if our new one moves
+            //     creature.drops.inventoryEnd += value ? inventoryMutators[key] : -inventoryMutators[key];
         };
         return { ...creature };
     });
@@ -157,7 +167,13 @@ export const InfoPanel = ({ marker, mapMarkerData, setMapData }) => {
         <ExpandPanel isActorSpawner={isActorSpawner} addDrop={() => addDrop(creature.ddId, setMapData, mapMarkerData)} label="Drops">
             {creature.drops?.parsed?.length ? (
                 <CardList>
-                    {creature.drops.parsed.map(drop => <DropCard key={drop.id || "1"} isActorSpawner={isActorSpawner} drop={drop} updateDrops={(e, drop, key) => updateDrops(e, mapMarkerData, setMapData, creature.ddId, drop, key, dropDeleteStack, setDropDeleteStack)} />)}
+                    {creature.drops.parsed.map(drop => <DropCard
+                        key={drop.id || "1"}
+                        isActorSpawner={isActorSpawner}
+                        drop={drop}
+                        updateDrops={(e, drop, key) => updateDrops(e, mapMarkerData, setMapData, creature.ddId, drop, key, dropDeleteStack, setDropDeleteStack)}
+                        ddId={creature.ddId}
+                    />)}
                 </CardList>
             ) : null}
         </ExpandPanel>;

@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { ByteInput } from "./ByteInput";
 import { useValidation } from "../../hooks/useValidation";
-import { floatToByteArr, intToByteArr } from "../../utils/bytes";
+import { floatToByteArr, intToByteArr, padArray, byteArrToInt, byteArrToFloat } from "../../utils/bytes";
 
 const getByteAsHex = (byte) => ('00' + byte.toString(16)).slice(-2);
 
@@ -28,32 +28,6 @@ const scanForStrings = (byteArray) => {
         });
     }
     return strings;
-};
-
-const padArray = (arr, len = 4, fill = 0) => {
-    return arr.slice().concat(
-        Array(len).fill(fill)
-    ).slice(0, len);
-};
-
-const byteArrToDataView = (nums) => {
-    nums = padArray(nums);
-
-    const view = new DataView(new ArrayBuffer(4));
-    nums.forEach((n, i) => {
-        if (n < 0) n = 0;
-        if (n > 255) n = 255;
-        view.setUint8(i, n);
-    });
-    return view;
-};
-
-const byteArrToFloat = (nums) => {
-    return byteArrToDataView(nums).getFloat32(0);
-};
-
-const byteArrToInt = (nums) => {
-    return byteArrToDataView(nums).getInt32(0);
 };
 
 const byteArrToStr = (nums) => {

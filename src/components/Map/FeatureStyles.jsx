@@ -109,7 +109,7 @@ const TREASURE_TEXT_STYLE = new Text({
 const getFeatureStyle = (marker, globalMarkerStyle) => {
     if (isCreature(marker)) {
         // console.log(marker);
-        const creatureId = marker.creatureId === 'ActorSpawner' ? getNameFromAsset(marker.drops.parsed[0].assetName) : marker.creatureId.toLowerCase();
+        const creatureId = marker.creatureId === 'ActorSpawner' ? getNameFromAsset(marker.drops.parsed[0].assetName) : marker.creatureId.toLowerCase().replace('night', '');
         const scale = SCALE_OVERRIDES[creatureId] || 0.35;
         // console.log("scale", scale, creatureId)
         globalMarkerStyle = new Style({

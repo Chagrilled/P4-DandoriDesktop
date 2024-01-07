@@ -12,7 +12,15 @@ export const DropConditions_Named = {
     0: "None"
 };
 
-export const ActorSpawnerCustomParameter = ["None", "ShoulderBomb", "Bomb"];
+export const GameRulePermissionFlags = [
+    0,
+    2,
+    7,
+    15,
+    269,
+    271
+];
+export const ActorSpawnerCustomParameter = ["None", "ShoulderBomb", "Bomb", "SVSleep000", "LFSleep003"];
 
 export const PikminColor = {
     Red: 'red',
@@ -603,7 +611,8 @@ export const Categories = [
 export const RebirthTypes = {
     NoRebirth: "ERebirthType::NoRebirth",
     AlwaysRebirth: "ERebirthType::AlwaysRebirth",
-    RebirthFullExplore: "ERebirthType::RebirthFullExplore"
+    RebirthFullExplore: "ERebirthType::RebirthFullExplore",
+    RebirthLater: "ERebirthType::RebirthLater"
 };
 
 export const exposedGenVars = ["AttackAffordance", "AI", "CarrotMove", "Life", "PointerAssist", "CarryAffordance"];
@@ -614,7 +623,8 @@ export const DefaultDrop = {
     dropChance: 1,
     dropCondition: 0,
     flags: [1, 8, 16, 64],
-    params: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    customFloatParam: 0.0,
+    bSetTerritory: false,
     maxDrops: 1,
     minDrops: 1,
     assetName: '/Game/Carrot4/Placeables/Teki/GKochappy.GKochappy_C'
@@ -929,7 +939,9 @@ export const MiscNames = {
     ShugoFlag: 'Idler\'s Alert?',
     Stone: 'Stone?',
     HotExtract: "Ultra-Spicy Spray",
-    PiecePick: "Raw Material"
+    PiecePick: "Raw Material",
+    SurvivorA: "Castaway",
+    SurvivorLeaf: "Leafling"
 };
 
 export const GimmickNames = {
