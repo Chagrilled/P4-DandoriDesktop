@@ -202,6 +202,8 @@ const createWindow = (id, options = {}) => {
 
                         // The bat scripts have `pause`s in them, and for the life of me I couldn't programmatically get through it
                         let subprocess = spawn('python main.py encode', { shell: true, cwd: join(config.encoderDir, "P4UassetEditor") });
+                        subprocess.stdout.on('data', data => console.log(data.toString('utf8')));
+                        subprocess.stderr.on('data', data => console.log(data.toString('utf8')));
                         subprocess.on('close', (code) => {
                             if (code !== 0) {
                                 return mainWindow.webContents.send('errorNotify', 'Failed encoding');
@@ -211,6 +213,8 @@ const createWindow = (id, options = {}) => {
                             const castocDir = join(config.castocDir, '_EDIT', 'Carrot4', 'Content');
                             const cmd = `robocopy "${join(config.encoderDir, '_OUTPUT')}" "${castocDir}" /is /it /E`;
                             subprocess = spawn(cmd, { shell: true });
+                            subprocess.stdout.on('data', data => console.log(data.toString('utf8')));
+                            subprocess.stderr.on('data', data => console.log(data.toString('utf8')));
                             subprocess.on('close', (code) => {
                                 if (code > 7) { // https://ss64.com/nt/robocopy-exit.html
                                     return mainWindow.webContents.send('errorNotify', `Failed copying to ${join(config.castocDir, '_EDIT', 'Carrot4', 'Content')}`);
