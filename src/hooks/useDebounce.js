@@ -1,8 +1,9 @@
-import { useRef, useMemo, useLayoutEffect, useEffect } from "react";
+import { useRef, useMemo, useEffect } from "react";
 
 export const useDebounce = (callback) => {
     const ref = useRef();
 
+    // TODO: Check if useLayoutEffect works better here
     useEffect(() => {
         ref.current = callback;
     }, [callback]);

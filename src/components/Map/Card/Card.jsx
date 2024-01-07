@@ -1,7 +1,7 @@
 import React from "react";
 import { MarkerIcon } from "../../Icon";
 import { CreatureNames, EntityNames, MiscNames, TreasureNames } from "../../../api/types";
-import { useConfig } from "../../../hooks/useconfig";
+import { useConfig } from "../../../hooks/useConfig";
 
 export const Card = ({ title, imgId, imgType, footer, drop, updateDrops, isActorSpawner }) => {
     const config = useConfig();

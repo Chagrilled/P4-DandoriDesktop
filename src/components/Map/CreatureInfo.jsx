@@ -1,6 +1,6 @@
 import React from 'react';
 import { CreatureNames, RebirthTypes } from "../../api/types";
-import { useConfig } from '../../hooks/useconfig';
+import { useConfig } from '../../hooks/useConfig';
 import { DebouncedInput } from './DebouncedInput';
 
 const editableFields = ["generateNum", "generateRadius", "X", "Y", "Z", "groupingRadius", "rebirthInterval"];
