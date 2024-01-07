@@ -295,9 +295,9 @@ export const constructGDMAI = (drops, aiStatic, { groupingRadius, ignoreList, in
     });
 
     bytes.push(drops.length, 0, 0, 0);
-    bytes.push(255, 255, 255, 255, 255, 255, 255, 255);
 
     drops.forEach(drop => {
+        bytes.push(255, 255, 255, 255, 255, 255, 255, 255); // This is the start of each GDM item
         bytes.push(drop.minDrops, 0, 0, 0);
         bytes.push(drop.maxDrops, 0, 0, 0);
         bytes.push(...floatBytes(parseFloat(drop.dropChance)));
