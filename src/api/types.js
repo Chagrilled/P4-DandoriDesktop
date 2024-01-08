@@ -188,7 +188,8 @@ export const InfoType = {
     Water: 'water',
     Misc: 'misc',
     Night: 'night',
-    Gimmick: 'gimmick'
+    Gimmick: 'gimmick',
+    Object: 'object'
 };
 
 export const CreatureNames = {
