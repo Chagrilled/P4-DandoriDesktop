@@ -120,9 +120,11 @@ Much of the data used in name maps/defaults has been scraped from the game files
 
 If you want to run from source, you'll need npm and Node (I've been using Node 20), and a simple `npm i` and `npm start` should get you going.
 
+Unit tests can be ran for regression testing with `npm run test` (though they're just dummy atm)
+
 ### 🤖 AI
 
-AI. Much of the difficulty of this and in-game bugs stem from the AI parameter. I'd recommend reading up on it on TKB (after I write the articles).
+AI. Much of the difficulty of this and in-game bugs stem from the AI parameter. [I'd recommend reading up on it on TKB](https://pikmintkb.com/wiki/ActorSerializeParameter_and_AI).
 
 AI is a byte array within each actor's `ActorSerializeParameter.AI.Static`, and defines the per-instance behaviour of an actor - its drops, ranges, conditions, etc. They vary per type of entity it is defining AI for. It's my belief this is overlayed on top of an entity's defaults, and so can override them. Due to this, AI is a varying length struct, and difficult to work out at times. I've tried not to overcomplicate the code that reads/writes to it, and leave it fairly primitive.
 
@@ -175,7 +177,7 @@ The bytes I construct are then spliced together with the base template for that 
 - Front page styling
 - ❌ Work out why BigFireTank doesn't get a model
 - ❌ Night teki files
-- ❌ Unit tests (lol)
+- 🚧 Unit tests (lol)
 - ✅ GitHub issue template
 - ❌ Flint beetle drops
 - ❌ How skutterchucks start with bombs - probably a CustomParameter
