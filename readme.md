@@ -34,7 +34,7 @@ DDT reads and writes to local game files that must be decoded to their JSON form
 Use the `Settings` menu to set 4 things:
 
 - `Carrot4 Folder` - Folder containing your game file structure as JSON - this folder should contain `Maps/` and `Placeables/`
-- `Encoder Folder` - Folder containing [P4UassetEditor](https://gamebanana.com/tools/15077). Assumes the files/folders are not renamed
+- `Encoder Folder` - Folder containing [P4UassetEditor](https://gamebanana.com/tools/15077). Assumes the files/folders are not renamed. The contents of this folder should be the extract uasset editor - so must contain `_EDIT`, `P4UassetEditor`, `encode.bat`, etc.
 - `castoc Folder` - Folder containing `castoc`. Assumes the files/folders are not renamed
 - `Output Paks Folder` - Folder (probably) in your emulator you want your built mod's outputs to go to
 
@@ -118,6 +118,8 @@ It also contains quite a lot of idiosyncracies from DandoriDB, as I based it off
 
 Much of the data used in name maps/defaults has been scraped from the game files. [scrape.js](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/scrape.js) contains the code used to produce `entity.json` which is a list of every possible value that keys in the ActorGeneratorList (AGL)s can have for each creature.
 
+If you want to run from source, you'll need npm and Node (I've been using Node 20), and a simple `npm i` and `npm start` should get you going.
+
 ### 🤖 AI
 
 AI. Much of the difficulty of this and in-game bugs stem from the AI parameter. I'd recommend reading up on it on TKB (after I write the articles).
@@ -187,6 +189,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ❌ Support raw JSON exports later on
 - ❌ Dandori battle maps - where/what even are they?
 - ✅ Support castaway drops (untested in game, but AI looks correct)
+- ❌ Better error reporting for the deploy process
 
 </details>
 
