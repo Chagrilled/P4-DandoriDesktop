@@ -546,7 +546,7 @@ ipcMain.handle('saveMaps', async (event, mapId, data) => {
                 RebirthInfo: {
                     ...aglData.RebirthInfo,
                     RebirthType: actor.rebirthType,
-                    RebirthInterval: actor.rebirthInterval,
+                    RebirthInterval: parseInt(actor.rebirthInterval) || 0,
                     BirthDay: parseInt(actor.birthDay) || 0,
                     DeadDay: parseInt(actor.deadDay) || 0
                 },

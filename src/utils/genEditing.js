@@ -541,7 +541,7 @@ export const constructTeki = (actor, mapId) => {
             ExpireDay: 0,
             CurrNum: 1,
             ExpireProgress: 0,
-            RebirthInterval: 3,
+            RebirthInterval: parseInt(actor.rebirthInterval) || 0,
             SaveFlag: entityData[actor.creatureId].SaveFlag[0],
             MyID: -1,
             RefID: -1,
