@@ -23,13 +23,25 @@ export const Card = ({ title, imgId, imgType, footer, drop, updateDrops, isActor
                 }
                 <select value={rawName} className="w-full bg-sky-1000" onChange={(e) => updateDrops(e.target.value, drop, "assetName")}>
                     <optgroup label="Creatures">
-                        {Object.entries(CreatureNames).map(([creatureKey, creatureValue]) => <option key={creatureKey} value={creatureKey}>{config?.internalNames ? creatureKey : creatureValue} ({config?.internalNames ? creatureValue : creatureKey})</option>)}
+                        {Object.entries(CreatureNames)
+                            .sort((a, b) => a[config?.internalNames ? 0 : 1].localeCompare(b[config?.internalNames ? 0 : 1]))
+                            .map(([creatureKey, creatureValue]) =>
+                                <option
+                                    key={creatureKey}
+                                    value={creatureKey}>{config?.internalNames ? creatureKey : creatureValue} ({config?.internalNames ? creatureValue : creatureKey})
+                                </option>)}
                     </optgroup>
                     <optgroup label="Misc Items">
                         {Object.entries(MiscNames).map(([miscKey, miscValue]) => <option key={miscKey} value={miscKey}>{miscValue} ({miscKey})</option>)}
                     </optgroup>
                     <optgroup label="Treasures">
-                        {Object.entries(TreasureNames).map(([treasureKey, treasureValue]) => <option key={treasureKey} value={treasureKey}>{treasureValue} ({treasureKey})</option>)}
+                        {Object.entries(TreasureNames)
+                            .sort((a, b) => a[1].localeCompare(b[1]))
+                            .map(([treasureKey, treasureValue]) =>
+                                <option
+                                    key={treasureKey}
+                                    value={treasureKey}>{treasureValue} ({treasureKey})
+                                </option>)}
                     </optgroup>
                 </select>
             </h4>

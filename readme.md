@@ -192,6 +192,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ❌ Dandori battle maps - where/what even are they?
 - ✅ Support castaway drops (untested in game, but AI looks correct)
 - ❌ Better error reporting for the deploy process
+- ✅ Alphabetise the creature dropdown by the type of name we're displaying first (swapping internal names still makes them ordered by internal) 
 
 </details>
 

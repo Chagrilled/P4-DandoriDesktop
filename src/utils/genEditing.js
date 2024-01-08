@@ -536,8 +536,8 @@ export const constructTeki = (actor, mapId) => {
         RebirthInfo: {
             ActivityTime: "EActivityTime::Daytime",
             RebirthType: actor.rebirthType,
-            BirthDay: 0,
-            DeadDay: 0,
+            BirthDay: parseInt(actor.birthDay) || 0,
+            DeadDay: parseInt(actor.deadDay) || 0,
             ExpireDay: 0,
             CurrNum: 1,
             ExpireProgress: 0,

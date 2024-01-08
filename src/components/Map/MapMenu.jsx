@@ -38,6 +38,8 @@ export const MapMenu = ({ }) => {
             generateRadius: 300,
             rebirthType: RebirthTypes.AlwaysRebirth,
             rebirthInterval: 0,
+            birthDay: 0,
+            deadDay: 0,
             ddId: window.crypto.randomUUID(),
             drops: {
                 parsed: []

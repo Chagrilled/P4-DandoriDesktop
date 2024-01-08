@@ -3,7 +3,7 @@ import { CreatureNames, RebirthTypes } from "../../api/types";
 import { useConfig } from '../../hooks/useConfig';
 import { DebouncedInput } from './DebouncedInput';
 
-const editableFields = ["generateNum", "generateRadius", "X", "Y", "Z", "groupingRadius", "rebirthInterval"];
+const editableFields = ["generateNum", "generateRadius", "X", "Y", "Z", "groupingRadius", "rebirthInterval", "birthDay", "deadDay"];
 const ignoreFields = ["drops", "type", "infoType", "ddId", "outlineFolderPath"];
 
 const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId) => {
@@ -45,7 +45,7 @@ export const CreatureInfo = ({ obj, mapMarkerData, setMapData, parent, ddId }) =
             const fullKey = `${parent || ''}${parent ? '.' : ''}${key}`;
             return <li key={fullKey}>
                 <b>{key}</b>:&nbsp;
-                <DebouncedInput changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, fullKey, ddId)} value={value} type="number" ddId={ddId}/>
+                <DebouncedInput changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, fullKey, ddId)} value={value} type="number" ddId={ddId} />
             </li>;
         }
 
@@ -68,7 +68,13 @@ export const CreatureInfo = ({ obj, mapMarkerData, setMapData, parent, ddId }) =
                 <b>creatureId</b>
                 <div>
                     <select value={value} className="w-full bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, key, ddId)}>
-                        {Object.entries(CreatureNames).map(([creatureKey, creatureValue]) => <option key={creatureKey} value={creatureKey}>{config?.internalNames ? creatureKey : creatureValue} ({config?.internalNames ? creatureValue : creatureKey})</option>)}
+                        {Object.entries(CreatureNames)
+                            .sort((a, b) => a[config?.internalNames ? 0 : 1].localeCompare(b[config?.internalNames ? 0 : 1]))
+                            .map(([creatureKey, creatureValue]) =>
+                                <option
+                                    key={creatureKey}
+                                    value={creatureKey}>{config?.internalNames ? creatureKey : creatureValue} ({config?.internalNames ? creatureValue : creatureKey})
+                                </option>)}
                     </select>
                 </div>
             </li>;

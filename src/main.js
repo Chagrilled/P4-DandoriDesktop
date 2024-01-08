@@ -546,7 +546,9 @@ ipcMain.handle('saveMaps', async (event, mapId, data) => {
                 RebirthInfo: {
                     ...aglData.RebirthInfo,
                     RebirthType: actor.rebirthType,
-                    RebirthInterval: actor.rebirthInterval
+                    RebirthInterval: actor.rebirthInterval,
+                    BirthDay: parseInt(actor.birthDay) || 0,
+                    DeadDay: parseInt(actor.deadDay) || 0
                 },
                 ActorSerializeParameter: {
                     ...aglData.ActorSerializeParameter,
@@ -635,6 +637,8 @@ ipcMain.handle('readMapData', async (event, mapId) => {
             generateRadius: parseFloat(teki.GenerateInfo.GenerateRadius), // sometimes these decide to be strings. Persuade them not to be.
             rebirthType: teki.RebirthInfo.RebirthType,
             rebirthInterval: teki.RebirthInfo.RebirthInterval,
+            birthDay: teki.RebirthInfo.BirthDay,
+            deadDay: teki.RebirthInfo.DeadDay,
             outlineFolderPath: teki.OutlineFolderPath, // Handle these better than including them then excluding them
             drops: {
                 parsed,
