@@ -36,7 +36,7 @@ DDT reads and writes to local game files that must be decoded to their JSON form
 
 Use the `Settings` menu to set 4 things:
 
-- `Carrot4 Folder` - Folder containing your decoded game JSONs - this folder should contain `Maps/` and `Placeables/`
+- `Carrot4 Folder` - Folder containing your folder structure of decoded game JSONs - this folder should contain `Maps/` and `Placeables/`
 - `Encoder Folder` - Folder containing [P4UassetEditor](https://gamebanana.com/tools/15077). Assumes the files/folders are not renamed. The contents of this folder should be the extracted uasset editor - **so must contain `_EDIT`, `P4UassetEditor/`, `encode.bat`**, etc.
 - `castoc Folder` - Folder containing `castoc`. Assumes the files/folders are not renamed. There are several versions of this tool distributed, and we as a community haven't yet organised these tools into repos. I've zipped mine [in the repo](./castoc.zip) for use.
 - `Output Paks Folder` - Folder (probably) in your emulator you want your built mod's outputs to go to
