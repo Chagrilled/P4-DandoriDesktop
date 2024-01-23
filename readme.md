@@ -23,8 +23,7 @@ Special thanks goes to Dodiou to making [DandoriDB](https://github.com/Dodiou/Da
 
 Currently supports:
 
-- Displaying enemy entities on the each map
-- Editing/creating creatures/creature-related gimmicks
+- Editing/creating entities on the game maps
 - Manipulating drop tables
 - Writing back to game files
 - Primitive editing of some enemy parameters
