@@ -1,3 +1,5 @@
+import { InfoType, internalAssetNames, Times } from "../api/types";
+
 export const getPathType = assetName => assetName.match(/Placeables\/(.+)\/G/)[1];
 export const getNameFromAsset = assetName => assetName.match(/\.G(.+)_C/)[1];
 
@@ -26,4 +28,59 @@ export const setFloats = (obj) => {
     const newObj = {};
     Object.entries(obj).forEach(([key, val]) => newObj[key] = parseFloat(val));
     return newObj;
+};
+
+export const findMarkerById = (ddId, mapMarkerData) => {
+    let marker;
+    let type;
+    Object.entries(mapMarkerData).forEach(([key, val]) => {
+        const target = val.find(marker => marker.ddId === ddId);
+        if (target) {
+            marker = target;
+            type = key;
+        }
+    });
+    return {
+        marker,
+        type
+    };
+};
+
+export const getAngleRotation = (q) => 2 * Math.acos(q.W) * (180 / Math.PI);
+
+export const getInfoType = subPath => {
+    let infoType = InfoType.Object;
+    if (subPath.includes('Objects/Otakara')) infoType = InfoType.Treasure;
+    if (subPath.includes('Gimmicks/')) infoType = InfoType.Gimmick;
+    if (subPath.includes('WorkObjects')) infoType = InfoType.WorkObject;
+    if (subPath === 'Pikmin') infoType = InfoType.Pikmin;
+    if (subPath.includes('/Camp')) infoType = InfoType.Base;
+    if (subPath.includes('Onyon')) infoType = InfoType.Onion;
+    if (["/Hiba", "/StickyFloor", "/Mush", "/FireFloor"].some(s => subPath.includes(s))) infoType = InfoType.Hazard;
+    if (subPath.includes('/Portal')) infoType = InfoType.Portal;
+    if (subPath.includes('/Madori')) infoType = InfoType.Portal;
+    if (subPath.includes('/Charcoal')) infoType = InfoType.Hazard;
+    if (subPath === 'Teki') infoType = InfoType.Creature;
+    if (subPath === 'Items') infoType = InfoType.Item;
+    return infoType;
+};
+
+export const getSubpathFromAsset = asset => asset.match(/Placeables\/(.+)\/G/)[1];
+
+export const capitalise = string => string.charAt(0).toUpperCase() + string.slice(1);
+
+export const getAssetPathFromId = id => internalAssetNames.find(asset => asset.includes(`${id}_C`));
+
+export const getAvailableTimes = mapId => {
+    if (['HeroStory', 'Cave', 'Area011'].some(area => mapId.includes(area))) return [Times.PERM];
+    return [Times.DAY, Times.PERM];
+};
+
+export const findObjectKey = (object, target) => Object.keys(object).find(key => key === target);
+
+export const findObjectKeyByValue = (object, target) => Object.keys(object).find(key => object[key] === target);
+
+export const doesEntityHaveDrops = entity => {
+    if (entity.infoType === InfoType.Creature) return true;
+    return ["NoraSpawner", "CrackP", "GroupDropManager"].some(asset => entity.creatureId.includes(asset));
 };

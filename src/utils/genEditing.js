@@ -1,6 +1,8 @@
 import { default as entityData } from '../api/entityData.json';
+import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties } from '../api/types';
 import { floatToByteArr, intToByteArr, bytesToInt } from './bytes';
-import { setFloats, getNameFromAsset } from './utils';
+import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue } from './utils';
+import deepEqual from 'deep-equal';
 
 export const NONE_BYTES = [5, 0, 0, 0, 78, 111, 110, 101, 0];
 
@@ -38,18 +40,200 @@ export const ASP_FIELDS = [
     "ActionMarker"
 ];
 
-export const getReadAIFunc = (creatureId) => {
+export const getReadAIFunc = (creatureId, infoType) => {
+    // console.log("Reading", creatureId, infoType);
     if (creatureId === 'GroupDropManager') return parseGDMDrops;
     if (creatureId === 'ActorSpawner') return parseActorSpawnerDrops;
     if (creatureId === 'BurrowDemejako') return () => ({ parsed: [] });
-    return parseTekiDrops;
+    if (creatureId.includes('CrackPot')) return parsePotDrops;
+    if (creatureId.includes('NoraSpawner')) return parseNoraSpawnerAI;
+    if (infoType === InfoType.Creature) return parseTekiDrops;
+    return () => ({ parsed: [] });
 };
 
-export const getConstructAIFunc = (creatureId) => {
+const defaultAI = (_, ai) => ai;
+
+export const getConstructAIFunc = (creatureId, infoType) => {
     if (creatureId === 'GroupDropManager') return constructGDMAI;
     if (creatureId === 'ActorSpawner') return constructActorSpawnerAI;
-    if (creatureId === 'BurrowDemejako') return (_, ai) => ai;
-    return constructCreatureAI;
+    if (creatureId === 'BurrowDemejako') return defaultAI;
+    if (creatureId.includes('CrackPot')) return constructPotAI;
+    if (creatureId.includes('NoraSpawner')) return constructNoraSpawnerAI;
+    if (infoType === InfoType.Creature) return constructCreatureAI;
+    return defaultAI;
+};
+
+const constructNoraSpawnerAI = (drops, aiStatic, { AIProperties }) => {
+    const bytes = [];
+    console.log("Constructing NoraSpawner from:", drops, AIProperties);
+    bytes.push(parseInt(AIProperties.spawnNum), 0, 0, 0);
+    bytes.push(...floatBytes(parseFloat(AIProperties.spawnRadius)));
+    bytes.push(...floatBytes(parseFloat(AIProperties.noSpawnRadius)));
+    bytes.push(parseInt(findObjectKeyByValue(PikminTypes, AIProperties.pikminType)));
+    bytes.push(1, 0, 0, 0);
+    bytes.push(2);
+    bytes.push(...intToByteArr(AIProperties.mabikiNumFromFollow).reverse());
+    bytes.push(...aiStatic.slice(22, 26));
+    bytes.push(AIProperties.bMabikiPongashi ? 1 : 0, 0, 0, 0);
+    bytes.push(...intToByteArr(AIProperties.pongashiChangeColorFollowNum).reverse());
+    bytes.push(parseInt(findObjectKeyByValue(PikminTypes, AIProperties.pongashiChangeColorFromFollow)));
+    bytes.push(0, 0, 0, 0); // bReservedBirth
+    bytes.push(0, 0, 0, 0);
+    bytes.push(1, 0, 0, 0);
+    bytes.push(16); // no idea what this is, it's related to pongashi color
+    let lengthBytes = intToByteArr(AIProperties.noraIdlingPreset.length + 1).reverse();
+    bytes.push(
+        ...lengthBytes,
+        ...AIProperties.noraIdlingPreset.split('').map(char => char.charCodeAt(0)),
+        0
+    );
+    bytes.push(0, 0, 0, 0); // this changes often, no clue what bool it is yet
+    bytes.push(parseInt(findObjectKeyByValue(PikminPlayType, AIProperties.groupIdlingType)));
+    bytes.push(0, 0, 0, 0);
+    bytes.push(...floatBytes(parseFloat(AIProperties.mabikiPongashiOffset.X)));
+    bytes.push(...floatBytes(parseFloat(AIProperties.mabikiPongashiOffset.Y)));
+    bytes.push(...floatBytes(parseFloat(AIProperties.mabikiPongashiOffset.Z)));
+    bytes.push(0, 0, 128, 191);
+    bytes.push(drops.length, 0, 0, 0);
+    drops.forEach(drop => {
+        let lengthBytes = intToByteArr(drop.assetName.length + 1).reverse();
+
+        bytes.push(
+            ...lengthBytes,
+            ...drop.assetName.split('').map(char => char.charCodeAt(0)),
+            0
+        );
+        const actorName = getNameFromAsset(drop.assetName);
+
+        if (actorName.includes("Survivor")) { // Push custom sleep params if survivor
+            lengthBytes = intToByteArr(CustomParameterOverrides[actorName].length + 1).reverse();
+
+            bytes.push(
+                ...lengthBytes,
+                ...CustomParameterOverrides[actorName].split('').map(char => char.charCodeAt(0)),
+                0
+            );
+        }
+        else bytes.push(...NONE_BYTES);
+
+        bytes.push(...floatBytes(parseFloat(drop.customFloatParam)));
+        bytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag)).reverse().slice(0, 2));
+        bytes.push(drop.bSetTerritory ? 1 : 0, 0, 0, 0);
+        if (drop.bSetTerritory) {
+            bytes.push(...floatBytes(parseFloat(drop.x || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.y || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.z || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.halfHeight || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.radius || 0.0)));
+        }
+    });
+
+    bytes.push(AIProperties.bEnableOptionalPoint ? 1 : 0, 0, 0);
+    if (AIProperties.optionalPointOffsets) {
+        bytes.push(AIProperties.optionalPointOffsets.length, 0, 0, 0);
+        AIProperties.optionalPointOffsets.forEach(offset => {
+            bytes.push(...floatBytes(offset.x));
+            bytes.push(...floatBytes(offset.y));
+            bytes.push(...floatBytes(offset.z));
+        });
+    }
+    else bytes.push(0, 0, 0, 0);
+    bytes.push(0, 0, 0, 0);
+    return bytes;
+};
+
+const parseNoraSpawnerAI = ai => {
+    let index = 0;
+    const AIProperties = {};
+    const parsed = [];
+    AIProperties.spawnNum = ai[index];
+    index += 4;
+    AIProperties.spawnRadius = parseFloat(new Float32Array(new Uint8Array(ai.slice(index, index + 4)).buffer)[0].toFixed(3));
+    index += 4;
+    AIProperties.noSpawnRadius = parseFloat(new Float32Array(new Uint8Array(ai.slice(index, index + 4)).buffer)[0].toFixed(3));
+    index += 4;
+    AIProperties.pikminType = PikminTypes[ai[index]];
+    index += 1;
+    index += 4; // No idea what this bool is
+    index += 1; // dunno what this int is either
+    AIProperties.mabikiNumFromFollow = bytesToInt(ai.slice(index, index + 4).join(','));
+    index += 4;
+    AIProperties.unknownInt = bytesToInt(ai.slice(index, index + 4).join(','));
+    index += 4;
+    AIProperties.bMabikiPongashi = ai[index];
+    index += 4;
+    AIProperties.pongashiChangeColorFollowNum = bytesToInt(ai.slice(index, index + 4).join(','));
+    index += 4;
+    AIProperties.pongashiChangeColorFromFollow = PikminTypes[ai[index]];
+    index += 1;
+    index += 13; // unknown bytes here
+    const assetLength = ai[index];
+    index += 4;
+    const asciiString = ai.slice(index, index + assetLength - 1); // We don't want the null terminator in the string
+    AIProperties.noraIdlingPreset = String.fromCharCode.apply(null, asciiString);
+    index += assetLength;
+    // AIProperties.bDisableForcePongashi = ai[index];
+    index += 4;
+    AIProperties.groupIdlingType = PikminPlayType[ai[index]];
+    index += 1;
+    index += 4; // idk what's here
+    AIProperties.mabikiPongashiOffset = {
+        X: parseFloat(new Float32Array(new Uint8Array(ai.slice(index, index += 4)).buffer)[0].toFixed(3)),
+        Y: parseFloat(new Float32Array(new Uint8Array(ai.slice(index, index += 4)).buffer)[0].toFixed(3)),
+        Z: parseFloat(new Float32Array(new Uint8Array(ai.slice(index, index += 4)).buffer)[0].toFixed(3))
+    };
+    index += 4; // skip unknown float - always 0, 0, 128, 191 (-1) in float
+    const randomActorListLength = ai[index];
+
+    index += 4;
+    for (let i = 0; i < randomActorListLength; i++) { // should always be 1 according to game files
+        const slot = {};
+        slot.id = i + 1; // Avoid 0 IDs, just in case. This never gets written back anyway.
+        const assetLength = ai[index];
+        index += 4;
+        const asciiString = ai.slice(index, index + assetLength - 1); // We don't want the null terminator in the string
+        slot.assetName = String.fromCharCode.apply(null, asciiString);
+        index += assetLength;
+        index += ai[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
+
+        slot.customFloatParam = parseFloat(new Float32Array(new Uint8Array(ai.slice(index, index + 4)).buffer)[0].toFixed(3));
+        index += 4;
+        slot.gameRulePermissionFlag = bytesToInt(ai.slice(index, index + 2).join(','));
+        index += 2;
+        slot.bSetTerritory = ai[index];
+        index += 4;
+        if (slot.bSetTerritory) {
+            slot.x = parseFloat(new Float32Array(new Uint8Array(ai.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+            slot.y = parseFloat(new Float32Array(new Uint8Array(ai.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+            slot.z = parseFloat(new Float32Array(new Uint8Array(ai.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+            slot.halfHeight = parseFloat(new Float32Array(new Uint8Array(ai.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+            slot.radius = parseFloat(new Float32Array(new Uint8Array(ai.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+        }
+        parsed.push(slot);
+    }
+
+    AIProperties.bEnableOptionalPoint = ai[index];
+    index += 4;
+    const arrayLength = ai[index];
+    index += 4;
+    if (arrayLength) AIProperties.optionalPointOffsets = [];
+    for (let i = 0; i < arrayLength; i++) {
+        AIProperties.optionalPointOffsets.push({
+            x: parseFloat(new Float32Array(new Uint8Array(ai.slice(index, index += 4)).buffer)[0].toFixed(3)),
+            y: parseFloat(new Float32Array(new Uint8Array(ai.slice(index, index += 4)).buffer)[0].toFixed(3)),
+            z: parseFloat(new Float32Array(new Uint8Array(ai.slice(index, index += 4)).buffer)[0].toFixed(3))
+        });
+    }
+
+    return {
+        AIProperties,
+        parsed
+    };
 };
 
 export const parseGDMDrops = drops => {
@@ -123,9 +307,70 @@ export const parseGDMDrops = drops => {
         console.log("iterating to find inventory end");
         index += 1; // Just iterate till we find the 255 byte? Shouldn't run, I think
     }
-    console.log("Done GDM AI");
-    console.log(parsed);
+    // console.log(parsed);
     return { parsed, inventoryEnd: index + 4, groupingRadius, ignoreList };
+};
+
+export const parsePotDrops = drops => {
+    const parsed = [];
+    let index = 0;
+    const invSize = drops[index];
+
+    index += 4; // There's a -1,-1 (255*4, 255*4) after, idk what they do
+    for (let i = 0; i < invSize; i++) {
+        const slot = {};
+        index += 8; // Skip the two -1 bytes at the start of each item
+        slot.minDrops = drops[index];
+        index += 4;
+        slot.maxDrops = drops[index];
+        index += 4;
+        slot.dropChance = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+        index += 4;
+        slot.bRegistGenerator = drops[index];
+        index += 4;
+        if (drops[index] == 1) {
+            const dcLength = drops[index]; // I think it's the number of objects in the DC array - it's always 1 or 0
+            index += 4;
+            slot.dropCondition = drops[index];
+            index += 4;
+            const dropCondInt = drops[index]; // This looks like a float tbh, rather than an int, but is always 0 or -1
+            index += 1;
+            index += drops[index] + 4 + 1; // start of dropCond string, usually None. We also don't care about the DemoFlag
+        } else index += 4;
+
+        const assetLength = drops[index];
+        index += 4;
+        const asciiString = drops.slice(index, index + assetLength - 1); // We don't want the null terminator in the string
+        slot.assetName = String.fromCharCode.apply(null, asciiString);
+        index += assetLength;
+        index += drops[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
+
+        slot.customFloatParam = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+        index += 4;
+        slot.gameRulePermissionFlag = bytesToInt(drops.slice(index, index + 2).join(','));
+        index += 2;
+        slot.bSetTerritory = drops[index];
+        index += 4;
+        if (slot.bSetTerritory) {
+            slot.x = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+            slot.y = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+            slot.z = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+            slot.halfHeight = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+            slot.radius = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
+            index += 4;
+        }
+        parsed.push(slot);
+    }
+    while (drops[index] != 255 && index < drops.length) {
+        console.log("iterating to find inventory end");
+        index += 1; // Just iterate till we find the 255 byte? Shouldn't run, I think
+    }
+    // console.log(parsed);
+    return { parsed, inventoryEnd: index + 4, };
 };
 
 export const parseActorSpawnerDrops = drops => {
@@ -214,7 +459,7 @@ export const parseTekiDrops = drops => {
     if (invSize === 0) {
         return { parsed, inventoryEnd: 28 };
     }
-    console.log("drops", drops);
+
     let index = 24; // start of the first item
     for (let i = 0; i < invSize; i++) {
         const slot = {};
@@ -278,12 +523,12 @@ export const parseTekiDrops = drops => {
 
 export const floatBytes = float => floatToByteArr(parseFloat(float)).slice().reverse();
 
-export const constructGDMAI = (drops, aiStatic, { groupingRadius, ignoreList, inventoryEnd }) => {
+export const constructGDMAI = (drops, aiStatic, { groupingRadius, ignoreList = [], inventoryEnd }) => {
     const bytes = [];
     bytes.push(...floatBytes(groupingRadius));
 
     if (typeof ignoreList === 'string') ignoreList = JSON.parse(ignoreList);
-    const ignoreListLength = ignoreList.length;
+    const ignoreListLength = ignoreList.length
     bytes.push(ignoreListLength, 0, 0, 0);
     ignoreList.forEach(ignore => {
         let lengthBytes = intToByteArr(ignore.length + 1).reverse();
@@ -303,8 +548,9 @@ export const constructGDMAI = (drops, aiStatic, { groupingRadius, ignoreList, in
         bytes.push(...floatBytes(parseFloat(drop.dropChance)));
         bytes.push(drop.bRegistGenerator ? 1 : 0, 0, 0, 0);
         if (drop.dropCondition && drop.dropCondition != 'None') {
-            bytes.push(parseInt(drop.dropCondition), 0, 0, 0);
-            bytes.push(0); // We'll 0 dropCondInt for now, idk what -1 is for
+            bytes.push(1, 0, 0, 0);
+            bytes.push(parseInt(drop.dropCondition));
+            bytes.push(0, 0, 0, 0); // We'll 0 dropCondInt for now, idk what -1 is for
             bytes.push(...NONE_BYTES); // Force dropCondName to None for now.
             bytes.push(0); // Also zero demoFlag for now too
         }
@@ -350,8 +596,68 @@ export const constructGDMAI = (drops, aiStatic, { groupingRadius, ignoreList, in
     return [...bytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)];
 };
 
+export const constructPotAI = (drops, aiStatic, { inventoryEnd }) => {
+    const bytes = [];
+    console.log("Constructing pot from", drops, inventoryEnd);
+    console.dir(aiStatic, { maxArrayLength: 400 });
+    bytes.push(drops.length, 0, 0, 0);
+
+    drops.forEach(drop => {
+        bytes.push(255, 255, 255, 255, 255, 255, 255, 255); // This is the start of each GDM item
+        bytes.push(drop.minDrops, 0, 0, 0);
+        bytes.push(drop.maxDrops, 0, 0, 0);
+        bytes.push(...floatBytes(parseFloat(drop.dropChance)));
+        bytes.push(drop.bRegistGenerator ? 1 : 0, 0, 0, 0);
+        if (drop.dropCondition && drop.dropCondition != 'None') {
+            bytes.push(1, 0, 0, 0);
+            bytes.push(parseInt(drop.dropCondition));
+            bytes.push(0, 0, 0, 0); // We'll 0 dropCondInt for now, idk what -1 is for
+            bytes.push(...NONE_BYTES); // Force dropCondName to None for now.
+            bytes.push(0); // Also zero demoFlag for now too
+        }
+        else bytes.push(0, 0, 0, 0);
+        let lengthBytes = intToByteArr(drop.assetName.length + 1).reverse();
+
+        bytes.push(
+            ...lengthBytes,
+            ...drop.assetName.split('').map(char => char.charCodeAt(0)),
+            0
+        );
+        const actorName = getNameFromAsset(drop.assetName);
+
+        if (actorName.includes("Survivor")) { // Push custom sleep params if survivor
+            lengthBytes = intToByteArr(CustomParameterOverrides[actorName].length + 1).reverse();
+
+            bytes.push(
+                ...lengthBytes,
+                ...CustomParameterOverrides[actorName].split('').map(char => char.charCodeAt(0)),
+                0
+            );
+        }
+        else bytes.push(...NONE_BYTES);
+
+        bytes.push(...floatBytes(parseFloat(drop.customFloatParam)));
+        bytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag)).reverse().slice(0, 2));
+        bytes.push(drop.bSetTerritory ? 1 : 0, 0, 0, 0);
+        if (drop.bSetTerritory) {
+            bytes.push(...floatBytes(parseFloat(drop.x || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.y || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.z || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.halfHeight || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.radius || 0.0)));
+        }
+    });
+
+    bytes.push(255, 255, 255, 255);
+    if (!inventoryEnd) {
+        ({ inventoryEnd } = parsePotDrops(aiStatic));
+    }
+    return [...bytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)];
+};
+
 export const constructActorSpawnerAI = ([drop], aiStatic) => {
     const bytes = [];
+    // These are some ordering of avatar, pikmin, both, and something else 
     bytes.push(parseInt(drop.mysteryBool1) ? 1 : 0, 0, 0, 0);
     bytes.push(parseInt(drop.mysteryBool2) ? 1 : 0, 0, 0, 0);
     bytes.push(parseInt(drop.mysteryBool3) ? 1 : 0, 0, 0, 0);
@@ -387,7 +693,6 @@ export const constructActorSpawnerAI = ([drop], aiStatic) => {
     // 16 of whatever
     bytes.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     // infiniteSpawn
-    console.log("drop", drop);
     bytes.push(parseInt(drop.infiniteSpawn) ? 1 : 0, 0, 0, 0);
     // spawnInterval
     bytes.push(...floatBytes(drop.spawnInterval));
@@ -423,11 +728,7 @@ export const constructCreatureAI = (drops, aiStatic, { inventoryEnd }) => {
     const inventoryBytes = [drops.length, 0, 0, 0];
     drops.forEach(drop => {
         const slotBytes = [parseInt(drop.id), 0, 0, 0];
-        console.log(drop.flags);
-        console.log(typeof drop.flags);
         if (typeof drop.flags == 'string') drop.flags = JSON.parse(drop.flags);
-        console.log("2", drop.flags);
-        console.log("2", typeof drop.flags);
         slotBytes.push(...drop.flags);
         slotBytes.push(drop.minDrops, 0, 0, 0);
         slotBytes.push(drop.maxDrops, 0, 0, 0);
@@ -505,21 +806,20 @@ export const constructTeki = (actor, mapId) => {
             W: 1.0 // I have no idea what this does, but average values seem to trend more towards 1 than 0 or 0.5
         },
         Translation: setFloats(actor.transform.translation),
-        Scale3D: setFloats(actor.transform.scale3D)
+        Scale3D: setFloats(actor.transform.scale3D),
+        Rotation: setFloats(actor.transform.rotation)
     };
-    const subPath = getSubpath(actor.creatureId);
-
     return {
         AssetVersion: 8626647386,
         GeneratorVersion: 8626647386,
         GeneratorID: -1,
         SoftRefActorClass: {
-            AssetPathName: `/Game/Carrot4/Placeables/${subPath}/G${actor.creatureId}.G${actor.creatureId}_C`,
+            AssetPathName: getAssetPathFromId(actor.creatureId),
             SubPathString: 0
         },
         ExploreRateType: "EExploreRateTargetType::None",
         ActorVersion: 1,
-        OutlineFolderPath: "Teki/Day",
+        OutlineFolderPath: "Teki/Day", // idk if this is used for anything
         InitTransform: transforms,
         Transform: transforms,
         GenerateInfo: {
@@ -569,9 +869,10 @@ export const constructTeki = (actor, mapId) => {
                 // Aside from AI (drops), and CakAudioTable(?), they're the same per actor type 
             }), {}),
             AI: {
-                Static: getConstructAIFunc(actor.creatureId)(actor.drops.parsed, entityData[actor.creatureId].AI[0].Static, {
+                Static: getConstructAIFunc(actor.creatureId, actor.infoType)(actor.drops.parsed, entityData[actor.creatureId].AI[0].Static, {
                     groupingRadius: actor?.groupingRadius,
-                    ignoreList: actor?.ignoreList
+                    ignoreList: actor?.ignoreList,
+                    AIProperties: actor?.AIProperties || defaultAIProperties
                 }),
                 Dynamic: entityData[actor.creatureId].AI[0].Dynamic
             }
@@ -584,4 +885,79 @@ export const constructTeki = (actor, mapId) => {
         CarcassFlags: 0,
         RefOriginalGenID: -1
     };
+};
+
+export const regenerateAGLEntity = (actor, aglData) => {
+    console.log("AGL ID:", aglData.ddId);
+    // There are non-tekis in the teki AGL - leave them be
+    // Tekis/G is because splines are Teki/Other/Spline/GSpline....
+    // const editables = ['Placeables/Teki/G', 'Gimmicks/ActorSpawner', 'Objects/Egg'];
+    // if (!editables.some(asset => aglData.SoftRefActorClass.AssetPathName.includes(asset))) {
+    //     const newEntity = {
+    //         ...aglData
+    //     };
+    //     delete newEntity.ddId;
+    //     return newEntity;
+    // }
+    const transforms = {
+        Rotation: setFloats(aglData.InitTransform.Rotation),
+        Translation: setFloats(actor.transform.translation),
+        Scale3D: setFloats(actor.transform.scale3D)
+    };
+    const originalAI = aglData.ActorSerializeParameter.AI.Static;
+    const { parsed, inventoryEnd, ignoreList, groupingRadius, AIProperties } = getReadAIFunc(actor.creatureId, actor.infoType)(originalAI);
+    const isAIUnchanged = deepEqual({
+        parsed,
+        AIProperties
+    }, {
+        parsed: actor.drops.parsed,
+        AIProperties: actor.AIProperties
+    });
+    let newAI = {};
+    if (!isAIUnchanged) {
+        console.log(actor.creatureId, "constructing new AI");
+        newAI = {
+            AI: {
+                Static: getConstructAIFunc(actor.creatureId, actor.infoType)(actor.drops.parsed, originalAI, {
+                    inventoryEnd,
+                    groupingRadius: actor.groupingRadius,
+                    ignoreList: actor.ignoreList,
+                    AIProperties: actor.AIProperties
+                }),
+                Dynamic: aglData.ActorSerializeParameter.AI.Dynamic
+            }
+        };
+    }
+    else console.log(actor.creatureId, "AI is unchanged");
+
+    const newEntity = {
+        ...aglData,
+        SoftRefActorClass: {
+            ...aglData.SoftRefActorClass,
+            AssetPathName: getAssetPathFromId(actor.creatureId) || `/Game/Carrot4/Placeables/${getSubpath(actor.creatureId)}/G${actor.creatureId}.G${actor.creatureId}_C`,
+        },
+        InitTransform: transforms,
+        Transform: transforms,
+        GenerateInfo: {
+            ...aglData.GenerateInfo,
+            GenerateNum: parseInt(actor.generateNum),
+            GenerateRadius: parseFloat(actor.generateRadius),
+
+        },
+        RebirthInfo: {
+            ...aglData.RebirthInfo,
+            RebirthType: actor.rebirthType,
+            RebirthInterval: parseInt(actor.rebirthInterval) || 0,
+            BirthDay: parseInt(actor.birthDay) || 0,
+            DeadDay: parseInt(actor.deadDay) || 0
+        },
+        ActorSerializeParameter: {
+            ...aglData.ActorSerializeParameter,
+            ...newAI
+        }
+    };
+    // console.log("regenerated:", newEntity.DropActorInfo.DropOwnerDebugUniqueId);
+    delete newEntity.ddId;
+    // console.log(newEntity);
+    return newEntity;
 };

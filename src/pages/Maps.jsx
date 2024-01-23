@@ -55,10 +55,10 @@ export const Maps = () => {
     });
 
     const navPanel = <NavigationPanel onMapChange={onMapChange} mapId={mapId} />;
-    const infoPanel = <InfoPanel marker={selectedMarker} mapMarkerData={mapMarkerData} setMapData={setMapData} />;
+    const infoPanel = <InfoPanel marker={selectedMarker} mapMarkerData={mapMarkerData} setMapData={setMapData} mapId={mapId} />;
     return (
         <div className='h-full w-full'>
-            <PanelLayout leftPanel={navPanel} width={"30%"} rightPanel={infoPanel}>
+            <PanelLayout leftPanel={navPanel} width={"20%"} rightPanel={infoPanel}>
                 <MapContainer mapId={mapId} onSelect={setSelectedMarker} mapMarkerData={mapMarkerData} setMapData={setMapData} />
             </PanelLayout>
         </div>

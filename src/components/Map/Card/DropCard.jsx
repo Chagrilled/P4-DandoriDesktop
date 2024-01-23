@@ -1,6 +1,6 @@
 import React from "react";
-import { ActorSpawnerCustomParameter, DropConditions, DropConditions_Named, GameRulePermissionFlags } from "../../../api/types";
-import { getNameFromAsset, getPathType } from "../../../utils/utils";
+import { ActorSpawnerCustomParameter, DropConditions, DropConditions_Named, GameRulePermissionFlags, InfoType } from "../../../api/types";
+import { getInfoType, getNameFromAsset, getPathType, getSubpathFromAsset } from "../../../utils/utils";
 import { Card } from "./Card";
 import { DebouncedInput } from "../DebouncedInput";
 
@@ -16,7 +16,8 @@ const iconMap = {
 export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
     const nameSuffix = drop.dropCondition == DropConditions.SALVAGE_ITEM ? ' (Revisit only)' : '';
 
-    const type = getPathType(drop.assetName);
+    const subPath = getSubpathFromAsset(drop.assetName);
+    const infoType = getInfoType(subPath);
     const asset = getNameFromAsset(drop.assetName);
 
     const amountStr = (!isActorSpawner && drop.maxDrops !== drop.minDrops)
@@ -77,7 +78,7 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
             {
                 <span>
                     <b>Chance</b>:
-                    <DebouncedInput value={Math.round(drop.dropChance * 100) + '%'} changeFunc={(v) => updateDrops(v, drop, "dropChance")} ddId={ddId}/>
+                    <DebouncedInput value={Math.round(drop.dropChance * 100) + '%'} changeFunc={(v) => updateDrops(v, drop, "dropChance")} ddId={ddId} />
                 </span>
             }
             <div>
@@ -148,12 +149,8 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
         </>;
 
     const imageProps = {};
-    if (iconMap[type] === 'treasure' || iconMap[type] === 'creature') {
-        imageProps.imgType = iconMap[type];
-        imageProps.imgId = asset;
-    }
-    else imageProps.imgType = `${iconMap[type]}-${asset.toLowerCase()}`;
-
+    imageProps.imgType = infoType;
+    imageProps.imgId = asset;
     const name = (asset || '') + nameSuffix;
 
     return <Card

@@ -4,24 +4,16 @@ import VectorSource from 'ol/source/Vector';
 import { Feature } from 'ol';
 import { Point } from 'ol/geom';
 
-import { Categories, MarkerType, isCreature, isTreasure, GimmickNames } from '../../api/types';
-import { getNameFromAsset } from '../../utils/utils';
+import { Categories, MarkerType, isCreature, isTreasure, GimmickNames, InfoType, iconOverrides } from '../../api/types';
+import { getAngleRotation, getNameFromAsset } from '../../utils/utils';
+
+const { Gimmick, Hazard, Portal, Onion, Base, WorkObject, Pikmin } = InfoType;
 
 const ROOT_ICON_URL = '../images/icons/radar';
 const ROOT_GIMMICKS_URL = '../images/gimmicks';
 const ROOT_TREASURE_URL = '../images/treasures';
 const ROOT_CREATURE_URL = '../images/creatures';
 
-const URL_OVERRIDES = {
-    // [MarkerType.BreakableMound]: 'https://www.pikminwiki.com/images/9/95/Dirt_mound_icon.png',
-    // [MarkerType.BreakableCrystal]: 'https://www.pikminwiki.com/images/8/81/Small_crystal_icon.png',
-    // [MarkerType.BreakableEgg]: 'https://www.pikminwiki.com/images/9/95/Egg_P3_icon.png',
-    // [MarkerType.MiscHoney]: 'https://www.pikminwiki.com/images/1/1f/Nectar_icon.png',
-    // [MarkerType.MiscIcicle]: 'https://www.pikminwiki.com/images/9/94/Icicle-like_crystal_icon.png',
-    // [MarkerType.MiscStick]: 'https://www.pikminwiki.com/images/b/b5/Climbing_stick_icon.png',
-    // [MarkerType.MiscSpicy]: 'https://www.pikminwiki.com/images/7/7a/Ultra-spicy_nectar_icon.png',
-    // [MarkerType.SwitchDrain]: 'https://www.pikminwiki.com/images/d/d1/Clog_icon.png',
-};
 const SCALE_OVERRIDES = {
     [MarkerType.BreakableMound]: 1.3,
     [MarkerType.BreakableCrystal]: 1.3,
@@ -31,15 +23,37 @@ const SCALE_OVERRIDES = {
     [MarkerType.MiscSpicy]: 1.3,
     [MarkerType.SwitchDrain]: 1.3,
     [MarkerType.MiscSpiderwort]: 0.25,
-    "egg": "0.9",
-    "bigegg": "0.9",
-    "groupdropmanager": "0.9"
+    "egg": "0.6",
+    "bigegg": "0.8",
+    "groupdropmanager": "0.9",
+    "pelplant1revive": "0.35",
+    "pelplant5revive": "0.35",
+    "pelplant10revive": "0.35",
+    "pelplant1reviveforhero": "0.35",
+    "pelplant5reviveforhero": "0.35",
+    "pelplant10reviveforhero": "0.35",
+    "pelplant1": "0.35",
+    "pelplant5": "0.35",
+    "pelplant10": "0.35",
+    "pellet1": "0.35",
+    "pellet5": "0.35",
+    "kinkaistation": "0.25",
+    "tsuyukusa": "0.3",
+    "hikarikinoko": "0.4",
+    "bikkurikinokoplant": "0.4",
+    onyon: 0.45,
+    dolphin: 0.45,
+    komush: 1.4,
+    mush: 1.2,
+    poisonmush: 1.3,
+    poisonkomush: 1.4,
+    stickymush: 1.2,
+    stickymushpoison: 1.3
 };
 
 export const getIconOptions = (type) => {
-    // console.log("getting options", type)
-    const imgUrl = URL_OVERRIDES[type] || (ROOT_ICON_URL + '/' + type + '.png');
-    const scale = SCALE_OVERRIDES[type];
+    const imgUrl = iconOverrides[type] || (ROOT_ICON_URL + '/' + type + '.png');
+    const scale = SCALE_OVERRIDES[type] || 0.9;
     return {
         src: imgUrl,
         scale
@@ -68,6 +82,7 @@ export const getFeatureLayers = (groupedData) => {
 
         featureLayers[markerType] = layer;
     }
+    // console.log("featureLayers", featureLayers)
     return featureLayers;
 };
 
@@ -106,7 +121,9 @@ const TREASURE_TEXT_STYLE = new Text({
     scale: 2
 });
 
+// TODO: Refactor this duplication - it's been through a lot 😪
 const getFeatureStyle = (marker, globalMarkerStyle) => {
+    // console.log("getFeatureStyle", marker, globalMarkerStyle)
     if (isCreature(marker)) {
         // console.log(marker);
         const creatureId = marker.creatureId === 'ActorSpawner' ? getNameFromAsset(marker.drops.parsed[0].assetName) : marker.creatureId.toLowerCase().replace('night', '');
@@ -116,6 +133,30 @@ const getFeatureStyle = (marker, globalMarkerStyle) => {
             image: new Icon({
                 src: `${ROOT_CREATURE_URL}/creature-${creatureId.toLowerCase()}.png`,
                 scale: scale
+            }),
+        });
+    }
+    else if ([InfoType.Object, WorkObject, Gimmick, Portal, Onion, Hazard, Base, Pikmin].includes(marker.infoType)) {
+        const creatureId = marker.creatureId.toLowerCase();
+        let id = iconOverrides[marker.creatureId.toLowerCase()];
+        const scale = SCALE_OVERRIDES[creatureId] || 0.9;
+        let infoType = marker.infoType;
+
+        // NoraSpawner icons are drawn from the PikminColor enum within their AI
+        if (marker.creatureId === 'NoraSpawnerPongashiLock')
+            id = `candypop-${marker.AIProperties.pikminType.substr(6).toLowerCase()}`;
+        else if (marker.creatureId.includes('NoraSpawner')) {
+            infoType = InfoType.Pikmin;
+            id = `${marker.AIProperties.pikminType.toLowerCase()}`;
+        }
+        globalMarkerStyle = new Style({
+            image: new Icon({
+                src: `images/${infoType}s/${infoType}-${id || marker.creatureId}.png`,
+                scale: scale,
+                // I have no idea what combination makes the right angle - none seems to match to DDB
+                // Also I think only gates/bridges/caves want rotating otherwise it looks weird
+                // rotateWithView: true,
+                // rotation: -getAngleRotation(marker.transform.rotation),
             }),
         });
     }
@@ -138,15 +179,16 @@ const getFeatureStyle = (marker, globalMarkerStyle) => {
         // TODO: remove value for challenge caves somehow
         const label = totalValue ? `${totalWeight} / ${totalValue}` : totalWeight + "";
 
-        const textStyle = TREASURE_TEXT_STYLE.clone();
-        textStyle.setText(label);
+        // TODO: Read treasure weights from the core/DT_OtakaraParemeter file
+        // const textStyle = TREASURE_TEXT_STYLE.clone();
+        // textStyle.setText(label);
 
         return new Style({
             image: new Icon({
-                src: `${ROOT_TREASURE_URL}/treasure-${marker.treasureId.toLowerCase()}.png`,
+                src: `${ROOT_TREASURE_URL}/treasure-${marker.creatureId.toLowerCase()}.png`,
                 scale: 0.35
             }),
-            text: textStyle,
+            // text: textStyle,
         });
     }
 

@@ -1,20 +1,33 @@
 import React from 'react';
-import { CreatureNames, RebirthTypes } from "../../api/types";
+import { Times, NameMap, RebirthTypes, PikminTypes, PikminPlayType, defaultAIProperties } from "../../api/types";
 import { useConfig } from '../../hooks/useConfig';
+import { findMarkerById, getAvailableTimes } from '../../utils/utils';
 import { DebouncedInput } from './DebouncedInput';
 
-const editableFields = ["generateNum", "generateRadius", "X", "Y", "Z", "groupingRadius", "rebirthInterval", "birthDay", "deadDay"];
+const editableFields = ["generateNum", "generateRadius", "X", "Y", "Z", "groupingRadius", "rebirthInterval", "birthDay", "deadDay", "spawnNum", "spawnRadius", "noSpawnRadius", "mabikiNumFromFollow"];
 const ignoreFields = ["drops", "type", "infoType", "ddId", "outlineFolderPath"];
 
 const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId) => {
-    const newMapData = mapMarkerData.creature.map(creature => {
+    console.log("updateObj", obj);
+    let type = obj.infoType;
+    if (!type) {
+        ({ type } = findMarkerById(ddId, mapMarkerData));
+    }
+    console.log(mapMarkerData);
+    const newMapData = mapMarkerData[type].map(creature => {
         if (creature.ddId == ddId) {
             deepUpdate(creature, path, value);
+            if (path === 'creatureId') {
+                if (value.includes('NoraSpawner') && !creature.AIProperties)
+                    creature.AIProperties = { ...defaultAIProperties };
+                if (!value.includes('NoraSpawner') && creature.AIProperties)
+                    delete creature.AIProperties;
+            }
         }
         return { ...creature };
     });
 
-    setMapData({ ...mapMarkerData, creature: newMapData });
+    setMapData({ ...mapMarkerData, [type]: newMapData });
 };
 
 const deepUpdate = (obj, path, value) => {
@@ -28,7 +41,7 @@ const deepUpdate = (obj, path, value) => {
         return deepUpdate(obj[path[0]], path.slice(1), value);
 };
 
-export const CreatureInfo = ({ obj, mapMarkerData, setMapData, parent, ddId }) => {
+export const CreatureInfo = ({ obj, mapMarkerData, setMapData, parent, ddId, mapId }) => {
     if (!obj) {
         return null;
     }
@@ -40,9 +53,9 @@ export const CreatureInfo = ({ obj, mapMarkerData, setMapData, parent, ddId }) =
             return <li key={key}><b>{key}</b>: undefined</li>;
         }
         if (ignoreFields.includes(key)) return;
+        const fullKey = `${parent || ''}${parent ? '.' : ''}${key}`;
 
         if (editableFields.includes(key)) {
-            const fullKey = `${parent || ''}${parent ? '.' : ''}${key}`;
             return <li key={fullKey}>
                 <b>{key}</b>:&nbsp;
                 <DebouncedInput changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, fullKey, ddId)} value={value} type="number" ddId={ddId} />
@@ -68,7 +81,7 @@ export const CreatureInfo = ({ obj, mapMarkerData, setMapData, parent, ddId }) =
                 <b>creatureId</b>
                 <div>
                     <select value={value} className="w-full bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, key, ddId)}>
-                        {Object.entries(CreatureNames)
+                        {Object.entries(NameMap[obj.infoType])
                             .sort((a, b) => a[config?.internalNames ? 0 : 1].localeCompare(b[config?.internalNames ? 0 : 1]))
                             .map(([creatureKey, creatureValue]) =>
                                 <option
@@ -86,6 +99,45 @@ export const CreatureInfo = ({ obj, mapMarkerData, setMapData, parent, ddId }) =
                 <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, key, ddId)}>
                     {Object.values(RebirthTypes).map(rebirthType => <option key={rebirthType} value={rebirthType}>{rebirthType}</option>)}
                 </select>
+            </li>;
+        }
+
+        if (key === 'time') {
+            return <li key={key}>
+                <b>Time</b>:
+                <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, key, ddId)}>
+                    {getAvailableTimes(mapId).map(time => <option key={time} value={time}>{time}</option>)}
+                </select>
+            </li>;
+        }
+
+        if (["pongashiChangeColorFromFollow", "pikminType"].includes(key)) {
+            return <li key={fullKey}>
+                <b>{key}</b>:
+                <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, fullKey, ddId)}>
+                    {Object.values(PikminTypes).map(pikminType => <option key={pikminType} value={pikminType}>{pikminType}</option>)}
+                </select>
+            </li>;
+        }
+
+        if (key === 'groupIdlingType') {
+            return <li key={fullKey}>
+                <b>{key}</b>:
+                <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, fullKey, ddId)}>
+                    {Object.values(PikminPlayType).map(playType => <option key={playType} value={playType}>{playType}</option>)}
+                </select>
+            </li>;
+        }
+
+        if (key === 'bMabikiPongashi') {
+            return <li key={fullKey}>
+                <b>{key}</b>
+                <input
+                    type="checkbox"
+                    checked={value}
+                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    onChange={(e) => updateCreature(e.target.checked, mapMarkerData, setMapData, obj, fullKey, ddId)}
+                />
             </li>;
         }
 

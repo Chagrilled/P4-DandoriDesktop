@@ -1,28 +1,48 @@
 import React from 'react';
 
 import { Menu, Item, Separator, Submenu } from 'react-contexify';
-import { RebirthTypes, DefaultActorSpawnerDrop } from '../../api/types';
+import { RebirthTypes, DefaultActorSpawnerDrop, InfoType } from '../../api/types';
+import { getAvailableTimes } from '../../utils/utils';
+
+const { Creature, Treasure, Gimmick, Object, WorkObject, Pikmin, Base, Onion, Hazard, Portal } = InfoType;
 
 export const MapMenu = ({ }) => {
 
     const getDefaultId = (id) => {
         return {
-            Creature: 'Kochappy',
+            [Creature]: 'Kochappy',
             ActorSpawner: 'ActorSpawner',
-            GroupDropManager: 'GroupDropManager'
+            GroupDropManager: 'GroupDropManager',
+            [Base]: 'OnyonCamp',
+            [Gimmick]: 'CrackPotL',
+            [Hazard]: 'Hiba',
+            [Onion]: 'OnyonCarryBoost',
+            [Object]: 'Pellet1',
+            [Portal]: 'MadoriRuins',
+            [WorkObject]: 'Burning',
+            [Pikmin]: 'PikminRed',
+            [Treasure]: 'OtaBanana'
         }[id];
     };
 
-    const handleItemClick = ({ id, event, props: { mapMarkerData, setMapData, coords } }) => {
+    const handleItemClick = ({ id, event, props: { mapMarkerData, setMapData, mapId, coords } }) => {
+        const infoType = id === 'GroupDropManager' ? Gimmick : id === 'ActorSpawner' ? Creature : id;
+
         const newMarker = {
             type: 'creature',
-            infoType: id === 'GroupDropManager' ? 'gimmick' : 'creature',
+            infoType,
             creatureId: getDefaultId(id),
             ...(id === 'GroupDropManager' && {
                 groupingRadius: 300.0,
                 ignoreList: []
             }),
             transform: {
+                rotation: {
+                    X: 0.0,
+                    Y: 0.0,
+                    Z: 0.0,
+                    W: 1.0
+                },
                 translation: {
                     X: coords.x,
                     Y: coords.y,
@@ -47,11 +67,17 @@ export const MapMenu = ({ }) => {
         };
 
         if (id === 'ActorSpawner') newMarker.drops.parsed[0] = DefaultActorSpawnerDrop;
-        if (id === 'GroupDropManager') newMarker.infoType = 'gimmick';
+        if (id === 'GroupDropManager') {
+            newMarker.infoType = InfoType.Gimmick;
+            newMarker.ignoreList = "[]";
+            newMarker.groupingRadius = 300;
+        }
+        if (id !== Creature) newMarker.time = getAvailableTimes(mapId)[0];
+
         setMapData({
             ...mapMarkerData,
-            creature: [
-                ...mapMarkerData.creature,
+            [infoType]: [
+                ...mapMarkerData[infoType],
                 newMarker
             ]
         });
@@ -60,13 +86,20 @@ export const MapMenu = ({ }) => {
     return (
         <div>
             <Menu id={'MAP_MENU'}>
-                <Item id="Creature" onClick={handleItemClick}>Creature</Item>
+                <Item id={InfoType.Creature} onClick={handleItemClick}>Creature</Item>
                 <Item id="ActorSpawner" onClick={handleItemClick}>ActorSpawner</Item>
                 <Item id="GroupDropManager" onClick={handleItemClick}>GroupDropManager</Item>
                 <Separator />
-                <Submenu label="Foobar">
-                    <Item id="reload" onClick={handleItemClick}>Reload</Item>
-                    <Item id="something" onClick={handleItemClick}>Do something else</Item>
+                <Submenu label="Objects">
+                    <Item id={Gimmick} onClick={handleItemClick}>Gimmick</Item>
+                    <Item id={Object} onClick={handleItemClick}>Object</Item>
+                    <Item id={WorkObject} onClick={handleItemClick}>WorkObject</Item>
+                    <Item id={Pikmin} onClick={handleItemClick}>Pikmin</Item>
+                    <Item id={Base} onClick={handleItemClick}>Base</Item>
+                    <Item id={Onion} onClick={handleItemClick}>Onion</Item>
+                    <Item id={Hazard} onClick={handleItemClick}>Hazard</Item>
+                    <Item id={Portal} onClick={handleItemClick}>Portal</Item>
+                    <Item id={Treasure} onClick={handleItemClick}>Treasure</Item>
                 </Submenu>
             </Menu>
         </div>

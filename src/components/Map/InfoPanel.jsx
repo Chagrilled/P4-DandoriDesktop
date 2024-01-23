@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { CreatureNames, TreasureNames, DefaultDrop, EntityNames, MiscNames, GimmickNames } from "../../api/types";
+import { DefaultDrop, EntityNames, InfoType } from "../../api/types";
 import { MarkerIcon } from "../Icon";
 import { ExpandPanel } from "./ExpandPanel";
 import { DropCard } from "./Card/DropCard";
 import { CardList } from "./Card/CardList";
-import { getNameFromAsset } from "../../utils/utils";
+import { doesEntityHaveDrops, findMarkerById, getAssetPathFromId, getNameFromAsset } from "../../utils/utils";
 import { CreatureInfo } from "./CreatureInfo";
 
 // The number of extra indices adding these objects to the struct changes by
@@ -16,7 +16,9 @@ const inventoryMutators = {
 const updateDrops = (value, mapMarkerData, setMapData, ddId, drop, key, dropDeleteStack, setDropDeleteStack) => {
     console.log("val", value);
     // if (!value && key !== 'delete') return;
-    const newMapData = mapMarkerData.creature.map(creature => {
+    console.log("UpdateDrops", ddId);
+    const { type } = findMarkerById(ddId, mapMarkerData);
+    const newMapData = mapMarkerData[type].map(creature => {
         if (creature.ddId == ddId) {
             creature.drops.parsed = creature.drops.parsed.map(d => {
                 if (d.id == drop.id) {
@@ -43,20 +45,7 @@ const updateDrops = (value, mapMarkerData, setMapData, ddId, drop, key, dropDele
                         return;
                     }
                     else if (key == 'assetName') {
-                        // I hate this 
-                        const selectVal = value;
-                        const isTreasure = TreasureNames[selectVal];
-                        const isCreature = CreatureNames[selectVal];
-                        const isMisc = MiscNames[selectVal];
-                        const isGimmick = GimmickNames[selectVal];
-                        const isCastaway = value.includes('Survivor');
-                        let midPath;
-                        if (isTreasure) midPath = 'Objects/Otakara';
-                        if (isCreature) midPath = 'Teki';
-                        if (isMisc) midPath = 'Items';
-                        if (isGimmick) midPath = 'WorkObjects/Shizai'; // won't work for all gimmicks
-                        if (isCastaway) midPath = 'Objects/Survivor';
-                        newVal = `/Game/Carrot4/Placeables/${midPath}/G${selectVal}.G${selectVal}_C`;
+                        newVal = getAssetPathFromId(value);
                     }
                     else newVal = value;
                     return {
@@ -74,12 +63,13 @@ const updateDrops = (value, mapMarkerData, setMapData, ddId, drop, key, dropDele
         return { ...creature };
     });
 
-    setMapData({ ...mapMarkerData, creature: newMapData });
+    setMapData({ ...mapMarkerData, [type]: newMapData });
 };
 
 const deleteMarker = (mapMarkerData, setMapData, creature) => {
-    const newMapData = mapMarkerData.creature.map(c => c.ddId != creature.ddId ? c : undefined).filter(c => !!c);
-    setMapData({ ...mapMarkerData, creature: newMapData });
+    const { type } = findMarkerById(creature.ddId, mapMarkerData);
+    const newMapData = mapMarkerData[type].map(c => c.ddId != creature.ddId ? c : undefined).filter(c => !!c);
+    setMapData({ ...mapMarkerData, [type]: newMapData });
 };
 
 const undoItemDelete = (dropDeleteStack, setDropDeleteStack, mapMarkerData, setMapData) => {
@@ -87,8 +77,10 @@ const undoItemDelete = (dropDeleteStack, setDropDeleteStack, mapMarkerData, setM
 
     const missingDrop = dropDeleteStack.slice(-1)[0];
     const ddId = missingDrop.ddId;
+    const { type } = findMarkerById(ddId, mapMarkerData);
+
     delete missingDrop.ddId;
-    const newMapData = mapMarkerData.creature.map(creature => {
+    const newMapData = mapMarkerData[type].map(creature => {
         if (creature.ddId == ddId) {
             return {
                 ...creature,
@@ -100,14 +92,15 @@ const undoItemDelete = (dropDeleteStack, setDropDeleteStack, mapMarkerData, setM
         return { ...creature };
     });
     setDropDeleteStack(dropDeleteStack.slice(0, dropDeleteStack.length - 1)); //ddId has been deleted above, by reference
-    setMapData({ ...mapMarkerData, creature: newMapData });
+    setMapData({ ...mapMarkerData, [type]: newMapData });
 
 };
 
 const addDrop = (ddId, setMapData, mapMarkerData) => {
+    const { type } = findMarkerById(ddId, mapMarkerData);
     setMapData({
         ...mapMarkerData,
-        creature: mapMarkerData.creature.map(creature => {
+        [type]: mapMarkerData[type].map(creature => {
             const drops = creature.drops.parsed;
             if (creature.ddId == ddId) return {
                 ...creature,
@@ -127,7 +120,7 @@ const addDrop = (ddId, setMapData, mapMarkerData) => {
     });
 };
 
-export const InfoPanel = ({ marker, mapMarkerData, setMapData }) => {
+export const InfoPanel = ({ marker, mapMarkerData, setMapData, mapId }) => {
     // Getting kinda messy, but I need everything to be 
     // sourced from the data array so components rerender on change
     const [deleteStack, setDeleteStack] = useState([]);
@@ -140,7 +133,11 @@ export const InfoPanel = ({ marker, mapMarkerData, setMapData }) => {
             if ((event.metaKey || event.ctrlKey) && event.code === 'KeyZ') {
                 const missingMarker = deleteStack.slice(-1)[0];
                 if (missingMarker) {
-                    setMapData({ creature: [...mapMarkerData.creature, missingMarker] });
+                    const { type } = findMarkerById(missingMarker.ddId, mapMarkerData);
+                    setMapData({
+                        ...mapMarkerData,
+                        [type]: [...mapMarkerData[type], missingMarker]
+                    });
                     setDeleteStack(deleteStack.filter(c => c.ddId != missingMarker.ddId));
                 }
             }
@@ -153,7 +150,8 @@ export const InfoPanel = ({ marker, mapMarkerData, setMapData }) => {
 
     if (!marker) return null;
 
-    const creature = mapMarkerData.creature.find(obj => marker.ddId == obj.ddId);
+    const { marker: creature, type } = findMarkerById(marker.ddId, mapMarkerData);
+
     if (!creature) return null; // CreatureInfo likes to hold on to the selected ID if you change maps
     console.log("CreatureInfo", creature);
     const isActorSpawner = creature.creatureId === 'ActorSpawner';
@@ -163,8 +161,9 @@ export const InfoPanel = ({ marker, mapMarkerData, setMapData }) => {
         : <Fragment>{EntityNames[creature.creatureId]}</Fragment>;
 
     // This function control is degusting. Maybe use context or something.
-    const dropList =
-        <ExpandPanel isActorSpawner={isActorSpawner} addDrop={() => addDrop(creature.ddId, setMapData, mapMarkerData)} label="Drops">
+    const label = creature.creatureId.includes('NoraSpawner') ? "RandomActorList" : "Drops";
+    const dropList = doesEntityHaveDrops(creature) ? 
+        <ExpandPanel isActorSpawner={isActorSpawner} addDrop={() => addDrop(creature.ddId, setMapData, mapMarkerData)} label={label}>
             {creature.drops?.parsed?.length ? (
                 <CardList>
                     {creature.drops.parsed.map(drop => <DropCard
@@ -176,9 +175,18 @@ export const InfoPanel = ({ marker, mapMarkerData, setMapData }) => {
                     />)}
                 </CardList>
             ) : null}
-        </ExpandPanel>;
+        </ExpandPanel> : '';
 
-    const markerIconId = isActorSpawner ? getNameFromAsset(marker.drops.parsed[0].assetName) : marker.creatureId;
+    let markerIconId = marker.creatureId;
+    let { infoType } = marker;
+
+    if (isActorSpawner) markerIconId = getNameFromAsset(marker.drops.parsed[0].assetName);
+    if (marker.creatureId === 'NoraSpawnerPongashiLock')
+        markerIconId = `candypop-${marker.AIProperties.pikminType.substr(6)}`;
+    else if (marker.creatureId.includes('NoraSpawner')) {
+        infoType = InfoType.Pikmin;
+        markerIconId = `${marker.AIProperties.pikminType}`;
+    }
 
     const sizeOverrides = {
         Egg: 'xl',
@@ -187,10 +195,11 @@ export const InfoPanel = ({ marker, mapMarkerData, setMapData }) => {
     };
 
     return <div className="flex flex-col px-3 overflow-auto CreatureInfo__container">
-        <MarkerIcon size={sizeOverrides[creature.creatureId] || "large"} type={marker.infoType} id={markerIconId} />
+        <MarkerIcon size={sizeOverrides[creature.creatureId] || "large"} type={infoType} id={markerIconId} />
         <h2 className="text-2xl font-bold my-4">{title}</h2>
+        <h2 className="text-2xl font-bold my-4">{creature.creatureId}</h2>
         <ul className="list-disc list-inside DefaultInfo__container" style={{ overflow: 'visible ' }}>
-            {<CreatureInfo obj={creature} mapMarkerData={mapMarkerData} setMapData={setMapData} parent={''} ddId={creature.ddId} />}
+            {<CreatureInfo obj={creature} mapMarkerData={mapMarkerData} setMapData={setMapData} parent={''} ddId={creature.ddId} mapId={mapId} />}
         </ul>
         {dropList}
         <div className="flex">

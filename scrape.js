@@ -1,10 +1,13 @@
 // Place in a decoded Carrot4/Maps and run
-// Combs all maps for their teki files and collects every variation
+// Combs all maps for their teki/object files and collects every variation
 // each parameter in the AGL can have. Arrays are stringified for comparison.
 // Doesn't include night time parameters
+// Also prints every asset name defined in an AGL - this list isn't comprehensive as 
+// some assets are not spawned by the AGLs
 const { readdirSync, readFileSync, writeFileSync } = require('fs');
 
 const data = {};
+const names = [];
 const arrays = [
     "Hash",
     "CheckComp",
@@ -46,7 +49,7 @@ const pushIfNew = (tekiName, key, value) => {
     data[tekiName][key].indexOf(value) == -1 ? data[tekiName][key].push(value) : {};
 };
 
-const parser = jsonTeki => {
+const parser = (jsonTeki) => {
     jsonTeki.Content[0].ActorGeneratorList.forEach(({
         AssetVersion,
         GeneratorVersion,
@@ -75,7 +78,9 @@ const parser = jsonTeki => {
                 [key]: []
             }), {})
         };
-
+        if (!names.includes(SoftRefActorClass.AssetPathName)) {
+            names.push(SoftRefActorClass.AssetPathName);
+        }
         pushIfNew(tekiName, "ExploreRateType", ExploreRateType);
         pushIfNew(tekiName, "OutlineFolderPath", OutlineFolderPath);
         pushIfNew(tekiName, "DebugUniqueId", GenerateInfo.DebugUniqueId);
@@ -102,6 +107,19 @@ readdirSync('Main/Area').forEach(areaDir => {
     const objFile = readFileSync(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Objects${day}.json`, { encoding: 'utf-8' });
     const jsonObj = JSON.parse(protectNumbers(objFile));
     parser(jsonObj);
+
+    const baseObjFile = readFileSync(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Objects.json`, { encoding: 'utf-8' });
+    const jsonBaseObj = JSON.parse(protectNumbers(baseObjFile));
+    parser(jsonBaseObj);
+
+    try {
+        const heroTekiFile = readFileSync(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Hero_Teki.json`, { encoding: 'utf-8' });
+        const heroJsonTeki = JSON.parse(protectNumbers(heroTekiFile));
+        parser(heroJsonTeki);
+        const heroObjFile = readFileSync(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Hero_Objects.json`, { encoding: 'utf-8' });
+        const heroJsonObj = JSON.parse(protectNumbers(heroObjFile));
+        parser(heroJsonObj);
+    } catch (e) { console.log(e); } // cba to filter out the non-hero stages
 });
 
 readdirSync('Madori/Cave').forEach(cave => {
@@ -118,6 +136,7 @@ readdirSync('Madori/Cave').forEach(cave => {
 
 writeFileSync('output-pretty.json', unprotectNumbers(JSON.stringify(data, null, 4)));
 writeFileSync('output-compressed.json', unprotectNumbers(JSON.stringify(data)));
+writeFileSync('names.json', JSON.stringify(names, null, 4));
 
 
 // Scraper to pull _some_ treasure names from the zukan file

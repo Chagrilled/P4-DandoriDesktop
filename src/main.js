@@ -4,10 +4,9 @@ import { join } from 'path';
 import { randomBytes } from 'crypto';
 import swf from 'stringify-with-floats';
 import { spawn } from 'child_process';
-import { exposedGenVars } from './api/types';
-import deepEqual from 'deep-equal';
-import { getReadAIFunc, getConstructAIFunc, getSubpath, constructTeki } from './utils/genEditing';
-import { protectNumbers, unprotectNumbers, setFloats } from './utils/utils';
+import { exposedGenVars, InfoType, Times } from './api/types';
+import { getReadAIFunc, constructTeki, regenerateAGLEntity } from './utils/genEditing';
+import { protectNumbers, unprotectNumbers, getInfoType, getAvailableTimes } from './utils/utils';
 import { version } from '../package.json';
 
 const CONFIG_PATH = join(`${app.getPath('userData')}`, "config.json");
@@ -377,12 +376,21 @@ const getMapPath = (mapId) => {
     return mapPath;
 };
 
-const getFilePath = (mapId, type) => {
+const getFilePath = (mapId, type, baseFile = false) => {
+    const specialMaps = mapId.startsWith('HeroStory') || mapId.startsWith('Cave') || mapId === 'Area011';
+    if (specialMaps && baseFile) return false; // Otherwise caves/etc will read the same file twice and duplicate features
     const areaId = mapId.startsWith('HeroStory') ? `Area${mapId.slice(-3)}` : mapId;
     const mapPath = getMapPath(areaId);
     const hero = mapId.startsWith('HeroStory') ? '_Hero' : '';
-    const day = mapId.startsWith('HeroStory') || mapId.startsWith('Cave') || mapId === 'Area011' ? '' : '_Day';
-    return join(mapPath, `AP_${areaId}_P${hero}_${type}${day}.json`);
+    const day = specialMaps ? '' : '_Day';
+    return join(mapPath, `AP_${areaId}_P${hero}_${type}${baseFile ? '' : day}.json`);
+};
+
+const getBaseFilePath = (mapId, type) => {
+    const areaId = mapId.startsWith('HeroStory') ? `Area${mapId.slice(-3)}` : mapId;
+    const mapPath = getMapPath(areaId);
+    const hero = mapId.startsWith('HeroStory') ? '_Hero' : '';
+    return join(mapPath, `AP_${areaId}_P${hero}_${type}.json`);
 };
 
 /*****************************
@@ -493,88 +501,69 @@ ipcMain.handle('saveMaps', async (event, mapId, data) => {
         // console.log("creature array ddId:", actor.ddId);
         const aglData = rawData.teki.Content[0].ActorGeneratorList.find(gameActor => gameActor.ddId == actor.ddId);
         // Edited actor that exists in the AGL - update values
-        if (aglData) {
-            console.log("AGL ID:", aglData.ddId);
-            // There are non-tekis in the teki AGL - leave them be
-            // Tekis/G is because splines are Teki/Other/Spline/GSpline....
-            const editables = ['Placeables/Teki/G', 'Gimmicks/ActorSpawner', 'Objects/Egg'];
-            if (!editables.some(asset => aglData.SoftRefActorClass.AssetPathName.includes(asset))) {
-                const newEntity = {
-                    ...aglData
-                };
-                delete newEntity.ddId;
-                return newEntity;
-            }
-            const transforms = {
-                Rotation: setFloats(aglData.InitTransform.Rotation),
-                Translation: setFloats(actor.transform.translation),
-                Scale3D: setFloats(actor.transform.scale3D)
-            };
-            const originalAI = aglData.ActorSerializeParameter.AI.Static;
-            const { parsed, inventoryEnd, ignoreList, groupingRadius } = getReadAIFunc(actor.creatureId)(originalAI);
-            const isAIUnchanged = deepEqual(parsed, actor.drops.parsed);
-            let newAI = {};
-            if (!isAIUnchanged) {
-                console.log(actor.creatureId, "constructing new AI");
-                newAI = {
-                    AI: {
-                        Static: getConstructAIFunc(actor.creatureId)(actor.drops.parsed, originalAI, {
-                            inventoryEnd,
-                            groupingRadius,
-                            ignoreList
-                        }),
-                        Dynamic: aglData.ActorSerializeParameter.AI.Dynamic
-                    }
-                };
-            }
-            else console.log(actor.creatureId, "AI is unchanged");
+        if (aglData) return regenerateAGLEntity(actor, aglData);
 
-            const newEntity = {
-                ...aglData,
-                SoftRefActorClass: {
-                    ...aglData.SoftRefActorClass,
-                    AssetPathName: `/Game/Carrot4/Placeables/${getSubpath(actor.creatureId)}/G${actor.creatureId}.G${actor.creatureId}_C`,
-                },
-                InitTransform: transforms,
-                Transform: transforms,
-                GenerateInfo: {
-                    ...aglData.GenerateInfo,
-                    GenerateNum: parseInt(actor.generateNum),
-                    GenerateRadius: parseFloat(actor.generateRadius),
-
-                },
-                RebirthInfo: {
-                    ...aglData.RebirthInfo,
-                    RebirthType: actor.rebirthType,
-                    RebirthInterval: parseInt(actor.rebirthInterval) || 0,
-                    BirthDay: parseInt(actor.birthDay) || 0,
-                    DeadDay: parseInt(actor.deadDay) || 0
-                },
-                ActorSerializeParameter: {
-                    ...aglData.ActorSerializeParameter,
-                    ...newAI
-                }
-            };
-            delete newEntity.ddId;
-            // console.log(newEntity);
-            return newEntity;
-        };
         // New actor not in the AGL - construct it
         return constructTeki(actor, mapId);
     });
 
+    const dayObjectAGL = [];
+    const baseObjectAGL = [];
+    Object.entries(data).forEach(([typeName, typeArray]) => {
+        if (typeName === 'creature') return;
+
+        // Use regenerateAGLEntity later on to de-dupe this once AI is sorted across the board
+        typeArray.forEach(actor => {
+            const outputArray = actor.time == Times.DAY ? dayObjectAGL : baseObjectAGL;
+            const aglData = rawData[`objects${actor.time}`].Content[0].ActorGeneratorList.find(gameActor => gameActor.ddId == actor.ddId);
+            if (aglData) outputArray.push(regenerateAGLEntity(actor, aglData));
+            // New actor not in the AGL - construct it
+            else outputArray.push(constructTeki(actor, mapId));
+        });
+    });
+
+    // Problems:
+    // caves/hero?/prologue will be read as day because getFilePath will coerce them to the base file for the daytime read
+    // That's needed to not duplicate, because we need to read/write to both files
+    // but we only need to write back if there's something in the array?
+    // We need to avoid writing net new files though because we don't have the extra data to reencode/pack it
+    // So what is someone changes a permanent to a day?
+    // and what about the default time for net new actors on the map
+
+    // 1. we need to not coerce the special maps to the base file and just let them error when trying, and catch
+    // 2.the editor needs to be aware of what files exist, so we don't let people try set objects at times that don't exist
+    // maybe just restrict the dropdown on special maps since we know what caves don't have time-specific files
+    // 3. if someone has deleted all the enemies, we still want that to be saveable, so length checks on the AGL aren't right
+    // is that a problem? If we just have code that knows what files to read from
+    // I sort of resolved this by just making getBaseFilePath as an easy override function instead of fucking
+    // with conditions. It's not great.
+    const mapTimes = getAvailableTimes(mapId);
+
+    const aglPromises = [
+        writeAGL(rawData.teki, tekiAGL, mapId, TEKI),
+    ];
+    mapTimes.forEach(time => {
+        if (time === Times.DAY) aglPromises.push(writeAGL(rawData.objectsDay, dayObjectAGL, mapId, OBJECTS));
+        else aglPromises.push(writeAGL(rawData.objectsPermanent, baseObjectAGL, mapId, OBJECTS, true));
+    });
+
+    await Promise.all(aglPromises);
     // Write to a new object - assigning back to the main cache strips the ddIds, so 
     // subsequent writes try to generate everything as new
+});
+
+const writeAGL = async (originalRaw, newAGL, mapId, mapType, baseFile) => {
     const newJson = {
         Content: [
             {
-                ...rawData.teki.Content[0],
-                ActorGeneratorList: tekiAGL
+                ...originalRaw.Content[0],
+                ActorGeneratorList: newAGL
             }
         ],
-        Extra: rawData.teki.Extra
+        Extra: originalRaw.Extra
     };
-    const mapPath = getFilePath(mapId, TEKI);
+    
+    const mapPath = baseFile ? getBaseFilePath(mapId, mapType) : getFilePath(mapId, mapType);
     const floats = {};
     // JS truncates the .0 from a float as soon as it touches it 
     // Because there are no floats in JS, just "number", decimals included, so 4 == 4.0
@@ -589,12 +578,26 @@ ipcMain.handle('saveMaps', async (event, mapId, data) => {
         return 0; //idk return status codes or something
     } catch (e) {
         console.log(e);
+        mainWindow.webContents.send('errorNotify', `Couldn't write to file: ${e}`);
         return e; // ??
     }
-});
+};
 
 ipcMain.handle('readMapData', async (event, mapId) => {
     const mapPath = getFilePath(mapId, TEKI);
+    const features = {
+        [InfoType.Creature]: [],
+        [InfoType.Treasure]: [],
+        [InfoType.Gimmick]: [],
+        [InfoType.Object]: [],
+        [InfoType.WorkObject]: [],
+        [InfoType.Pikmin]: [],
+        [InfoType.Base]: [],
+        [InfoType.Onion]: [],
+        [InfoType.Hazard]: [],
+        [InfoType.Portal]: [],
+        [InfoType.Item]: []
+    };
 
     let tekiFile;
     try {
@@ -614,22 +617,25 @@ ipcMain.handle('readMapData', async (event, mapId) => {
         return { creature: [] };
     }
 
-    const creature = rawData.teki.Content[0].ActorGeneratorList.map(teki => {
+    features.creature = rawData.teki.Content[0].ActorGeneratorList.map(teki => {
         // Unify our ID and the raw ID, so we can ensure we save back to the right one
         // In case array orders change (they shouldn't?)
         const ddId = randomBytes(16).toString('hex');
         teki.ddId = ddId;
         // if (teki.OutlineFolderPath !== 'Teki') return teki;
         const creatureId = teki.SoftRefActorClass?.AssetPathName?.split('.')[1].slice(1, -2);
-
-        const { parsed, inventoryEnd, groupingRadius, ignoreList } = getReadAIFunc(creatureId)(teki.ActorSerializeParameter.AI.Static);
+        const infoType = creatureId == 'GroupDropManager' ? 'gimmick' : 'creature';
+        // Return an AIProperties from this and spread it into the editor's object - NoraSpawners actual entity
+        // is meaningfully affected by AI, like ActorSpawner, so we need it on hand, not as a drop
+        const { parsed, inventoryEnd, groupingRadius, ignoreList } = getReadAIFunc(creatureId, infoType)(teki.ActorSerializeParameter.AI.Static);
         return {
             type: 'creature',
-            infoType: creatureId == 'GroupDropManager' ? 'gimmick' : 'creature',
+            infoType,
             creatureId,
             ...(groupingRadius && { groupingRadius }),
             ...(ignoreList && { ignoreList }),
             transform: {
+                rotation: teki.InitTransform.Rotation,
                 translation: teki.InitTransform.Translation,
                 scale3D: teki.InitTransform.Scale3D,
             },
@@ -647,8 +653,64 @@ ipcMain.handle('readMapData', async (event, mapId) => {
             ddId
         };
     }).filter(i => !!i);
-    // return { creature: dummy.creature, creatureGenerate: creature };
-    return { creature };
+
+    const objectProcessor = (object, fileType) => {
+        const ddId = randomBytes(16).toString('hex');
+        object.ddId = ddId;
+        const entityId = object.SoftRefActorClass?.AssetPathName?.split('.')[1].slice(1, -2);
+
+        const subPath = object.SoftRefActorClass?.AssetPathName?.match(/Placeables\/(.+)\/G/)[1];
+
+        const infoType = getInfoType(subPath);
+        const { parsed, AIProperties } = getReadAIFunc(entityId, infoType)(object.ActorSerializeParameter.AI.Static);
+        console.log(entityId, parsed, AIProperties);
+
+        features[infoType].push({
+            type: 'object',
+            infoType,
+            creatureId: entityId, // rename later
+            ...(AIProperties && { AIProperties }),
+            transform: {
+                rotation: object.InitTransform.Rotation,
+                translation: object.InitTransform.Translation,
+                scale3D: object.InitTransform.Scale3D
+            },
+            generateNum: parseInt(object.GenerateInfo.GenerateNum),
+            generateRadius: parseFloat(object.GenerateInfo.GenerateRadius), // sometimes these decide to be strings. Persuade them not to be.
+            rebirthType: object.RebirthInfo.RebirthType,
+            rebirthInterval: object.RebirthInfo.RebirthInterval,
+            outlineFolderPath: object.OutlineFolderPath, // Handle these better than including them then excluding them
+            drops: {
+                parsed
+            },
+            ddId,
+            time: fileType
+        });
+    };
+
+    let baseObjectFile;
+    try {
+        const baseObjectPath = getBaseFilePath(mapId, OBJECTS);
+        baseObjectFile = await getFileData(baseObjectPath);
+    } catch (e) {}
+    if (baseObjectFile) {
+        rawData.objectsPermanent = baseObjectFile;
+        rawData.objectsPermanent.Content[0].ActorGeneratorList.forEach(actor => objectProcessor(actor, Times.PERM));
+    }
+
+    // This is getting really dumb.
+    if (!['HeroStory', 'Cave', 'Area011'].some(area => mapId.includes(area))) {
+        let objectFile;
+        try {
+            const objectPath = getFilePath(mapId, OBJECTS);
+            objectFile = await getFileData(objectPath);
+            if (!objectFile) return features;
+        } catch (e) {}
+        rawData.objectsDay = objectFile;
+        rawData.objectsDay.Content[0].ActorGeneratorList.forEach(actor => objectProcessor(actor, Times.DAY));
+    }
+
+    return features;
 });
 
 /*****************************
@@ -656,6 +718,15 @@ ipcMain.handle('readMapData', async (event, mapId) => {
  *   Functions
  * ***************************
  *****************************/
+const getFileData = async fileName => {
+    try {
+        const fileData = await promises.readFile(fileName, { encoding: 'utf-8' });
+        return JSON.parse(protectNumbers(fileData));
+    } catch (e) {
+        mainWindow.webContents.send('errorNotify', `Failed reading data from: ${fileName}`);
+        return undefined;
+    }
+};
 
 const getTekis = (force) => {
     const entities = [];

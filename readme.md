@@ -1,9 +1,13 @@
 # 🌸 Dandori Desktop
 
+[<img src="https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white"/>](https://ko-fi.com/noodl32)
+[<img src="https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white"/>](https://paypal.me/chagrilled)
+
+💸 DDT is a big codebase, and has taken a lot of time. The funding badges are above if you want to support the development of it 🥰
+
 A Pikmin 4 editing tool to assist with modding. Still very beta. <b>Please backup any files before you let DDT touch them)</b>.
 
 Special thanks goes to Dodiou to making [DandoriDB](https://github.com/Dodiou/DandoriDB) which gave me the basis for the map projection, and thus motivation to make this.
-
 
 - [🌸 Dandori Desktop](#-dandori-desktop)
    * [🛠️ Setup/Workflow](#%EF%B8%8F-setupworkflow)
@@ -33,9 +37,9 @@ DDT reads and writes to local game files that must be decoded to their JSON form
 
 Use the `Settings` menu to set 4 things:
 
-- `Carrot4 Folder` - Folder containing your game file structure as JSON - this folder should contain `Maps/` and `Placeables/`
-- `Encoder Folder` - Folder containing [P4UassetEditor](https://gamebanana.com/tools/15077). Assumes the files/folders are not renamed. The contents of this folder should be the extract uasset editor - so must contain `_EDIT`, `P4UassetEditor`, `encode.bat`, etc.
-- `castoc Folder` - Folder containing `castoc`. Assumes the files/folders are not renamed
+- `Carrot4 Folder` - Folder containing your decoded game JSONs - this folder should contain `Maps/` and `Placeables/`
+- `Encoder Folder` - Folder containing [P4UassetEditor](https://gamebanana.com/tools/15077). Assumes the files/folders are not renamed. The contents of this folder should be the extracted uasset editor - **so must contain `_EDIT`, `P4UassetEditor/`, `encode.bat`**, etc.
+- `castoc Folder` - Folder containing `castoc`. Assumes the files/folders are not renamed. There are several versions of this tool distributed, and we as a community haven't yet organised these tools into repos. I've zipped mine [in the repo](./castoc.zip) for use.
 - `Output Paks Folder` - Folder (probably) in your emulator you want your built mod's outputs to go to
 
 My folder structure looks like:
@@ -62,19 +66,19 @@ Desktop/
     └── PACKFILES.bat
 ```
 
-Within my map folders, I _only_ have `ActorPlacementInfo/AP_...Teki.json`.
+Within my map folders, I _only_ have `ActorPlacementInfo/AP_...Teki.json` and `AP_...Objects.json`.
 
 ### ⛏️ Extracting Maps
 
 Because you only really want to package files you need into your mod, I've made it easy to fish them out of a raw export of the `Maps` folder.
 
-- From FModel, right click `Maps` and `Export Raw Data (.uasset)
+- From FModel, right click `Maps` and `Export Raw Data (.uasset)`
 - Use P4UassetEditor to decode the `Maps` folder which now contains JSON.
 - From DDT, go to `Tools` > `Extract Teki/Object Files from Maps`
 - Select your _decoded_ `Maps/` folder (which should contain `Main` and `Madori`)
 - You should end up with a folder in there called `DandoriDesktop-Carrot4`. This folder contains just the teki/object files it needs.
 - Drag that folder to your P4UassetEditor's `_EDIT` folder and rename it `Carrot4`.
-- Set your `Carrot4 Folder` in DDT to this folder. 
+- Set your `Carrot4 Folder` in DDT to this Carrot4 folder. 
 
 ## ✏️ Editing
 
@@ -94,9 +98,9 @@ Once you want to output these to your emulator, use `Tools > Deploy to Emulator`
 
 ❗For the most part, the app is not fully user-safe and will not try to protect your inputs. Therefore, ensure you are keeping your input data in the correct types - array remain strict arrays, lists of strings (like `ignoreList` are correctly formatted - `["Kochappy", "Mush"]`) etc.
 
-### 📦️ Objects
+### 📦️ Blueprints
 
-The object editor is currently very primitive, and basically just displays JSON on screen like a worse IDE. However it only displays the things people usually want to edit, so can be a little faster to use in that regard.
+The blueprint editor is currently very primitive, reading only from `{carrot4}/Placeables/`, and basically just displays JSON on screen like a worse IDE. However it only displays the things people usually want to edit, so can be a little faster to use in that regard.
 
 The design philosophy is a little weird for this one. There are far far too many parameters for me to build a UI around each one and make it look really good, and many are often deeply nested in JSON, and due to the coverage of our understanding of parameters, this nesting is often helpful to discern something's purpose. So I left it all in.
 
@@ -140,7 +144,8 @@ The bytes I construct are then spliced together with the base template for that 
 <summary>To Do List</summary> 
 
 - ❌ Legend
-- ❌ Read other objects/placeables
+- ✅ Read other objects/placeables
+- 🚧 Support all object AI. This is a huge task.
 - 🚧 Teki editor
 - ✅ Save to AGL  
 - ✅ Integrate with deployment tools 
@@ -172,7 +177,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ❌ Rename all creature/creatureId references to entityId
 - ❌ Work out what the bytes are after the inventory so we don't set every default to some weird override
 - ❌ Draw radius around ActorSpawners/GDMs when highlighted
-- ❗ Jellyfloats seem broken when spawned by ActorSpawners? They just don't attack anything - I think they may have more important ties to their Territory and EatArea params that are often provided by the blueprints overriding the AI variable. There are no examples of kurage ActorSpawners. Might have to find another enemy being given territory parameters via spawners and understand the final bytes. It doesn't seem limited to just them. GrubChucker also showed very little natural aggression. Maybe aggression is tied to territory, and if they're out of it, they don't care, and the territory is out near the actorspawner? Idk I lowered the AS to be nearer to the 'ground', and they still seem unbothered. Must investigate later. KingChappy is very happy to chase me around and try eat me.
+- ❗ Jellyfloats seem broken when spawned by ActorSpawners? They just don't attack anything - I think they may have more important ties to their Territory and EatArea params that are often provided by the blueprints overriding the AI variable. There are no examples of kurage ActorSpawners. Might have to find another enemy being given territory parameters via spawners and understand the final bytes. It doesn't seem limited to just them. GrubChucker also showed very little natural aggression. Maybe aggression is tied to territory, and if they're out of it, they don't care, and the territory is out near the actorspawner? Idk I lowered the AS to be nearer to the 'ground', and they still seem unbothered. Must investigate later. KingChappy is very happy to chase me around and try eat me. I've tried using bSetTerritory as an offset and absolute position, and Foolix just wants to slink off somewhere slightly northwest of the spawn platform way off in the abyss. Using 0/0/310 as the vector made him go in a totally different direction, so it definitely does SOMETHING
 - ❌ Fix the CSS of the map buttons being killed by tailwind
 - Front page styling
 - ❌ Work out why BigFireTank doesn't get a model
@@ -186,13 +191,15 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ RebirthLater/RebirthInterval
 - ✅ Extract JSONs button
 - ✅ Send a message if people's uasset isn't the decoded `Content` array
-- ❌ Support raw JSON exports later on
+- ❌ Support raw JSON exports later on - don't think they can be encoded back anyway
 - ✅ Fix icons for night enemies in caves
-- ❌ Support raw JSON exports later on
 - ❌ Dandori battle maps - where/what even are they?
 - ✅ Support castaway drops (untested in game, but AI looks correct)
 - ❌ Better error reporting for the deploy process
 - ✅ Alphabetise the creature dropdown by the type of name we're displaying first (swapping internal names still makes them ordered by internal) 
+- ✅ Refactor/cleanup the icons so there aren't duplicates
+- ❌ Rotate icons that require it, like bridges/gates so they look better
+- ❌ How does hazard AI work? Surely you can override the HibaBase blueprint - Some HibaIce do this in their HibaAIParameters, but the changes aren't reflected in the AI. 
 
 </details>
 
@@ -202,16 +209,33 @@ The bytes I construct are then spliced together with the base template for that 
 <summary>Bugs List</summary>
 
 - 🐛 Map unzooming on re-render - can't reaaaaally fix this. Map is tied to the map elements, so React will re-render the component when it updates, which is how the map updates. I could look into retaining the zoom and position, but idk
-- 🐛Map select re-render bug
+- 🐛 Map select re-render bug
 - ✅ Can't type into amount freely (debounce should fix)
-- 🐛Castoc's error reporting is bad - is it because it's bundled into the robocopy one with errorCode > 7, or is it because castoc doesn't really error properly.
+- 🐛 Castoc's error reporting is bad - is it because it's bundled into the robocopy one with errorCode > 7, or is it because castoc doesn't really error properly.
 - 🐛 Letting input fields fire when being empty often just deletes the entire field
-- 🐛 Inputting malformed data will often error - usually when using bad array types
-- ❌ Not a bug - `Internal Names First` only affects the creature list, as I doubt anyone knows/wants the treasure/misc items named internally. It was mainly to seek to them faster via the dropdowns. Let me know if this is weird or not.
+- 🐛 Inputting malformed data will often error - usually when using bad array types like `ignoreCID`
 - ❓ Scientific notation numbers are transformed to standard form. Conversion is correct, so unsure if problematic. GJumpPoint_LivingRoom in Area010 is an example
 - ❌ The entire UI - yes I know, styling is not my idea of fun.
 - ✅ Fix inventories where bSetTerritory is true - this causes 4 more bytes to exist, which would mess up the inventory byte (cave007_F00 minimochi egg drop)
-- 🐛 Flint beetle drops are different to normal enemies
+- ✅ Flint beetle drops are different to normal enemies (Giant's Hearth flint beetle near lemon) - No they weren't, they were just pellets that I hadn't supported yet
 - ✅ DebouncedInput doesn't get to reinitialise state when swapping to a new entity, and thus doesn't refresh when a new InfoPanel is rendered
+- 🐛 Exception is thrown early if no teki file is present - Cave004_F00 is an example of this where no teki file naturally exists
+- 🐛 Some objects just crash the game upon being added to an AGL (at least the prologue). Probably not a bug per se, but just how the entities work. AirGeyser is one of these. Unsure why. Haven't tested with editing existing geysers.
 
 </details>
+
+### Missing Graphics:
+
+I'm missing icons for the following entities, and wouldn't mind if anyone wants to make some:
+
+- Cushions
+- Bookends
+- Bank
+- Probably more
+
+### Object AI List:
+
+ - ✅ Pots - Inventory length is the first byte followed by the slots, as normal
+ - Hazard spouts - ??? HibaIce has Sublevel examples of it setting some params, but the AI bytes don't reflect it 
+ - ✅ NoraSpawners - diagram on TKB.
+ - CrushJelly - Has a string array of somethings - slightly different to the regular inventory again, but probably next on the list

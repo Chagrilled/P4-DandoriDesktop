@@ -34,7 +34,7 @@ export const MapContainer = ({
                 center: getCenter(projection.getExtent()),
                 zoom: 2,
                 rotation: -mapData.rotation * Math.PI / 180,
-                maxZoom: 4,
+                maxZoom: 8,
                 minZoom: 1,
             });
             // add markers
@@ -57,31 +57,35 @@ export const MapContainer = ({
                 controls: defaultControls({ rotate: false })
             });
 
-            const modifyFeature = new Modify({
-                features: new Collection(markerLayers.creature.getSource().getFeatures())
-            });
-            modifyFeature.on('modifyend', evt => {
-                setMapData({
-                    ...mapMarkerData,
-                    // TODO: yes this will be annoying later if things are in different arrays
-                    creature: mapMarkerData.creature.map(marker => {
-                        const data = evt.features.array_[0].values_.data;
-                        return marker.ddId !== data.ddId ? marker : {
-                            ...data,
-                            transform: {
-                                ...data.transform,
-                                translation: {
-                                    X: evt.mapBrowserEvent.coordinate[1],
-                                    Y: evt.mapBrowserEvent.coordinate[0],
-                                    Z: data.transform.translation.Z
-                                }
-                            }
-                        };
-                    }),
-
+            console.log(mapMarkerData)
+            Object.values(markerLayers).forEach(layer => {
+                const modifyFeature = new Modify({
+                    features: new Collection(layer.getSource().getFeatures())
                 });
+                modifyFeature.on('modifyend', evt => {
+                    const data = evt.features.array_[0].values_.data;
+                    console.log("type", data.infoType)
+                    setMapData({
+                        ...mapMarkerData,
+                        // TODO: yes this will be annoying later if things are in different arrays
+                        [data.infoType]: mapMarkerData[data.infoType].map(marker => {
+                            return marker.ddId !== data.ddId ? marker : {
+                                ...data,
+                                transform: {
+                                    ...data.transform,
+                                    translation: {
+                                        X: evt.mapBrowserEvent.coordinate[1],
+                                        Y: evt.mapBrowserEvent.coordinate[0],
+                                        Z: data.transform.translation.Z
+                                    }
+                                }
+                            };
+                        }),
+
+                    });
+                });
+                map.addInteraction(modifyFeature);
             });
-            map.addInteraction(modifyFeature);
 
             setMap(map);
         };
@@ -185,6 +189,7 @@ export const MapContainer = ({
                 props: {
                     mapMarkerData,
                     setMapData,
+                    mapId,
                     coords: {
                         x: evt.coordinate[1],
                         y: evt.coordinate[0]
