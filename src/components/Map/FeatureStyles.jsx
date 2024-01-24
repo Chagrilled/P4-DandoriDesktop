@@ -151,7 +151,7 @@ const getFeatureStyle = (marker, globalMarkerStyle) => {
         }
         globalMarkerStyle = new Style({
             image: new Icon({
-                src: `../images/${infoType}s/${infoType}-${id || marker.creatureId}.png`,
+                src: `../images/${infoType}s/${infoType}-${id || marker.creatureId.toLowerCase()}.png`,
                 scale: scale,
                 // I have no idea what combination makes the right angle - none seems to match to DDB
                 // Also I think only gates/bridges/caves want rotating otherwise it looks weird

@@ -510,7 +510,7 @@ ipcMain.handle('saveMaps', async (event, mapId, data) => {
     const dayObjectAGL = [];
     const baseObjectAGL = [];
     Object.entries(data).forEach(([typeName, typeArray]) => {
-        if (typeName === 'creature') return;
+        if (typeName === 'creature' || typeName === 'water') return;
 
         // Use regenerateAGLEntity later on to de-dupe this once AI is sorted across the board
         typeArray.forEach(actor => {
@@ -562,7 +562,7 @@ const writeAGL = async (originalRaw, newAGL, mapId, mapType, baseFile) => {
         ],
         Extra: originalRaw.Extra
     };
-    
+
     const mapPath = baseFile ? getBaseFilePath(mapId, mapType) : getFilePath(mapId, mapType);
     const floats = {};
     // JS truncates the .0 from a float as soon as it touches it 
@@ -692,7 +692,7 @@ ipcMain.handle('readMapData', async (event, mapId) => {
     try {
         const baseObjectPath = getBaseFilePath(mapId, OBJECTS);
         baseObjectFile = await getFileData(baseObjectPath);
-    } catch (e) {}
+    } catch (e) { }
     if (baseObjectFile) {
         rawData.objectsPermanent = baseObjectFile;
         rawData.objectsPermanent.Content[0].ActorGeneratorList.forEach(actor => objectProcessor(actor, Times.PERM));
@@ -705,7 +705,7 @@ ipcMain.handle('readMapData', async (event, mapId) => {
             const objectPath = getFilePath(mapId, OBJECTS);
             objectFile = await getFileData(objectPath);
             if (!objectFile) return features;
-        } catch (e) {}
+        } catch (e) { }
         rawData.objectsDay = objectFile;
         rawData.objectsDay.Content[0].ActorGeneratorList.forEach(actor => objectProcessor(actor, Times.DAY));
     }
