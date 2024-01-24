@@ -67,6 +67,9 @@ Desktop/
 
 Within my map folders, I _only_ have `ActorPlacementInfo/AP_...Teki.json` and `AP_...Objects.json`.
 
+📺 Or watch this setup video
+[![Or watch this setup video](https://img.youtube.com/vi/5CnL2AHNBKI/0.jpg)](https://www.youtube.com/watch?v=5CnL2AHNBKI "Or watch this setup video")
+
 ### ⛏️ Extracting Maps
 
 Because you only really want to package files you need into your mod, I've made it easy to fish them out of a raw export of the `Maps` folder.
