@@ -663,7 +663,6 @@ ipcMain.handle('readMapData', async (event, mapId) => {
 
         const infoType = getInfoType(subPath);
         const { parsed, AIProperties } = getReadAIFunc(entityId, infoType)(object.ActorSerializeParameter.AI.Static);
-        console.log(entityId, parsed, AIProperties);
 
         features[infoType].push({
             type: 'object',

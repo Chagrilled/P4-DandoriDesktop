@@ -69,7 +69,7 @@ export const getSubpathFromAsset = asset => asset.match(/Placeables\/(.+)\/G/)[1
 
 export const capitalise = string => string.charAt(0).toUpperCase() + string.slice(1);
 
-export const getAssetPathFromId = id => internalAssetNames.find(asset => asset.includes(`${id}_C`));
+export const getAssetPathFromId = id => internalAssetNames.find(asset => asset.includes(`G${id}_C`));
 
 export const getAvailableTimes = mapId => {
     if (['HeroStory', 'Cave', 'Area011'].some(area => mapId.includes(area))) return [Times.PERM];

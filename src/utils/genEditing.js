@@ -304,7 +304,6 @@ export const parseGDMDrops = drops => {
         parsed.push(slot);
     }
     while (drops[index] != 255 && index < drops.length) {
-        console.log("iterating to find inventory end");
         index += 1; // Just iterate till we find the 255 byte? Shouldn't run, I think
     }
     // console.log(parsed);
@@ -366,7 +365,6 @@ export const parsePotDrops = drops => {
         parsed.push(slot);
     }
     while (drops[index] != 255 && index < drops.length) {
-        console.log("iterating to find inventory end");
         index += 1; // Just iterate till we find the 255 byte? Shouldn't run, I think
     }
     // console.log(parsed);
@@ -515,7 +513,6 @@ export const parseTekiDrops = drops => {
         parsed.push(slot);
     }
     while (drops[index] != 255 && index < drops.length) {
-        console.log("iterating to find inventory end");
         index += 1; // Just iterate till we find the 255 byte? Shouldn't run, I think
     }
     return { parsed, inventoryEnd: index + 4 };
@@ -528,7 +525,7 @@ export const constructGDMAI = (drops, aiStatic, { groupingRadius, ignoreList = [
     bytes.push(...floatBytes(groupingRadius));
 
     if (typeof ignoreList === 'string') ignoreList = JSON.parse(ignoreList);
-    const ignoreListLength = ignoreList.length
+    const ignoreListLength = ignoreList.length;
     bytes.push(ignoreListLength, 0, 0, 0);
     ignoreList.forEach(ignore => {
         let lengthBytes = intToByteArr(ignore.length + 1).reverse();
@@ -598,8 +595,6 @@ export const constructGDMAI = (drops, aiStatic, { groupingRadius, ignoreList = [
 
 export const constructPotAI = (drops, aiStatic, { inventoryEnd }) => {
     const bytes = [];
-    console.log("Constructing pot from", drops, inventoryEnd);
-    console.dir(aiStatic, { maxArrayLength: 400 });
     bytes.push(drops.length, 0, 0, 0);
 
     drops.forEach(drop => {
@@ -929,7 +924,7 @@ export const regenerateAGLEntity = (actor, aglData) => {
         };
     }
     else console.log(actor.creatureId, "AI is unchanged");
-
+    
     const newEntity = {
         ...aglData,
         SoftRefActorClass: {

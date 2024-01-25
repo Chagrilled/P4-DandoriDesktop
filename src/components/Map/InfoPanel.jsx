@@ -197,7 +197,6 @@ export const InfoPanel = ({ marker, mapMarkerData, setMapData, mapId }) => {
     return <div className="flex flex-col px-3 overflow-auto CreatureInfo__container">
         <MarkerIcon size={sizeOverrides[creature.creatureId] || "large"} type={infoType} id={markerIconId} />
         <h2 className="text-2xl font-bold my-4">{title}</h2>
-        <h2 className="text-2xl font-bold my-4">{creature.creatureId}</h2>
         <ul className="list-disc list-inside DefaultInfo__container" style={{ overflow: 'visible ' }}>
             {<CreatureInfo obj={creature} mapMarkerData={mapMarkerData} setMapData={setMapData} parent={''} ddId={creature.ddId} mapId={mapId} />}
         </ul>
