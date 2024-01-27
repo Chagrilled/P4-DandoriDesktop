@@ -241,3 +241,13 @@ I'm missing icons for the following entities, and wouldn't mind if anyone wants 
  - Hazard spouts - ??? HibaIce has Sublevel examples of it setting some params, but the AI bytes don't reflect it 
  - ✅ NoraSpawners - diagram on TKB.
  - CrushJelly - Has a string array of somethings - slightly different to the regular inventory again, but probably next on the list
+
+### 1.0 Release Targets:
+
+- CrushJelly AI
+- Crush bag requirements
+- Gates?
+- Cave AI/portal linking
+- Night maps
+- Map rotation?
+- Legend
