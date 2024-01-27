@@ -5,9 +5,9 @@ import { randomBytes } from 'crypto';
 import swf from 'stringify-with-floats';
 import { spawn } from 'child_process';
 import { exposedGenVars, InfoType, Times } from './api/types';
-import { regenerateAGLEntity } from './utils/genEditing';
-import { getReadAIFunc } from './utils/reading';
-import { constructTeki } from './utils/constructing';
+import { regenerateAGLEntity } from './genEditing';
+import { getReadAIFunc } from './genEditing/reading';
+import { constructTeki } from './genEditing/constructing';
 import { protectNumbers, unprotectNumbers, getInfoType, getAvailableTimes } from './utils/utils';
 import { createMenu } from './utils/createMenu';
 

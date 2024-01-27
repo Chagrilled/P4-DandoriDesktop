@@ -1,5 +1,5 @@
 
-import { setFloats, getAssetPathFromId } from './utils';
+import { setFloats, getAssetPathFromId } from '../utils/utils';
 import deepEqual from 'deep-equal';
 import { getReadAIFunc } from './reading';
 import { getConstructAIFunc } from './constructing';
