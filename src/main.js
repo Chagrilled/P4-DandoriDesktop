@@ -8,7 +8,7 @@ import { exposedGenVars, InfoType, Times } from './api/types';
 import { regenerateAGLEntity } from './genEditing';
 import { getReadAIFunc } from './genEditing/reading';
 import { constructTeki } from './genEditing/constructing';
-import { protectNumbers, unprotectNumbers, getInfoType, getAvailableTimes } from './utils/utils';
+import { protectNumbers, unprotectNumbers, getInfoType, getAvailableTimes } from './utils';
 import { createMenu } from './utils/createMenu';
 
 const CONFIG_PATH = join(`${app.getPath('userData')}`, "config.json");

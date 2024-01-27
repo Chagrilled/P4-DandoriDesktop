@@ -1,6 +1,6 @@
 import React from "react";
 import { ActorSpawnerCustomParameter, DropConditions, DropConditions_Named, GameRulePermissionFlags, InfoType } from "../../../api/types";
-import { getInfoType, getNameFromAsset, getPathType, getSubpathFromAsset } from "../../../utils/utils";
+import { getInfoType, getNameFromAsset, getPathType, getSubpathFromAsset } from "../../../utils";
 import { Card } from "./Card";
 import { DebouncedInput } from "../DebouncedInput";
 

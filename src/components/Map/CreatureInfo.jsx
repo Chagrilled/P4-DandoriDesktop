@@ -1,7 +1,7 @@
 import React from 'react';
 import { Times, NameMap, RebirthTypes, PikminTypes, PikminPlayType, defaultAIProperties } from "../../api/types";
 import { useConfig } from '../../hooks/useConfig';
-import { findMarkerById, getAvailableTimes } from '../../utils/utils';
+import { findMarkerById, getAvailableTimes } from '../../utils';
 import { DebouncedInput } from './DebouncedInput';
 
 const editableFields = ["generateNum", "generateRadius", "X", "Y", "Z", "groupingRadius", "rebirthInterval", "birthDay", "deadDay", "spawnNum", "spawnRadius", "noSpawnRadius", "mabikiNumFromFollow"];

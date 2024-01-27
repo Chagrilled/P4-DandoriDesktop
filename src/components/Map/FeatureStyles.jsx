@@ -5,7 +5,7 @@ import { Feature } from 'ol';
 import { Point } from 'ol/geom';
 
 import { Categories, MarkerType, isCreature, isTreasure, GimmickNames, InfoType, iconOverrides } from '../../api/types';
-import { getAngleRotation, getNameFromAsset } from '../../utils/utils';
+import { getAngleRotation, getNameFromAsset } from '../../utils';
 
 const { Gimmick, Hazard, Portal, Onion, Base, WorkObject, Pikmin } = InfoType;
 

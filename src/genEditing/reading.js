@@ -1,5 +1,5 @@
 import { InfoType, PikminTypes, PikminPlayType } from '../api/types';
-import { bytesToInt } from './bytes';
+import { bytesToInt } from '../utils/bytes';
 
 const readInventory = (drops, index, invSize) => {
     const parsed = [];

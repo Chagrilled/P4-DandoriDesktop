@@ -2,7 +2,7 @@ import React from "react";
 import { MarkerIcon } from "../../Icon";
 import { EntityNames, NameMap } from "../../../api/types";
 import { useConfig } from "../../../hooks/useConfig";
-import { capitalise, findObjectKey } from "../../../utils/utils";
+import { capitalise, findObjectKey } from "../../../utils";
 
 export const Card = ({ title, imgId, imgType, footer, drop, updateDrops, isActorSpawner }) => {
     const config = useConfig();

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Menu, Item, Separator, Submenu } from 'react-contexify';
 import { RebirthTypes, DefaultActorSpawnerDrop, InfoType } from '../../api/types';
-import { getAvailableTimes } from '../../utils/utils';
+import { getAvailableTimes } from '../../utils';
 
 const { Creature, Treasure, Gimmick, Object, WorkObject, Pikmin, Base, Onion, Hazard, Portal } = InfoType;
 

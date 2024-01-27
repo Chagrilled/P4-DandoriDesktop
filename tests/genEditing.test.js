@@ -1,4 +1,4 @@
-import { constructCreatureAI } from "../src/utils/genEditing";
+import { constructCreatureAI } from "../src/genEditing";
 
 describe('Creature AI construction', () => {
     test('dummy', () => {

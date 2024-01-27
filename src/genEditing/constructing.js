@@ -1,7 +1,7 @@
 import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties } from '../api/types';
 import { default as entityData } from '../api/entityData.json';
-import { floatToByteArr, intToByteArr } from './bytes';
-import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue } from './utils';
+import { floatToByteArr, intToByteArr } from '../utils/bytes';
+import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue } from '../utils';
 
 const defaultAI = (_, ai) => ai;
 

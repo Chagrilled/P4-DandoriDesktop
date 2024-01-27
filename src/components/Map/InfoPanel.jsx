@@ -4,7 +4,7 @@ import { MarkerIcon } from "../Icon";
 import { ExpandPanel } from "./ExpandPanel";
 import { DropCard } from "./Card/DropCard";
 import { CardList } from "./Card/CardList";
-import { doesEntityHaveDrops, findMarkerById, getAssetPathFromId, getNameFromAsset } from "../../utils/utils";
+import { doesEntityHaveDrops, findMarkerById, getAssetPathFromId, getNameFromAsset } from "../../utils";
 import { CreatureInfo } from "./CreatureInfo";
 
 // The number of extra indices adding these objects to the struct changes by
