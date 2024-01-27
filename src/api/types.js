@@ -483,6 +483,20 @@ export const getDropType = (marker) => {
     // return getDropPriority(marker.drops).type;
 };
 
+export const Legends = [
+    InfoType.Creature,
+    InfoType.Treasure,
+    InfoType.Gimmick,
+    InfoType.Object,
+    InfoType.WorkObject,
+    InfoType.Pikmin,
+    InfoType.Base,
+    InfoType.Onion,
+    InfoType.Hazard,
+    InfoType.Portal,
+    InfoType.Item
+];
+
 export const Categories = [
     {
         label: 'Collectibles',
@@ -1044,7 +1058,7 @@ export const ItemNames = {
     ShugoFlag: 'Idler\'s Alert?',
     Stone: 'Stone?',
     HotExtract: "Ultra-Spicy Spray",
-    PiecePick: "Raw Material"
+    // PiecePick: "Raw Material"
 };
 
 export const BaseNames = {
@@ -1077,16 +1091,16 @@ export const GimmickNames = {
     CirculatorPurple: 'Fan (Purple)',
     CirculatorRed: 'Fan (Red)',
     ColdBox: 'Ice Box',
-    Conveyor256uu: 'Conveyor Belt',
+    Conveyor265uu: 'Conveyor Belt',
     CrackPlanter: 'Cracked Planter',
     CrackPlanterDouble: 'Cracked Planter (x2)',
     CrackPotL: 'Pot (L)',
     CrackPotLAnother: 'Pot 2 (L)',
     CrackPotS: 'Pot (S)',
     CrackPotSAnother: 'Pot 2 (S)',
-    CrushJelly_L: 'Hydro Jelly (L)',
-    CrushJelly_ML: 'Hydro Jelly (M)',
     CrushJelly_S: 'Hydro Jelly (S)',
+    CrushJelly_M: 'Hydro Jelly (M)',
+    CrushJelly_L: 'Hydro Jelly (L)',
     Fence: 'Fence',
     FenceFall: 'Iron Fence?',
     FenceFallNoSideColNoSE: 'Iron Fence (???)',
@@ -1178,7 +1192,6 @@ export const OnionNames = {
 
 export const ObjectNames = {
     BikkuriKinokoPlant: 'Startle Spore Plant',
-    Bomb: 'Bomb Rock',
     Hikarikinoko: 'Common Glowcap',
     Icicle: 'Icicle',
     IcicleClose: 'Icicle (Close)',
@@ -1198,7 +1211,7 @@ export const ObjectNames = {
     SurvivorKoppai: 'Koppai Survivor',
     SurvivorLeaf: 'Leafling Survivor',
     Tsuyukusa: 'Burgeoning Spiderwort',
-    SurvivorOlimarLeaf: 'Olimar Leafing'
+    SurvivorOlimarLeaf: 'Olimar Leafling'
 };
 
 export const PortalNames = {
@@ -1234,7 +1247,8 @@ export const WorkObjectNames = {
     String: 'Climbable String',
     TanebiStation: 'Fire Stand (Lit)',
     TanebiStationRelay: 'Fire Stand (Unlit)',
-    Tunnel: 'Tunnel (Any)',
+    WarpCarryFloor: 'Floor Tunnel',
+    WarpCarryWall: 'Wall Tunnel',
     ValveOnce: 'Valve (One Time)',
     ValveVariable: 'Valve (Multi)',
     VarGateBomb: 'Bomb Gate',
@@ -1351,6 +1365,7 @@ export const iconOverrides = {
     podcampcave01: 'podcamp',
     podcampcave02: 'podcamp',
     podcampcave03: 'podcamp',
+    survivorolimarleaf: 'survivorleaf'
 };
 
 // Not exhaustive, just every asset scraped from AGLs - won't include items that don't actually APPEAR as drops

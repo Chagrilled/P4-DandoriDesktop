@@ -5,7 +5,7 @@ import { Feature } from 'ol';
 import { Point } from 'ol/geom';
 
 import { Categories, MarkerType, isCreature, isTreasure, GimmickNames, InfoType, iconOverrides } from '../../api/types';
-import { getAngleRotation, getNameFromAsset } from '../../utils';
+import { getAngleRotation, getNameFromAsset, shouldIconRotate } from '../../utils';
 
 const { Gimmick, Hazard, Portal, Onion, Base, WorkObject, Pikmin } = InfoType;
 
@@ -149,10 +149,16 @@ const getFeatureStyle = (marker, globalMarkerStyle) => {
             infoType = InfoType.Pikmin;
             id = `${marker.AIProperties.pikminType.toLowerCase()}`;
         }
+        const rotationProps = shouldIconRotate(marker.creatureId) ? {
+            rotateWithView: true,
+            rotation: (getAngleRotation(marker.transform.rotation)) * Math.PI / 180,
+        } : {};
+
         globalMarkerStyle = new Style({
             image: new Icon({
                 src: `../images/${infoType}s/${infoType}-${id || marker.creatureId.toLowerCase()}.png`,
                 scale: scale,
+                ...rotationProps
                 // I have no idea what combination makes the right angle - none seems to match to DDB
                 // Also I think only gates/bridges/caves want rotating otherwise it looks weird
                 // rotateWithView: true,
@@ -162,67 +168,67 @@ const getFeatureStyle = (marker, globalMarkerStyle) => {
     }
     // TODO: Refactor between this and the isX calls above
     else if (GimmickNames[marker.creatureId]) {
-        const creatureId = marker.creatureId.toLowerCase();
-        const scale = SCALE_OVERRIDES[creatureId] || 0.35;
-        globalMarkerStyle = new Style({
-            image: new Icon({
-                src: `${ROOT_GIMMICKS_URL}/gimmick-${creatureId.toLowerCase()}.png`,
-                scale: scale
-            }),
-        });
-    }
-    else if (isTreasure(marker)) {
-        // include Gold Nugget amount as total weight
-        const totalWeight = marker.weight * (marker.amount || 1);
-        const totalValue = marker.value * (marker.amount || 1);
-        // total value can be 0 for OST ship parts
-        // TODO: remove value for challenge caves somehow
-        const label = totalValue ? `${totalWeight} / ${totalValue}` : totalWeight + "";
+    const creatureId = marker.creatureId.toLowerCase();
+    const scale = SCALE_OVERRIDES[creatureId] || 0.35;
+    globalMarkerStyle = new Style({
+        image: new Icon({
+            src: `${ROOT_GIMMICKS_URL}/gimmick-${creatureId.toLowerCase()}.png`,
+            scale: scale
+        }),
+    });
+}
+else if (isTreasure(marker)) {
+    // include Gold Nugget amount as total weight
+    const totalWeight = marker.weight * (marker.amount || 1);
+    const totalValue = marker.value * (marker.amount || 1);
+    // total value can be 0 for OST ship parts
+    // TODO: remove value for challenge caves somehow
+    const label = totalValue ? `${totalWeight} / ${totalValue}` : totalWeight + "";
 
-        // TODO: Read treasure weights from the core/DT_OtakaraParemeter file
-        // const textStyle = TREASURE_TEXT_STYLE.clone();
-        // textStyle.setText(label);
+    // TODO: Read treasure weights from the core/DT_OtakaraParemeter file
+    // const textStyle = TREASURE_TEXT_STYLE.clone();
+    // textStyle.setText(label);
 
-        return new Style({
-            image: new Icon({
-                src: `${ROOT_TREASURE_URL}/treasure-${marker.creatureId.toLowerCase()}.png`,
-                scale: 0.35
-            }),
-            // text: textStyle,
-        });
-    }
+    return new Style({
+        image: new Icon({
+            src: `${ROOT_TREASURE_URL}/treasure-${marker.creatureId.toLowerCase()}.png`,
+            scale: 0.35
+        }),
+        // text: textStyle,
+    });
+}
 
-    if (marker.transform.rotation === undefined && !marker.drops) {
-        return globalMarkerStyle;
-    }
+if (marker.transform.rotation === undefined && !marker.drops) {
+    return globalMarkerStyle;
+}
 
-    // must copy any icons that need to be edited.
-    const markerStyle = globalMarkerStyle.clone();
-    // if (marker.transform.rotation !== undefined) {
-    //     markerStyle.getImage().setRotateWithView(true);
-    //     markerStyle.getImage().setRotation(-(marker.transform.rotation) * Math.PI / 180);
-    // }
+// must copy any icons that need to be edited.
+const markerStyle = globalMarkerStyle.clone();
+// if (marker.transform.rotation !== undefined) {
+//     markerStyle.getImage().setRotateWithView(true);
+//     markerStyle.getImage().setRotation(-(marker.transform.rotation) * Math.PI / 180);
+// }
 
-    // const [totalWeight, totalValue] = (marker.drops || [])
-    //     .reduce((sums, drop) => {
-    //         if (!isTreasure(drop)) {
-    //             return sums;
-    //         }
+// const [totalWeight, totalValue] = (marker.drops || [])
+//     .reduce((sums, drop) => {
+//         if (!isTreasure(drop)) {
+//             return sums;
+//         }
 
-    //         return [
-    //             sums[0] + drop.weight * (drop.amount || 1),
-    //             sums[1] + drop.value * (drop.amount || 1)
-    //         ];
-    //     }, [0, 0]);
-    // if (totalWeight || totalValue > 0) {
-    //     // TODO: remove value for challenge caves somehow
-    //     const label = totalValue ? `${totalWeight} / ${totalValue}` : totalWeight + "";
+//         return [
+//             sums[0] + drop.weight * (drop.amount || 1),
+//             sums[1] + drop.value * (drop.amount || 1)
+//         ];
+//     }, [0, 0]);
+// if (totalWeight || totalValue > 0) {
+//     // TODO: remove value for challenge caves somehow
+//     const label = totalValue ? `${totalWeight} / ${totalValue}` : totalWeight + "";
 
-    //     const textStyle = TREASURE_TEXT_STYLE.clone();
-    //     textStyle.setText(label);
-    //     markerStyle.setText(textStyle);
-    // }
-    return markerStyle;
+//     const textStyle = TREASURE_TEXT_STYLE.clone();
+//     textStyle.setText(label);
+//     markerStyle.setText(textStyle);
+// }
+return markerStyle;
 };
 
 const LayerOrder = Categories.reduce((markerTypes, category) => [...markerTypes, ...category.markers], []);

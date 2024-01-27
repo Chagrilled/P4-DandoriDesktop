@@ -96,9 +96,9 @@ Once you want to output these to your emulator, use `Tools > Deploy to Emulator`
 
 ⌨️ You can also use ctrl+Z to undo any _map entity_ you delete
 
-❗`castoc`'s error reporting doesn't seem so good (or it's how I invoke it), and it doesn't actually report a failure. If you don't get the full load of toast messages, ending in `Paks copied to "D:/your/output/folder"` then you may want to run the tools manually to see what's going on.
+❗`castoc`'s error reporting doesn't seem so good (or it's how I invoke it), and it doesn't actually report a failure. If you **don't get the full load of toast messages, ending in** `Paks copied to "D:/your/output/folder"` then you may want to run the tools manually to see what's going on.
 
-❗For the most part, the app is not fully user-safe and will not try to protect your inputs. Therefore, ensure you are keeping your input data in the correct types - array remain strict arrays, lists of strings (like `ignoreList` are correctly formatted - `["Kochappy", "Mush"]`) etc.
+❗For the most part, the app is not fully user-safe and will not try to protect your inputs. Therefore, ensure you are keeping your input data in the correct types - arrays remain strict arrays, lists of strings (like `ignoreList` are correctly formatted - `["Kochappy", "Mush"]`) etc.
 
 ### 📦️ Blueprints
 
@@ -145,7 +145,7 @@ The bytes I construct are then spliced together with the base template for that 
 <details>
 <summary>To Do List</summary> 
 
-- ❌ Legend
+- ✅ Legend
 - ✅ Read other objects/placeables
 - 🚧 Support all object AI. This is a huge task.
 - 🚧 Teki editor
@@ -202,6 +202,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ Refactor/cleanup the icons so there aren't duplicates
 - ❌ Rotate icons that require it, like bridges/gates so they look better
 - ❌ How does hazard AI work? Surely you can override the HibaBase blueprint - Some HibaIce do this in their HibaAIParameters, but the changes aren't reflected in the AI. 
+- ❌ Refactor the map to see if I can separate state from the map data, which might fix the component-refreshing problem. A bit similarly to filters. Perhaps the map doesn't have to use the main data set and can maintain its own without having the main map set as a prop? 
 
 </details>
 
@@ -211,10 +212,10 @@ The bytes I construct are then spliced together with the base template for that 
 <summary>Bugs List</summary>
 
 - 🐛 Map unzooming on re-render - can't reaaaaally fix this. Map is tied to the map elements, so React will re-render the component when it updates, which is how the map updates. I could look into retaining the zoom and position, but idk
-- 🐛 Map select re-render bug
+- ✅ Map select re-render bug
 - ✅ Can't type into amount freely (debounce should fix)
 - 🐛 Castoc's error reporting is bad - is it because it's bundled into the robocopy one with errorCode > 7, or is it because castoc doesn't really error properly.
-- 🐛 Letting input fields fire when being empty often just deletes the entire field
+- ✅ Letting input fields fire when being empty often just deletes the entire field
 - 🐛 Inputting malformed data will often error - usually when using bad array types like `ignoreCID`
 - ❓ Scientific notation numbers are transformed to standard form. Conversion is correct, so unsure if problematic. GJumpPoint_LivingRoom in Area010 is an example
 - ❌ The entire UI - yes I know, styling is not my idea of fun.
@@ -223,6 +224,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ DebouncedInput doesn't get to reinitialise state when swapping to a new entity, and thus doesn't refresh when a new InfoPanel is rendered
 - 🐛 Exception is thrown early if no teki file is present - Cave004_F00 is an example of this where no teki file naturally exists
 - 🐛 Some objects just crash the game upon being added to an AGL (at least the prologue). Probably not a bug per se, but just how the entities work. AirGeyser is one of these. Unsure why. Haven't tested with editing existing geysers.
+- 🐛 Icons that are filtered off the map still have their draggable center on hover
 
 </details>
 
@@ -240,14 +242,14 @@ I'm missing icons for the following entities, and wouldn't mind if anyone wants 
  - ✅ Pots - Inventory length is the first byte followed by the slots, as normal
  - Hazard spouts - ??? HibaIce has Sublevel examples of it setting some params, but the AI bytes don't reflect it 
  - ✅ NoraSpawners - diagram on TKB.
- - CrushJelly - Has a string array of somethings - slightly different to the regular inventory again, but probably next on the list
+ - ✅ CrushJelly - Has a string array of somethings - slightly different to the regular inventory again, but probably next on the list. For now, uses pot AI as the string array will be maintained, or taken by defaults. It's to do with objects contained (but not dropped) by the jelly I think.
 
 ### 1.0 Release Targets:
 
-- CrushJelly AI
+- ✅ CrushJelly AI
 - Crush bag requirements
-- Gates?
-- Cave AI/portal linking
+- Gates HP?
+- (?) Cave AI/portal linking
 - Night maps
-- Map rotation?
-- Legend
+- Map icon rotation?
+- ✅ Legend

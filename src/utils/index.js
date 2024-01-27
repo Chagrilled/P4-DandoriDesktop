@@ -82,5 +82,19 @@ export const findObjectKeyByValue = (object, target) => Object.keys(object).find
 
 export const doesEntityHaveDrops = entity => {
     if (entity.infoType === InfoType.Creature) return true;
-    return ["NoraSpawner", "CrackP", "GroupDropManager"].some(asset => entity.creatureId.includes(asset));
+    return ["NoraSpawner", "CrackP", "GroupDropManager", "CrushJelly"].some(asset => entity.creatureId.includes(asset));
 };
+
+export const shouldIconRotate = creatureId => {
+    
+    if (creatureId.includes('Gate')) return true;
+    if (creatureId.includes('TriggerDoor')) return true;
+    if (creatureId.includes('Fence')) return true;
+    if (creatureId.includes('HandleBoard')) return true;
+    if (creatureId.includes('YBox')) return true;
+    if (creatureId.includes('XBox')) return true;
+    if (creatureId.includes('Flexible')) return true;
+    if (creatureId.includes('Switch')) return true;
+    if (creatureId.includes('Slope')) return true;
+    if (['PullNekko', 'DownWall', 'Conveyor265uu'].some(asset => asset === creatureId)) return true;
+}

@@ -18,7 +18,7 @@ export const MarkerIcon = ({ type, id, size = 'small', card }) => {
     };
 
     if (id?.startsWith('night')) id = id.replace('night', '');
-    id = iconOverrides[id.toLowerCase()] || id;
+    id = iconOverrides[id?.toLowerCase()] || id;
 
     const src = !id
         ? getIconOptions(type).src

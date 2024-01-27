@@ -5,6 +5,7 @@ const readInventory = (drops, index, invSize) => {
     const parsed = [];
     for (let i = 0; i < invSize; i++) {
         const slot = {};
+        slot.id = i + 1;
         index += 8; // Skip the two -1 u32s at the start of each item
         slot.minDrops = drops[index];
         index += 4;
@@ -148,7 +149,7 @@ const parseNoraSpawnerAI = ai => {
     };
 };
 
-const parseGDMDrops = drops => {
+export const parseGDMDrops = drops => {
     let parsed = [];
     const ignoreList = [];
     let index = 0;
@@ -176,7 +177,7 @@ const parseGDMDrops = drops => {
     return { parsed, inventoryEnd: index + 4, groupingRadius, ignoreList };
 };
 
-const parsePotDrops = drops => {
+export const parsePotDrops = drops => {
     let parsed = [];
     let index = 0;
     const invSize = drops[index];
@@ -269,7 +270,7 @@ const parseActorSpawnerDrops = drops => {
     };
 };
 
-const parseTekiDrops = drops => {
+export const parseTekiDrops = drops => {
     // find the inventory size byte
     // if 0, return empty list
     const parsed = [];
@@ -345,6 +346,9 @@ export const getReadAIFunc = (creatureId, infoType) => {
     if (creatureId === 'BurrowDemejako') return () => ({ parsed: [] });
     if (creatureId.includes('CrackP')) return parsePotDrops;
     if (creatureId.includes('NoraSpawner')) return parseNoraSpawnerAI;
+    // These are actually the same, except CJs have searchCIDList right at the end
+    // idk what it does. It's to do with the jelly containing items. The default is fine for now.
+    if (creatureId.includes('CrushJelly')) return parsePotDrops; 
     if (infoType === InfoType.Creature) return parseTekiDrops;
     return () => ({ parsed: [] });
 };

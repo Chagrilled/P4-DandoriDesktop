@@ -1,17 +1,8 @@
 import React from "react";
 import { ActorSpawnerCustomParameter, DropConditions, DropConditions_Named, GameRulePermissionFlags, InfoType } from "../../../api/types";
-import { getInfoType, getNameFromAsset, getPathType, getSubpathFromAsset } from "../../../utils";
+import { getInfoType, getNameFromAsset, getSubpathFromAsset } from "../../../utils";
 import { Card } from "./Card";
 import { DebouncedInput } from "../DebouncedInput";
-
-const iconMap = {
-    "Objects/Otakara": 'treasure',
-    "WorkObjects/Shizai": "miscitem",
-    "Objects/Survivor": "castaway",
-    Teki: 'creature',
-    Items: 'miscitem',
-    Pikmin: 'pikmin'
-};
 
 export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
     const nameSuffix = drop.dropCondition == DropConditions.SALVAGE_ITEM ? ' (Revisit only)' : '';

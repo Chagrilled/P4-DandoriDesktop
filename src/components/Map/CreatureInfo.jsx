@@ -4,7 +4,7 @@ import { useConfig } from '../../hooks/useConfig';
 import { findMarkerById, getAvailableTimes } from '../../utils';
 import { DebouncedInput } from './DebouncedInput';
 
-const editableFields = ["generateNum", "generateRadius", "X", "Y", "Z", "groupingRadius", "rebirthInterval", "birthDay", "deadDay", "spawnNum", "spawnRadius", "noSpawnRadius", "mabikiNumFromFollow"];
+const editableFields = ["generateNum", "generateRadius", "X", "Y", "Z", "W", "groupingRadius", "rebirthInterval", "birthDay", "deadDay", "spawnNum", "spawnRadius", "noSpawnRadius", "mabikiNumFromFollow"];
 const ignoreFields = ["drops", "type", "infoType", "ddId", "outlineFolderPath"];
 
 const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId) => {

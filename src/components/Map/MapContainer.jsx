@@ -16,11 +16,14 @@ export const MapContainer = ({
     mapId,
     onSelect,
     mapMarkerData,
-    setMapData
+    setMapData,
+    filter
 }) => {
     const mapContainerRef = useRef(null);
     const [map, setMap] = useState(() => new Map({}));
+    const [markerLayers, setMarkerLayers] = useState({});
     const { show } = useContextMenu({ id: 'MAP_MENU ' });
+    const prevFilter = useRef({});
 
     useEffect(() => {
         const load = async () => {
@@ -40,7 +43,7 @@ export const MapContainer = ({
             // add markers
             const markerLayers = await getMarkerLayers(mapMarkerData);
             const visibleLayers = Object.entries(markerLayers)
-                // .filter(([k, _v]) => !!filter[k])
+                .filter(([k, _v]) => !!filter[k])
                 .map(([_k, v]) => v);
 
             // TODO figure out why map.setLayers and map.setView aren't working
@@ -57,14 +60,14 @@ export const MapContainer = ({
                 controls: defaultControls({ rotate: false })
             });
 
-            console.log(mapMarkerData)
+            console.log(mapMarkerData);
             Object.values(markerLayers).forEach(layer => {
                 const modifyFeature = new Modify({
                     features: new Collection(layer.getSource().getFeatures())
                 });
                 modifyFeature.on('modifyend', evt => {
                     const data = evt.features.array_[0].values_.data;
-                    console.log("type", data.infoType)
+                    console.log("type", data.infoType);
                     setMapData({
                         ...mapMarkerData,
                         // TODO: yes this will be annoying later if things are in different arrays
@@ -88,41 +91,33 @@ export const MapContainer = ({
             });
 
             setMap(map);
+            setMarkerLayers(markerLayers);
         };
         if (mapMarkerData) {
             load();
         };
     }, [mapId, mapMarkerData]);
 
-    // useEffect(() => {
-    //     const filterKeys = Object.keys(filter);
-    //     for (const key of filterKeys) {
-    //         const layer = markerLayers[key];
-    //         if (!layer) {
-    //             continue;
-    //         }
+    useEffect(() => {
+        const filterKeys = Object.keys(filter);
+        for (const key of filterKeys) {
+            const layer = markerLayers[key];
+            if (!layer) {
+                continue;
+            }
 
-    //         if (!!filter[key] !== !!prevFilter.current[key]) {
-    //             if (!filter[key]) {
-    //                 map.removeLayer(layer);
-    //             }
-    //             else {
-    //                 map.addLayer(layer);
-    //             }
-    //         }
-    //     }
+            if (!!filter[key] !== !!prevFilter.current[key]) {
+                if (!filter[key]) {
+                    map.removeLayer(layer);
+                }
+                else {
+                    map.addLayer(layer);
+                }
+            }
+        }
 
-    //     prevFilter.current = filter;
-    // }, [filter]);
-
-    // useEffect(() => {
-    //     const pinsLayer = getMapPins(pins);
-    //     map.addLayer(pinsLayer);
-
-    //     return () => {
-    //         map.removeLayer(pinsLayer);
-    //     };
-    // }, [pins, map]);
+        prevFilter.current = filter;
+    }, [filter]);
 
     const handleSelect = useCallback((evt) => {
         if (evt.mapBrowserEvent.originalEvent.shiftKey) {

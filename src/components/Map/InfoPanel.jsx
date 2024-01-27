@@ -4,7 +4,7 @@ import { MarkerIcon } from "../Icon";
 import { ExpandPanel } from "./ExpandPanel";
 import { DropCard } from "./Card/DropCard";
 import { CardList } from "./Card/CardList";
-import { doesEntityHaveDrops, findMarkerById, getAssetPathFromId, getNameFromAsset } from "../../utils";
+import { doesEntityHaveDrops, findMarkerById, getAngleRotation, getAssetPathFromId, getNameFromAsset } from "../../utils";
 import { CreatureInfo } from "./CreatureInfo";
 
 // The number of extra indices adding these objects to the struct changes by
@@ -154,6 +154,8 @@ export const InfoPanel = ({ marker, mapMarkerData, setMapData, mapId }) => {
 
     if (!creature) return null; // CreatureInfo likes to hold on to the selected ID if you change maps
     console.log("CreatureInfo", creature);
+    console.log("Rotation", getAngleRotation(creature.transform.rotation))
+    console.log("Rotation used", -getAngleRotation(creature.transform.rotation) * Math.PI / 180)
     const isActorSpawner = creature.creatureId === 'ActorSpawner';
 
     const title = creature.generateNum

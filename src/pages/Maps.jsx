@@ -5,14 +5,32 @@ import { InfoPanel } from '../components/Map/InfoPanel';
 import { getMarkerData } from '../api/MapAPI';
 import { MapContainer } from '../components/Map/MapContainer';
 import { toast } from 'react-hot-toast';
+import { Legends } from '../api/types';
+
+const InitialFilter = Object.values(Legends).reduce((filter, type) => {
+    filter[type] = true;
+    return filter;
+}, {});
 
 export const Maps = () => {
     const [mapId, setMapId] = useState();
     const [selectedMarker, setSelectedMarker] = useState();
     const [mapMarkerData, setMapData] = useState(null);
+    const [filter, setFilter] = useState(InitialFilter);
+
     const onMapChange = useCallback(newMapId => {
         setMapId(newMapId);
     }, []);
+
+    const onFilterChange = useCallback((newFilters) => {
+        setFilter(prev => {
+            return {
+                ...prev,
+                ...newFilters
+            };
+        });
+    }, []);
+
     useEffect(() => {
         const load = async () => {
             if (!mapId) return;
@@ -54,12 +72,29 @@ export const Maps = () => {
         };
     });
 
-    const navPanel = <NavigationPanel onMapChange={onMapChange} mapId={mapId} />;
-    const infoPanel = <InfoPanel marker={selectedMarker} mapMarkerData={mapMarkerData} setMapData={setMapData} mapId={mapId} />;
+    const navPanel = <NavigationPanel
+        onMapChange={onMapChange}
+        mapId={mapId}
+        onFilterChange={onFilterChange}
+        filter={filter}
+    />;
+    const infoPanel = <InfoPanel
+        marker={selectedMarker}
+        mapMarkerData={mapMarkerData}
+        setMapData={setMapData}
+        mapId={mapId}
+    />;
+
     return (
         <div className='h-full w-full'>
             <PanelLayout leftPanel={navPanel} width={"20%"} rightPanel={infoPanel}>
-                <MapContainer mapId={mapId} onSelect={setSelectedMarker} mapMarkerData={mapMarkerData} setMapData={setMapData} />
+                <MapContainer
+                    mapId={mapId}
+                    onSelect={setSelectedMarker}
+                    mapMarkerData={mapMarkerData}
+                    setMapData={setMapData}
+                    filter={filter}
+                />
             </PanelLayout>
         </div>
     );

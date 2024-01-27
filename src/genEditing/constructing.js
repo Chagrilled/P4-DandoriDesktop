@@ -2,6 +2,7 @@ import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties } from '../a
 import { default as entityData } from '../api/entityData.json';
 import { floatToByteArr, intToByteArr } from '../utils/bytes';
 import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue } from '../utils';
+import { parseGDMDrops, parseTekiDrops, parsePotDrops } from './reading';
 
 const defaultAI = (_, ai) => ai;
 
@@ -50,6 +51,7 @@ export const getConstructAIFunc = (creatureId, infoType) => {
     if (creatureId === 'BurrowDemejako') return defaultAI;
     if (creatureId.includes('CrackP')) return constructPotAI;
     if (creatureId.includes('NoraSpawner')) return constructNoraSpawnerAI;
+    if (creatureId.includes('CrushJelly')) return constructPotAI;
     if (infoType === InfoType.Creature) return constructCreatureAI;
     return defaultAI;
 };
