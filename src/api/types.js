@@ -1217,6 +1217,7 @@ export const ObjectNames = {
 export const PortalNames = {
     DownPortal: 'Cave Subfloor Entrance',
     DungeonExit: 'Cave Exit',
+    ExtraCavePortal: 'Sage Leaf Map Portal (??)',
     MadoriArena: 'Dandori Battle',
     MadoriPoko: 'Dandori Challenge',
     MadoriRuins: 'Cave Entrance',
@@ -1236,6 +1237,7 @@ export const WorkObjectNames = {
     GateRock325uu: 'Rock Gate (325uu)',
     HandleBoard: 'Hanging Clipboard Handle',
     HandleBoardYellow: 'Hanging Clipboard Handle (Yellow)',
+    HikariStation: 'Glow Pellets',
     KinkaiStation: 'Gold Nugget Pile',
     PiecePick: 'Raw Material',
     PullNekko: 'Pullable Plant',

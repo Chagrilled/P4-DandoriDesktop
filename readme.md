@@ -251,5 +251,5 @@ I'm missing icons for the following entities, and wouldn't mind if anyone wants 
 - Gates HP?
 - (?) Cave AI/portal linking
 - Night maps
-- Map icon rotation?
+- ✅ Map icon rotation?
 - ✅ Legend
