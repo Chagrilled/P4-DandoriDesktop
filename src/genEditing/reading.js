@@ -1,4 +1,4 @@
-import { InfoType, PikminTypes, PikminPlayType } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, PortalTypes } from '../api/types';
 import { bytesToInt } from '../utils/bytes';
 
 const readInventory = (drops, index, invSize) => {
@@ -25,11 +25,9 @@ const readInventory = (drops, index, invSize) => {
             index += drops[index] + 4 + 1; // start of dropCond string, usually None. We also don't care about the DemoFlag
         } else index += 4;
 
-        const assetLength = drops[index];
-        index += 4;
-        const asciiString = drops.slice(index, index + assetLength - 1); // We don't want the null terminator in the string
-        slot.assetName = String.fromCharCode.apply(null, asciiString);
-        index += assetLength;
+        slot.assetName = readAsciiString(drops, index);
+        index += drops[index] + 4;
+
         index += drops[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
 
         slot.customFloatParam = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
@@ -80,11 +78,9 @@ const parseNoraSpawnerAI = ai => {
     AIProperties.pongashiChangeColorFromFollow = PikminTypes[ai[index]];
     index += 1;
     index += 13; // unknown bytes here
-    const assetLength = ai[index];
-    index += 4;
-    const asciiString = ai.slice(index, index + assetLength - 1); // We don't want the null terminator in the string
-    AIProperties.noraIdlingPreset = String.fromCharCode.apply(null, asciiString);
-    index += assetLength;
+    AIProperties.noraIdlingPreset = readAsciiString(ai, index);
+    index += ai[index] + 4;
+
     // AIProperties.bDisableForcePongashi = ai[index];
     index += 4;
     AIProperties.groupIdlingType = PikminPlayType[ai[index]];
@@ -102,11 +98,9 @@ const parseNoraSpawnerAI = ai => {
     for (let i = 0; i < randomActorListLength; i++) { // should always be 1 according to game files
         const slot = {};
         slot.id = i + 1; // Avoid 0 IDs, just in case. This never gets written back anyway.
-        const assetLength = ai[index];
-        index += 4;
-        const asciiString = ai.slice(index, index + assetLength - 1); // We don't want the null terminator in the string
-        slot.assetName = String.fromCharCode.apply(null, asciiString);
-        index += assetLength;
+        slot.assetName = readAsciiString(ai, index);
+        index += ai[index] + 4;
+
         index += ai[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
 
         slot.customFloatParam = parseFloat(new Float32Array(new Uint8Array(ai.slice(index, index + 4)).buffer)[0].toFixed(3));
@@ -159,11 +153,8 @@ export const parseGDMDrops = drops => {
     index += 4;
     if (ignoreCIDLength)
         for (let i = 0; i < ignoreCIDLength; i++) {
-            const assetLength = drops[index];
-            index += 4;
-            let asciiString = drops.slice(index, index + assetLength - 1); // We don't want the null terminator in the string
-            ignoreList.push(String.fromCharCode.apply(null, asciiString));
-            index += assetLength;
+            ignoreList.push(readAsciiString(drops, index));
+            index += drops[index] + 4;
         }
     const invSize = drops[index];
 
@@ -243,17 +234,11 @@ const parseActorSpawnerDrops = drops => {
     index += 4;
     bytes.noDropItem = drops[index];
     index += 4;
-    const assetLength = drops[index];
-    index += 4;
-    let asciiString = drops.slice(index, index + assetLength - 1); // We don't want the null terminator in the string
-    bytes.assetName = String.fromCharCode.apply(null, asciiString);
-    index += assetLength;
+    bytes.assetName = readAsciiString(drops, index);
+    index += drops[index] + 4;
 
-    const cpLength = drops[index];
-    index += 4;
-    asciiString = drops.slice(index, index + cpLength - 1); // We don't want the null terminator in the string
-    bytes.customParameter = String.fromCharCode.apply(null, asciiString);
-    index += cpLength;
+    bytes.customParameter = readAsciiString(drops, index);
+    index += drops[index] + 4;
     // Customer parameters and territory comes after this, but I've no idea what they do
     // So I'm not going to read/expose yet. We'll just splice all zeroes instead.
 
@@ -305,11 +290,9 @@ export const parseTekiDrops = drops => {
             index += drops[index] + 4 + 1; // start of dropCond string, usually None. We also don't care about the DemoFlag
         } else index += 4;
 
-        const assetLength = drops[index];
-        index += 4;
-        const asciiString = drops.slice(index, index + assetLength - 1); // We don't want the null terminator in the string
-        slot.assetName = String.fromCharCode.apply(null, asciiString);
-        index += assetLength;
+        slot.assetName = readAsciiString(drops, index);
+        index += drops[index] + 4;
+
         index += drops[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
         slot.customFloatParam = parseFloat(new Float32Array(new Uint8Array(drops.slice(index, index + 4)).buffer)[0].toFixed(3));
         index += 4;
@@ -339,6 +322,68 @@ export const parseTekiDrops = drops => {
     return { parsed, inventoryEnd: index + 4 };
 };
 
+const readAsciiString = (bytes, index) => {
+    let stringLength = bytes[index];
+    index += 4;
+    const asciiString = bytes.slice(index, index + stringLength - 1); // We don't want the null terminator in the string
+    return String.fromCharCode.apply(null, asciiString);
+};
+
+const parsePortalTrigger = portalTrigger => {
+    const PortalTrigger = {};
+    let index = 0;
+    PortalTrigger.portalType = PortalTypes[portalTrigger[index]];
+    index += 1;
+    PortalTrigger.portalNumber = portalTrigger[index];
+    index += 4;
+
+    PortalTrigger.toLevelName = readAsciiString(portalTrigger, index);
+    index += portalTrigger[index] + 4;
+
+    PortalTrigger.toSubLevelName = readAsciiString(portalTrigger, index);
+    index += portalTrigger[index] + 4;
+
+    PortalTrigger.toPortalId = portalTrigger[index];
+    index += 4;
+
+    index += 4; // unknown boolean here, always 1
+
+    PortalTrigger.demoPlayParamEnter = readAsciiString(portalTrigger, index).match(/\.(.+)|(None)/)[1];
+    index += portalTrigger[index] + 4;
+
+    index += 4; // unknown zeros
+
+    PortalTrigger.demoPlayParamExit = readAsciiString(portalTrigger, index).match(/\.(.+)|(None)/)[1];
+    index += portalTrigger[index] + 4;
+
+    index += 4; // unknown zeros
+
+    const checkPointLength = portalTrigger[index];
+    index += 4;
+    if (checkPointLength) PortalTrigger.checkPointLevelNames = [];
+    for (let i = 0; i < checkPointLength; i++) {
+        PortalTrigger.checkPointLevelNames.push(readAsciiString(portalTrigger, index));
+        index += portalTrigger[index] + 4;
+    }
+
+    PortalTrigger.toBaseCampId = bytesToInt(portalTrigger.slice(index, index += 4).join(','));
+    PortalTrigger.bInitialPortalMove = portalTrigger[index];
+    index += 4;
+    PortalTrigger.bDeactivateByExit = portalTrigger[index];
+    index += 4;
+    index += 4; // some float
+    PortalTrigger.playAnimDist = parseFloat(new Float32Array(new Uint8Array(portalTrigger.slice(index, index += 4)).buffer)[0].toFixed(3));
+    index += 4; // unknown zeros
+    PortalTrigger.panzakuPriority = portalTrigger[index];
+    index += 4;
+    PortalTrigger.disablePikminFlags = bytesToInt(portalTrigger.slice(index, index += 4).join(','));
+    PortalTrigger.bDisableIsFlareGuard = portalTrigger[index];
+    index += 4;
+    PortalTrigger.spareBytes = portalTrigger.slice(index, portalTrigger.length);
+
+    return { PortalTrigger };
+};
+
 export const getReadAIFunc = (creatureId, infoType) => {
     // console.log("Reading", creatureId, infoType);
     if (creatureId === 'GroupDropManager') return parseGDMDrops;
@@ -348,7 +393,12 @@ export const getReadAIFunc = (creatureId, infoType) => {
     if (creatureId.includes('NoraSpawner')) return parseNoraSpawnerAI;
     // These are actually the same, except CJs have searchCIDList right at the end
     // idk what it does. It's to do with the jelly containing items. The default is fine for now.
-    if (creatureId.includes('CrushJelly')) return parsePotDrops; 
+    if (creatureId.includes('CrushJelly')) return parsePotDrops;
     if (infoType === InfoType.Creature) return parseTekiDrops;
     return () => ({ parsed: [] });
+};
+
+export const getReadPortalFunc = infoType => {
+    if (infoType == InfoType.Portal) return parsePortalTrigger;
+    return () => false;
 };

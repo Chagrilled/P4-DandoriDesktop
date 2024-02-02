@@ -86,7 +86,6 @@ export const doesEntityHaveDrops = entity => {
 };
 
 export const shouldIconRotate = creatureId => {
-    
     if (creatureId.includes('Gate')) return true;
     if (creatureId.includes('TriggerDoor')) return true;
     if (creatureId.includes('Fence')) return true;

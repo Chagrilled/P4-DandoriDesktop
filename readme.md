@@ -201,8 +201,9 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ Alphabetise the creature dropdown by the type of name we're displaying first (swapping internal names still makes them ordered by internal) 
 - ✅ Refactor/cleanup the icons so there aren't duplicates
 - ❌ Rotate icons that require it, like bridges/gates so they look better
-- ❌ How does hazard AI work? Surely you can override the HibaBase blueprint - Some HibaIce do this in their HibaAIParameters, but the changes aren't reflected in the AI. 
+- ❌ How does hazard AI work? Surely you can override the HibaBase blueprint - Some HibaIce do this in their HibaAIParameters, but the changes aren't reflected in the AI.
 - ❌ Refactor the map to see if I can separate state from the map data, which might fix the component-refreshing problem. A bit similarly to filters. Perhaps the map doesn't have to use the main data set and can maintain its own without having the main map set as a prop? 
+- ✅ Portals
 
 </details>
 
@@ -237,19 +238,21 @@ I'm missing icons for the following entities, and wouldn't mind if anyone wants 
 - Bank
 - Probably more
 
-### Object AI List:
+### Supported Objects:
+
+These objects have (most) of their pertinent bytes parsed and displayed for manipulating. Objects not in this list will have their properties retained, and new ones taken from the default data. YMMV.
 
  - ✅ Pots - Inventory length is the first byte followed by the slots, as normal
- - Hazard spouts - ??? HibaIce has Sublevel examples of it setting some params, but the AI bytes don't reflect it 
  - ✅ NoraSpawners - diagram on TKB.
- - ✅ CrushJelly - Has a string array of somethings - slightly different to the regular inventory again, but probably next on the list. For now, uses pot AI as the string array will be maintained, or taken by defaults. It's to do with objects contained (but not dropped) by the jelly I think.
+ - ✅ CrushJelly - They're just pots. There's a `searchCIDList` array which seems to be items that can be "in" the jelly (as in pre-spawned items, not drops on destroy)
+ - ✅ Portals - TriggerPortal is fully supported, so you can link portals to wherever you like. Results may vary. Some parameters are completely unknown in purpose/formula, like `PanzakuPriority` and `DisablePikminFlags`. I have no idea how to calculate the latter.
 
 ### 1.0 Release Targets:
 
 - ✅ CrushJelly AI
 - Crush bag requirements
 - Gates HP?
-- (?) Cave AI/portal linking
+- ✅ Cave AI/portal linking
 - Night maps
 - ✅ Map icon rotation?
 - ✅ Legend

@@ -1,4 +1,4 @@
-import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes } from '../api/types';
 import { default as entityData } from '../api/entityData.json';
 import { floatToByteArr, intToByteArr } from '../utils/bytes';
 import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue } from '../utils';
@@ -45,6 +45,15 @@ const ASP_FIELDS = [
     "ActionMarker"
 ];
 
+const writeAsciiString = (bytes, string) => {
+    let lengthBytes = intToByteArr(string.length + 1).reverse();
+    bytes.push(
+        ...lengthBytes,
+        ...string.split('').map(char => char.charCodeAt(0)),
+        0
+    );
+};
+
 export const getConstructAIFunc = (creatureId, infoType) => {
     if (creatureId === 'GroupDropManager') return constructGDMAI;
     if (creatureId === 'ActorSpawner') return constructActorSpawnerAI;
@@ -54,6 +63,45 @@ export const getConstructAIFunc = (creatureId, infoType) => {
     if (creatureId.includes('CrushJelly')) return constructPotAI;
     if (infoType === InfoType.Creature) return constructCreatureAI;
     return defaultAI;
+};
+
+export const getConstructPortalTriggerFunc = infoType => {
+    if (infoType == InfoType.Portal) return constructPortalTrigger;
+    return (_, pt) => pt;
+};
+
+const constructPortalTrigger = ({ transform, PortalTrigger }) => {
+    const bytes = [];
+    bytes.push(parseInt(findObjectKeyByValue(PortalTypes, PortalTrigger.portalType)));
+    bytes.push(parseInt(PortalTrigger.portalNumber), 0, 0, 0);
+    writeAsciiString(bytes, PortalTrigger.toLevelName);
+    writeAsciiString(bytes, PortalTrigger.toSubLevelName);
+    bytes.push(parseInt(PortalTrigger.toPortalId), 0, 0, 0);
+    bytes.push(1, 0, 0, 0); // Dunno what this bool is
+    writeAsciiString(bytes, `/Game/Carrot4/Demo/PlayParam/Common/${PortalTrigger.demoPlayParamEnter}.${PortalTrigger.demoPlayParamEnter}`);
+    bytes.push(0, 0, 0, 0); // dunno what this is
+    writeAsciiString(bytes, `/Game/Carrot4/Demo/PlayParam/Common/${PortalTrigger.demoPlayParamExit}.${PortalTrigger.demoPlayParamExit}`);
+    bytes.push(0, 0, 0, 0); // or this
+    if (PortalTrigger.checkPointLevelNames) {
+        bytes.push(PortalTrigger.checkPointLevelNames.length, 0, 0, 0);
+        PortalTrigger.checkPointLevelNames.forEach(level => writeAsciiString(bytes, level));
+    }
+    else bytes.push(0, 0, 0, 0);
+    bytes.push(...intToByteArr(parseInt(PortalTrigger.toBaseCampId)).reverse());
+    bytes.push(PortalTrigger.bInitialPortalMove ? 1 : 0, 0, 0, 0);
+    bytes.push(PortalTrigger.bDeactivateByExit ? 1 : 0, 0, 0, 0);
+    bytes.push(0, 0, 250, 67); // this float seems regular
+    bytes.push(...floatBytes(parseFloat(PortalTrigger.playAnimDist)));
+    bytes.push(0, 0, 0, 0);
+    bytes.push(parseInt(PortalTrigger.panzakuPriority), 0, 0, 0);
+    bytes.push(...intToByteArr(parseInt(PortalTrigger.disablePikminFlags)).reverse());
+    bytes.push(PortalTrigger.bDisableIsFlareGuard ? 1 : 0, 0, 0, 0);
+    // bytes.push(...PortalTrigger.spareBytes);
+    bytes.push(0, 0, 200, 66, 0, 0, 180, 66, 0, 0, 72, 66);
+    bytes.push(...floatBytes(parseFloat(transform.translation.X)));
+    bytes.push(...floatBytes(parseFloat(transform.translation.Y)));
+    bytes.push(...floatBytes(parseFloat(transform.translation.Z) + 50.0));
+    return bytes;
 };
 
 const constructNoraSpawnerAI = (drops, aiStatic, { AIProperties }) => {
@@ -74,12 +122,7 @@ const constructNoraSpawnerAI = (drops, aiStatic, { AIProperties }) => {
     bytes.push(0, 0, 0, 0);
     bytes.push(1, 0, 0, 0);
     bytes.push(16); // no idea what this is, it's related to pongashi color
-    let lengthBytes = intToByteArr(AIProperties.noraIdlingPreset.length + 1).reverse();
-    bytes.push(
-        ...lengthBytes,
-        ...AIProperties.noraIdlingPreset.split('').map(char => char.charCodeAt(0)),
-        0
-    );
+    writeAsciiString(bytes, AIProperties.noraIdlingPreset);
     bytes.push(0, 0, 0, 0); // this changes often, no clue what bool it is yet
     bytes.push(parseInt(findObjectKeyByValue(PikminPlayType, AIProperties.groupIdlingType)));
     bytes.push(0, 0, 0, 0);
@@ -89,23 +132,11 @@ const constructNoraSpawnerAI = (drops, aiStatic, { AIProperties }) => {
     bytes.push(0, 0, 128, 191);
     bytes.push(drops.length, 0, 0, 0);
     drops.forEach(drop => {
-        let lengthBytes = intToByteArr(drop.assetName.length + 1).reverse();
-
-        bytes.push(
-            ...lengthBytes,
-            ...drop.assetName.split('').map(char => char.charCodeAt(0)),
-            0
-        );
+        writeAsciiString(bytes, drop.assetName);
         const actorName = getNameFromAsset(drop.assetName);
 
         if (actorName.includes("Survivor")) { // Push custom sleep params if survivor
-            lengthBytes = intToByteArr(CustomParameterOverrides[actorName].length + 1).reverse();
-
-            bytes.push(
-                ...lengthBytes,
-                ...CustomParameterOverrides[actorName].split('').map(char => char.charCodeAt(0)),
-                0
-            );
+            writeAsciiString(bytes, CustomParameterOverrides[actorName]);
         }
         else bytes.push(...NONE_BYTES);
 
@@ -150,23 +181,12 @@ const constructInventory = (drops, bytes) => {
             bytes.push(0); // Also zero demoFlag for now too
         }
         else bytes.push(0, 0, 0, 0);
-        let lengthBytes = intToByteArr(drop.assetName.length + 1).reverse();
+        writeAsciiString(bytes, drop.assetName);
 
-        bytes.push(
-            ...lengthBytes,
-            ...drop.assetName.split('').map(char => char.charCodeAt(0)),
-            0
-        );
         const actorName = getNameFromAsset(drop.assetName);
 
         if (actorName.includes("Survivor")) { // Push custom sleep params if survivor
-            lengthBytes = intToByteArr(CustomParameterOverrides[actorName].length + 1).reverse();
-
-            bytes.push(
-                ...lengthBytes,
-                ...CustomParameterOverrides[actorName].split('').map(char => char.charCodeAt(0)),
-                0
-            );
+            writeAsciiString(bytes, CustomParameterOverrides[actorName]);
         }
         else bytes.push(...NONE_BYTES);
 
@@ -191,12 +211,7 @@ const constructGDMAI = (drops, aiStatic, { groupingRadius, ignoreList = [], inve
     const ignoreListLength = ignoreList.length;
     bytes.push(ignoreListLength, 0, 0, 0);
     ignoreList.forEach(ignore => {
-        let lengthBytes = intToByteArr(ignore.length + 1).reverse();
-        bytes.push(
-            ...lengthBytes,
-            ...ignore.split('').map(char => char.charCodeAt(0)),
-            0
-        );
+        writeAsciiString(bytes, ignore);
     });
 
     bytes.push(drops.length, 0, 0, 0);
@@ -273,19 +288,8 @@ const constructActorSpawnerAI = ([drop], aiStatic) => {
     //bNoDropItem
     bytes.push(parseInt(drop.noDropItem) ? 1 : 0, 0, 0, 0);
     // assetPath
-    let lengthBytes = intToByteArr(drop.assetName.length + 1).reverse();
-    bytes.push(
-        ...lengthBytes,
-        ...drop.assetName.split('').map(char => char.charCodeAt(0)),
-        0
-    );
-
-    lengthBytes = intToByteArr(drop.customParameter.length + 1).reverse();
-    bytes.push(
-        ...lengthBytes,
-        ...drop.customParameter.split('').map(char => char.charCodeAt(0)),
-        0
-    );
+    writeAsciiString(bytes, drop.assetName);
+    writeAsciiString(bytes, drop.customParameter);
 
     bytes.push(...drop.spareBytes);
     return bytes;
@@ -310,23 +314,11 @@ const constructCreatureAI = (drops, aiStatic, { inventoryEnd }) => {
             slotBytes.push(0); // Also zero demoFlag for now too
         }
         else slotBytes.push(0, 0, 0, 0);
-        let lengthBytes = intToByteArr(drop.assetName.length + 1).reverse();
-
-        slotBytes.push(
-            ...lengthBytes,
-            ...drop.assetName.split('').map(char => char.charCodeAt(0)),
-            0
-        );
+        writeAsciiString(slotBytes, drop.assetName);
 
         const actorName = getNameFromAsset(drop.assetName);
         if (actorName.includes("Survivor")) { // Push custom sleep params if survivor
-            lengthBytes = intToByteArr(CustomParameterOverrides[actorName].length + 1).reverse();
-
-            slotBytes.push(
-                ...lengthBytes,
-                ...CustomParameterOverrides[actorName].split('').map(char => char.charCodeAt(0)),
-                0
-            );
+            writeAsciiString(slotBytes, CustomParameterOverrides[actorName]);
         }
         else slotBytes.push(...NONE_BYTES);
 
@@ -357,7 +349,7 @@ const constructCreatureAI = (drops, aiStatic, { inventoryEnd }) => {
     return [...aiStatic.slice(0, 20), ...inventoryBytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)];
 };
 
-export const constructTeki = (actor, mapId) => {
+export const constructActor = (actor, mapId) => {
     console.log("Constructing a", actor);
     const transforms = {
         Rotation: {
@@ -436,6 +428,10 @@ export const constructTeki = (actor, mapId) => {
                     AIProperties: actor?.AIProperties || defaultAIProperties
                 }),
                 Dynamic: entityData[actor.creatureId].AI[0].Dynamic
+            },
+            PortalTrigger: {
+                Static: getConstructPortalTriggerFunc(actor.infoType)(actor, entityData[actor.creatureId].PortalTrigger[0].Static),
+                Dynamic: entityData[actor.creatureId].PortalTrigger[0].Dynamic
             }
         },
         SubLevelName: mapId,

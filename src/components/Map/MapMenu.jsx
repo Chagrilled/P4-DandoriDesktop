@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Menu, Item, Separator, Submenu } from 'react-contexify';
-import { RebirthTypes, DefaultActorSpawnerDrop, InfoType } from '../../api/types';
+import { RebirthTypes, DefaultActorSpawnerDrop, InfoType, DefaultPortalTrigger } from '../../api/types';
 import { getAvailableTimes } from '../../utils';
 
 const { Creature, Treasure, Gimmick, Object, WorkObject, Pikmin, Base, Onion, Hazard, Portal } = InfoType;
@@ -72,6 +72,7 @@ export const MapMenu = ({ }) => {
             newMarker.ignoreList = "[]";
             newMarker.groupingRadius = 300;
         }
+        if (id === Portal) newMarker.PortalTrigger = DefaultPortalTrigger;
         if (id !== Creature) newMarker.time = getAvailableTimes(mapId)[0];
 
         setMapData({

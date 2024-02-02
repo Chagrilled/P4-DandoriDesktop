@@ -1,8 +1,8 @@
 
 import { setFloats, getAssetPathFromId } from '../utils';
 import deepEqual from 'deep-equal';
-import { getReadAIFunc } from './reading';
-import { getConstructAIFunc } from './constructing';
+import { getReadAIFunc, getReadPortalFunc } from './reading';
+import { getConstructAIFunc, getConstructPortalTriggerFunc } from './constructing';
 
 export const getSubpath = creatureId => {
     if (creatureId === 'ActorSpawner') return 'Gimmicks/ActorSpawner';
@@ -24,7 +24,7 @@ export const regenerateAGLEntity = (actor, aglData) => {
     //     return newEntity;
     // }
     const transforms = {
-        Rotation: setFloats(aglData.InitTransform.Rotation),
+        Rotation: setFloats(actor.transform.rotation),
         Translation: setFloats(actor.transform.translation),
         Scale3D: setFloats(actor.transform.scale3D)
     };
@@ -54,6 +54,28 @@ export const regenerateAGLEntity = (actor, aglData) => {
     }
     else console.log(actor.creatureId, "AI is unchanged");
 
+    const originalPT = aglData.ActorSerializeParameter.AI.Static;
+    const { PortalTrigger } = getReadPortalFunc(actor.infoType)(aglData.ActorSerializeParameter.PortalTrigger.Static);
+    const isPTUnchanged = deepEqual({
+        PortalTrigger,
+        transform: aglData.Transform.Translation
+    }, {
+        PortalTrigger: actor.PortalTrigger,
+        transform: transforms.Translation
+    });
+    let newPT = {};
+    if (!isPTUnchanged) {
+        console.log(actor.creatureId, "constructing new PortalTrigger");
+        newPT = {
+            PortalTrigger: {
+                Static: getConstructPortalTriggerFunc(actor.infoType)(actor, originalPT),
+                Dynamic: aglData.ActorSerializeParameter.PortalTrigger.Dynamic
+            }
+        };
+    }
+    else console.log(actor.creatureId, "PT is unchanged");
+
+
     const newEntity = {
         ...aglData,
         SoftRefActorClass: {
@@ -77,7 +99,8 @@ export const regenerateAGLEntity = (actor, aglData) => {
         },
         ActorSerializeParameter: {
             ...aglData.ActorSerializeParameter,
-            ...newAI
+            ...newAI,
+            ...newPT
         }
     };
     // console.log("regenerated:", newEntity.DropActorInfo.DropOwnerDebugUniqueId);

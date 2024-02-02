@@ -11,6 +11,30 @@ export const PikminTypes = {
     16: 'Not set (PongashiColor only)'
 };
 
+export const PortalTypes = {
+    2: 'DungeonExit',
+    3: 'UpPortal',
+    4: 'DownPortal (cave)',
+    6: 'DownPortal (overworld)',
+    9: 'MadoriHome',
+    10: 'InitialPortalMove',
+    12: 'ExtraCavePortal'
+};
+
+export const DemoPlayParamEnter = [
+    "DPP_EnterCave",
+    "DPP_Challenge_EnterCave",
+    "DPP_MoveCave",
+    "DPPEnterCave_GasCooker"
+];
+
+export const DemoPlayParamExit = [
+    "DPP_FloorCourseInCave",
+    "DPP_FloorCourseInCave_Separation",
+    "DPP_EscapeCave",
+    "None"
+];
+
 // EPikminIdlePlayType enum
 export const PikminPlayType = {
     0: "None",
@@ -757,6 +781,22 @@ export const DefaultActorSpawnerDrop = {
     customParameter: 'None'
 };
 
+export const DefaultPortalTrigger = {
+    portalType: PortalTypes[6],
+    portalNumber: 0,
+    toLevelName: 'Cave001_F00',
+    toSubLevelName: 'None',
+    toPortalId: 0,
+    demoPlayParamEnter: DemoPlayParamEnter[0],
+    demoPlayParamExit: DemoPlayParamExit[0],
+    toBaseCampId: -1,
+    bInitialPortalMove: false,
+    bDeactivateByExit: false,
+    playAnimDist: 300,
+    panzakuPriority: 0,
+    disablePikminFlags: 0,
+    bDisableIsFlareGuard: false,
+};
 
 export const defaultAIProperties = {
     spawnNum: 1,

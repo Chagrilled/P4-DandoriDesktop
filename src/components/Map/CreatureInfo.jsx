@@ -1,11 +1,22 @@
 import React from 'react';
-import { NameMap, RebirthTypes, PikminTypes, PikminPlayType, defaultAIProperties } from "../../api/types";
+import { NameMap, RebirthTypes, PikminTypes, PikminPlayType, defaultAIProperties, DemoPlayParamEnter, DemoPlayParamExit, PortalTypes } from "../../api/types";
 import { useConfig } from '../../hooks/useConfig';
 import { findMarkerById, getAvailableTimes } from '../../utils';
 import { DebouncedInput } from './DebouncedInput';
 
-const editableFields = ["generateNum", "generateRadius", "X", "Y", "Z", "W", "groupingRadius", "rebirthInterval", "birthDay", "deadDay", "spawnNum", "spawnRadius", "noSpawnRadius", "mabikiNumFromFollow", "unknownInt", "pongashiChangeColorFollowNum"];
-const ignoreFields = ["drops", "type", "infoType", "ddId", "outlineFolderPath"];
+const editableNumberFields = ["generateNum", "generateRadius", "X", "Y", "Z", "W", "groupingRadius", "rebirthInterval", "birthDay", "deadDay", "spawnNum", "spawnRadius", "noSpawnRadius", "mabikiNumFromFollow", "unknownInt", "pongashiChangeColorFollowNum", "portalNumber", "toPortalId", "toBaseCampId", "playAnimDist", "disablePikminFlags", "panzakuPriority"];
+const editableBools = ["bMabikiPongashi", "bInitialPortalMove", "bDeactivateByExit", "bDisableIsFlareGuard"];
+const ignoreFields = ["drops", "type", "infoType", "ddId", "outlineFolderPath", "spareBytes"];
+const editableStrings = ["ignoreList", "toLevelName", "toSubLevelName"];
+const selectFields = {
+    pongashiChangeColorFromFollow: Object.values(PikminTypes),
+    pikminType: Object.values(PikminTypes),
+    groupIdlingType: Object.values(PikminPlayType),
+    rebirthType: Object.values(RebirthTypes),
+    portalType: Object.values(PortalTypes),
+    demoPlayParamEnter: DemoPlayParamEnter,
+    demoPlayParamExit: DemoPlayParamExit,
+};
 
 const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId) => {
     console.log("updateObj", obj);
@@ -55,17 +66,17 @@ export const CreatureInfo = ({ obj, mapMarkerData, setMapData, parent, ddId, map
         if (ignoreFields.includes(key)) return;
         const fullKey = `${parent || ''}${parent ? '.' : ''}${key}`;
 
-        if (editableFields.includes(key)) {
+        if (editableNumberFields.includes(key)) {
             return <li key={fullKey}>
                 <b>{key}</b>:&nbsp;
                 <DebouncedInput changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, fullKey, ddId)} value={value} type="number" ddId={ddId} />
             </li>;
         }
 
-        if (key === 'ignoreList') {
+        if (editableStrings.includes(key)) {
             return <li key={key}>
                 <b>{key}</b>:&nbsp;
-                <DebouncedInput changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, key, ddId)} value={value} ddId={ddId} />
+                <DebouncedInput changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, fullKey, ddId)} value={value} ddId={ddId} />
             </li>;
         }
 
@@ -73,7 +84,6 @@ export const CreatureInfo = ({ obj, mapMarkerData, setMapData, parent, ddId, map
             if (['ActorSpawner', 'GroupDropManager'].includes(value)) return <li key={key}>
                 <b>creatureId</b>
                 <div className="ml-4">
-                    {/* TODO: Put other entities in selects for their own category - gimmicks can swap to gimmicks, but not creatures */}
                     {value}
                 </div>
             </li>;
@@ -93,15 +103,6 @@ export const CreatureInfo = ({ obj, mapMarkerData, setMapData, parent, ddId, map
             </li>;
         }
 
-        if (key === 'rebirthType') {
-            return <li key={key}>
-                <b>rebirthType</b>:
-                <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, key, ddId)}>
-                    {Object.values(RebirthTypes).map(rebirthType => <option key={rebirthType} value={rebirthType}>{rebirthType}</option>)}
-                </select>
-            </li>;
-        }
-
         if (key === 'time') {
             return <li key={key}>
                 <b>Time</b>:
@@ -111,25 +112,16 @@ export const CreatureInfo = ({ obj, mapMarkerData, setMapData, parent, ddId, map
             </li>;
         }
 
-        if (["pongashiChangeColorFromFollow", "pikminType"].includes(key)) {
+        if (selectFields[key]) {
             return <li key={fullKey}>
                 <b>{key}</b>:
                 <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, fullKey, ddId)}>
-                    {Object.values(PikminTypes).map(pikminType => <option key={pikminType} value={pikminType}>{pikminType}</option>)}
+                    {selectFields[key].map(value => <option key={value} value={value}>{value}</option>)}
                 </select>
             </li>;
         }
 
-        if (key === 'groupIdlingType') {
-            return <li key={fullKey}>
-                <b>{key}</b>:
-                <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, fullKey, ddId)}>
-                    {Object.values(PikminPlayType).map(playType => <option key={playType} value={playType}>{playType}</option>)}
-                </select>
-            </li>;
-        }
-
-        if (key === 'bMabikiPongashi') {
+        if (editableBools.includes(key)) {
             return <li key={fullKey}>
                 <b>{key}</b>
                 <input

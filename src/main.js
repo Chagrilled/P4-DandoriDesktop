@@ -6,8 +6,8 @@ import swf from 'stringify-with-floats';
 import { spawn } from 'child_process';
 import { exposedGenVars, InfoType, Times } from './api/types';
 import { regenerateAGLEntity } from './genEditing';
-import { getReadAIFunc } from './genEditing/reading';
-import { constructTeki } from './genEditing/constructing';
+import { getReadAIFunc, getReadPortalFunc } from './genEditing/reading';
+import { constructActor } from './genEditing/constructing';
 import { protectNumbers, unprotectNumbers, getInfoType, getAvailableTimes } from './utils';
 import { createMenu } from './utils/createMenu';
 
@@ -223,7 +223,7 @@ ipcMain.handle('saveMaps', async (event, mapId, data) => {
         if (aglData) return regenerateAGLEntity(actor, aglData);
 
         // New actor not in the AGL - construct it
-        return constructTeki(actor, mapId);
+        return constructActor(actor, mapId);
     });
 
     const dayObjectAGL = [];
@@ -234,10 +234,12 @@ ipcMain.handle('saveMaps', async (event, mapId, data) => {
         // Use regenerateAGLEntity later on to de-dupe this once AI is sorted across the board
         typeArray.forEach(actor => {
             const outputArray = actor.time == Times.DAY ? dayObjectAGL : baseObjectAGL;
-            const aglData = rawData[`objects${actor.time}`].Content[0].ActorGeneratorList.find(gameActor => gameActor.ddId == actor.ddId);
+            // Search both rawData arrays in case an actor is swapped from one to the other - we can still find its AGL entry
+            let aglData = rawData.objectsPermanent.Content[0].ActorGeneratorList.find(gameActor => gameActor.ddId == actor.ddId);
+            if (!aglData && rawData.objectsDay) aglData = rawData.objectsDay.Content[0].ActorGeneratorList.find(gameActor => gameActor.ddId == actor.ddId);
             if (aglData) outputArray.push(regenerateAGLEntity(actor, aglData));
             // New actor not in the AGL - construct it
-            else outputArray.push(constructTeki(actor, mapId));
+            else outputArray.push(constructActor(actor, mapId));
         });
     });
 
@@ -382,12 +384,14 @@ ipcMain.handle('readMapData', async (event, mapId) => {
 
         const infoType = getInfoType(subPath);
         const { parsed, AIProperties } = getReadAIFunc(entityId, infoType)(object.ActorSerializeParameter.AI.Static);
-
+        const { PortalTrigger } = getReadPortalFunc(infoType)(object.ActorSerializeParameter.PortalTrigger.Static);
+        
         features[infoType].push({
             type: 'object',
             infoType,
             creatureId: entityId, // rename later
             ...(AIProperties && { AIProperties }),
+            ...(PortalTrigger && { PortalTrigger }),
             transform: {
                 rotation: object.InitTransform.Rotation,
                 translation: object.InitTransform.Translation,
