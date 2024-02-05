@@ -1,5 +1,5 @@
 const { app, BrowserWindow, ipcMain, Menu, dialog, shell } = require('electron');
-import { readdir, promises, constants, readFileSync, accessSync, writeFileSync } from 'fs';
+import { readdir, promises, constants, readFileSync, accessSync, writeFileSync, readdirSync } from 'fs';
 import { join } from 'path';
 import { randomBytes } from 'crypto';
 import swf from 'stringify-with-floats';
@@ -497,18 +497,20 @@ const readMaps = (force) => {
             mainWindow.webContents.send('errorNotify', `Failed to read main area maps from: ${AREA_PATH}`);
             // return mainWindow.webContents.send('getMaps', { maps: [] });
         }
-        maps.push(...areaMaps);
+        // maps.push(...areaMaps);
         areaMaps.forEach(map => {
-            try {
-                accessSync(join(AREA_PATH, map, 'ActorPlacementInfo', `AP_${map}_P_Hero_Teki.json`));
-                maps.push(`HeroStory${map.slice(-3)}`);
-            } catch (e) {
-                // don't care 
-            }
-            // try {
-            //     accessSync(join(AREA_PATH, map, 'ActorPlacementInfo', `AP_${map}_P_Teki_Night.json`));
-            //     maps.push(`Night${map.slice(-3)}`);
-            // } catch (e) { }
+            const files = readdirSync(join(AREA_PATH, map, 'ActorPlacementInfo'));
+            files.forEach(file => {
+                if (file.includes('Hero') && !maps.includes(`HeroStory${map.slice(-3)}`)) {
+                    maps.push(`HeroStory${map.slice(-3)}`);
+                }
+                if (file.match(/_P_(?:Teki|Objects)_/) && !maps.includes(map)) {
+                    maps.push(map);
+                }
+                // if (file.includes('Night') && !maps.includes(`Night${map.slice(-3)}`) {
+                //     maps.push(`Night${map.slice(-3)}`);
+                // }
+            });
         });
         readdir(CAVE_PATH, async (err, caveMaps) => {
             if (err) {

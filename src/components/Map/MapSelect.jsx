@@ -20,8 +20,7 @@ export const MapSelect = ({ onSelect, currentMap }) => {
         return () => {
             window.electron.ipcRenderer.removeAllListeners('getMaps');
         };
-    }, [
-    ]);
+    }, []);
 
     // Fetch maps if there are none - make this performant if it keeps asking for more maps each render
     if (!maps.length && !loaded) {
@@ -34,7 +33,7 @@ export const MapSelect = ({ onSelect, currentMap }) => {
         let mapName = IdToNameMap[splitId[0]];
         mapName += splitId[1] ? ' ' + splitId[1] : '';
         return <div key={mapId}>
-            <button className={currentMap == mapId ? "font-bold" : ""} onClick={() => { onSelect(mapId); return false; }}>{`${mapName} (${mapId})`}</button>
+            <button className={currentMap == mapId ? "font-bold" : ""} onClick={() => { onSelect(mapId); return false; }}>{mapName} <i>{` (${mapId})`}</i></button>
         </div>;
     }, [onSelect]);
 
