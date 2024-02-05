@@ -502,5 +502,29 @@
     "HeroStory010": {
         "rotation": -90,
         "extentRadius": 6000
+    },
+    "Night001": {
+        "rotation": -75,
+        "extentRadius": 6000
+    },
+    "Night002": {
+        "rotation": 154,
+        "extentRadius": 6000
+    },
+    "Night003": {
+        "rotation": 92,
+        "extentRadius": 6000
+    },
+    "Night004": {
+        "rotation": 55,
+        "extentRadius": 6000
+    },
+    "Night006": {
+        "rotation": 54,
+        "extentRadius": 6000
+    },
+    "Night010": {
+        "rotation": -90,
+        "extentRadius": 6000
     }
 }

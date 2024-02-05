@@ -73,6 +73,7 @@ export const getAssetPathFromId = id => internalAssetNames.find(asset => asset.i
 
 export const getAvailableTimes = mapId => {
     if (['HeroStory', 'Cave', 'Area011'].some(area => mapId.includes(area))) return [Times.PERM];
+    if (mapId.includes('Night')) return [Times.PERM, Times.NIGHT];
     return [Times.DAY, Times.PERM];
 };
 
@@ -82,7 +83,11 @@ export const findObjectKeyByValue = (object, target) => Object.keys(object).find
 
 export const doesEntityHaveDrops = entity => {
     if (entity.infoType === InfoType.Creature) return true;
-    return ["NoraSpawner", "CrackP", "GroupDropManager", "CrushJelly"].some(asset => entity.creatureId.includes(asset));
+    return ["NoraSpawner", "CrackP", "GroupDropManager", "CrushJelly", "Gate"].some(asset => entity.creatureId.includes(asset));
+};
+
+export const doesEntityHaveRareDrops = entity => {
+    return ["Gate"].some(asset => entity.creatureId.includes(asset));
 };
 
 export const shouldIconRotate = creatureId => {
@@ -96,4 +101,13 @@ export const shouldIconRotate = creatureId => {
     if (creatureId.includes('Switch')) return true;
     if (creatureId.includes('Slope')) return true;
     if (['PullNekko', 'DownWall', 'Conveyor265uu'].some(asset => asset === creatureId)) return true;
-}
+};
+
+export const findSequenceStartIndex = (array, offset, sequence) => {
+    for (let i = offset; i <= array.length - sequence.length; i++) {
+        if (array.slice(i, i + sequence.length).every((value, index) => value === sequence[index])) {
+            return i; 
+        }
+    }
+    return -1;
+};

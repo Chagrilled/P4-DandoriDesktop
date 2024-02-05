@@ -12,7 +12,7 @@ export const getMapData = async (mapId) => {
 
     // TODO need to reorganize all this stuff
     const data = getPregeneratedData(mapId);
-
+    mapId = mapId.replace('Night', 'Area');
     return {
         mapId,
         imageUrl: `../images/maps/${mapId}/T_ui_Map_${mapId}_D.png`,
@@ -38,7 +38,8 @@ const getPregeneratedData = (mapId) => {
         dataUrl += `${areaId}/olimar.json`;
     }
     else {
-        dataUrl += `${mapId}/day.json`;
+        if (mapId.includes('Night')) dataUrl += `Area${mapId.slice(-3)}/night.json`;
+        else dataUrl += `${mapId}/day.json`;
     }
 
     const json = require(`../assets/mapData/${dataUrl}`);

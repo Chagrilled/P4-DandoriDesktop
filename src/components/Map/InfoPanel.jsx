@@ -4,23 +4,18 @@ import { MarkerIcon } from "../Icon";
 import { ExpandPanel } from "./ExpandPanel";
 import { DropCard } from "./Card/DropCard";
 import { CardList } from "./Card/CardList";
-import { doesEntityHaveDrops, findMarkerById, getAngleRotation, getAssetPathFromId, getNameFromAsset } from "../../utils";
+import { doesEntityHaveDrops, findMarkerById, getAngleRotation, getAssetPathFromId, getNameFromAsset, doesEntityHaveRareDrops } from "../../utils";
 import { CreatureInfo } from "./CreatureInfo";
 
-// The number of extra indices adding these objects to the struct changes by
-const inventoryMutators = {
-    bSetTerritory: 20,
-    dropCondition: 15
-};
-
-const updateDrops = (value, mapMarkerData, setMapData, ddId, drop, key, dropDeleteStack, setDropDeleteStack) => {
+const updateDrops = (value, mapMarkerData, setMapData, ddId, drop, key, dropDeleteStack, setDropDeleteStack, isRare) => {
     console.log("val", value);
     // if (!value && key !== 'delete') return;
     console.log("UpdateDrops", ddId);
     const { type } = findMarkerById(ddId, mapMarkerData);
+    const dropType = isRare ? 'rareDrops' : 'parsed';
     const newMapData = mapMarkerData[type].map(creature => {
         if (creature.ddId == ddId) {
-            creature.drops.parsed = creature.drops.parsed.map(d => {
+            creature.drops[dropType] = creature.drops[dropType].map(d => {
                 if (d.id == drop.id) {
                     let newVal;
                     if (["flags"].includes(key)) {
@@ -41,7 +36,7 @@ const updateDrops = (value, mapMarkerData, setMapData, ddId, drop, key, dropDele
                         newVal = value ? 1 : 0;
                     }
                     else if (key == 'delete') {
-                        setDropDeleteStack([...dropDeleteStack, { ...drop, ddId }]);
+                        setDropDeleteStack([...dropDeleteStack, { ...drop, ddId, dropType }]);
                         return;
                     }
                     else if (key == 'assetName') {
@@ -76,16 +71,19 @@ const undoItemDelete = (dropDeleteStack, setDropDeleteStack, mapMarkerData, setM
     if (!dropDeleteStack.length) return;
 
     const missingDrop = dropDeleteStack.slice(-1)[0];
-    const ddId = missingDrop.ddId;
+    const { ddId, dropType } = missingDrop;
     const { type } = findMarkerById(ddId, mapMarkerData);
 
     delete missingDrop.ddId;
+    delete missingDrop.dropType;
+
     const newMapData = mapMarkerData[type].map(creature => {
         if (creature.ddId == ddId) {
             return {
                 ...creature,
                 drops: {
-                    parsed: [...creature.drops.parsed, missingDrop]
+                    ...creature.drops,
+                    [dropType]: [...creature.drops[dropType], missingDrop]
                 }
             };
         }
@@ -96,16 +94,18 @@ const undoItemDelete = (dropDeleteStack, setDropDeleteStack, mapMarkerData, setM
 
 };
 
-const addDrop = (ddId, setMapData, mapMarkerData) => {
+const addDrop = (ddId, setMapData, mapMarkerData, isRare) => {
     const { type } = findMarkerById(ddId, mapMarkerData);
+    const dropType = isRare ? 'rareDrops' : 'parsed';
     setMapData({
         ...mapMarkerData,
         [type]: mapMarkerData[type].map(creature => {
-            const drops = creature.drops.parsed;
+            const drops = creature.drops[dropType];
             if (creature.ddId == ddId) return {
                 ...creature,
                 drops: {
-                    parsed: [
+                    ...creature.drops,
+                    [dropType]: [
                         ...drops,
                         {
                             ...DefaultDrop,
@@ -154,8 +154,8 @@ export const InfoPanel = ({ marker, mapMarkerData, setMapData, mapId }) => {
 
     if (!creature) return null; // CreatureInfo likes to hold on to the selected ID if you change maps
     console.log("CreatureInfo", creature);
-    console.log("Rotation", getAngleRotation(creature.transform.rotation))
-    console.log("Rotation used", -getAngleRotation(creature.transform.rotation) * Math.PI / 180)
+    console.log("Rotation", getAngleRotation(creature.transform.rotation));
+    console.log("Rotation used", -getAngleRotation(creature.transform.rotation) * Math.PI / 180);
     const isActorSpawner = creature.creatureId === 'ActorSpawner';
 
     const title = creature.generateNum
@@ -164,7 +164,7 @@ export const InfoPanel = ({ marker, mapMarkerData, setMapData, mapId }) => {
 
     // This function control is degusting. Maybe use context or something.
     const label = creature.creatureId.includes('NoraSpawner') ? "RandomActorList" : "Drops";
-    const dropList = doesEntityHaveDrops(creature) ? 
+    const dropList = doesEntityHaveDrops(creature) ?
         <ExpandPanel isActorSpawner={isActorSpawner} addDrop={() => addDrop(creature.ddId, setMapData, mapMarkerData)} label={label}>
             {creature.drops?.parsed?.length ? (
                 <CardList>
@@ -177,6 +177,21 @@ export const InfoPanel = ({ marker, mapMarkerData, setMapData, mapId }) => {
                     />)}
                 </CardList>
             ) : null}
+        </ExpandPanel> : '';
+
+    const rareDropList = doesEntityHaveRareDrops(creature) && creature?.drops?.rareDrops ?
+        <ExpandPanel isActorSpawner={isActorSpawner} addDrop={() => addDrop(creature.ddId, setMapData, mapMarkerData, true)} label={"Rare Drops"}>
+            {(
+                <CardList>
+                    {creature.drops.rareDrops.map(drop => <DropCard
+                        key={drop.id || "1"}
+                        isActorSpawner={isActorSpawner}
+                        drop={drop}
+                        updateDrops={(e, drop, key) => updateDrops(e, mapMarkerData, setMapData, creature.ddId, drop, key, dropDeleteStack, setDropDeleteStack, true)}
+                        ddId={creature.ddId}
+                    />)}
+                </CardList>
+            )}
         </ExpandPanel> : '';
 
     let markerIconId = marker.creatureId;
@@ -203,6 +218,7 @@ export const InfoPanel = ({ marker, mapMarkerData, setMapData, mapId }) => {
             {<CreatureInfo obj={creature} mapMarkerData={mapMarkerData} setMapData={setMapData} parent={''} ddId={creature.ddId} mapId={mapId} />}
         </ul>
         {dropList}
+        {rareDropList}
         <div className="flex">
             <svg onClick={() => { deleteMarker(mapMarkerData, setMapData, creature); setDeleteStack([...deleteStack, creature]); }} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="m-auto pt-4 min-h-[5rem] w-20 h-20 hover:text-red-600">
                 <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />

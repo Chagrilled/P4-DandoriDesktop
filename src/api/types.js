@@ -86,128 +86,12 @@ export const PikminSpawnState = {
 };
 
 export const MarkerType = {
-    // collectibles
     Treasure: 'treasure',
-    CastawayNormal: 'castaway-normal',
-    CastawayLeafling: 'castaway-leafling',
     Creature: 'creature',
-    OnionFlarlic: 'onion-flarlic',
-    OnionRed: 'onion-red',
-    OnionYellow: 'onion-yellow',
-    OnionBlue: 'onion-blue',
-    OnionPurple: 'onion-purple',
-    OnionWhite: 'onion-white',
-    OnionRock: 'onion-rock',
-    OnionWing: 'onion-wing',
-    OnionIce: 'onion-ice',
-    // pikmin
-    PikminRed: 'pikmin-red',
-    PikminYellow: 'pikmin-yellow',
-    PikminBlue: 'pikmin-blue',
-    PikminPurple: 'pikmin-purple',
-    PikminWhite: 'pikmin-white',
-    PikminRock: 'pikmin-rock',
-    PikminWing: 'pikmin-wing',
-    PikminIce: 'pikmin-ice',
-    CandypopRed: 'candypop-red',
-    CandypopYellow: 'candypop-yellow',
-    CandypopBlue: 'candypop-blue',
-    CandypopPurple: 'candypop-purple',
-    CandypopWhite: 'candypop-white',
-    CandypopRock: 'candypop-rock',
-    CandypopWing: 'candypop-wing',
-    CandypopIce: 'candypop-ice',
-    // structures
-    PileMaterials: 'pile-materials',
-    StructureBridge: 'structure-bridge',
-    StructureSlope: 'structure-slope',
-    StructureValve: 'structure-valve',
-    StructureWall: 'structure-wall',
-    HazardSprinkler: 'hazardradial-sprinkler',
-    // breakables
-    BreakableHydrojelly: 'breakable-hydrojelly',
-    BreakablePot: 'breakable-pot',
-    BreakableKingcapnormal: 'breakable-kingcapnormal',
-    BreakableSpotcapnormal: 'breakable-spotcapnormal',
-    BreakableKingcappoison: 'breakable-kingcappoison',
-    BreakableSpotcappoison: 'breakable-spotcappoison',
-    MiscGroupdropmanager: 'misc-groupdropmanager',
-    BreakableStraw: 'breakable-straw',
-    BreakableIcebox: 'breakable-icebox',
-    FirepitLit: 'firepit-lit',
-    FirepitUnlit: 'firepit-unlit',
-    BreakableCrystal: 'breakable-crystal',
-    // items
-    BreakableMound: 'breakable-mound',
-    BreakableEgg: 'breakable-egg',
-    MiscBomb: 'miscitem-bomb',
-    MiscIcebomb: 'miscitem-icebomb',
-    MiscSpicy: 'miscitem-spicy', // not an actual map marker, but is a drop marker
-    MiscSpiderwort: 'misc-spiderwort',
-    // hazards
-    HazardSpoutFire: 'hazardspout-fire',
-    HazardSpoutElectric: 'hazardspout-electric',
-    HazardSpoutWater: 'hazardspout-water',
-    HazardSpoutPoison: 'hazardspout-poison',
-    HazardSpoutIce: 'hazardspout-ice',
-    HazardSpoutBubble: 'hazardspout-bubble',
-    HazardFloorfire: 'hazardradial-floorfire',
-    HazardCharcoal: 'hazardmisc-charcoal',
-    HazardFloormushroom: 'hazardradial-floormushroom',
-    // shortcuts
-    ShortcutClipboardhigh: 'shortcut-clipboardhigh',
-    ShortcutClipboardlow: 'shortcut-clipboardlow',
-    ShortcutPushbag: 'shortcut-pushbag',
-    ShortcutPushboxcardboard: 'shortcut-pushboxcardboard',
-    ShortcutPushboxmetal: 'shortcut-pushboxmetal',
-    ShortcutRoot: 'shortcut-root',
-    ShortcutStringup: 'shortcut-stringup',
-    ShortcutStringdown: 'shortcut-stringdown',
-    RidableGeyser: 'ridable-geyser',
-    RidableZipline: 'ridable-zipline',
-    TunnelAny: 'tunnel-any',
-    TunnelCaptain: 'tunnel-captain',
-    TunnelOatchi: 'tunnel-oatchi',
-    PlatformBounce: 'platform-bounceshroom',
-    PlatformCharge: 'platform-chargeshroom',
-    RidableMovefloor: 'ridable-movefloor',
-    // gates
-    GateBomb: 'gate-bomb',
-    GateCrystal: 'gate-crystal',
-    GateDirt: 'gate-dirt',
-    GateElectric: 'gate-electric',
-    GateIce: 'gate-ice',
-    Gatconstbered: 'gate-numbered',
-    ShortcutSquashbag: 'shortcut-squashbag',
-    // switchables
-    SwitchConveyor: 'switchable-conveyor',
-    SwitchFan: 'switchable-fan',
-    SwitchFenceiron: 'switchable-fenceiron',
-    SwitchFencenormal: 'switchable-fencenormal',
-    SwitchSingle: 'switchable-singleswitch',
-    SwitchDouble: 'switchable-doubleswitch',
-    // locations
-    BaseOnion: 'base-onion',
-    BaseBeagle: 'base-beagle',
-    CaveEntrance: 'cave-entrance',
-    CaveExit: 'cave-exit',
-    CaveChallenge: 'cave-challenge',
-    CaveBattle: 'cave-battle',
+
     // water
     WaterWater: 'water-water',
     WaterSwamp: 'water-swamp',
-    SwitchDrain: 'switchable-drain',
-    // misc
-    MiscPullrope: 'misc-pullrope',
-    MiscStick: 'misc-stick',
-    MiscIcicle: 'misc-icicle',
-    MiscHoney: 'miscitem-honey',
-    // night
-    NightLumiknoll: 'night-lumiknoll',
-    NightTricknoll: 'night-tricknoll',
-    PileGlowpellets: 'pile-glowpellets',
-    // custom
-    MapPin: 'ddb-pin',
 
     // My types
     Gimmick: 'gimmick',
@@ -222,26 +106,11 @@ export const MarkerType = {
 
 export const InfoType = {
     Treasure: 'treasure',
-    Castaway: 'castaway',
     Creature: 'creature',
     Onion: 'onion',
     Pikmin: 'pikmin',
-    Candypop: 'candypop',
-    Structure: 'structure',
-    Pile: 'pile',
-    Breakable: 'breakable',
-    Firepit: 'firepit',
     Hazard: 'hazard',
-    Shortcut: 'shortcut',
-    Ridable: 'ridable',
-    Platform: 'platform',
-    Tunnel: 'tunnel',
-    Gate: 'gate',
-    Switchable: 'switchable',
-    Base: 'base',
-    Cave: 'cave',
     Water: 'water',
-    Misc: 'misc',
     Night: 'night',
     Gimmick: 'gimmick',
     Object: 'object',
@@ -401,110 +270,6 @@ export const isCreature = (marker) => {
 
 export const isGimmick = (marker) => {
     return marker.infoType === InfoType.Gimmick;
-};
-
-// Order of priorities of drop items.
-// Static drops, the chance does not matter
-const StaticDropPriorities = Object.fromEntries(
-    Object.entries([
-        MarkerType.Treasure,
-        MarkerType.CastawayNormal,
-        MarkerType.CastawayLeafling,
-        MarkerType.PikminRed,
-        MarkerType.PikminYellow,
-        MarkerType.PikminBlue,
-        MarkerType.PikminPurple,
-        MarkerType.PikminWhite,
-        MarkerType.PikminRock,
-        MarkerType.PikminWing,
-        MarkerType.PikminIce,
-        MarkerType.Creature,
-    ]).map(([k, v]) => [v, +k])
-);
-// TODO figure this out later
-const WeightedDropPriorities = {
-    // Get the weight by:       chance threshold / amount threshold
-    //   i.e for materials:     5 pieces * 0.5 chance will yield 1.
-    [MarkerType.MiscBomb]: 100 / 29 / 1,
-    [MarkerType.MiscIcebomb]: 100 / 30 / 1,
-    [MarkerType.MiscSpicy]: 100 / 31 / 1,
-    [MarkerType.PileMaterials]: 100 / 50 / 5,
-    [MarkerType.MiscHoney]: 100 / 75 / 1,
-};
-
-const getDropPriority = (drops) => {
-    let maxIndex = 0;
-    let maxWeight = WeightedDropPriorities[drops[0].type] || 0;
-
-    // Note: start at zero to check it for a special type.
-    for (let i = 0; i < drops.length; i++) {
-        if (drops[i].type in StaticDropPriorities) {
-            return {
-                type: drops[i].type,
-                weight: 1_000_000
-            };
-        }
-
-        const dropWeight = WeightedDropPriorities[drops[i].type] || 0;
-        if (dropWeight > maxWeight) {
-            maxIndex = i;
-            maxWeight = dropWeight;
-        }
-    }
-    return {
-        type: drops[maxIndex].type,
-        weight: maxWeight
-    };
-};
-
-const MarkerFilterWeights = {
-    // don't overide gates (unless it's something important)
-    [MarkerType.Creature]: 1000,
-    // don't overide gates (unless it's something important)
-    [MarkerType.GateBomb]: 1000,
-    [MarkerType.GateCrystal]: 1000,
-    [MarkerType.GateDirt]: 1000,
-    [MarkerType.GateElectric]: 1000,
-    [MarkerType.GateIce]: 1000,
-    [MarkerType.Gatconstbered]: 1000,
-    [MarkerType.ShortcutSquashbag]: 1000,
-    // don't overide mounds, unless it has items or lots of mats
-    [MarkerType.BreakableMound]: 2.5,
-    // breakables
-    [MarkerType.BreakableHydrojelly]: 1.5, // takes awhile to break
-    [MarkerType.BreakablePot]: 1,
-    [MarkerType.BreakableKingcapnormal]: 1.5, // takes awhile to break
-    [MarkerType.BreakableKingcappoison]: 1.5, // takes awhile to break
-    [MarkerType.BreakableSpotcapnormal]: 1,
-    [MarkerType.BreakableSpotcappoison]: 1,
-    // misc
-    [MarkerType.BreakableEgg]: 2.5, // don't override unless items
-};
-
-export const getFilterType = (marker) => {
-    return marker.type;
-    // if (!marker.drops) {
-    //   return marker.type;
-    // }
-
-    // // check the drops for the marker filter type
-    // const dropPriority = getDropPriority(marker.drops);
-    // const markerWeight = MarkerFilterWeights[marker.type] || 0;
-
-    // return dropPriority.weight > markerWeight
-    //   ? dropPriority.type
-    //   : marker.type;
-};
-
-export const getDropType = (marker) => {
-    return undefined;
-
-    // if (!marker.drops) {
-    //   return undefined;
-    // }
-
-    // // highest priority drop
-    // return getDropPriority(marker.drops).type;
 };
 
 export const Legends = [
@@ -761,10 +526,10 @@ export const DefaultActorSpawnerDrop = {
     carry: 1,
     halfHeight: 100,
     infiniteSpawn: 0,
-    mysteryBool1: 1,
-    mysteryBool2: 1,
-    mysteryBool3: 1,
-    mysteryBool5: 1,
+    avatar: 1,
+    pikmin: 1,
+    avatarAndPikmin: 1,
+    bNotOverlap: 1,
     noDropItem: 0,
     overlapCenterX: 0,
     overlapCenterY: 0,
@@ -815,6 +580,8 @@ export const defaultAIProperties = {
         Z: 0.0
     }
 };
+
+export const GateMiddleBytes = [5, 0, 0, 0, 78, 111, 110, 101, 0, 205, 204, 204, 61, 0, 0, 32, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 200, 66, 0, 0, 122, 67, 0, 0, 200, 66, 0, 0, 150, 66, 0, 0, 150, 66, 34, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 export const TreasureNames = {
     Ota3DMegane: "Dimension Converter",
@@ -1251,7 +1018,8 @@ export const ObjectNames = {
     SurvivorKoppai: 'Koppai Survivor',
     SurvivorLeaf: 'Leafling Survivor',
     Tsuyukusa: 'Burgeoning Spiderwort',
-    SurvivorOlimarLeaf: 'Olimar Leafling'
+    SurvivorOlimarLeaf: 'Olimar Leafling',
+    HikariStation: 'Glow Pellets'
 };
 
 export const PortalNames = {
@@ -2569,8 +2337,6 @@ export const internalAssetNames = ["/Game/Carrot4/Placeables/Addon/AddLand/Area0
     "/Game/Carrot4/Placeables/Zukan/DT_ZukanOtakaraParameter.DT_ZukanOtakaraParameter_C",
     "/Game/Carrot4/Placeables/Zukan/DT_ZukanTekiParameter.DT_ZukanTekiParameter_C"
 ];
-
-
 
 export const Times = {
     DAY: 'Day',

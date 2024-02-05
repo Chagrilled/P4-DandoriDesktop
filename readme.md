@@ -151,7 +151,6 @@ The bytes I construct are then spliced together with the base template for that 
 - 🚧 Teki editor
 - ✅ Save to AGL  
 - ✅ Integrate with deployment tools 
-- ❌ Formatted view for???
 - ✅ Click to create entities 
     - ✅ construct actors from dataset 
 - ✅ Drag entities 
@@ -186,24 +185,24 @@ The bytes I construct are then spliced together with the base template for that 
 - ❌ Night teki files
 - 🚧 Unit tests (lol)
 - ✅ GitHub issue template
-- ❌ Flint beetle drops
+- ✅ Flint beetle drops
 - ❌ How skutterchucks start with bombs - probably a CustomParameter
 - ✅ Make `params` actually the fields they are now I know what it is
 - ❌ Make an MSI for Yoshi3
 - ✅ RebirthLater/RebirthInterval
 - ✅ Extract JSONs button
 - ✅ Send a message if people's uasset isn't the decoded `Content` array
-- ❌ Support raw JSON exports later on - don't think they can be encoded back anyway
 - ✅ Fix icons for night enemies in caves
 - ❌ Dandori battle maps - where/what even are they?
 - ✅ Support castaway drops (untested in game, but AI looks correct)
 - ❌ Better error reporting for the deploy process
 - ✅ Alphabetise the creature dropdown by the type of name we're displaying first (swapping internal names still makes them ordered by internal) 
 - ✅ Refactor/cleanup the icons so there aren't duplicates
-- ❌ Rotate icons that require it, like bridges/gates so they look better
+- 🚧 Rotate icons that require it, like bridges/gates so they look better - works for most, some icons are being funny
 - ❌ How does hazard AI work? Surely you can override the HibaBase blueprint - Some HibaIce do this in their HibaAIParameters, but the changes aren't reflected in the AI.
 - ❌ Refactor the map to see if I can separate state from the map data, which might fix the component-refreshing problem. A bit similarly to filters. Perhaps the map doesn't have to use the main data set and can maintain its own without having the main map set as a prop? 
 - ✅ Portals
+- ❌ Need a way to arbitrarily add parameters to objects, so swapping to things like gates, where `Life` is needed, but not anywhere else, is possible for newly created objects.
 
 </details>
 
@@ -223,7 +222,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ Fix inventories where bSetTerritory is true - this causes 4 more bytes to exist, which would mess up the inventory byte (cave007_F00 minimochi egg drop)
 - ✅ Flint beetle drops are different to normal enemies (Giant's Hearth flint beetle near lemon) - No they weren't, they were just pellets that I hadn't supported yet
 - ✅ DebouncedInput doesn't get to reinitialise state when swapping to a new entity, and thus doesn't refresh when a new InfoPanel is rendered
-- 🐛 Exception is thrown early if no teki file is present - Cave004_F00 is an example of this where no teki file naturally exists
+- ✅ Exception is thrown early if no teki file is present - Cave004_F00 is an example of this where no teki file naturally exists
 - 🐛 Some objects just crash the game upon being added to an AGL (at least the prologue). Probably not a bug per se, but just how the entities work. AirGeyser is one of these. Unsure why. Haven't tested with editing existing geysers.
 - 🐛 Icons that are filtered off the map still have their draggable center on hover
 
@@ -246,13 +245,5 @@ These objects have (most) of their pertinent bytes parsed and displayed for mani
  - ✅ NoraSpawners - diagram on TKB.
  - ✅ CrushJelly - They're just pots. There's a `searchCIDList` array which seems to be items that can be "in" the jelly (as in pre-spawned items, not drops on destroy)
  - ✅ Portals - TriggerPortal is fully supported, so you can link portals to wherever you like. Results may vary. Some parameters are completely unknown in purpose/formula, like `PanzakuPriority` and `DisablePikminFlags`. I have no idea how to calculate the latter.
-
-### 1.0 Release Targets:
-
-- ✅ CrushJelly AI
-- Crush bag requirements
-- Gates HP?
-- ✅ Cave AI/portal linking
-- Night maps
-- ✅ Map icon rotation?
-- ✅ Legend
+ - ✅ Gates - Health is adjustable and they can be given drops. I don't know what `RareDropParameter` is, but I've exposed it for editing.
+ - 🚧 Paper bags - you can adjust their weight requirement. I've not looked at their AI to see if they have an inventory to mutate.

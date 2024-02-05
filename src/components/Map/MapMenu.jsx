@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Menu, Item, Separator, Submenu } from 'react-contexify';
-import { RebirthTypes, DefaultActorSpawnerDrop, InfoType, DefaultPortalTrigger } from '../../api/types';
+import { RebirthTypes, DefaultActorSpawnerDrop, InfoType, DefaultPortalTrigger, GateMiddleBytes } from '../../api/types';
 import { getAvailableTimes } from '../../utils';
 
 const { Creature, Treasure, Gimmick, Object, WorkObject, Pikmin, Base, Onion, Hazard, Portal } = InfoType;
@@ -62,7 +62,8 @@ export const MapMenu = ({ }) => {
             deadDay: 0,
             ddId: window.crypto.randomUUID(),
             drops: {
-                parsed: []
+                parsed: [],
+                rareDrops: []
             }
         };
 
@@ -74,7 +75,8 @@ export const MapMenu = ({ }) => {
         }
         if (id === Portal) newMarker.PortalTrigger = DefaultPortalTrigger;
         if (id !== Creature) newMarker.time = getAvailableTimes(mapId)[0];
-
+        if (id === WorkObject) newMarker.drops.spareBytes = GateMiddleBytes;
+        
         setMapData({
             ...mapMarkerData,
             [infoType]: [

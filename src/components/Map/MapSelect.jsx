@@ -92,4 +92,10 @@ const IdToNameMap = {
     "HeroStory002": "Blossoming Arcadia (OST)",
     "HeroStory003": "Serene Shores (OST)",
     "HeroStory010": "Hero's Hideaway (OST)",
+    "Night001": "Sun-Speckled Terrace (Night)",
+    "Night002": "Blossoming Arcadia (Night)",
+    "Night003": "Serene Shores (Night)",
+    "Night004": "Giant's Heart (Night)",
+    "Night006": "Primordial Thicket (Night)",
+    "Night010": "Hero's Hideaway (Night)",
 };

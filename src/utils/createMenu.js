@@ -285,12 +285,12 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                 }
             },
             {
-                label: `Version ${version}`,
-                enabled: false
-            },
-            {
                 label: 'Open Devtools',
                 click: () => mainWindow.webContents.openDevTools()
+            },
+            {
+                label: `Version ${version}`,
+                enabled: false
             }
         ]
     }

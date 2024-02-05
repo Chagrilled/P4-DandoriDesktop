@@ -4,7 +4,7 @@ import { useConfig } from '../../hooks/useConfig';
 import { findMarkerById, getAvailableTimes } from '../../utils';
 import { DebouncedInput } from './DebouncedInput';
 
-const editableNumberFields = ["generateNum", "generateRadius", "X", "Y", "Z", "W", "groupingRadius", "rebirthInterval", "birthDay", "deadDay", "spawnNum", "spawnRadius", "noSpawnRadius", "mabikiNumFromFollow", "unknownInt", "pongashiChangeColorFollowNum", "portalNumber", "toPortalId", "toBaseCampId", "playAnimDist", "disablePikminFlags", "panzakuPriority"];
+const editableNumberFields = ["generateNum", "generateRadius", "X", "Y", "Z", "W", "groupingRadius", "rebirthInterval", "birthDay", "deadDay", "spawnNum", "spawnRadius", "noSpawnRadius", "mabikiNumFromFollow", "unknownInt", "pongashiChangeColorFollowNum", "portalNumber", "toPortalId", "toBaseCampId", "playAnimDist", "disablePikminFlags", "panzakuPriority", "Life", "weight"];
 const editableBools = ["bMabikiPongashi", "bInitialPortalMove", "bDeactivateByExit", "bDisableIsFlareGuard"];
 const ignoreFields = ["drops", "type", "infoType", "ddId", "outlineFolderPath", "spareBytes"];
 const editableStrings = ["ignoreList", "toLevelName", "toSubLevelName"];

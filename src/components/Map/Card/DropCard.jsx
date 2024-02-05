@@ -5,8 +5,9 @@ import { Card } from "./Card";
 import { DebouncedInput } from "../DebouncedInput";
 
 export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
+    console.log("DropCard", drop);
+    
     const nameSuffix = drop.dropCondition == DropConditions.SALVAGE_ITEM ? ' (Revisit only)' : '';
-
     const subPath = getSubpathFromAsset(drop.assetName);
     const infoType = getInfoType(subPath);
     const asset = getNameFromAsset(drop.assetName);
@@ -14,7 +15,6 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
     const amountStr = (!isActorSpawner && drop.maxDrops !== drop.minDrops)
         ? `${drop.minDrops}-${drop.maxDrops}`
         : drop.maxDrops + '';
-    console.log("DropCard", drop);
     const footerFragment = isActorSpawner ?
         <>
             <div>
@@ -45,6 +45,69 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                     checked={drop.randomRotation}
                     className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     onChange={(e) => updateDrops(e.target.checked, drop, "randomRotation")}
+                />
+            </div>
+            <div className="flex">
+                <b>Avatar</b>:&nbsp;
+                <input
+                    type="checkbox"
+                    checked={drop.avatar}
+                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    onChange={(e) => updateDrops(e.target.checked, drop, "avatar")}
+                />
+            </div>
+            <div className="flex">
+                <b>Pikmin</b>:&nbsp;
+                <input
+                    type="checkbox"
+                    checked={drop.pikmin}
+                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    onChange={(e) => updateDrops(e.target.checked, drop, "pikmin")}
+                />
+            </div>
+            <div className="flex">
+                <b>Avatar and Pikmin</b>:&nbsp;
+                <input
+                    type="checkbox"
+                    checked={drop.avatarAndPikmin}
+                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    onChange={(e) => updateDrops(e.target.checked, drop, "avatarAndPikmin")}
+                />
+            </div>
+            <div className="flex">
+                <b>Carrying</b>:&nbsp;
+                <input
+                    type="checkbox"
+                    checked={drop.carry}
+                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    onChange={(e) => updateDrops(e.target.checked, drop, "carry")}
+                />
+            </div>
+            <div className="flex">
+                <b>bNotOverlap</b>:&nbsp;
+                <input
+                    type="checkbox"
+                    checked={drop.bNotOverlap}
+                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    onChange={(e) => updateDrops(e.target.checked, drop, "bNotOverlap")}
+                />
+            </div>
+            <div className="flex">
+                <b>bGenseiControl</b>:&nbsp;
+                <input
+                    type="checkbox"
+                    checked={drop.bGenseiControl}
+                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    onChange={(e) => updateDrops(e.target.checked, drop, "bGenseiControl")}
+                />
+            </div>
+            <div className="flex">
+                <b>noDropItem</b>:&nbsp;
+                <input
+                    type="checkbox"
+                    checked={drop.noDropItem}
+                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    onChange={(e) => updateDrops(e.target.checked, drop, "noDropItem")}
                 />
             </div>
             <div className="flex">

@@ -1,8 +1,10 @@
 import { InfoType, PikminTypes, PikminPlayType, PortalTypes } from '../api/types';
+import { findSequenceStartIndex } from '../utils';
 import { bytesToInt } from '../utils/bytes';
 
 const readInventory = (drops, index, invSize) => {
     const parsed = [];
+    // if (invSize == 0) index += 4;
     for (let i = 0; i < invSize; i++) {
         const slot = {};
         slot.id = i + 1;
@@ -51,6 +53,23 @@ const readInventory = (drops, index, invSize) => {
         parsed.push(slot);
     }
     return { parsed, index };
+};
+
+const parseGateAI = ai => {
+    let rareDrops = [];
+    let parsed = [];
+    let index = 0;
+    let invSize = ai[index];
+    index += 4;
+    ({ parsed: rareDrops, index } = readInventory(ai, index, invSize));
+
+    // Find the start byte of the next inventory AFTER the first one - yes this is susceptible to similar patterns if there are any between
+    let dropItemIndex = findSequenceStartIndex(ai, index, [0, 0, 0, 255, 255, 255, 255]) - 1;
+    const spareBytes = ai.slice(index + 4, dropItemIndex);
+    invSize = ai[dropItemIndex];
+    dropItemIndex += 4;
+    ({ parsed, index } = readInventory(ai, dropItemIndex, invSize));
+    return { parsed, rareDrops, spareBytes };
 };
 
 const parseNoraSpawnerAI = ai => {
@@ -188,15 +207,15 @@ const parseActorSpawnerDrops = drops => {
     // Make an object with the keyname and its byte width? I guess non-fixed bytes are an issue there
     const bytes = {};
     let index = 0;
-    bytes.mysteryBool1 = drops[index];
+    bytes.avatar = drops[index];
     index += 4;
-    bytes.mysteryBool2 = drops[index];
+    bytes.pikmin = drops[index];
     index += 4;
-    bytes.mysteryBool3 = drops[index];
+    bytes.avatarAndPikmin = drops[index];
     index += 4;
     bytes.carry = drops[index];
     index += 4;
-    bytes.mysteryBool5 = drops[index];
+    bytes.bNotOverlap = drops[index];
     index += 4;
     bytes.bGenseiControl = drops[index];
     index += 4;
@@ -245,13 +264,11 @@ const parseActorSpawnerDrops = drops => {
     // Keep anything after the asset path and just splice it back in
     bytes.spareBytes = drops.slice(index, drops.length);
     return {
-        parsed: [{
-            ...bytes
+        parsed: [bytes]
             // I think the vectors are offsets from the ActorSpawner's origin? 
             // Not sure why that's useful, so I'm not going to make UI for them unless someone proves otherwise
             // We do want them to reconstruct existing AIs the same though, and not change
             // their vectors opaquely because we don't have the vectors later
-        }]
     };
 };
 
@@ -379,7 +396,7 @@ const parsePortalTrigger = portalTrigger => {
     PortalTrigger.disablePikminFlags = bytesToInt(portalTrigger.slice(index, index += 4).join(','));
     PortalTrigger.bDisableIsFlareGuard = portalTrigger[index];
     index += 4;
-    PortalTrigger.spareBytes = portalTrigger.slice(index, portalTrigger.length);
+    PortalTrigger.spareBytes = portalTrigger.slice(index, portalTrigger.length); // These last 3 floats are the trigger coordinates
 
     return { PortalTrigger };
 };
@@ -395,6 +412,7 @@ export const getReadAIFunc = (creatureId, infoType) => {
     // idk what it does. It's to do with the jelly containing items. The default is fine for now.
     if (creatureId.includes('CrushJelly')) return parsePotDrops;
     if (infoType === InfoType.Creature) return parseTekiDrops;
+    if (creatureId.includes('Gate')) return parseGateAI;
     return () => ({ parsed: [] });
 };
 

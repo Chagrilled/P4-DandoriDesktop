@@ -62,7 +62,21 @@ export const getConstructAIFunc = (creatureId, infoType) => {
     if (creatureId.includes('NoraSpawner')) return constructNoraSpawnerAI;
     if (creatureId.includes('CrushJelly')) return constructPotAI;
     if (infoType === InfoType.Creature) return constructCreatureAI;
+    if (creatureId.includes('Gate')) return constructGateAI;
     return defaultAI;
+};
+
+export const constructGateAI = ({ parsed, rareDrops, spareBytes }, aiStatic) => {
+    const bytes = [];
+    bytes.push(rareDrops.length, 0, 0, 0);
+    constructInventory(rareDrops, bytes);
+    bytes.push(255, 255, 255, 255);
+
+    bytes.push(...spareBytes);
+
+    bytes.push(parsed.length, 0, 0, 0);
+    constructInventory(parsed, bytes);
+    return bytes;
 };
 
 export const getConstructPortalTriggerFunc = infoType => {
@@ -104,9 +118,9 @@ const constructPortalTrigger = ({ transform, PortalTrigger }) => {
     return bytes;
 };
 
-const constructNoraSpawnerAI = (drops, aiStatic, { AIProperties }) => {
+const constructNoraSpawnerAI = ({ parsed }, aiStatic, { AIProperties }) => {
     const bytes = [];
-    console.log("Constructing NoraSpawner from:", drops, AIProperties);
+    console.log("Constructing NoraSpawner from:", parsed, AIProperties);
     bytes.push(parseInt(AIProperties.spawnNum), 0, 0, 0);
     bytes.push(...floatBytes(parseFloat(AIProperties.spawnRadius)));
     bytes.push(...floatBytes(parseFloat(AIProperties.noSpawnRadius)));
@@ -130,8 +144,8 @@ const constructNoraSpawnerAI = (drops, aiStatic, { AIProperties }) => {
     bytes.push(...floatBytes(parseFloat(AIProperties.mabikiPongashiOffset.Y)));
     bytes.push(...floatBytes(parseFloat(AIProperties.mabikiPongashiOffset.Z)));
     bytes.push(0, 0, 128, 191);
-    bytes.push(drops.length, 0, 0, 0);
-    drops.forEach(drop => {
+    bytes.push(parsed.length, 0, 0, 0);
+    parsed.forEach(drop => {
         writeAsciiString(bytes, drop.assetName);
         const actorName = getNameFromAsset(drop.assetName);
 
@@ -203,7 +217,7 @@ const constructInventory = (drops, bytes) => {
     });
 };
 
-const constructGDMAI = (drops, aiStatic, { groupingRadius, ignoreList = [], inventoryEnd }) => {
+const constructGDMAI = ({ parsed }, aiStatic, { groupingRadius, ignoreList = [], inventoryEnd }) => {
     const bytes = [];
     bytes.push(...floatBytes(groupingRadius));
 
@@ -214,9 +228,9 @@ const constructGDMAI = (drops, aiStatic, { groupingRadius, ignoreList = [], inve
         writeAsciiString(bytes, ignore);
     });
 
-    bytes.push(drops.length, 0, 0, 0);
+    bytes.push(parsed.length, 0, 0, 0);
 
-    constructInventory(drops, bytes);
+    constructInventory(parsed, bytes);
 
     bytes.push(255, 255, 255, 255);
     if (!inventoryEnd) {
@@ -225,11 +239,11 @@ const constructGDMAI = (drops, aiStatic, { groupingRadius, ignoreList = [], inve
     return [...bytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)];
 };
 
-const constructPotAI = (drops, aiStatic, { inventoryEnd }) => {
+const constructPotAI = ({ parsed }, aiStatic, { inventoryEnd }) => {
     const bytes = [];
-    bytes.push(drops.length, 0, 0, 0);
+    bytes.push(parsed.length, 0, 0, 0);
 
-    constructInventory(drops, bytes);
+    constructInventory(parsed, bytes);
 
     bytes.push(255, 255, 255, 255);
     if (!inventoryEnd) {
@@ -238,20 +252,19 @@ const constructPotAI = (drops, aiStatic, { inventoryEnd }) => {
     return [...bytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)];
 };
 
-const constructActorSpawnerAI = ([drop], aiStatic) => {
+const constructActorSpawnerAI = ({ parsed: [drop] }, aiStatic) => {
     const bytes = [];
     // These are some ordering of avatar, pikmin, both, and something else 
-    bytes.push(parseInt(drop.mysteryBool1) ? 1 : 0, 0, 0, 0);
-    bytes.push(parseInt(drop.mysteryBool2) ? 1 : 0, 0, 0, 0);
-    bytes.push(parseInt(drop.mysteryBool3) ? 1 : 0, 0, 0, 0);
-    bytes.push(parseInt(drop.carry) ? 1 : 0, 0, 0, 0);
-    bytes.push(parseInt(drop.mysteryBool5) ? 1 : 0, 0, 0, 0);
-    bytes.push(parseInt(drop.bGenseiControl) ? 1 : 0, 0, 0, 0);
+    bytes.push(drop.avatar ? 1 : 0, 0, 0, 0);
+    bytes.push(drop.pikmin ? 1 : 0, 0, 0, 0);
+    bytes.push(drop.avatarAndPikmin ? 1 : 0, 0, 0, 0);
+    bytes.push(drop.carry ? 1 : 0, 0, 0, 0);
+    bytes.push(drop.bNotOverlap ? 1 : 0, 0, 0, 0);
+    bytes.push(drop.bGenseiControl ? 1 : 0, 0, 0, 0);
     // X
     bytes.push(...floatBytes(drop.overlapCenterX));
     // Y
     bytes.push(...floatBytes(drop.overlapCenterY));
-
     // Z
     bytes.push(...floatBytes(drop.overlapCenterZ));
     // Halfheight
@@ -295,10 +308,10 @@ const constructActorSpawnerAI = ([drop], aiStatic) => {
     return bytes;
 };
 
-const constructCreatureAI = (drops, aiStatic, { inventoryEnd }) => {
+const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd }) => {
     // The -1 at the end of an inventory could be at [24] for 0 inventories
-    const inventoryBytes = [drops.length, 0, 0, 0];
-    drops.forEach(drop => {
+    const inventoryBytes = [parsed.length, 0, 0, 0];
+    parsed.forEach(drop => {
         const slotBytes = [parseInt(drop.id), 0, 0, 0];
         if (typeof drop.flags == 'string') drop.flags = JSON.parse(drop.flags);
         slotBytes.push(...drop.flags);
@@ -322,7 +335,7 @@ const constructCreatureAI = (drops, aiStatic, { inventoryEnd }) => {
         }
         else slotBytes.push(...NONE_BYTES);
 
-        // if (typeof drops.params == 'string') drop.params = JSON.parse(drop.params);
+        // if (typeof parsed.params == 'string') drop.params = JSON.parse(drop.params);
         // slotBytes.push(...drop.params);
         slotBytes.push(...floatBytes(parseFloat(drop.customFloatParam)));
         slotBytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag)).reverse().slice(0, 2));
@@ -348,6 +361,15 @@ const constructCreatureAI = (drops, aiStatic, { inventoryEnd }) => {
     // Splice our new inventory into a regular functioning AI
     return [...aiStatic.slice(0, 20), ...inventoryBytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)];
 };
+
+export const writeLifeDynamic = Life => {
+    return [
+        ...floatBytes(Life),
+        ...floatBytes(Life)
+    ];
+};
+
+export const writeAffordanceWeight = (weight, { Static }) => Static.toSpliced(Static.length - 4, 4, ...intToByteArr(weight).reverse());
 
 export const constructActor = (actor, mapId) => {
     console.log("Constructing a", actor);
@@ -422,7 +444,7 @@ export const constructActor = (actor, mapId) => {
                 // Aside from AI (drops), and CakAudioTable(?), they're the same per actor type 
             }), {}),
             AI: {
-                Static: getConstructAIFunc(actor.creatureId, actor.infoType)(actor.drops.parsed, entityData[actor.creatureId].AI[0].Static, {
+                Static: getConstructAIFunc(actor.creatureId, actor.infoType)(actor.drops, entityData[actor.creatureId].AI[0].Static, {
                     groupingRadius: actor?.groupingRadius,
                     ignoreList: actor?.ignoreList,
                     AIProperties: actor?.AIProperties || defaultAIProperties
@@ -432,6 +454,14 @@ export const constructActor = (actor, mapId) => {
             PortalTrigger: {
                 Static: getConstructPortalTriggerFunc(actor.infoType)(actor, entityData[actor.creatureId].PortalTrigger[0].Static),
                 Dynamic: entityData[actor.creatureId].PortalTrigger[0].Dynamic
+            },
+            Life: {
+                Static: entityData[actor.creatureId].Life[0].Static[0],
+                Dynamic: actor.Life ? writeLifeDynamic(actor.Life) : entityData[actor.creatureId].Life[0].Dynamic
+            },
+            Affordance: {
+                Static: actor.weight ? writeAffordanceWeight(actor.weight, entityData[actor.creatureId].Affordance[0]) : entityData[actor.creatureId].Affordance[0].Static,
+                Dynamic: entityData[actor.creatureId].Affordance[0].Dynamic
             }
         },
         SubLevelName: mapId,

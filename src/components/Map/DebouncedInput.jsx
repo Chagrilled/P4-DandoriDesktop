@@ -10,7 +10,6 @@ export const DebouncedInput = ({ changeFunc, value, type, className = "max-w-[7e
     });
 
     if (stateDDId !== ddId) {
-        console.log("Refreshing input")
         setId(ddId);
         setValue(value);
     }
