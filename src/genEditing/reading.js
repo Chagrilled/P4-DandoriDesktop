@@ -4,7 +4,7 @@ import { bytesToInt } from '../utils/bytes';
 
 const readInventory = (drops, index, invSize) => {
     const parsed = [];
-    // if (invSize == 0) index += 4;
+    // if (invSize == 0) index += 4; // I decided I didn't need this because idk - I think with or without an inv you end up at the same place
     for (let i = 0; i < invSize; i++) {
         const slot = {};
         slot.id = i + 1;
