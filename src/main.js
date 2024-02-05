@@ -379,7 +379,7 @@ ipcMain.handle('readMapData', async (event, mapId) => {
             };
         }).filter(i => !!i);
     } catch (e) {
-        mainWindow.webContents.send('errorNotify', `Failed reading teki data from: ${mapPath}`);
+        if (mapId !== "Cave004_F00") mainWindow.webContents.send('errorNotify', `Failed reading teki data from: ${mapPath}`);
     }
 
     const objectProcessor = (object, fileType) => {
