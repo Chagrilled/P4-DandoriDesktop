@@ -87,7 +87,7 @@ Because you only really want to package files you need into your mod, I've made 
 
 ### 🗺️ Maps
 
-Entities that populate the map are read from each area's `AP_...Teki.json`'s `ActorGeneratorList`. All changes will be written back to these files. 
+Entities that populate the map are read from each area's `AP_...Teki/Objects.json`'s `ActorGeneratorList`. All changes will be written back to these files. 
 
 Once you want to commit your map changes back, click `Tools > Save Entities to JSON`, to write back to the files.
 
