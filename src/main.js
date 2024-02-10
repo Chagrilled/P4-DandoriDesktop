@@ -73,7 +73,7 @@ const createWindow = (id, options = {}) => {
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
     const menu = createMenu(config, CONFIG_PATH, readMaps, getTekis, mainWindow);
     Menu.setApplicationMenu(menu);
-    mainWindow.webContents.openDevTools();
+    if (!app.isPackaged) mainWindow.webContents.openDevTools();
 };
 
 /*****************************
