@@ -36,7 +36,7 @@ DDT reads and writes to local game files that must be decoded to their JSON form
 
 Use the `Settings` menu to set 4 things:
 
-- `Carrot4 Folder` - Folder containing your folder structure of decoded game JSONs - this folder should contain `Maps/` and `Placeables/`
+- `Carrot4 Folder` - Folder containing your folder structure of decoded game JSONs - this folder should contain `Maps/` and `Placeables/`. Use the [⛏️ Extracting Maps](#%EF%B8%8F-extracting-maps) process to generate this.
 - `Encoder Folder` - Folder containing [P4UassetEditor](https://gamebanana.com/tools/15077). Assumes the files/folders are not renamed. The contents of this folder should be the extracted uasset editor - **so must contain `_EDIT`, `P4UassetEditor/`, `encode.bat`**, etc.
 - `castoc Folder` - Folder containing `castoc`. Assumes the files/folders are not renamed. There are several versions of this tool distributed, and we as a community haven't yet organised these tools into repos. I've zipped mine [in the repo](./castoc.zip) for use.
 - `Output Paks Folder` - Folder (probably) in your emulator you want your built mod's outputs to go to
@@ -76,7 +76,7 @@ Within my map folders, I _only_ have `ActorPlacementInfo/AP_...Teki.json` and `A
 Because you only really want to package files you need into your mod, I've made it easy to fish them out of a raw export of the `Maps` folder.
 
 - From FModel, right click `Maps` and `Export Raw Data (.uasset)`
-- Use P4UassetEditor to decode the `Maps` folder which now contains JSON.
+- Use P4UassetEditor to decode the `Maps` folder which will now contain JSON.
 - From DDT, go to `Tools` > `Extract Teki/Object Files from Maps`
 - Select your _decoded_ `Maps/` folder (which should contain `Main` and `Madori`)
 - You should end up with a folder in there called `DandoriDesktop-Carrot4`. This folder contains just the teki/object files it needs.
