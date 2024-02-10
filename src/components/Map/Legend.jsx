@@ -8,17 +8,17 @@ const FilterCategory = ({ category, filter, onFilterChange }) => {
     const imgProps = {
         [InfoType.Creature]: { type: 'creature' },
         [InfoType.Treasure]: { type: 'treasure' },
-        [InfoType.Gimmick]:  { type: 'gimmick', id: 'circulator' },
+        [InfoType.Gimmick]: { type: 'gimmick', id: 'circulator' },
         [InfoType.Object]: { type: 'object', id: 'piecepick' },
         [InfoType.WorkObject]: { type: 'workobject', id: 'downwall' },
-        [InfoType.Pikmin]:  { type: 'pikmin', id: 'pikminred' },
-        [InfoType.Base]:  { type: 'base', id: 'onyoncamp' },
-        [InfoType.Onion]:  { type: 'onion', id: 'onyoncarryred' },
-        [InfoType.Hazard]:  { type: 'hazard', id: 'charcoal' },
-        [InfoType.Portal]:  { type: 'portal', id: 'madoriruins' },
-        [InfoType.Item]:  { type: 'item', id: 'bomb' }
-    }
-    
+        [InfoType.Pikmin]: { type: 'pikmin', id: 'pikminred' },
+        [InfoType.Base]: { type: 'base', id: 'onyoncamp' },
+        [InfoType.Onion]: { type: 'onion', id: 'onyoncarryred' },
+        [InfoType.Hazard]: { type: 'hazard', id: 'charcoal' },
+        [InfoType.Portal]: { type: 'portal', id: 'madoriruins' },
+        [InfoType.Item]: { type: 'item', id: 'bomb' }
+    };
+
     return <div className="pt-1 FilterCategory__container">
         <div className="flex flex-wrap items-center FilterCategory__options" onClick={() => onFilterChange?.({ [category]: !isChecked })}>
             <MarkerIcon {...imgProps[category]} card={true} />

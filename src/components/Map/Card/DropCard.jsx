@@ -6,7 +6,7 @@ import { DebouncedInput } from "../DebouncedInput";
 
 export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
     console.log("DropCard", drop);
-    
+
     const nameSuffix = drop.dropCondition == DropConditions.SALVAGE_ITEM ? ' (Revisit only)' : '';
     const subPath = getSubpathFromAsset(drop.assetName);
     const infoType = getInfoType(subPath);

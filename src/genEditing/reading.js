@@ -16,7 +16,7 @@ const readInventory = (drops, index, invSize) => {
         index += 4;
         slot.maxDrops = drops[index];
         index += 4;
-        slot.dropChance = readFloat(drops.slice(index, index += 4))
+        slot.dropChance = readFloat(drops.slice(index, index += 4));
         slot.bRegistGenerator = drops[index];
         index += 4;
         if (drops[index] == 1) {
@@ -34,17 +34,17 @@ const readInventory = (drops, index, invSize) => {
 
         index += drops[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
 
-        slot.customFloatParam = readFloat(drops.slice(index, index += 4))
+        slot.customFloatParam = readFloat(drops.slice(index, index += 4));
         slot.gameRulePermissionFlag = bytesToInt(drops.slice(index, index + 2).join(','));
         index += 2;
         slot.bSetTerritory = drops[index];
         index += 4;
         if (slot.bSetTerritory) {
-            slot.x = readFloat(drops.slice(index, index += 4))
-            slot.y = readFloat(drops.slice(index, index += 4))
-            slot.z = readFloat(drops.slice(index, index += 4))
-            slot.halfHeight = readFloat(drops.slice(index, index += 4))
-            slot.radius = readFloat(drops.slice(index, index += 4))
+            slot.x = readFloat(drops.slice(index, index += 4));
+            slot.y = readFloat(drops.slice(index, index += 4));
+            slot.z = readFloat(drops.slice(index, index += 4));
+            slot.halfHeight = readFloat(drops.slice(index, index += 4));
+            slot.radius = readFloat(drops.slice(index, index += 4));
         }
         parsed.push(slot);
     }
@@ -74,8 +74,8 @@ const parseNoraSpawnerAI = ai => {
     const parsed = [];
     AIProperties.spawnNum = ai[index];
     index += 4;
-    AIProperties.spawnRadius = readFloat(ai.slice(index, index += 4))
-    AIProperties.noSpawnRadius = readFloat(ai.slice(index, index += 4))
+    AIProperties.spawnRadius = readFloat(ai.slice(index, index += 4));
+    AIProperties.noSpawnRadius = readFloat(ai.slice(index, index += 4));
     AIProperties.pikminType = PikminTypes[ai[index]];
     index += 1;
     index += 4; // No idea what this bool is
@@ -116,17 +116,17 @@ const parseNoraSpawnerAI = ai => {
 
         index += ai[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
 
-        slot.customFloatParam = readFloat(ai.slice(index, index += 4))
+        slot.customFloatParam = readFloat(ai.slice(index, index += 4));
         slot.gameRulePermissionFlag = bytesToInt(ai.slice(index, index + 2).join(','));
         index += 2;
         slot.bSetTerritory = ai[index];
         index += 4;
         if (slot.bSetTerritory) {
-            slot.x = readFloat(ai.slice(index, index += 4))
-            slot.y = readFloat(ai.slice(index, index += 4))
-            slot.z = readFloat(ai.slice(index, index += 4))
-            slot.halfHeight = readFloat(ai.slice(index, index += 4))
-            slot.radius = readFloat(ai.slice(index, index += 4))
+            slot.x = readFloat(ai.slice(index, index += 4));
+            slot.y = readFloat(ai.slice(index, index += 4));
+            slot.z = readFloat(ai.slice(index, index += 4));
+            slot.halfHeight = readFloat(ai.slice(index, index += 4));
+            slot.radius = readFloat(ai.slice(index, index += 4));
         }
         parsed.push(slot);
     }
@@ -154,7 +154,7 @@ export const parseGDMDrops = drops => {
     let parsed = [];
     const ignoreList = [];
     let index = 0;
-    const groupingRadius = readFloat(drops.slice(index, index += 4))
+    const groupingRadius = readFloat(drops.slice(index, index += 4));
     const ignoreCIDLength = drops[index]; // ignoreCIDList: [strings] is indicated by a length byte
     index += 4;
     if (ignoreCIDLength)
@@ -206,23 +206,23 @@ const parseActorSpawnerDrops = drops => {
     index += 4;
     bytes.bGenseiControl = drops[index];
     index += 4;
-    bytes.overlapCenterX = readFloat(drops.slice(index, index += 4))
-    bytes.overlapCenterY = readFloat(drops.slice(index, index += 4))
-    bytes.overlapCenterZ = readFloat(drops.slice(index, index += 4))
-    bytes.halfHeight = readFloat(drops.slice(index, index += 4))
-    bytes.radius = readFloat(drops.slice(index, index += 4))
-    bytes.angle = readFloat(drops.slice(index, index += 4))
-    bytes.sphereRadius = readFloat(drops.slice(index, index += 4))
+    bytes.overlapCenterX = readFloat(drops.slice(index, index += 4));
+    bytes.overlapCenterY = readFloat(drops.slice(index, index += 4));
+    bytes.overlapCenterZ = readFloat(drops.slice(index, index += 4));
+    bytes.halfHeight = readFloat(drops.slice(index, index += 4));
+    bytes.radius = readFloat(drops.slice(index, index += 4));
+    bytes.angle = readFloat(drops.slice(index, index += 4));
+    bytes.sphereRadius = readFloat(drops.slice(index, index += 4));
     index += drops[index] + 4; // A custom parameter - not exposing for now
     index += 4; // Some bool that's always 1 - haven't found a zero yet
-    bytes.spawnLocationX = readFloat(drops.slice(index, index += 4))
-    bytes.spawnLocationY = readFloat(drops.slice(index, index += 4))
-    bytes.spawnLocationZ = readFloat(drops.slice(index, index += 4))
+    bytes.spawnLocationX = readFloat(drops.slice(index, index += 4));
+    bytes.spawnLocationY = readFloat(drops.slice(index, index += 4));
+    bytes.spawnLocationZ = readFloat(drops.slice(index, index += 4));
     index += 4;
     index += 16; // No clue what these 4 bytes do - always 0
     bytes.infiniteSpawn = drops[index];
     index += 4;
-    bytes.spawnInterval = readFloat(drops.slice(index, index += 4))
+    bytes.spawnInterval = readFloat(drops.slice(index, index += 4));
     bytes.spawnLimit = drops[index];
     index += 4;
     index += 4; // Mystery bool here
@@ -267,16 +267,16 @@ const parseBaseAI = ai => {
     index += 4;
     AIProperties.bDeactivateByExit = ai[index];
     index += 4;
-    AIProperties.safeRadius = readFloat(ai.slice(index, index += 4))
-    AIProperties.safeAreaOffsetX = readFloat(ai.slice(index, index += 4))
-    AIProperties.safeAreaOffsetY = readFloat(ai.slice(index, index += 4))
-    AIProperties.safeAreaOffsetZ = readFloat(ai.slice(index, index += 4))
-    AIProperties.searchBoundX = readFloat(ai.slice(index, index += 4))
-    AIProperties.searchBoundY = readFloat(ai.slice(index, index += 4))
-    AIProperties.searchBoundZ = readFloat(ai.slice(index, index += 4))
+    AIProperties.safeRadius = readFloat(ai.slice(index, index += 4));
+    AIProperties.safeAreaOffsetX = readFloat(ai.slice(index, index += 4));
+    AIProperties.safeAreaOffsetY = readFloat(ai.slice(index, index += 4));
+    AIProperties.safeAreaOffsetZ = readFloat(ai.slice(index, index += 4));
+    AIProperties.searchBoundX = readFloat(ai.slice(index, index += 4));
+    AIProperties.searchBoundY = readFloat(ai.slice(index, index += 4));
+    AIProperties.searchBoundZ = readFloat(ai.slice(index, index += 4));
     index += 4; // Unknown
-    AIProperties.stateChangeDelayTime = readFloat(ai.slice(index, index += 4))
-    AIProperties.guruguruDist = readFloat(ai.slice(index, index += 4))
+    AIProperties.stateChangeDelayTime = readFloat(ai.slice(index, index += 4));
+    AIProperties.guruguruDist = readFloat(ai.slice(index, index += 4));
     AIProperties.CIDList = [];
     const cidLength = ai[index];
     index += 4;
@@ -309,7 +309,7 @@ export const parseTekiDrops = drops => {
         index += 4;
         slot.maxDrops = drops[index];
         index += 4;
-        slot.dropChance = readFloat(drops.slice(index, index += 4))
+        slot.dropChance = readFloat(drops.slice(index, index += 4));
         slot.bRegistGenerator = drops[index];
         index += 4;
         let dropCondition;
@@ -327,17 +327,17 @@ export const parseTekiDrops = drops => {
         index += drops[index] + 4;
 
         index += drops[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
-        slot.customFloatParam = readFloat(drops.slice(index, index += 4))
+        slot.customFloatParam = readFloat(drops.slice(index, index += 4));
         slot.gameRulePermissionFlag = bytesToInt(drops.slice(index, index + 2).join(','));
         index += 2;
         slot.bSetTerritory = drops[index];
         index += 4;
         if (slot.bSetTerritory) {
-            slot.x = readFloat(drops.slice(index, index += 4))
-            slot.y = readFloat(drops.slice(index, index += 4))
-            slot.z = readFloat(drops.slice(index, index += 4))
-            slot.halfHeight = readFloat(drops.slice(index, index += 4))
-            slot.radius = readFloat(drops.slice(index, index += 4))
+            slot.x = readFloat(drops.slice(index, index += 4));
+            slot.y = readFloat(drops.slice(index, index += 4));
+            slot.z = readFloat(drops.slice(index, index += 4));
+            slot.halfHeight = readFloat(drops.slice(index, index += 4));
+            slot.radius = readFloat(drops.slice(index, index += 4));
         }
         // const params = drops.slice(index, index + 10);
         // index += 10;
@@ -399,7 +399,7 @@ const parsePortalTrigger = portalTrigger => {
     PortalTrigger.bDeactivateByExit = portalTrigger[index];
     index += 4;
     index += 4; // some float
-    PortalTrigger.playAnimDist = readFloat(portalTrigger.slice(index, index += 4))
+    PortalTrigger.playAnimDist = readFloat(portalTrigger.slice(index, index += 4));
     index += 4; // unknown zeros
     PortalTrigger.panzakuPriority = portalTrigger[index];
     index += 4;

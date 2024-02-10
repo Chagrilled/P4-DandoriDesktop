@@ -26,7 +26,7 @@ export const bytesToInt = (byteString) => {
     });
     const byteArr = padArray(rawBytes).reverse();
     return byteArrToInt(byteArr);
-}
+};
 
 const byteArrToDataView = (nums) => {
     nums = padArray(nums);

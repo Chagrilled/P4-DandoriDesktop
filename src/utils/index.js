@@ -106,7 +106,7 @@ export const shouldIconRotate = creatureId => {
 export const findSequenceStartIndex = (array, offset, sequence) => {
     for (let i = offset; i <= array.length - sequence.length; i++) {
         if (array.slice(i, i + sequence.length).every((value, index) => value === sequence[index])) {
-            return i; 
+            return i;
         }
     }
     return -1;
