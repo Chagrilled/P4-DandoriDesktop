@@ -1,4 +1,4 @@
-import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes } from '../api/types';
 import { default as entityData } from '../api/entityData.json';
 import { floatToByteArr, intToByteArr } from '../utils/bytes';
 import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue } from '../utils';
@@ -13,7 +13,7 @@ const CustomParameterOverrides = {
     SurvivorLeaf: "LFSleep003" // There are like 13 different LFSleeps, so I just picked the one that is used for a teki drop
 };
 
-const NONE_BYTES = [5, 0, 0, 0, 78, 111, 110, 101, 0];
+export const NONE_BYTES = [5, 0, 0, 0, 78, 111, 110, 101, 0];
 
 // This seems constant for DropUniqueDebugID, OuterIndex and SuperIndex and PublicExportHash
 // Might be computed for the game's contents when unmodded. Who knows what happens if it no longer matches
@@ -61,9 +61,33 @@ export const getConstructAIFunc = (creatureId, infoType) => {
     if (creatureId.includes('CrackP')) return constructPotAI;
     if (creatureId.includes('NoraSpawner')) return constructNoraSpawnerAI;
     if (creatureId.includes('CrushJelly')) return constructPotAI;
+    if (creatureId.includes('Tateana')) return constructPotAI;
     if (infoType === InfoType.Creature) return constructCreatureAI;
     if (creatureId.includes('Gate')) return constructGateAI;
+    if (infoType === InfoType.Base) return constructBaseAI;
     return defaultAI;
+};
+
+const constructBaseAI = (_, aiStatic, { AIProperties }) => {
+    // push the unknown chunk on
+    const bytes = [...areaBaseGenVarBytes];
+
+    bytes.push(parseInt(AIProperties.baseCampId), 0, 0, 0);
+    bytes.push(AIProperties.bDeactivateByExit ? 1 : 0, 0, 0, 0);
+    bytes.push(...floatBytes(AIProperties.safeRadius));
+    bytes.push(...floatBytes(AIProperties.safeAreaOffsetX));
+    bytes.push(...floatBytes(AIProperties.safeAreaOffsetY));
+    bytes.push(...floatBytes(AIProperties.safeAreaOffsetZ));
+    bytes.push(...floatBytes(AIProperties.searchBoundX));
+    bytes.push(...floatBytes(AIProperties.searchBoundY));
+    bytes.push(...floatBytes(AIProperties.searchBoundZ));
+    bytes.push(0, 0, 122, 68);
+    bytes.push(...floatBytes(AIProperties.stateChangeDelayTime));
+    bytes.push(...floatBytes(AIProperties.guruguruDist));
+    if (typeof AIProperties.CIDList === 'string') AIProperties.CIDList = JSON.parse(AIProperties.CIDList);
+    bytes.push(AIProperties.CIDList.length, 0, 0, 0);
+    AIProperties.CIDList.forEach(actor => writeAsciiString(bytes, actor));
+    return bytes;
 };
 
 export const constructGateAI = ({ parsed, rareDrops, spareBytes }, aiStatic) => {

@@ -203,6 +203,11 @@ The bytes I construct are then spliced together with the base template for that 
 - ❌ Refactor the map to see if I can separate state from the map data, which might fix the component-refreshing problem. A bit similarly to filters. Perhaps the map doesn't have to use the main data set and can maintain its own without having the main map set as a prop? 
 - ✅ Portals
 - ❌ Need a way to arbitrarily add parameters to objects, so swapping to things like gates, where `Life` is needed, but not anywhere else, is possible for newly created objects.
+- ❌ Marigumo net
+- ❌ CIDList for hydrojelly
+- ❌ How do handleboard weights work
+- 🚧 Base camp AI - some of the genvar bytes are editable, but I haven't been able to create a new, locked base.
+- 🚧 Missing icons - excavation, ojama blocks, bookends, bank - for now some are mapped to a default icon
 
 </details>
 
@@ -242,8 +247,10 @@ I'm missing icons for the following entities, and wouldn't mind if anyone wants 
 These objects have (most) of their pertinent bytes parsed and displayed for manipulating. Objects not in this list will have their properties retained, and new ones taken from the default data. YMMV.
 
  - ✅ Pots - Inventory length is the first byte followed by the slots, as normal
+ - ✅ Tateana (those holes) - basically just pot inventories
  - ✅ NoraSpawners - diagram on TKB.
  - ✅ CrushJelly - They're just pots. There's a `searchCIDList` array which seems to be items that can be "in" the jelly (as in pre-spawned items, not drops on destroy)
  - ✅ Portals - TriggerPortal is fully supported, so you can link portals to wherever you like. Results may vary. Some parameters are completely unknown in purpose/formula, like `PanzakuPriority` and `DisablePikminFlags`. I have no idea how to calculate the latter.
  - ✅ Gates - Health is adjustable and they can be given drops. I don't know what `RareDropParameter` is, but I've exposed it for editing.
  - 🚧 Paper bags - you can adjust their weight requirement. I've not looked at their AI to see if they have an inventory to mutate.
+ - 🚧 Bases - The genvar's fields are editable, but I've not tested new areas. The base text names isn't in the actor, so there's more to the base system I think.

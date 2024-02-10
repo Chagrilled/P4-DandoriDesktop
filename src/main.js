@@ -276,7 +276,7 @@ ipcMain.handle('saveMaps', async (event, mapId, data) => {
 });
 
 const writeAGL = async (originalRaw, newAGL, mapId, mapType, baseFile) => {
-    if (mapId === 'Cave004_F00' && mapType === TEKI) return; // Cave004_F00 doesn't have a teki file. We can't construct them from scratch
+    if (['Cave004_F00', 'Cave013_F02'].some(m => mapId === m) && mapType === TEKI) return; // Cave004_F00 doesn't have a teki file. We can't construct them from scratch
 
     const newJson = {
         Content: [
@@ -394,7 +394,7 @@ ipcMain.handle('readMapData', async (event, mapId) => {
         const { PortalTrigger } = getReadPortalFunc(infoType)(object.ActorSerializeParameter.PortalTrigger.Static);
         const Life = entityId.includes('Gate') ? parseFloat(new Float32Array(new Uint8Array(object.ActorSerializeParameter.Life.Dynamic.slice(0, 4)).buffer)[0]) : null;
         const weight = entityId.includes('DownWall') ? byteArrToInt(object.ActorSerializeParameter.Affordance.Static.slice(-4).reverse()) : null;
-
+        console.log("AIProperties", AIProperties);
         features[infoType].push({
             type: 'object',
             infoType,
@@ -504,7 +504,7 @@ const readMaps = (force) => {
                 if (file.includes('Hero') && !maps.includes(`HeroStory${map.slice(-3)}`)) {
                     maps.push(`HeroStory${map.slice(-3)}`);
                 }
-                if (file.match(/_P_(?:Teki|Objects)_/) && !maps.includes(map)) {
+                else if (file.match(/_P_(?:Teki|Objects)/) && !maps.includes(map)) {
                     maps.push(map);
                 }
                 // if (file.includes('Night') && !maps.includes(`Night${map.slice(-3)}`) {

@@ -4,10 +4,11 @@ import { useConfig } from '../../hooks/useConfig';
 import { findMarkerById, getAvailableTimes } from '../../utils';
 import { DebouncedInput } from './DebouncedInput';
 
-const editableNumberFields = ["generateNum", "generateRadius", "X", "Y", "Z", "W", "groupingRadius", "rebirthInterval", "birthDay", "deadDay", "spawnNum", "spawnRadius", "noSpawnRadius", "mabikiNumFromFollow", "unknownInt", "pongashiChangeColorFollowNum", "portalNumber", "toPortalId", "toBaseCampId", "playAnimDist", "disablePikminFlags", "panzakuPriority", "Life", "weight"];
+const editableNumberFields = ["generateNum", "generateRadius", "X", "Y", "Z", "W", "groupingRadius", "rebirthInterval", "birthDay", "deadDay", "spawnNum", "spawnRadius", "noSpawnRadius", "mabikiNumFromFollow", "unknownInt", "pongashiChangeColorFollowNum", "portalNumber", "toPortalId", "baseCampId", "playAnimDist", "disablePikminFlags", "panzakuPriority", "Life", "weight"];
 const editableBools = ["bMabikiPongashi", "bInitialPortalMove", "bDeactivateByExit", "bDisableIsFlareGuard"];
 const ignoreFields = ["drops", "type", "infoType", "ddId", "outlineFolderPath", "spareBytes"];
-const editableStrings = ["ignoreList", "toLevelName", "toSubLevelName"];
+const editableStrings = ["ignoreList", "toLevelName", "toSubLevelName", "CIDList"];
+const arrayStrings = ["ignoreList", "CIDList"];
 const selectFields = {
     pongashiChangeColorFromFollow: Object.values(PikminTypes),
     pikminType: Object.values(PikminTypes),
@@ -31,7 +32,7 @@ const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId) => {
             if (path === 'creatureId') {
                 if (value.includes('NoraSpawner') && !creature.AIProperties)
                     creature.AIProperties = { ...defaultAIProperties };
-                if (!value.includes('NoraSpawner') && creature.AIProperties)
+                if (!['NoraSpawner', 'Camp'].some(e => value.includes(e)) && creature.AIProperties)
                     delete creature.AIProperties;
             }
         }
@@ -76,7 +77,7 @@ export const CreatureInfo = ({ obj, mapMarkerData, setMapData, parent, ddId, map
         if (editableStrings.includes(key)) {
             return <li key={key}>
                 <b>{key}</b>:&nbsp;
-                <DebouncedInput changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, fullKey, ddId)} value={value} ddId={ddId} />
+                <DebouncedInput changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, fullKey, ddId)} value={arrayStrings.includes(key) ? JSON.stringify(value) : value} ddId={ddId} />
             </li>;
         }
 
@@ -132,6 +133,20 @@ export const CreatureInfo = ({ obj, mapMarkerData, setMapData, parent, ddId, map
                 />
             </li>;
         }
+
+        // if (editableArrays.includes(key)) {
+        //     return <li key={fullKey}>
+        //         <b>{key}</b> <svg onClick={addDrop} className="ml-1 w-6 h-6 hover:text-green-400 self-center" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        //             <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+        //         </svg>
+        //         <input
+        //             type="checkbox"
+        //             checked={value}
+        //             className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+        //             onChange={(e) => updateCreature(e.target.checked, mapMarkerData, setMapData, obj, fullKey, ddId)}
+        //         />
+        //     </li>;
+        // }
 
         if (typeof value === 'object') {
             return <li key={key}>

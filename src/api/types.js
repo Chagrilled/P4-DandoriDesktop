@@ -581,6 +581,21 @@ export const defaultAIProperties = {
     }
 };
 
+export const defaultBaseAIProperties = {
+    baseCampId: 1,
+    bDeactivateByExit: false,
+    safeRadius: 150,
+    safeAreaOffsetX: 0,
+    safeAreaOffsetY: 0,
+    safeAreaOffsetZ: 0,
+    searchBoundX: 0.0,
+    searchBoundY: 0.0,
+    searchBoundZ: 0.0,
+    stateChangeDelayTime: 0.699999988079071,
+    guruguruDist: 0,
+    CIDList: ["Enemy"]
+};
+
 export const GateMiddleBytes = [5, 0, 0, 0, 78, 111, 110, 101, 0, 205, 204, 204, 61, 0, 0, 32, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 200, 66, 0, 0, 122, 67, 0, 0, 200, 66, 0, 0, 150, 66, 0, 0, 150, 66, 34, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 export const TreasureNames = {
@@ -998,6 +1013,29 @@ export const OnionNames = {
 };
 
 export const ObjectNames = {
+    OjamaBlockAir: 'OjamaBlock (Air)',
+    OjamaBlock: 'OjamaBlock',
+    OjamaBlockRoom: 'OjamaBlock (Room)',
+    OjamaBlockRoom02: 'OjamaBlock (Room02)',
+    OjamaBlockRoomDuo: 'OjamaBlock (?)',
+    OjamaBlockWoodParts: 'OjamaBlock (?)',
+    OjamaBlockWoodPartsB: 'OjamaBlock (?)',
+    MoveFloorSlowTrigger: 'MoveFloor Trigger',
+    Excavation: 'Excavation',
+    ExcavationM: 'Excavation (M)',
+    ExcavationS: 'Excavation (S)',
+    ExcavationOnyon: 'Excavation (Onion)',
+    AirWallBox: 'AirWallBox',
+    AirWallFlick: 'AirWallFlick',
+    AirWallJump: 'AirWallJump',
+    BookendSlope: 'BookendSlope',
+    BookendPlope: 'BookendSlope',
+    CushionA: 'Cushion (A)',
+    CushionB: 'Cushion (B)',
+    CushionC: 'Cushion (C)',
+    CushionD: 'Cushion (D)',
+    PelplantTable: 'Pellet Posy Platform',
+    Burrow: 'Burrow',
     BikkuriKinokoPlant: 'Startle Spore Plant',
     Hikarikinoko: 'Common Glowcap',
     Icicle: 'Icicle',
@@ -1014,6 +1052,7 @@ export const ObjectNames = {
     Pelplant5ReviveForHero: '5 Pellet Posy (Reviving) (Hero)',
     Pelplant10: '10 Pellet Posy',
     Pelplant10ReviveForHero: '10 Pellet Posy (Reviving) (Hero)',
+    Pod: 'Pod',
     SurvivorA: 'Survivor (A)',
     SurvivorKoppai: 'Koppai Survivor',
     SurvivorLeaf: 'Leafling Survivor',
@@ -1160,6 +1199,8 @@ export const iconOverrides = {
     stickyfloorpoisonfew: 'stickyfloorpoison',
     stickymushb: 'stickymush',
     stickymushc: 'stickymush',
+    ojamablockroom: 'default',
+    bikkurigikiplant: 'bikkurikinokoplant',
     onyoncamp01: 'onyoncamp',
     onyoncamp02: 'onyoncamp',
     onyoncamp03: 'onyoncamp',
@@ -1175,8 +1216,40 @@ export const iconOverrides = {
     podcampcave01: 'podcamp',
     podcampcave02: 'podcamp',
     podcampcave03: 'podcamp',
-    survivorolimarleaf: 'survivorleaf'
+    survivorolimarleaf: 'survivorleaf',
+    ojamablockair: 'default',
+    ojamablock: 'default',
+    ojamablockroom: 'default',
+    ojamablockroom02: 'default',
+    ojamablockroomduo: 'default',
+    ojamablockwoodparts: 'default',
+    ojamablockwoodpartsb: 'default',
+    movefloorslowtrigger: 'default',
+    excavations: 'default',
+    excavatationonyon: 'default',
+    excavationunders: 'default',
+    excavationm: 'default',
+    airwallbox: 'default',
+    airwallflick: 'default',
+    marigumonet: 'default',
+    pod: 'default',
+    airwalljump: 'default',
+    bookendslope: 'default',
+    bookendplane: 'default',
+    cushiona: 'default',
+    cushionb: 'default',
+    cushionc: 'default',
+    cushiond: 'default',
+    pelplanttable: 'default',
+    warptrigger: 'default',
+    burrow: 'default',
+    ropebranch: 'default',
 };
+
+// A 207 byte slice from an AreaBaseCamp_GEN_VARIABLE
+// Sometimes they're missing 4 bytes in the middle that are always 0 anyway
+// A scrape indicated most seem not to have them, but a notable amount do. No clue on what they do.
+export const areaBaseGenVarBytes = [0, 0, 0, 0, 255, 255, 255, 255, 5, 0, 0, 0, 78, 111, 110, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 150, 66, 0, 128, 187, 67, 0, 0, 0, 0, 0, 0, 112, 65, 0, 0, 240, 65, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 // Not exhaustive, just every asset scraped from AGLs - won't include items that don't actually APPEAR as drops
 export const internalAssetNames = ["/Game/Carrot4/Placeables/Addon/AddLand/Area001/GAddLand01_Area001_M.GAddLand01_Area001_M_C",

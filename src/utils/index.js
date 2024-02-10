@@ -83,7 +83,7 @@ export const findObjectKeyByValue = (object, target) => Object.keys(object).find
 
 export const doesEntityHaveDrops = entity => {
     if (entity.infoType === InfoType.Creature) return true;
-    return ["NoraSpawner", "CrackP", "GroupDropManager", "CrushJelly", "Gate"].some(asset => entity.creatureId.includes(asset));
+    return ["NoraSpawner", "CrackP", "GroupDropManager", "CrushJelly", "Gate", "Tateana"].some(asset => entity.creatureId.includes(asset));
 };
 
 export const doesEntityHaveRareDrops = entity => {

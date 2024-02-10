@@ -133,7 +133,7 @@ export const InfoPanel = ({ marker, mapMarkerData, setMapData, mapId }) => {
             if ((event.metaKey || event.ctrlKey) && event.code === 'KeyZ') {
                 const missingMarker = deleteStack.slice(-1)[0];
                 if (missingMarker) {
-                    const { type } = findMarkerById(missingMarker.ddId, mapMarkerData);
+                    const type = missingMarker.infoType;
                     setMapData({
                         ...mapMarkerData,
                         [type]: [...mapMarkerData[type], missingMarker]
