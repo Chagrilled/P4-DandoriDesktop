@@ -218,7 +218,6 @@ const parseActorSpawnerDrops = drops => {
     bytes.spawnLocationX = readFloat(drops.slice(index, index += 4));
     bytes.spawnLocationY = readFloat(drops.slice(index, index += 4));
     bytes.spawnLocationZ = readFloat(drops.slice(index, index += 4));
-    index += 4;
     index += 16; // No clue what these 4 bytes do - always 0
     bytes.infiniteSpawn = drops[index];
     index += 4;

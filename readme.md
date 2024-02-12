@@ -231,6 +231,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ Exception is thrown early if no teki file is present - Cave004_F00 is an example of this where no teki file naturally exists
 - 🐛 Some objects just crash the game upon being added to an AGL (at least the prologue). Probably not a bug per se, but just how the entities work. AirGeyser is one of these. Unsure why. Haven't tested with editing existing geysers.
 - 🐛 Icons that are filtered off the map still have their draggable center on hover
+- 🐛 Changing entity IDs for things like pots will probably mess up the inventoryEnd indices for AI arrays?
 
 </details>
 
