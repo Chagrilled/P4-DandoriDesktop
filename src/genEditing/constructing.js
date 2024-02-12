@@ -480,7 +480,7 @@ export const constructActor = (actor, mapId) => {
                 Dynamic: entityData[actor.creatureId].PortalTrigger[0].Dynamic
             },
             Life: {
-                Static: entityData[actor.creatureId].Life[0].Static[0],
+                Static: entityData[actor.creatureId].Life[0].Static,
                 Dynamic: actor.Life ? writeLifeDynamic(actor.Life) : entityData[actor.creatureId].Life[0].Dynamic
             },
             Affordance: {
