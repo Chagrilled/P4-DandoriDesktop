@@ -194,15 +194,14 @@ export const InfoPanel = ({ marker, mapMarkerData, setMapData, mapId }) => {
             )}
         </ExpandPanel> : '';
 
-    let markerIconId = marker.creatureId;
-    let { infoType } = marker;
+    let { infoType, creatureId: markerIconId } = creature;
 
-    if (isActorSpawner) markerIconId = getNameFromAsset(marker.drops.parsed[0].assetName);
-    if (marker.creatureId === 'NoraSpawnerPongashiLock')
-        markerIconId = `candypop-${marker.AIProperties.pikminType.substr(6)}`;
-    else if (marker.creatureId.includes('NoraSpawner')) {
+    if (isActorSpawner) markerIconId = getNameFromAsset(creature.drops.parsed[0].assetName);
+    if (creature.creatureId === 'NoraSpawnerPongashiLock')
+        markerIconId = `candypop-${creature.AIProperties.pikminType.substr(6)}`;
+    else if (creature.creatureId.includes('NoraSpawner')) {
         infoType = InfoType.Pikmin;
-        markerIconId = `${marker.AIProperties.pikminType}`;
+        markerIconId = `${creature.AIProperties.pikminType}`;
     }
 
     const sizeOverrides = {
