@@ -70,14 +70,14 @@ export const CreatureInfo = ({ obj, mapMarkerData, setMapData, parent, ddId, map
         if (editableNumberFields.includes(key)) {
             return <li key={fullKey}>
                 <b>{key}</b>:&nbsp;
-                <DebouncedInput changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, fullKey, ddId)} value={value} type="number" ddId={ddId} />
+                <DebouncedInput marker={obj} changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, fullKey, ddId)} value={value} type="number" ddId={ddId} />
             </li>;
         }
 
         if (editableStrings.includes(key)) {
             return <li key={key}>
                 <b>{key}</b>:&nbsp;
-                <DebouncedInput changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, fullKey, ddId)} value={arrayStrings.includes(key) ? JSON.stringify(value) : value} ddId={ddId} />
+                <DebouncedInput marker={obj} changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, fullKey, ddId)} value={arrayStrings.includes(key) ? JSON.stringify(value) : value} ddId={ddId} />
             </li>;
         }
 

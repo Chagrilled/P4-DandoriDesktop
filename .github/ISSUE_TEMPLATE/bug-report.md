@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 **Describe the bug**
-A clear and concise description of what the bug is.
+A clear and concise description of what the bug is. Attach screenshots showing the error logs from devtools or the thrown exception, or misbehaving UI.
 
 **To Reproduce**
-Steps to reproduce the behavior - include all relevant information (map name, exact enemy, your JSON Teki file if relevant)
+Steps to reproduce the behavior - include all relevant information (map name, exact enemy, your JSON files if relevant)

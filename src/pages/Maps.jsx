@@ -83,6 +83,7 @@ export const Maps = () => {
         mapMarkerData={mapMarkerData}
         setMapData={setMapData}
         mapId={mapId}
+        setSelectedMarker={setSelectedMarker}
     />;
 
     return (

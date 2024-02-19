@@ -97,6 +97,8 @@ Once you want to output these to your emulator, use `Tools > Deploy to Emulator`
 
 ⌨️ You can also use ctrl+Z to undo any _map entity_ you delete
 
+⌨️ ctrl+V will duplicate any entity currently selected
+
 ❗`castoc`'s error reporting doesn't seem so good (or it's how I invoke it), and it doesn't actually report a failure. If you **don't get the full load of toast messages, ending in** `Paks copied to "D:/your/output/folder"` then you may want to run the tools manually to see what's going on.
 
 ❗For the most part, the app is not fully user-safe and will not try to protect your inputs. Therefore, ensure you are keeping your input data in the correct types - arrays remain strict arrays, lists of strings (like `ignoreList` are correctly formatted - `["Kochappy", "Mush"]`) etc.
@@ -229,6 +231,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ Flint beetle drops are different to normal enemies (Giant's Hearth flint beetle near lemon) - No they weren't, they were just pellets that I hadn't supported yet
 - ✅ DebouncedInput doesn't get to reinitialise state when swapping to a new entity, and thus doesn't refresh when a new InfoPanel is rendered
 - ✅ Exception is thrown early if no teki file is present - Cave004_F00 is an example of this where no teki file naturally exists
+- ✅ DebouncedInput didn't update if dragging entities around the map, because the transform was only looking for changes observed by the input
 - 🐛 Some objects just crash the game upon being added to an AGL (at least the prologue). Probably not a bug per se, but just how the entities work. AirGeyser is one of these. Unsure why. Haven't tested with editing existing geysers.
 - 🐛 Icons that are filtered off the map still have their draggable center on hover
 - 🐛 Changing entity IDs for things like pots will probably mess up the inventoryEnd indices for AI arrays?

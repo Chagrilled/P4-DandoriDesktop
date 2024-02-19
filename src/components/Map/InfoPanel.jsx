@@ -120,7 +120,7 @@ const addDrop = (ddId, setMapData, mapMarkerData, isRare) => {
     });
 };
 
-export const InfoPanel = ({ marker, mapMarkerData, setMapData, mapId }) => {
+export const InfoPanel = ({ marker, mapMarkerData, setMapData, mapId, setSelectedMarker }) => {
     // Getting kinda messy, but I need everything to be 
     // sourced from the data array so components rerender on change
     const [deleteStack, setDeleteStack] = useState([]);
@@ -140,6 +140,30 @@ export const InfoPanel = ({ marker, mapMarkerData, setMapData, mapId }) => {
                     });
                     setDeleteStack(deleteStack.filter(c => c.ddId != missingMarker.ddId));
                 }
+            }
+            if ((event.metaKey || event.ctrlKey) && event.code === 'KeyV') {
+                if (!marker) return;
+                const { infoType, transform } = marker;
+                const newMarker = {
+                    ...marker,
+                    ddId: window.crypto.randomUUID(),
+                    transform: {
+                        ...transform,
+                        translation: {
+                            X: transform.translation.X + 200.0,
+                            Y: transform.translation.Y + 200.0,
+                            Z: transform.translation.Z
+                        }
+                    }
+                };
+                setMapData({
+                    ...mapMarkerData,
+                    [infoType]: [
+                        ...mapMarkerData[infoType],
+                        newMarker
+                    ]
+                });
+                setSelectedMarker(newMarker);
             }
         };
         document.addEventListener('keydown', callback);
