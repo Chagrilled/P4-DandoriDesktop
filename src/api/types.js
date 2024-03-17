@@ -173,7 +173,7 @@ export const CreatureNames = {
     Hariuo: "Pricklepuff",
     IceChappy: "Frosty Bulborb",
     IceFrog: "Chillyhop",
-    IceKochappy: "frosty Dward Bulborb",
+    IceKochappy: "Frosty Dwarf Bulborb",
     IceMar: "Icy Blowhog",
     IceOtakara: "Iceblown Dweevil",
     IceSenbei: "Freezecake",
