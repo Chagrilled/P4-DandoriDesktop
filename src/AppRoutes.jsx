@@ -14,7 +14,7 @@ export const AppRoutes = () => {
                 icon: '❌',
                 style: {
                     color: '#bd2626',
-                    'max-width': 'fit-content'
+                    maxWidth: 'fit-content'
                 }
             });
         });
@@ -24,13 +24,36 @@ export const AppRoutes = () => {
                 icon: '✅',
                 style: {
                     color: '#62cc80',
-                    'max-width': 'fit-content'
+                    maxWidth: 'fit-content'
                 }
             });
         });
+        window.electron.ipcRenderer.on('progressNotify', (something, message) => {
+            toast(message, {
+                duration: 5000,
+                icon: '⌛',
+                style: {
+                    color: '#e0a810',
+                    maxWidth: 'fit-content'
+                }
+            });
+        });
+        window.electron.ipcRenderer.on('nonBlockingNotify', (something, message) => {
+            toast(message, {
+                duration: 5000,
+                icon: '🤷‍♂️',
+                style: {
+                    color: '#e0a810',
+                    maxWidth: 'fit-content'
+                }
+            });
+        });
+
         return () => {
             window.electron.ipcRenderer.removeAllListeners('errorNotify');
             window.electron.ipcRenderer.removeAllListeners('successNotify');
+            window.electron.ipcRenderer.removeAllListeners('progressNotify');
+            window.electron.ipcRenderer.removeAllListeners('nonBlockingNotify');
         };
     }, []);
 

@@ -494,7 +494,7 @@ const readMaps = (force) => {
         if (err) {
             console.error(err);
             // TOOD: return error toast
-            mainWindow.webContents.send('errorNotify', `Failed to read main area maps from: ${AREA_PATH}`);
+            mainWindow.webContents.send('nonBlockingNotify', `Failed to read main area maps from: ${AREA_PATH}`);
             // return mainWindow.webContents.send('getMaps', { maps: [] });
         }
         // maps.push(...areaMaps);
@@ -520,7 +520,7 @@ const readMaps = (force) => {
                     maps,
                     gameDir: config.gameDir
                 };
-                mainWindow.webContents.send('errorNotify', `Failed to read caves from: ${CAVE_PATH}`);
+                mainWindow.webContents.send('nonBlockingNotify', `Failed to read caves from: ${CAVE_PATH}`);
                 return mainWindow.webContents.send('getMaps', { maps, caveError: `Failed to read from: ${CAVE_PATH}` });
             }
             const caves = await Promise.all([...caveMaps.map(path => promises.readdir(join(CAVE_PATH, path)))]);

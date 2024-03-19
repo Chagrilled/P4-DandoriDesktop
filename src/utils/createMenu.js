@@ -3,12 +3,18 @@
 
 const { app, Menu, dialog, shell } = require('electron');
 
-import { readdir, promises, writeFile, accessSync } from 'fs';
+import { readdir, promises, writeFile, accessSync, createWriteStream } from 'fs';
 import { join } from 'path';
 import { spawn } from 'child_process';
 import { version } from '../../package.json';
 
 const isMac = process.platform === 'darwin';
+const LOG_PATH = join(`${app.getPath('userData')}`, "deploy-log.txt");
+
+const defaultLogger = (data, logStream) => {
+    console.log(data.toString('utf8'));
+    logStream.write(data.toString('utf8'));
+};
 
 export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) => Menu.buildFromTemplate([
     ...(isMac
@@ -136,35 +142,59 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                 click: () => {
                     if (!config.castocDir || !config.encoderDir || !config.outputDir)
                         return mainWindow.webContents.send('errorNotify', 'Set encoder/castoc/output folder first');
-                    mainWindow.webContents.send('successNotify', 'Encoding JSONs');
+                    mainWindow.webContents.send('progressNotify', 'Encoding JSONs');
+                    let errorFlag = false;
+                    const logStream = createWriteStream(LOG_PATH, { flags: 'w' });
 
                     // The bat scripts have `pause`s in them, and for the life of me I couldn't programmatically get through it
                     let subprocess = spawn('python main.py encode', { shell: true, cwd: join(config.encoderDir, "P4UassetEditor") });
-                    subprocess.stdout.on('data', data => console.log(data.toString('utf8')));
-                    subprocess.stderr.on('data', data => console.log(data.toString('utf8')));
+                    subprocess.on('error', e => { });
+                    subprocess.stdout.on('data', data => defaultLogger(data, logStream));
+                    subprocess.stderr.on('data', data => {
+                        defaultLogger(data, logStream);
+                        if (data.includes('global.json'))
+                            errorFlag = true;
+                    });
                     subprocess.on('close', (code) => {
+                        if (errorFlag) return mainWindow.webContents.send('errorNotify', '_GLOBAL_UCAS/global.json is missing - follow UassetEditor\'s readme to generate it, or get Noodl\'s from the pinned message in #pikmin-4-help of Hocotate Hacker');
                         if (code !== 0) {
-                            return mainWindow.webContents.send('errorNotify', 'Failed encoding');
+                            console.log(code);
+                            // ENOENT in libuv is this
+                            if (code === -4058) return mainWindow.webContents.send('errorNotify', 'Failed to run encoder. Make sure that P4UassetEditor/main.py exists in your encoder folder.');
+                            return mainWindow.webContents.send('errorNotify', 'Failed encoding - check the log file');
                         }
                         mainWindow.webContents.send('successNotify', 'Encoded JSONs');
-                        // On Windows, there's no mkdir -p
+
+                        // Copy encoder outputs to castoc folder -  On Windows, there's no mkdir -p
                         const castocDir = join(config.castocDir, '_EDIT', 'Carrot4', 'Content');
                         const cmd = `robocopy "${join(config.encoderDir, '_OUTPUT')}" "${castocDir}" /is /it /E`;
                         subprocess = spawn(cmd, { shell: true });
-                        subprocess.stdout.on('data', data => console.log(data.toString('utf8')));
-                        subprocess.stderr.on('data', data => console.log(data.toString('utf8')));
+                        subprocess.stdout.on('data', data => defaultLogger(data, logStream));
+                        subprocess.stderr.on('data', data => defaultLogger(data, logStream));
                         subprocess.on('close', (code) => {
                             if (code > 7) { // https://ss64.com/nt/robocopy-exit.html
                                 return mainWindow.webContents.send('errorNotify', `Failed copying to ${join(config.castocDir, '_EDIT', 'Carrot4', 'Content')}`);
                             }
                             // castoc errors aren't returning - maybe because it pauses rather than erroring
                             mainWindow.webContents.send('successNotify', 'Copied outputs to castoc');
+
+                            // Castoc Packing
                             subprocess = spawn('main.exe pack ..\\..\\_EDIT ..\\..\\Manifest.json ..\\..\\_OUTPUT\\Mod_P None', { shell: true, cwd: join(config.castocDir, "Source", "UassetCreationTools") });
+                            subprocess.on('error', e => { });
+                            let errorFlag = false;
+                            subprocess.stdout.on('data', data => {
+                                defaultLogger(data, logStream);
+                                if (data.includes('Did you use the correct manifest file')) errorFlag = true;
+                            });
                             subprocess.on('close', (code) => {
                                 if (code !== 0) {
+                                    if (code === -4058) return mainWindow.webContents.send('errorNotify', 'Failed to run castoc. Make sure that Source/UassetCreationTools/main.exe exists in your castoc folder.');
                                     return mainWindow.webContents.send('errorNotify', `Failed running castoc PACKFILES`);
                                 }
-                                mainWindow.webContents.send('successNotify', 'Packed to paks');
+                                if (errorFlag) return mainWindow.webContents.send('errorNotify', `castoc didn't pack the files correctly - something is wrong with them, or manifest.json is missing/incorrect`);
+                                mainWindow.webContents.send('successNotify', 'Compiled to paks');
+
+                                // Emulator copying
                                 subprocess = spawn(`robocopy "${join(config.castocDir, '_OUTPUT')}" "${config.outputDir}" /is /it`, { shell: true });
                                 subprocess.on('close', (code) => {
                                     if (code > 7) {
@@ -186,7 +216,9 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
             {
                 label: 'Open Emulator (Admin Startup Required)',
                 click: () => {
-                    spawn(config.emulatorFile);
+                    if (!config.emulatorFile) return mainWindow.webContents.send('errorNotify', "Set your emulator path first");
+                    const subprocess = spawn(config.emulatorFile);
+                    subprocess.on('error', () => mainWindow.webContents.send('errorNotify', "Dandori Desktop must be run as administrator to do this."));
                 }
             },
             {
@@ -287,6 +319,17 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
             {
                 label: 'Open Devtools',
                 click: () => mainWindow.webContents.openDevTools()
+            },
+            {
+                label: 'Open Log File',
+                click: () => {
+                    if (process.platform === 'win32') {
+                        // Workround
+                        spawn('explorer.exe', [LOG_PATH]);
+                    } else {
+                        shell.openPath(LOG_PATH);
+                    }
+                }
             },
             {
                 label: `Version ${version}`,

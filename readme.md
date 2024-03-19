@@ -191,7 +191,6 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ Flint beetle drops
 - ❌ How skutterchucks start with bombs - probably a CustomParameter
 - ✅ Make `params` actually the fields they are now I know what it is
-- ❌ Make an MSI for Yoshi3
 - ✅ RebirthLater/RebirthInterval
 - ✅ Extract JSONs button
 - ✅ Send a message if people's uasset isn't the decoded `Content` array
