@@ -276,7 +276,7 @@ ipcMain.handle('saveMaps', async (event, mapId, data) => {
 });
 
 const writeAGL = async (originalRaw, newAGL, mapId, mapType, baseFile) => {
-    if (['Cave004_F00', 'Cave013_F02'].some(m => mapId === m) && mapType === TEKI) return; // Cave004_F00 doesn't have a teki file. We can't construct them from scratch
+    if (['Cave004_F00', 'Cave013_F02'].some(m => mapId === m) && mapType === TEKI) return mainWindow.webContents.send('nonBlockingNotify', 'This cave doesn\'t have teki files, so your teki edits won\'t be saved.'); // Cave004_F00 doesn't have a teki file. We can't construct them from scratch
 
     const newJson = {
         Content: [
@@ -327,6 +327,7 @@ ipcMain.handle('readMapData', async (event, mapId) => {
     let tekiFile;
     try {
         tekiFile = await promises.readFile(mapPath, { encoding: 'utf-8' });
+        writeFileSync('junk.json', protectNumbers(tekiFile));
         tekiFile = JSON.parse(protectNumbers(tekiFile));
         // console.log(tekiFile.Content[0].ActorGeneratorList);
         rawData.teki = tekiFile;
@@ -334,7 +335,7 @@ ipcMain.handle('readMapData', async (event, mapId) => {
         // Catch people with weird teki files. I think this is when they export raw JSON rather than decode a uasset
         // Later on we can work around that to support both, but that's not important now
         if (!Array.isArray(rawData.teki.Content)) {
-            mainWindow.webContents.send('errorNotify', 'Couldn\'t read JSON - Map is missing the Content array. Export the raw uasset and decode it');
+            mainWindow.webContents.send('errorNotify', 'Couldn\'t read JSON - Map is missing the Content array. Export the RAW uasset and decode it');
             // return features;
         }
 
@@ -379,6 +380,7 @@ ipcMain.handle('readMapData', async (event, mapId) => {
             };
         }).filter(i => !!i);
     } catch (e) {
+        console.log(e);
         if (!["Cave004_F00", "Cave013_F02"].some(m => mapId === m)) mainWindow.webContents.send('errorNotify', `Failed reading teki data from: ${mapPath}`);
     }
 
