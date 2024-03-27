@@ -1104,6 +1104,7 @@ export const WorkObjectNames = {
     String: 'Climbable String',
     TanebiStation: 'Fire Stand (Lit)',
     TanebiStationRelay: 'Fire Stand (Unlit)',
+    Tunnel: 'Tunnel',
     WarpCarryFloor: 'Floor Tunnel',
     WarpCarryWall: 'Wall Tunnel',
     ValveOnce: 'Valve (One Time)',

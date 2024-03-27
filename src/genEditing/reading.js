@@ -268,6 +268,14 @@ const parseTriggerDoorAI = ai => {
     return parsedAI;
 };
 
+const parseWarpAI = ai => {
+    const parsedAI = { parsed: [], AIProperties: {} };
+
+    parsedAI.AIProperties.warpID = readAsciiString(ai, 155);
+    
+    return parsedAI;
+};
+
 const parseBaseAI = ai => {
     let lastNoneIndex = 0;
     let loopIndex = 0;
@@ -445,6 +453,8 @@ export const getReadAIFunc = (creatureId, infoType) => {
     if (creatureId.includes('Gate')) return parseGateAI;
     if (creatureId.includes('TriggerDoor')) return parseTriggerDoorAI;
     if (creatureId.includes('Switch')) return parseTriggerDoorAI; // Switches use the same AI, without TriggerDoorAIComponent on the end
+    if (creatureId === 'Conveyor265uu') return parseTriggerDoorAI;
+    if (['Tunnel', 'WarpCarry', 'HappyDoor'].some(s => creatureId.includes(s))) return parseWarpAI;
     if (infoType === InfoType.Base) return parseBaseAI;
     return () => ({ parsed: [] });
 };

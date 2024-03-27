@@ -327,7 +327,6 @@ ipcMain.handle('readMapData', async (event, mapId) => {
     let tekiFile;
     try {
         tekiFile = await promises.readFile(mapPath, { encoding: 'utf-8' });
-        writeFileSync('junk.json', protectNumbers(tekiFile));
         tekiFile = JSON.parse(protectNumbers(tekiFile));
         // console.log(tekiFile.Content[0].ActorGeneratorList);
         rawData.teki = tekiFile;

@@ -262,11 +262,15 @@ These objects have (most) of their pertinent bytes parsed and displayed for mani
  - 🚧 Paper bags - you can adjust their weight requirement. I've not looked at their AI to see if they have an inventory to mutate.
  - 🚧 Bases - The genvar's fields are editable, but I've not tested new areas. The base text names isn't in the actor, so there's more to the base system I think.
  - ✅ TriggerDoor
- - ❌ Switches
+ - ✅ Switches
  - ❌ Circulators
  - ❌ Bridges/buildables
  - ❌ Mush
  - ❌ Stickyfloors
  - ❌ Hazards - I have no leads on how these bytes work 🥲
  - ❌ Cardboard boxes
- - ❌ Hangboards
+ - ❌ Hangboards - WorkNum is at [155] too
+ - 🚧 Conveyors - switches reverse direction - I have no idea what conveyor navs do then 🤷‍♂️ but they have a lot of extra AI bytes
+ - ❌ Fences - fences with switch IDs start on byte 155 as well, but there's lots of extra stuff, and the switch name isn't defaulted
+ - ❌ Valves (can these link up to triggerdoors and conveyors?)
+ - ❌ Sprinklers

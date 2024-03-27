@@ -67,6 +67,8 @@ export const getConstructAIFunc = (creatureId, infoType) => {
     if (creatureId.includes('Gate')) return constructGateAI;
     if (creatureId.includes('TriggerDoor')) return constructTriggerDoorAI;
     if (creatureId.includes('Switch')) return constructSwitchAI;
+    if (creatureId === 'Conveyor265uu') return constructConveyorAI;
+    if (['Tunnel', 'WarpCarry', 'HappyDoor'].some(s => creatureId.includes(s))) return constructWarpAI;
     if (infoType === InfoType.Base) return constructBaseAI;
     return defaultAI;
 };
@@ -130,11 +132,28 @@ const constructTriggerDoorAI = (_, aiStatic, { AIProperties }) => {
 };
 
 const constructSwitchAI = (_, aiStatic, { AIProperties }) => {
-    let index = 155;
-    let bytes = aiStatic.slice(0, index);
+    let bytes = aiStatic.slice(0, 155);
 
     // Write the SwitchID in
     writeAsciiString(bytes, AIProperties.switchID);
+
+    return bytes;
+};
+
+const constructConveyorAI = (_, aiStatic, { AIProperties }) => {
+    let bytes = aiStatic.slice(0, 155);
+
+    // Write the SwitchID in
+    writeAsciiString(bytes, AIProperties.switchID);
+    bytes.push(0, 0, 200, 66); // there's a 100 at the end of conveyors, idk
+
+    return bytes;
+};
+
+const constructWarpAI = (_, aiStatic, { AIProperties }) => {
+    let bytes = aiStatic.slice(0, 155);
+
+    writeAsciiString(bytes, AIProperties.warpID);
 
     return bytes;
 };

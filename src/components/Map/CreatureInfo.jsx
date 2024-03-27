@@ -33,9 +33,11 @@ const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId) => {
             if (path === 'creatureId') {
                 if (value.includes('NoraSpawner') && !creature.AIProperties)
                     creature.AIProperties = { ...defaultAIProperties };
-                if (['TriggerDoor', 'Switch'].some(e => value.includes(e)) && !creature.AIProperties)
+                if (['TriggerDoor', 'Switch', 'Conveyor265uu'].some(e => value.includes(e)) && !creature.AIProperties)
                     creature.AIProperties = { ...defaultTriggerAI };
-                if (!['NoraSpawner', 'Camp', 'TriggerDoor', 'Switch'].some(e => value.includes(e)) && creature.AIProperties)
+                if (['Tunnel', 'WarpCarry', 'HappyDoor'].some(s => value.includes(s)) && !creature.AIProperties)
+                    creature.AIProperties = { warpID: 'TunnelID_1'} // Not sure if it HAS to be WarpCarryID_0 for WCs, and TunnelID_0 for tunnels
+                if (!['NoraSpawner', 'Camp', 'TriggerDoor', 'Switch', 'Conveyor265uu', 'WarpCarry', 'HappyDoor', 'Tunnel'].some(e => value.includes(e)) && creature.AIProperties)
                     delete creature.AIProperties;
             }
         }
