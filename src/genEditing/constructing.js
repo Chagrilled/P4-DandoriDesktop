@@ -1,4 +1,4 @@
-import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes } from '../api/types';
 import { default as entityData } from '../api/entityData.json';
 import { floatToByteArr, intToByteArr } from '../utils/bytes';
 import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue } from '../utils';
@@ -54,6 +54,7 @@ const writeAsciiString = (bytes, string) => {
     );
 };
 
+// The contract for these functions is (drops, aiStatic, { variousProperties })
 export const getConstructAIFunc = (creatureId, infoType) => {
     if (creatureId === 'GroupDropManager') return constructGDMAI;
     if (creatureId === 'ActorSpawner') return constructActorSpawnerAI;
@@ -64,6 +65,8 @@ export const getConstructAIFunc = (creatureId, infoType) => {
     if (creatureId.includes('Tateana')) return constructPotAI;
     if (infoType === InfoType.Creature) return constructCreatureAI;
     if (creatureId.includes('Gate')) return constructGateAI;
+    if (creatureId.includes('TriggerDoor')) return constructTriggerDoorAI;
+    if (creatureId.includes('Switch')) return constructSwitchAI;
     if (infoType === InfoType.Base) return constructBaseAI;
     return defaultAI;
 };
@@ -90,7 +93,7 @@ const constructBaseAI = (_, aiStatic, { AIProperties }) => {
     return bytes;
 };
 
-export const constructGateAI = ({ parsed, rareDrops, spareBytes }, aiStatic) => {
+const constructGateAI = ({ parsed, rareDrops, spareBytes }, aiStatic) => {
     const bytes = [];
     bytes.push(rareDrops.length, 0, 0, 0);
     constructInventory(rareDrops, bytes);
@@ -100,6 +103,39 @@ export const constructGateAI = ({ parsed, rareDrops, spareBytes }, aiStatic) => 
 
     bytes.push(parsed.length, 0, 0, 0);
     constructInventory(parsed, bytes);
+    return bytes;
+};
+
+const constructTriggerDoorAI = (_, aiStatic, { AIProperties }) => {
+    // because aiStatic may or may not have the segment with the CIDList in, we need to determine if it exists first
+    // entityData[0] for TriggerDoor has a Mar CIDList. Haven't checked the switch ones.
+    // Grab the first chunk up to the switch ID
+    let index = 155;
+    let bytes = aiStatic.slice(0, index);
+
+    // Write the SwitchID in
+    writeAsciiString(bytes, AIProperties.switchID);
+    index += aiStatic[index] + 72; // puts us at the start of CIDList if it exists
+
+    // Determine if the original/default has the extra bytes
+    if (aiStatic[index]) {
+        bytes.push(...aiStatic.slice(155 + aiStatic[155] + 4, index)); // this should take from after switchID up to the CIDList
+    }
+    else bytes.push(...TriggerDoorAIBytes); // if not, take what exists and splice the default in up to CIDList
+
+    if (typeof AIProperties.CIDList === 'string') AIProperties.CIDList = JSON.parse(AIProperties.CIDList);
+    bytes.push(AIProperties.CIDList.length, 0, 0, 0);
+    AIProperties.CIDList.forEach(actor => writeAsciiString(bytes, actor));
+    return bytes;
+};
+
+const constructSwitchAI = (_, aiStatic, { AIProperties }) => {
+    let index = 155;
+    let bytes = aiStatic.slice(0, index);
+
+    // Write the SwitchID in
+    writeAsciiString(bytes, AIProperties.switchID);
+
     return bytes;
 };
 

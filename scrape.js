@@ -4,6 +4,8 @@
 // Doesn't include night time parameters
 // Also prints every asset name defined in an AGL - this list isn't comprehensive as 
 // some assets are not spawned by the AGLs
+
+// Also collects the Sublevels/ teki and object files for the exposed parameter config, for mining purposes
 const { readdirSync, readFileSync, writeFileSync } = require('fs');
 
 const data = {};
@@ -45,8 +47,8 @@ const unprotectNumbers = string => {
     return string;
 };
 
-const pushIfNew = (tekiName, key, value) => {
-    data[tekiName][key].indexOf(value) == -1 ? data[tekiName][key].push(value) : {};
+const pushIfNew = (obj, tekiName, key, value) => {
+    obj[tekiName][key].indexOf(value) == -1 ? obj[tekiName][key].push(value) : {};
 };
 
 const parser = (jsonTeki) => {
@@ -81,14 +83,14 @@ const parser = (jsonTeki) => {
         if (!names.includes(SoftRefActorClass.AssetPathName)) {
             names.push(SoftRefActorClass.AssetPathName);
         }
-        pushIfNew(tekiName, "ExploreRateType", ExploreRateType);
-        pushIfNew(tekiName, "OutlineFolderPath", OutlineFolderPath);
-        pushIfNew(tekiName, "DebugUniqueId", GenerateInfo.DebugUniqueId);
-        pushIfNew(tekiName, "SaveFlag", RebirthInfo.SaveFlag);
-        pushIfNew(tekiName, "OriginalPhysicsRadiusZ", OriginalPhysicsRadiusZ);
-        pushIfNew(tekiName, "GenerateFlags", GenerateFlags);
-        pushIfNew(tekiName, "GeneratorVersion", GeneratorVersion);
-        pushIfNew(tekiName, "AssetVersion", AssetVersion);
+        pushIfNew(data, tekiName, "ExploreRateType", ExploreRateType);
+        pushIfNew(data, tekiName, "OutlineFolderPath", OutlineFolderPath);
+        pushIfNew(data, tekiName, "DebugUniqueId", GenerateInfo.DebugUniqueId);
+        pushIfNew(data, tekiName, "SaveFlag", RebirthInfo.SaveFlag);
+        pushIfNew(data, tekiName, "OriginalPhysicsRadiusZ", OriginalPhysicsRadiusZ);
+        pushIfNew(data, tekiName, "GenerateFlags", GenerateFlags);
+        pushIfNew(data, tekiName, "GeneratorVersion", GeneratorVersion);
+        pushIfNew(data, tekiName, "AssetVersion", AssetVersion);
 
         arrays.forEach(key => {
             if (JSON.stringify(data[tekiName][key]).indexOf(JSON.stringify(ActorSerializeParameter[key])) == -1) {
@@ -98,50 +100,90 @@ const parser = (jsonTeki) => {
     });
 };
 
+const sublevelData = {};
+
+const sublevelParser = data => {
+    data.forEach(obj => {
+        if (!obj.Template || !['ActorSpawner_GEN_VARIABLE', 'AI_GEN_VARIABLE', 'GroupDropManager_GEN_VARIABLE'].some(s => obj.Template.includes(s)) || !obj.Properties) return;
+        Object.entries(obj.Properties).forEach(([key, val]) => {
+            if (!sublevelData[obj.Template]) sublevelData[obj.Template] = {};
+            looper(sublevelData[obj.Template], val, key);
+        });
+    });
+};
+
+const looper = (parent, obj, key, arrayVal) => {
+    if (["CreationMethod", "bNetAddressable", "UCSSerializationIndex", "UCSModifiedProperties", "UniqueId", "DebugUniqueIdList"].some(s => key === s)) return;
+    if (Array.isArray(obj)) {
+        if (!parent[key]) parent[key] = {};
+        obj.forEach(o => looper(parent[key], o, key, true))
+    }
+    else if (obj && typeof obj === 'object' && !Array.isArray(obj)) {
+        if (!parent[key]) parent[key] = {};
+        Object.entries(obj).forEach(([k, val]) => {
+            looper(parent[key], val, k);
+        });
+    }
+    else if (obj && !Array.isArray(obj)) {
+        // Arrays can be arrays of objects or simple values, so if it gets to here
+        // we know it's an array of values. I don't think this is entirely correct, as
+        // without the truthy check, nulls can end up here
+        if (arrayVal) {
+            if (!parent.arrayValues) parent.arrayValues = [];
+            parent.arrayValues.indexOf(obj) == -1 ? parent.arrayValues.push(obj) : {};
+        }
+        else {
+            if (!parent[key]) parent[key] = [];
+            parent[key].indexOf(obj) == -1 ? parent[key].push(obj) : {};
+        }
+    }
+};
+
+const reader = (filePath, func) => {
+    const rawFile = readFileSync(filePath, { encoding: 'utf-8' });
+    const json = JSON.parse(protectNumbers(rawFile));
+    func(json);
+};
+
 readdirSync('Main/Area').forEach(areaDir => {
     if (areaDir == 'Area500') return;
-    const day = areaDir.startsWith('Cave') || areaDir === 'Area011' ? '' : '_Day';
-    const tekiFile = readFileSync(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Teki${day}.json`, { encoding: 'utf-8' });
-    const jsonTeki = JSON.parse(protectNumbers(tekiFile));
-    parser(jsonTeki);
-    const objFile = readFileSync(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Objects${day}.json`, { encoding: 'utf-8' });
-    const jsonObj = JSON.parse(protectNumbers(objFile));
-    parser(jsonObj);
+    const day = areaDir === 'Area011' ? '' : '_Day';
+    reader(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Teki${day}.json`, parser);
+    reader(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Objects${day}.json`, parser);
+    reader(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Objects.json`, parser);
 
-    const baseObjFile = readFileSync(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Objects.json`, { encoding: 'utf-8' });
-    const jsonBaseObj = JSON.parse(protectNumbers(baseObjFile));
-    parser(jsonBaseObj);
-
+    reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Teki${day}.json`, sublevelParser);
+    reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Objects${day}.json`, sublevelParser);
+    reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Objects.json`, sublevelParser);
     try {
-        const heroTekiFile = readFileSync(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Hero_Teki.json`, { encoding: 'utf-8' });
-        const heroJsonTeki = JSON.parse(protectNumbers(heroTekiFile));
-        parser(heroJsonTeki);
-        const heroObjFile = readFileSync(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Hero_Objects.json`, { encoding: 'utf-8' });
-        const heroJsonObj = JSON.parse(protectNumbers(heroObjFile));
-        parser(heroJsonObj);
+        reader(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Hero_Teki.json`, parser);
+        reader(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Hero_Objects.json`, parser);
+        reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Hero_Teki.json`, sublevelParser);
+        reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Hero_Objects.json`, sublevelParser);
+
     } catch (e) { console.log(e); } // cba to filter out the non-hero stages
 });
 
 readdirSync('Madori/Cave').forEach(cave => {
     readdirSync(`Madori/Cave/${cave}`).forEach(subLevel => {
         if (['Cave004_F00', 'Cave013_F02'].includes(subLevel)) return; //idk these ones don't have teki files - didn't want to try/catch
-        const tekiFile = readFileSync(`Madori/Cave/${cave}/${subLevel}/ActorPlacementInfo/AP_${subLevel}_P_Teki.json`, { encoding: 'utf-8' });
-        const jsonTeki = JSON.parse(protectNumbers(tekiFile));
-        parser(jsonTeki);
-        const objFile = readFileSync(`Madori/Cave/${cave}/${subLevel}/ActorPlacementInfo/AP_${subLevel}_P_Objects.json`, { encoding: 'utf-8' });
-        const jsonObj = JSON.parse(protectNumbers(objFile));
-        parser(jsonObj);
+        reader(`Madori/Cave/${cave}/${subLevel}/ActorPlacementInfo/AP_${subLevel}_P_Teki.json`, parser);
+        reader(`Madori/Cave/${cave}/${subLevel}/ActorPlacementInfo/AP_${subLevel}_P_Objects.json`, parser);
+        reader(`Madori/Cave/${cave}/${subLevel}/Sublevels/${subLevel}_Teki.json`, sublevelParser);
+        reader(`Madori/Cave/${cave}/${subLevel}/Sublevels/${subLevel}_Objects.json`, sublevelParser);
+    
     });
 });
 
 writeFileSync('output-pretty.json', unprotectNumbers(JSON.stringify(data, null, 4)));
 writeFileSync('output-compressed.json', unprotectNumbers(JSON.stringify(data)));
+writeFileSync('sublevels.json', unprotectNumbers(JSON.stringify(sublevelData, null, 4)));
 writeFileSync('names.json', JSON.stringify(names, null, 4));
 
 
 // Scraper to pull _some_ treasure names from the zukan file
 // I still had to add a few myself like the hero parts that don't seem to appear in the zukan
-// but are in my original list
+// but are in my original list. Full list is in the DDT code types.js
 // const { readdirSync, readFileSync, writeFileSync } = require('fs');
 // const names = [];
 

@@ -563,6 +563,8 @@ export const DefaultPortalTrigger = {
     bDisableIsFlareGuard: false,
 };
 
+// used for constructing, and displaying swaps to NoraSpawner
+// fix that and split them up later, between a superset for construction and the NS defaults
 export const defaultAIProperties = {
     spawnNum: 1,
     spawnRadius: 50,
@@ -581,6 +583,11 @@ export const defaultAIProperties = {
     }
 };
 
+export const defaultTriggerAI = {
+    switchID: 'switch00',
+    CIDList: '[]'
+};
+
 export const defaultBaseAIProperties = {
     baseCampId: 1,
     bDeactivateByExit: false,
@@ -597,6 +604,7 @@ export const defaultBaseAIProperties = {
 };
 
 export const GateMiddleBytes = [5, 0, 0, 0, 78, 111, 110, 101, 0, 205, 204, 204, 61, 0, 0, 32, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 200, 66, 0, 0, 122, 67, 0, 0, 200, 66, 0, 0, 150, 66, 0, 0, 150, 66, 34, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+export const TriggerDoorAIBytes = [13, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 87, 195, 0, 128, 110, 68, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 122, 68, 0, 0, 122, 68, 0, 0, 72, 67];
 
 export const TreasureNames = {
     Ota3DMegane: "Dimension Converter",

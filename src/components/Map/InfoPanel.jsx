@@ -4,7 +4,7 @@ import { MarkerIcon } from "../Icon";
 import { ExpandPanel } from "./ExpandPanel";
 import { DropCard } from "./Card/DropCard";
 import { CardList } from "./Card/CardList";
-import { doesEntityHaveDrops, findMarkerById, getAngleRotation, getAssetPathFromId, getNameFromAsset, doesEntityHaveRareDrops } from "../../utils";
+import { doesEntityHaveDrops, findMarkerById, getAngleRotation, getAssetPathFromId, getNameFromAsset, doesEntityHaveRareDrops, deepCopy } from "../../utils";
 import { CreatureInfo } from "./CreatureInfo";
 
 const updateDrops = (value, mapMarkerData, setMapData, ddId, drop, key, dropDeleteStack, setDropDeleteStack, isRare) => {
@@ -145,7 +145,7 @@ export const InfoPanel = ({ marker, mapMarkerData, setMapData, mapId, setSelecte
                 if (!marker) return;
                 const { infoType, transform } = marker;
                 const newMarker = {
-                    ...marker,
+                    ...deepCopy(marker),
                     ddId: window.crypto.randomUUID(),
                     transform: {
                         ...transform,

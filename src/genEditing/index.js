@@ -3,6 +3,7 @@ import { setFloats, getAssetPathFromId } from '../utils';
 import deepEqual from 'deep-equal';
 import { getReadAIFunc, getReadPortalFunc } from './reading';
 import { getConstructAIFunc, getConstructPortalTriggerFunc, writeLifeDynamic, writeAffordanceWeight } from './constructing';
+import { default as entityData } from '../api/entityData.json';
 
 export const getSubpath = creatureId => {
     if (creatureId === 'ActorSpawner') return 'Gimmicks/ActorSpawner';
@@ -12,25 +13,18 @@ export const getSubpath = creatureId => {
 };
 
 export const regenerateAGLEntity = (actor, aglData) => {
-    console.log("AGL ID:", aglData.ddId);
-    // There are non-tekis in the teki AGL - leave them be
-    // Tekis/G is because splines are Teki/Other/Spline/GSpline....
-    // const editables = ['Placeables/Teki/G', 'Gimmicks/ActorSpawner', 'Objects/Egg'];
-    // if (!editables.some(asset => aglData.SoftRefActorClass.AssetPathName.includes(asset))) {
-    //     const newEntity = {
-    //         ...aglData
-    //     };
-    //     delete newEntity.ddId;
-    //     return newEntity;
-    // }
+    // console.log("AGL ID:", aglData.ddId);
     const transforms = {
         Rotation: setFloats(actor.transform.rotation),
         Translation: setFloats(actor.transform.translation),
         Scale3D: setFloats(actor.transform.scale3D)
     };
+    const assetPathName = getAssetPathFromId(actor.creatureId) || `/Game/Carrot4/Placeables/${getSubpath(actor.creatureId)}/G${actor.creatureId}.G${actor.creatureId}_C`;
+    const newAsset = assetPathName !== aglData.SoftRefActorClass.AssetPathName;
+    console.log("is it different?", newAsset)
     const originalAI = aglData.ActorSerializeParameter.AI.Static;
     const { parsed, inventoryEnd, AIProperties, rareDrops } = getReadAIFunc(actor.creatureId, actor.infoType)(originalAI);
-    const isAIUnchanged = deepEqual({
+    const isAIEqual = deepEqual({
         parsed,
         rareDrops,
         AIProperties
@@ -40,11 +34,17 @@ export const regenerateAGLEntity = (actor, aglData) => {
         AIProperties: actor.AIProperties
     });
     let newAI = {};
-    if (!isAIUnchanged) {
+    console.log("Is AI equal?", isAIEqual)
+    if (!isAIEqual || newAsset) {
         console.log(actor.creatureId, "constructing new AI");
+        // If an object or enemy is changed in-place to another type, its existing AI in the AGL will be used as a base
+        // Which means we'll be modifying the AI of something else, in-place, assuming it's the same type we're constructing
+        // i.e constructing a NoraSpawner using the existing bytes of a Gate. Not good.
+        // if the asset has changed, regenerate using the defaults.
+        const aiStatic = newAsset ? entityData[actor.creatureId].AI[0].Static : originalAI;
         newAI = {
             AI: {
-                Static: getConstructAIFunc(actor.creatureId, actor.infoType)(actor.drops, originalAI, {
+                Static: getConstructAIFunc(actor.creatureId, actor.infoType)(actor.drops, aiStatic, {
                     inventoryEnd,
                     groupingRadius: actor.groupingRadius,
                     ignoreList: actor.ignoreList,
@@ -75,13 +75,12 @@ export const regenerateAGLEntity = (actor, aglData) => {
             }
         };
     }
-    else console.log(actor.creatureId, "PT is unchanged");
 
     const newEntity = {
         ...aglData,
         SoftRefActorClass: {
             ...aglData.SoftRefActorClass,
-            AssetPathName: getAssetPathFromId(actor.creatureId) || `/Game/Carrot4/Placeables/${getSubpath(actor.creatureId)}/G${actor.creatureId}.G${actor.creatureId}_C`,
+            AssetPathName: assetPathName,
         },
         InitTransform: transforms,
         Transform: transforms,

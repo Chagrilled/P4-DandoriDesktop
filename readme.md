@@ -234,6 +234,9 @@ The bytes I construct are then spliced together with the base template for that 
 - 🐛 Some objects just crash the game upon being added to an AGL (at least the prologue). Probably not a bug per se, but just how the entities work. AirGeyser is one of these. Unsure why. Haven't tested with editing existing geysers.
 - 🐛 Icons that are filtered off the map still have their draggable center on hover
 - 🐛 Changing entity IDs for things like pots will probably mess up the inventoryEnd indices for AI arrays?
+- ✅ Changing entity types of existing actors caused it to apply the AI constructor to the bytes of a different entity type, which can make them radically different. i.e a NoraSpawner function applied to the bytes of a Gate (changed to a NoraSpawner). All asset swaps will use the defaults.
+- 🐛 In some very unknown circumstances the debuguniqueID isn't getting string-protected and the end is getting truncated to 2000, which causes encoding to fail. Not sure why or how.
+- ✅ Copying entities with ctrl+V causes their nested objects (AIProperties etc) to be cloned as references not values since spread is a shallow clone, so modifying one changes all clones.
 
 </details>
 
@@ -253,8 +256,17 @@ These objects have (most) of their pertinent bytes parsed and displayed for mani
  - ✅ Pots - Inventory length is the first byte followed by the slots, as normal
  - ✅ Tateana (those holes) - basically just pot inventories
  - ✅ NoraSpawners - diagram on TKB.
- - ✅ CrushJelly - They're just pots. There's a `searchCIDList` array which seems to be items that can be "in" the jelly (as in pre-spawned items, not drops on destroy)
+ - ✅ CrushJelly - They're just pots. There's a `searchCIDList` array which seems to be items that can be "in" the jelly (as in pre-spawned items, not drops on destroy), which isn't supported yet.
  - ✅ Portals - TriggerPortal is fully supported, so you can link portals to wherever you like. Results may vary. Some parameters are completely unknown in purpose/formula, like `PanzakuPriority` and `DisablePikminFlags`. I have no idea how to calculate the latter.
  - ✅ Gates - Health is adjustable and they can be given drops. I don't know what `RareDropParameter` is, but I've exposed it for editing.
  - 🚧 Paper bags - you can adjust their weight requirement. I've not looked at their AI to see if they have an inventory to mutate.
  - 🚧 Bases - The genvar's fields are editable, but I've not tested new areas. The base text names isn't in the actor, so there's more to the base system I think.
+ - ✅ TriggerDoor
+ - ❌ Switches
+ - ❌ Circulators
+ - ❌ Bridges/buildables
+ - ❌ Mush
+ - ❌ Stickyfloors
+ - ❌ Hazards - I have no leads on how these bytes work 🥲
+ - ❌ Cardboard boxes
+ - ❌ Hangboards

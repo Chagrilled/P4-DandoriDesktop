@@ -248,6 +248,26 @@ const parseActorSpawnerDrops = drops => {
     };
 };
 
+const parseTriggerDoorAI = ai => {
+    let index = 155; // we only care about CIDList for now, which is the very last thing in the array
+    // it also might not even exist. 156 lands us on the switch string, usually 9chars of switch00, but variable
+    const parsedAI = { parsed: [], AIProperties: {} };
+
+    parsedAI.AIProperties.switchID = readAsciiString(ai, index);
+    index += ai[index] + 4;
+    index += 68; // This should now be the start of CIDList
+    parsedAI.AIProperties.CIDList = [];
+
+    const cidLength = ai[index];
+    index += 4;
+    if (cidLength) // will be undefined if TriggerDoorAI isn't there. Thanks JS.
+        for (let i = 0; i < cidLength; i++) {
+            parsedAI.AIProperties.CIDList.push(readAsciiString(ai, index));
+            index += ai[index] + 4;
+        }
+    return parsedAI;
+};
+
 const parseBaseAI = ai => {
     let lastNoneIndex = 0;
     let loopIndex = 0;
@@ -423,6 +443,8 @@ export const getReadAIFunc = (creatureId, infoType) => {
     if (creatureId.includes('Tateana')) return parsePotDrops;
     if (infoType === InfoType.Creature) return parseTekiDrops;
     if (creatureId.includes('Gate')) return parseGateAI;
+    if (creatureId.includes('TriggerDoor')) return parseTriggerDoorAI;
+    if (creatureId.includes('Switch')) return parseTriggerDoorAI; // Switches use the same AI, without TriggerDoorAIComponent on the end
     if (infoType === InfoType.Base) return parseBaseAI;
     return () => ({ parsed: [] });
 };

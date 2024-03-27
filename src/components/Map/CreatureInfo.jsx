@@ -1,5 +1,5 @@
 import React from 'react';
-import { NameMap, RebirthTypes, PikminTypes, PikminPlayType, defaultAIProperties, DemoPlayParamEnter, DemoPlayParamExit, PortalTypes } from "../../api/types";
+import { NameMap, RebirthTypes, PikminTypes, PikminPlayType, defaultAIProperties, DemoPlayParamEnter, DemoPlayParamExit, PortalTypes, defaultTriggerAI } from "../../api/types";
 import { useConfig } from '../../hooks/useConfig';
 import { findMarkerById, getAvailableTimes } from '../../utils';
 import { DebouncedInput } from './DebouncedInput';
@@ -7,7 +7,7 @@ import { DebouncedInput } from './DebouncedInput';
 const editableNumberFields = ["generateNum", "generateRadius", "X", "Y", "Z", "W", "groupingRadius", "rebirthInterval", "birthDay", "deadDay", "spawnNum", "spawnRadius", "noSpawnRadius", "mabikiNumFromFollow", "unknownInt", "pongashiChangeColorFollowNum", "portalNumber", "toPortalId", "baseCampId", "playAnimDist", "disablePikminFlags", "panzakuPriority", "Life", "weight"];
 const editableBools = ["bMabikiPongashi", "bInitialPortalMove", "bDeactivateByExit", "bDisableIsFlareGuard"];
 const ignoreFields = ["drops", "type", "infoType", "ddId", "outlineFolderPath", "spareBytes"];
-const editableStrings = ["ignoreList", "toLevelName", "toSubLevelName", "CIDList"];
+const editableStrings = ["ignoreList", "toLevelName", "toSubLevelName", "CIDList", "switchID"];
 const arrayStrings = ["ignoreList", "CIDList"];
 const selectFields = {
     pongashiChangeColorFromFollow: Object.values(PikminTypes),
@@ -29,10 +29,13 @@ const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId) => {
     const newMapData = mapMarkerData[type].map(creature => {
         if (creature.ddId == ddId) {
             deepUpdate(creature, path, value);
+            // rework this shite
             if (path === 'creatureId') {
                 if (value.includes('NoraSpawner') && !creature.AIProperties)
                     creature.AIProperties = { ...defaultAIProperties };
-                if (!['NoraSpawner', 'Camp'].some(e => value.includes(e)) && creature.AIProperties)
+                if (['TriggerDoor', 'Switch'].some(e => value.includes(e)) && !creature.AIProperties)
+                    creature.AIProperties = { ...defaultTriggerAI };
+                if (!['NoraSpawner', 'Camp', 'TriggerDoor', 'Switch'].some(e => value.includes(e)) && creature.AIProperties)
                     delete creature.AIProperties;
             }
         }
