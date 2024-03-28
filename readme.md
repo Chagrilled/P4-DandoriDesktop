@@ -265,7 +265,7 @@ These objects have (most) of their pertinent bytes parsed and displayed for mani
  - ✅ Switches
  - ❌ Circulators
  - ❌ Bridges/buildables
- - ❌ Mush
+ - ✅ Mush
  - ❌ Stickyfloors
  - ❌ Hazards - I have no leads on how these bytes work 🥲
  - ❌ Cardboard boxes

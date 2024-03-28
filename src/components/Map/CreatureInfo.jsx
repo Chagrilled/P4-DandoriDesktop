@@ -7,7 +7,7 @@ import { DebouncedInput } from './DebouncedInput';
 const editableNumberFields = ["generateNum", "generateRadius", "X", "Y", "Z", "W", "groupingRadius", "rebirthInterval", "birthDay", "deadDay", "spawnNum", "spawnRadius", "noSpawnRadius", "mabikiNumFromFollow", "unknownInt", "pongashiChangeColorFollowNum", "portalNumber", "toPortalId", "baseCampId", "playAnimDist", "disablePikminFlags", "panzakuPriority", "Life", "weight"];
 const editableBools = ["bMabikiPongashi", "bInitialPortalMove", "bDeactivateByExit", "bDisableIsFlareGuard"];
 const ignoreFields = ["drops", "type", "infoType", "ddId", "outlineFolderPath", "spareBytes"];
-const editableStrings = ["ignoreList", "toLevelName", "toSubLevelName", "CIDList", "switchID"];
+const editableStrings = ["ignoreList", "toLevelName", "toSubLevelName", "CIDList", "switchID", "warpID"];
 const arrayStrings = ["ignoreList", "CIDList"];
 const selectFields = {
     pongashiChangeColorFromFollow: Object.values(PikminTypes),
