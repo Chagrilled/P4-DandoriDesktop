@@ -62,6 +62,7 @@ export const getInfoType = subPath => {
     if (subPath.includes('/Charcoal')) infoType = InfoType.Hazard;
     if (subPath === 'Teki') infoType = InfoType.Creature;
     if (subPath === 'Items') infoType = InfoType.Item;
+    if (subPath === 'Gimmicks/WarpCarry') infoType = InfoType.WorkObject;
     return infoType;
 };
 
@@ -83,7 +84,9 @@ export const findObjectKeyByValue = (object, target) => Object.keys(object).find
 
 export const doesEntityHaveDrops = entity => {
     if (entity.infoType === InfoType.Creature) return true;
-    return ["NoraSpawner", "CrackP", "GroupDropManager", "CrushJelly", "Gate", "Tateana"].some(asset => entity.creatureId.includes(asset));
+    // console.log("HAVE DROPS??", entity)
+    if (["Mush", "PoisonMush"].some(e => e === entity.creatureId)) return true; // Mush is a substring of several other entities that aren't ready yet
+    return ["NoraSpawner", "CrackP", "GroupDropManager", "CrushJelly", "Gate", "Tateana", "Komush", "MushS", "MushL"].some(asset => entity.creatureId.includes(asset));
 };
 
 export const doesEntityHaveRareDrops = entity => {

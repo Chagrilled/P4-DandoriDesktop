@@ -51,6 +51,33 @@ const readInventory = (drops, index, invSize) => {
     return { parsed, index };
 };
 
+export const getReadAIFunc = (creatureId, infoType) => {
+    // console.log("Reading", creatureId, infoType);
+    if (creatureId === 'GroupDropManager') return parseGDMDrops;
+    if (creatureId === 'ActorSpawner') return parseActorSpawnerDrops;
+    if (creatureId === 'BurrowDemejako') return () => ({ parsed: [] });
+    if (creatureId.includes('CrackP')) return parsePotDrops;
+    if (creatureId.includes('NoraSpawner')) return parseNoraSpawnerAI;
+    // These are actually the same, except CJs have searchCIDList right at the end
+    // idk what it does. It's to do with the jelly containing items. The default is fine for now.
+    if (creatureId.includes('CrushJelly')) return parsePotDrops;
+    if (creatureId.includes('Tateana')) return parsePotDrops;
+    if (infoType === InfoType.Creature) return parseTekiDrops;
+    if (creatureId.includes('Gate')) return parseGateAI;
+    if (creatureId.includes('TriggerDoor')) return parseTriggerDoorAI;
+    if (creatureId.includes('Switch')) return parseTriggerDoorAI; // Switches use the same AI, without TriggerDoorAIComponent on the end
+    if (creatureId === 'Conveyor265uu') return parseTriggerDoorAI;
+    if (creatureId.includes('Mush')) return parseTekiDrops;
+    if (['Tunnel', 'WarpCarry', 'HappyDoor'].some(s => creatureId.includes(s))) return parseWarpAI;
+    if (infoType === InfoType.Base) return parseBaseAI;
+    return () => ({ parsed: [] });
+};
+
+export const getReadPortalFunc = infoType => {
+    if (infoType == InfoType.Portal) return parsePortalTrigger;
+    return () => false;
+};
+
 const parseGateAI = ai => {
     let rareDrops = [];
     let parsed = [];
@@ -272,7 +299,7 @@ const parseWarpAI = ai => {
     const parsedAI = { parsed: [], AIProperties: {} };
 
     parsedAI.AIProperties.warpID = readAsciiString(ai, 155);
-    
+
     return parsedAI;
 };
 
@@ -436,30 +463,4 @@ const parsePortalTrigger = portalTrigger => {
     PortalTrigger.spareBytes = portalTrigger.slice(index, portalTrigger.length); // These last 3 floats are the trigger coordinates
 
     return { PortalTrigger };
-};
-
-export const getReadAIFunc = (creatureId, infoType) => {
-    // console.log("Reading", creatureId, infoType);
-    if (creatureId === 'GroupDropManager') return parseGDMDrops;
-    if (creatureId === 'ActorSpawner') return parseActorSpawnerDrops;
-    if (creatureId === 'BurrowDemejako') return () => ({ parsed: [] });
-    if (creatureId.includes('CrackP')) return parsePotDrops;
-    if (creatureId.includes('NoraSpawner')) return parseNoraSpawnerAI;
-    // These are actually the same, except CJs have searchCIDList right at the end
-    // idk what it does. It's to do with the jelly containing items. The default is fine for now.
-    if (creatureId.includes('CrushJelly')) return parsePotDrops;
-    if (creatureId.includes('Tateana')) return parsePotDrops;
-    if (infoType === InfoType.Creature) return parseTekiDrops;
-    if (creatureId.includes('Gate')) return parseGateAI;
-    if (creatureId.includes('TriggerDoor')) return parseTriggerDoorAI;
-    if (creatureId.includes('Switch')) return parseTriggerDoorAI; // Switches use the same AI, without TriggerDoorAIComponent on the end
-    if (creatureId === 'Conveyor265uu') return parseTriggerDoorAI;
-    if (['Tunnel', 'WarpCarry', 'HappyDoor'].some(s => creatureId.includes(s))) return parseWarpAI;
-    if (infoType === InfoType.Base) return parseBaseAI;
-    return () => ({ parsed: [] });
-};
-
-export const getReadPortalFunc = infoType => {
-    if (infoType == InfoType.Portal) return parsePortalTrigger;
-    return () => false;
 };

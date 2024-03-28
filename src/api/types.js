@@ -1127,7 +1127,6 @@ export const WorkObjectNames = {
     YBoxSmallAnother: 'Cardboard Box Small 2 (Y)',
 };
 
-
 export const PikminNames = {
     PikminYellow: 'Yellow Pikmin',
     PikminRed: 'Red Pikmin',

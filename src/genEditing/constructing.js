@@ -68,6 +68,7 @@ export const getConstructAIFunc = (creatureId, infoType) => {
     if (creatureId.includes('TriggerDoor')) return constructTriggerDoorAI;
     if (creatureId.includes('Switch')) return constructSwitchAI;
     if (creatureId === 'Conveyor265uu') return constructConveyorAI;
+    if (creatureId.includes('Mush')) return constructCreatureAI;
     if (['Tunnel', 'WarpCarry', 'HappyDoor'].some(s => creatureId.includes(s))) return constructWarpAI;
     if (infoType === InfoType.Base) return constructBaseAI;
     return defaultAI;
