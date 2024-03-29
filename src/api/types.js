@@ -207,7 +207,7 @@ export const CreatureNames = {
     NightFrog: "Yellow Wollyhop (Night)",
     NightKaburi: "Joustmite (Night)",
     NightKareHambo: "Dessicated Skitterleaf (Night)",
-    NightKochappy: "Dward Bulborb (Night)",
+    NightKochappy: "Dwarf Bulborb (Night)",
     NightMar: "Puffy Blowhog (Night)",
     NightTobiKaburi: "Flying Joustmite (Night)",
     NightTobinko: "Shearwig (Night)",
