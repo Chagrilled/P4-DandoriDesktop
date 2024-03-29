@@ -263,6 +263,7 @@ These objects have (most) of their pertinent bytes parsed and displayed for mani
  - 🚧 Bases - The genvar's fields are editable, but I've not tested new areas. The base text names isn't in the actor, so there's more to the base system I think.
  - ✅ TriggerDoor
  - ✅ Switches
+ - ✅ Tunnels
  - ❌ Circulators
  - ❌ Bridges/buildables
  - ✅ Mush
