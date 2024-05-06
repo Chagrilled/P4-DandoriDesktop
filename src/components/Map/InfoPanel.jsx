@@ -7,6 +7,7 @@ import { CardList } from "./Card/CardList";
 import { doesEntityHaveDrops, findMarkerById, getAngleRotation, getAssetPathFromId, getNameFromAsset, doesEntityHaveRareDrops, deepCopy } from "../../utils";
 import { CreatureInfo } from "./CreatureInfo";
 
+//#region updateDrops
 const updateDrops = (value, mapMarkerData, setMapData, ddId, drop, key, dropDeleteStack, setDropDeleteStack, isRare) => {
     console.log("val", value);
     // if (!value && key !== 'delete') return;
@@ -67,6 +68,7 @@ const deleteMarker = (mapMarkerData, setMapData, creature) => {
     setMapData({ ...mapMarkerData, [type]: newMapData });
 };
 
+//#region undoDelete
 const undoItemDelete = (dropDeleteStack, setDropDeleteStack, mapMarkerData, setMapData) => {
     if (!dropDeleteStack.length) return;
 
@@ -94,6 +96,7 @@ const undoItemDelete = (dropDeleteStack, setDropDeleteStack, mapMarkerData, setM
 
 };
 
+//#region addDrop
 const addDrop = (ddId, setMapData, mapMarkerData, isRare) => {
     const { type } = findMarkerById(ddId, mapMarkerData);
     const dropType = isRare ? 'rareDrops' : 'parsed';
@@ -120,6 +123,7 @@ const addDrop = (ddId, setMapData, mapMarkerData, isRare) => {
     });
 };
 
+//#region Component
 export const InfoPanel = ({ marker, mapMarkerData, setMapData, mapId, setSelectedMarker }) => {
     // Getting kinda messy, but I need everything to be 
     // sourced from the data array so components rerender on change

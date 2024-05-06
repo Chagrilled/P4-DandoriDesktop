@@ -1,7 +1,15 @@
-import { InfoType, PikminTypes, PikminPlayType, PortalTypes } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, PortalTypes, ValveWorkType } from '../api/types';
 import { findSequenceStartIndex } from '../utils';
 import { bytesToInt } from '../utils/bytes';
 import { NONE_BYTES } from './constructing';
+
+//#region Stocks
+const readAsciiString = (bytes, index) => {
+    let stringLength = bytes[index];
+    index += 4;
+    const asciiString = bytes.slice(index, index + stringLength - 1); // We don't want the null terminator in the string
+    return String.fromCharCode.apply(null, asciiString);
+};
 
 const readFloat = (bytes) => parseFloat(new Float32Array(new Uint8Array(bytes).buffer)[0].toFixed(3));
 
@@ -51,8 +59,15 @@ const readInventory = (drops, index, invSize) => {
     return { parsed, index };
 };
 
-export const getReadAIFunc = (creatureId, infoType) => {
+//#region Func Controllers
+export const getReadAIDynamicFunc = (creatureId, infoType) => {
+    if (creatureId.includes('Valve')) return parseValveAI_Dynamic;
+    return () => ({});
+};
+
+export const getReadAIStaticFunc = (creatureId, infoType) => {
     // console.log("Reading", creatureId, infoType);
+    if (creatureId.startsWith('Spline')) return () => ({ parsed: [] });
     if (creatureId === 'GroupDropManager') return parseGDMDrops;
     if (creatureId === 'ActorSpawner') return parseActorSpawnerDrops;
     if (creatureId === 'BurrowDemejako') return () => ({ parsed: [] });
@@ -70,6 +85,9 @@ export const getReadAIFunc = (creatureId, infoType) => {
     if (creatureId.includes('Mush')) return parseTekiDrops;
     if (['Tunnel', 'WarpCarry', 'HappyDoor'].some(s => creatureId.includes(s))) return parseWarpAI;
     if (infoType === InfoType.Base) return parseBaseAI;
+    if (creatureId === 'Sprinkler') return parseSprinklerAI;
+    if (creatureId.includes('Valve')) return parseValveAI;
+    if (creatureId.includes('StickyFloor')) return parseStickyFloorAI;
     return () => ({ parsed: [] });
 };
 
@@ -78,6 +96,117 @@ export const getReadPortalFunc = infoType => {
     return () => false;
 };
 
+export const getReadActorParameterFunc = creatureId => {
+    if (creatureId.startsWith('Valve')) return parseValveActorParam;
+    if (creatureId.startsWith('Sprinkler')) return parseValveActorParam;
+    return () => false;
+};
+
+export const getReadNavMeshTriggerFunc = creatureId => {
+    if (creatureId.startsWith('NavMeshTrigger')) return parseNavMeshTrigger;
+    return () => false;
+};
+
+//#region NavMeshTrigger
+const parseNavMeshTrigger = trigger => {
+    let index = 0;
+    const navMeshTrigger = {
+        overlapBoxExtent: {
+            X: readFloat(trigger.slice(index, index += 4)),
+            Y: readFloat(trigger.slice(index, index += 4)),
+            Z: readFloat(trigger.slice(index, index += 4)),
+        },
+        navCollBoxExtent: {
+            X: readFloat(trigger.slice(index, index += 4)),
+            Y: readFloat(trigger.slice(index, index += 4)),
+            Z: readFloat(trigger.slice(index, index += 4)),
+        },
+        CIDList: []
+    };
+
+    const ignoreCIDLength = trigger[index];
+    index += 4;
+    if (ignoreCIDLength)
+        for (let i = 0; i < ignoreCIDLength; i++) {
+            navMeshTrigger.CIDList.push(readAsciiString(trigger, index));
+            index += trigger[index] + 4;
+        }
+    navMeshTrigger.navMeshTriggerID = readAsciiString(trigger, index);
+
+    return navMeshTrigger;
+};
+
+//#region StickyFloor
+const parseStickyFloorAI = ai => {
+    let parsed = [];
+    let index = 0;
+    const invSize = ai[index];
+
+    index += 4; // There's a -1,-1 (255*4, 255*4) after, idk what they do
+    ({ parsed, index } = readInventory(ai, index, invSize));
+    const AIProperties = {
+        bAutoSpawnMush: ai.at(-4) ? true : false
+    };
+
+    while (ai[index] != 255 && index < ai.length) {
+        console.log("Iterating forward in stickyfloor");
+        index += 1; // Just iterate till we find the 255 byte? Shouldn't run, I think
+    }
+
+    return {
+        parsed,
+        AIProperties,
+        inventoryEnd: index + 4
+    };
+};
+
+//#region Valve
+const parseValveAI = ai => {
+    let index = 155;
+    index += 4; // a float
+    index += 4; // a bool
+    const AIProperties = {
+        valveID: readAsciiString(ai, index)
+    };
+    index += ai[index] + 4;
+    AIProperties.workType = ValveWorkType[ai[index]];
+    index += 4;
+    AIProperties.demoID = ai[index];
+    return {
+        AIProperties,
+        parsed: []
+    };
+};
+
+const parseValveAI_Dynamic = ai => ({ piecePutNum: ai[12] });
+
+export const parseValveActorParam = actorParam => ({
+    demoBindName: readAsciiString(actorParam, 0)
+});
+
+//#region Sprinkler
+const parseSprinklerAI = ai => {
+    let index = 133;
+    const AIProperties = {
+        navMeshTriggerID: readAsciiString(ai, index)
+    };
+    index += ai[index] + 4;
+    index += 13; // skip the rest of whatever's here
+    AIProperties.valveID = readAsciiString(ai, index);
+    index += ai[index] + 4;
+    index += 12; // skip the 3 transform floats
+    AIProperties.waterRange = readFloat(ai.slice(index, index += 4));
+    AIProperties.openTime = readFloat(ai.slice(index, index += 4));
+    index += 4;
+    AIProperties.flatEffectOffsetZ = readFloat(ai.slice(index, index += 4));
+    AIProperties.bSprinklerOnly = ai[index];
+    return {
+        AIProperties,
+        parsed: []
+    };
+};
+
+//#region Gate
 const parseGateAI = ai => {
     let rareDrops = [];
     let parsed = [];
@@ -95,6 +224,7 @@ const parseGateAI = ai => {
     return { parsed, rareDrops, spareBytes };
 };
 
+//#region NoraSpawner
 const parseNoraSpawnerAI = ai => {
     let index = 0;
     const AIProperties = {};
@@ -177,6 +307,7 @@ const parseNoraSpawnerAI = ai => {
     };
 };
 
+//#region GDM
 export const parseGDMDrops = drops => {
     let parsed = [];
     const ignoreList = [];
@@ -201,6 +332,7 @@ export const parseGDMDrops = drops => {
     return { parsed, inventoryEnd: index + 4, groupingRadius, ignoreList };
 };
 
+//#region Pots
 export const parsePotDrops = drops => {
     let parsed = [];
     let index = 0;
@@ -213,9 +345,10 @@ export const parsePotDrops = drops => {
         index += 1; // Just iterate till we find the 255 byte? Shouldn't run, I think
     }
 
-    return { parsed, inventoryEnd: index + 4, };
+    return { parsed, inventoryEnd: index + 4 };
 };
 
+//#region ActorSpawner
 const parseActorSpawnerDrops = drops => {
     // Could this be looped? Yeah probably. Refactor Later :TM:
     // Make an object with the keyname and its byte width? I guess non-fixed bytes are an issue there
@@ -240,7 +373,10 @@ const parseActorSpawnerDrops = drops => {
     bytes.radius = readFloat(drops.slice(index, index += 4));
     bytes.angle = readFloat(drops.slice(index, index += 4));
     bytes.sphereRadius = readFloat(drops.slice(index, index += 4));
-    index += drops[index] + 4; // A custom parameter - not exposing for now
+    const motionName = readAsciiString(drops, index);
+    bytes.fallStart = motionName === 'FallStart' ? true : false;
+    index += drops[index] + 4;
+
     index += 4; // Some bool that's always 1 - haven't found a zero yet
     bytes.spawnLocationX = readFloat(drops.slice(index, index += 4));
     bytes.spawnLocationY = readFloat(drops.slice(index, index += 4));
@@ -275,6 +411,7 @@ const parseActorSpawnerDrops = drops => {
     };
 };
 
+//#region TriggerDoor
 const parseTriggerDoorAI = ai => {
     let index = 155; // we only care about CIDList for now, which is the very last thing in the array
     // it also might not even exist. 156 lands us on the switch string, usually 9chars of switch00, but variable
@@ -295,6 +432,8 @@ const parseTriggerDoorAI = ai => {
     return parsedAI;
 };
 
+
+//#region Warp
 const parseWarpAI = ai => {
     const parsedAI = { parsed: [], AIProperties: {} };
 
@@ -303,6 +442,7 @@ const parseWarpAI = ai => {
     return parsedAI;
 };
 
+//#region Base
 const parseBaseAI = ai => {
     let lastNoneIndex = 0;
     let loopIndex = 0;
@@ -343,6 +483,7 @@ const parseBaseAI = ai => {
     return { AIProperties, parsed: [] };
 };
 
+//#region Teki
 export const parseTekiDrops = drops => {
     // find the inventory size byte
     // if 0, return empty list
@@ -403,13 +544,7 @@ export const parseTekiDrops = drops => {
     return { parsed, inventoryEnd: index + 4 };
 };
 
-const readAsciiString = (bytes, index) => {
-    let stringLength = bytes[index];
-    index += 4;
-    const asciiString = bytes.slice(index, index + stringLength - 1); // We don't want the null terminator in the string
-    return String.fromCharCode.apply(null, asciiString);
-};
-
+//#region PortalTrigger
 const parsePortalTrigger = portalTrigger => {
     const PortalTrigger = {};
     let index = 0;

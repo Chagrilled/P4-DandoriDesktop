@@ -1,10 +1,11 @@
-import { InfoType, internalAssetNames, Times } from "../api/types";
+import { InfoType, internalAssetNames, Times, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI } from "../api/types";
 
 export const getPathType = assetName => assetName.match(/Placeables\/(.+)\/G/)[1];
 export const getNameFromAsset = assetName => assetName.match(/\.G(.+)_C/)[1];
 
 // Huge numbers like DropOwnerDebugUniqueId that are in JSON as numbers
 // exceed MAX_SAFE_INTEGER, so as soon as JS parses them as numbers they're truncated.
+// This can be identified in a 21~-length number that ends in 2000 usually.
 // Wrap them as strings while we have the data as a string, then re-regex them back to 
 // numbers after stringifying
 // You'd think you could just replace /[0-9]{16,}/ but there are negatives, decimals, and 
@@ -84,9 +85,21 @@ export const findObjectKeyByValue = (object, target) => Object.keys(object).find
 
 export const doesEntityHaveDrops = entity => {
     if (entity.infoType === InfoType.Creature) return true;
-    // console.log("HAVE DROPS??", entity)
+
     if (["Mush", "PoisonMush"].some(e => e === entity.creatureId)) return true; // Mush is a substring of several other entities that aren't ready yet
-    return ["NoraSpawner", "CrackP", "GroupDropManager", "CrushJelly", "Gate", "Tateana", "Komush", "MushS", "MushL"].some(asset => entity.creatureId.includes(asset));
+    return [
+        "NoraSpawner",
+        "CrackP",
+        "GroupDropManager",
+        "CrushJelly",
+        "Gate",
+        "Tateana",
+        "Komush",
+        "MushS",
+        "MushL",
+        "StickyMush",
+        "StickyFloor"
+    ].some(asset => entity.creatureId.includes(asset));
 };
 
 export const doesEntityHaveRareDrops = entity => {
@@ -137,4 +150,72 @@ export const deepCopy = obj => {
             return newObj;
         }, {});
     }
+};
+
+export const mutateAIProperties = (creature, value) => {
+    const aiEnts = ['Camp'];
+
+    [
+        {
+            ents: ['TriggerDoor', 'Switch', 'Conveyor265uu'],
+            AIProperties: defaultTriggerAI
+        },
+        {
+            ents: ['NoraSpawner'],
+            AIProperties: defaultAIProperties
+        },
+        {
+            ents: ['Tunnel', 'WarpCarry', 'HappyDoor'],
+            AIProperties: { warpID: 'TunnelID_1' }
+        },
+        {
+            ents: ['Sprinkler'],
+            AIProperties: defaultSprinklerAI,
+            ActorParameter: {
+                demoBindName: 'GSprinkler01'
+            }
+        },
+        {
+            ents: ['Valve'],
+            AIProperties: defaultValveAI,
+            ActorParameter: {
+                demoBindName: 'GValveOnce00'
+            }
+        },
+        {
+            ents: ['StickyFloor'],
+            AIProperties: { bAutoSpawnMush: true }
+        },
+        {
+            ents: ['NavMeshTrigger'],
+            NavMeshTrigger: {
+                overlapBoxExtent: {
+                    X: 137.5,
+                    Y: 137.5,
+                    Z: 137.5,
+                },
+                navCollBoxExtent: {
+                    X: 100.0,
+                    Y: 100.0,
+                    Z: 100.0,
+                },
+                CIDList: [],
+                navMeshTriggerID: 'NavMeshTrigger00'
+            }
+        }
+    ].forEach(o => {
+        aiEnts.push(...o.ents);
+        if (o.ents.some(e => value.includes(e))) { // There was an && !creature.AIProperties here, I forget why
+            creature.AIProperties = { ...deepCopy(o.AIProperties) };
+
+            if (o.ActorParameter) creature.ActorParameter = { ...deepCopy(o.ActorParameter) };
+            else delete creature.ActorParameter;
+
+            if (o.NavMeshTrigger) creature.NavMeshTrigger = { ...deepCopy(o.NavMeshTrigger) };
+            else delete creature.NavMeshTrigger;
+        }
+    });
+
+    if (!aiEnts.some(e => value.includes(e)) && creature.AIProperties)
+        delete creature.AIProperties;
 };

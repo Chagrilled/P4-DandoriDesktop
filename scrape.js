@@ -1,39 +1,39 @@
 // Place in a decoded Carrot4/Maps and run
 // Combs all maps for their teki/object files and collects every variation
 // each parameter in the AGL can have. Arrays are stringified for comparison.
-// Doesn't include night time parameters
 // Also prints every asset name defined in an AGL - this list isn't comprehensive as 
 // some assets are not spawned by the AGLs
 
 // Also collects the Sublevels/ teki and object files for the exposed parameter config, for mining purposes
-const { readdirSync, readFileSync, writeFileSync } = require('fs');
+const { readdirSync, readFileSync, writeFileSync, mkdirSync } = require('fs');
 
 const data = {};
 const names = [];
 const arrays = [
-    "Hash",
-    "CheckComp",
-    "Affordance",
-    "CakAudioTable",
-    "CakEmitterConfig",
-    "Strategy",
-    "Life",
-    "AI",
-    "ActorParameter",
-    "SubAI",
-    "PortalTrigger",
-    "DemoTrigger",
-    "Pikmin",
-    "CharacterEdit",
-    "PopPlace",
-    "CakSimpleState",
-    "CakAudioTable",
-    "WaterTrigger",
-    "NavMeshTrigger",
-    "HiddenBoxTrigger",
-    "NarrowSpaceBoxTrigger",
-    "WarpTrigger",
-    "ActionMarker"
+    'AI',
+    'ActionMarker',
+    'ActorParameter',
+    'Affordance',
+    'CakAudioTable',
+    'CakEmitterConfig',
+    'CakMultiplePosition',
+    'CakSimpleState',
+    'CakTrigger',
+    'CharacterEdit',
+    'CheckComp',
+    'DemoTrigger',
+    'Hash',
+    'HiddenBoxTrigger',
+    'Life',
+    'NarrowSpaceBoxTrigger',
+    'NavMeshTrigger',
+    'Pikmin',
+    'PopPlace',
+    'PortalTrigger',
+    'Strategy',
+    'SubAI',
+    'WarpTrigger',
+    'WaterTrigger'
 ];
 
 // Same as in main.js - stops JS truncating numbers > MAX_SAFE_INTEGER
@@ -46,6 +46,20 @@ const unprotectNumbers = string => {
     string = string.replace(/\s\"([0-9]{16,22})\"/g, ' $1');
     return string;
 };
+
+const reader = (filePath, func) => {
+    const rawFile = readFileSync(filePath, { encoding: 'utf-8' });
+    const json = JSON.parse(protectNumbers(rawFile));
+    func(json);
+};
+
+if (process.argv[2]) {
+    mkdirSync('extractions', { recursive: true });
+    reader('./src/api/entityData.json', json => {
+        writeFileSync(`extractions/${process.argv[2]}.json`, unprotectNumbers(JSON.stringify(json[process.argv[2]], null, 4)), { encoding: 'utf-8' });
+    });
+    return;
+}
 
 const pushIfNew = (obj, tekiName, key, value) => {
     obj[tekiName][key].indexOf(value) == -1 ? obj[tekiName][key].push(value) : {};
@@ -106,6 +120,7 @@ const sublevelParser = data => {
     data.forEach(obj => {
         if (!obj.Template || !['ActorSpawner_GEN_VARIABLE', 'AI_GEN_VARIABLE', 'GroupDropManager_GEN_VARIABLE'].some(s => obj.Template.includes(s)) || !obj.Properties) return;
         Object.entries(obj.Properties).forEach(([key, val]) => {
+            // console.log(key);
             if (!sublevelData[obj.Template]) sublevelData[obj.Template] = {};
             looper(sublevelData[obj.Template], val, key);
         });
@@ -113,10 +128,11 @@ const sublevelParser = data => {
 };
 
 const looper = (parent, obj, key, arrayVal) => {
+    // console.log("looper: ", parent, obj, key, arrayVal)
     if (["CreationMethod", "bNetAddressable", "UCSSerializationIndex", "UCSModifiedProperties", "UniqueId", "DebugUniqueIdList"].some(s => key === s)) return;
     if (Array.isArray(obj)) {
         if (!parent[key]) parent[key] = {};
-        obj.forEach(o => looper(parent[key], o, key, true))
+        obj.forEach(o => looper(parent[key], o, key, true));
     }
     else if (obj && typeof obj === 'object' && !Array.isArray(obj)) {
         if (!parent[key]) parent[key] = {};
@@ -124,25 +140,22 @@ const looper = (parent, obj, key, arrayVal) => {
             looper(parent[key], val, k);
         });
     }
-    else if (obj && !Array.isArray(obj)) {
+    else if (!Array.isArray(obj)) {
         // Arrays can be arrays of objects or simple values, so if it gets to here
-        // we know it's an array of values. I don't think this is entirely correct, as
-        // without the truthy check, nulls can end up here
+        // we know it's an array of values.
         if (arrayVal) {
             if (!parent.arrayValues) parent.arrayValues = [];
             parent.arrayValues.indexOf(obj) == -1 ? parent.arrayValues.push(obj) : {};
         }
         else {
             if (!parent[key]) parent[key] = [];
-            parent[key].indexOf(obj) == -1 ? parent[key].push(obj) : {};
+            if (typeof parent[key] === 'object' && !Array.isArray(parent[key])) {
+                if (!parent[key].nonObjectValues) parent[key].nonObjectValues = [];
+                parent[key].nonObjectValues.indexOf(obj) == -1 ? parent[key].nonObjectValues.push(obj) : {};
+            }
+            else parent[key].indexOf(obj) == -1 ? parent[key].push(obj) : {};
         }
     }
-};
-
-const reader = (filePath, func) => {
-    const rawFile = readFileSync(filePath, { encoding: 'utf-8' });
-    const json = JSON.parse(protectNumbers(rawFile));
-    func(json);
 };
 
 readdirSync('Main/Area').forEach(areaDir => {
@@ -155,6 +168,10 @@ readdirSync('Main/Area').forEach(areaDir => {
     reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Teki${day}.json`, sublevelParser);
     reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Objects${day}.json`, sublevelParser);
     reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Objects.json`, sublevelParser);
+    if ((areaDir !== 'Area011')) {
+        reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Teki_Night.json`, sublevelParser);
+        reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Objects_Night.json`, sublevelParser);
+    }
     try {
         reader(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Hero_Teki.json`, parser);
         reader(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Hero_Objects.json`, parser);
@@ -171,7 +188,6 @@ readdirSync('Madori/Cave').forEach(cave => {
         reader(`Madori/Cave/${cave}/${subLevel}/ActorPlacementInfo/AP_${subLevel}_P_Objects.json`, parser);
         reader(`Madori/Cave/${cave}/${subLevel}/Sublevels/${subLevel}_Teki.json`, sublevelParser);
         reader(`Madori/Cave/${cave}/${subLevel}/Sublevels/${subLevel}_Objects.json`, sublevelParser);
-    
     });
 });
 

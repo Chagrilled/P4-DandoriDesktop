@@ -125,6 +125,19 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                     }, null, 4), { encoding: "utf-8" }, () => { });
                     mainWindow.webContents.send('getConfig', config);
                 }
+            },
+            {
+                label: 'Hide Invisible Entities',
+                type: 'checkbox',
+                checked: config.hideInvisEntities,
+                click: () => {
+                    config.hideInvisEntities = !config.hideInvisEntities;
+                    writeFile(CONFIG_PATH, JSON.stringify({
+                        ...config,
+                        hideInvisEntities: config.hideInvisEntities
+                    }, null, 4), { encoding: "utf-8" }, () => { });
+                    mainWindow.webContents.send('getConfig', config);
+                }
             }
         ]
     },

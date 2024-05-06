@@ -6,7 +6,7 @@ import swf from 'stringify-with-floats';
 import { spawn } from 'child_process';
 import { exposedGenVars, InfoType, Times } from './api/types';
 import { regenerateAGLEntity } from './genEditing';
-import { getReadAIFunc, getReadPortalFunc } from './genEditing/reading';
+import { getReadAIStaticFunc, getReadPortalFunc, getReadAIDynamicFunc, getReadActorParameterFunc, getReadNavMeshTriggerFunc } from './genEditing/reading';
 import { constructActor } from './genEditing/constructing';
 import { protectNumbers, unprotectNumbers, getInfoType, getAvailableTimes } from './utils';
 import { createMenu } from './utils/createMenu';
@@ -21,7 +21,8 @@ const DEFAULT_CONFIG = {
     encoderDir: '',
     castocDir: '',
     outputDir: '',
-    internalNames: false
+    internalNames: false,
+    hideInvisEntities: false
 };
 let config = {};
 let mapsCache = {};
@@ -348,10 +349,10 @@ ipcMain.handle('readMapData', async (event, mapId) => {
             const infoType = creatureId == 'GroupDropManager' ? 'gimmick' : 'creature';
             // Return an AIProperties from this and spread it into the editor's object - NoraSpawners actual entity
             // is meaningfully affected by AI, like ActorSpawner, so we need it on hand, not as a drop
-            const { parsed, inventoryEnd, groupingRadius, ignoreList } = getReadAIFunc(creatureId, infoType)(teki.ActorSerializeParameter.AI.Static);
+            console.log("Reading ", creatureId, infoType);
+            const { parsed, inventoryEnd, groupingRadius, ignoreList } = getReadAIStaticFunc(creatureId, infoType)(teki.ActorSerializeParameter.AI.Static);
             // Sadly, changing Life.Dynamic seems not to do anything to tekis
             // const Life = teki.ActorSerializeParameter.Life.Dynamic.length ? parseFloat(new Float32Array(new Uint8Array(teki.ActorSerializeParameter.Life.Dynamic.slice(0, 4)).buffer)[0]) : null;
-
             return {
                 type: 'creature',
                 infoType,
@@ -386,16 +387,22 @@ ipcMain.handle('readMapData', async (event, mapId) => {
     const objectProcessor = (object, fileType) => {
         const ddId = randomBytes(16).toString('hex');
         object.ddId = ddId;
+        const asp = object.ActorSerializeParameter;
         const entityId = object.SoftRefActorClass?.AssetPathName?.split('.')[1].slice(1, -2);
 
         const subPath = object.SoftRefActorClass?.AssetPathName?.match(/Placeables\/(.+)\/G/)[1];
 
         const infoType = getInfoType(subPath);
-        const { parsed, AIProperties, rareDrops, spareBytes } = getReadAIFunc(entityId, infoType)(object.ActorSerializeParameter.AI.Static);
-        const { PortalTrigger } = getReadPortalFunc(infoType)(object.ActorSerializeParameter.PortalTrigger.Static);
-        const Life = entityId.includes('Gate') ? parseFloat(new Float32Array(new Uint8Array(object.ActorSerializeParameter.Life.Dynamic.slice(0, 4)).buffer)[0]) : null;
-        const weight = entityId.includes('DownWall') ? byteArrToInt(object.ActorSerializeParameter.Affordance.Static.slice(-4).reverse()) : null;
-        console.log("AIProperties", AIProperties);
+        const { parsed, AIProperties: staticAI, rareDrops, spareBytes } = getReadAIStaticFunc(entityId, infoType)(asp.AI.Static);
+        const dynamicAI = getReadAIDynamicFunc(entityId, infoType)(asp.AI.Dynamic);
+        const { PortalTrigger } = getReadPortalFunc(infoType)(asp.PortalTrigger.Static);
+        const ActorParameter = getReadActorParameterFunc(entityId)(asp.ActorParameter.Static);
+        const NavMeshTrigger = getReadNavMeshTriggerFunc(entityId)(asp.NavMeshTrigger.Static);
+        const AIProperties = { ...staticAI, ...dynamicAI };
+        const Life = entityId.includes('Gate') ? parseFloat(new Float32Array(new Uint8Array(asp.Life.Dynamic.slice(0, 4)).buffer)[0]) : null;
+        const weight = entityId.includes('DownWall') ? byteArrToInt(asp.Affordance.Static.slice(-4).reverse()) : null;
+        // console.log("AIProperties", AIProperties);
+
         features[infoType].push({
             type: 'object',
             infoType,
@@ -404,6 +411,8 @@ ipcMain.handle('readMapData', async (event, mapId) => {
             ...(PortalTrigger && { PortalTrigger }),
             ...(Life && { Life }),
             ...(weight && { weight }),
+            ...(ActorParameter && { ActorParameter }),
+            ...(NavMeshTrigger && { NavMeshTrigger }),
             transform: {
                 rotation: object.InitTransform.Rotation,
                 translation: object.InitTransform.Translation,

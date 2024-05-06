@@ -1,13 +1,13 @@
 import React from 'react';
-import { NameMap, RebirthTypes, PikminTypes, PikminPlayType, defaultAIProperties, DemoPlayParamEnter, DemoPlayParamExit, PortalTypes, defaultTriggerAI } from "../../api/types";
+import { NameMap, RebirthTypes, PikminTypes, PikminPlayType, DemoPlayParamEnter, DemoPlayParamExit, PortalTypes, ValveWorkType } from "../../api/types";
 import { useConfig } from '../../hooks/useConfig';
-import { findMarkerById, getAvailableTimes } from '../../utils';
+import { findMarkerById, getAvailableTimes, mutateAIProperties } from '../../utils';
 import { DebouncedInput } from './DebouncedInput';
 
-const editableNumberFields = ["generateNum", "generateRadius", "X", "Y", "Z", "W", "groupingRadius", "rebirthInterval", "birthDay", "deadDay", "spawnNum", "spawnRadius", "noSpawnRadius", "mabikiNumFromFollow", "unknownInt", "pongashiChangeColorFollowNum", "portalNumber", "toPortalId", "baseCampId", "playAnimDist", "disablePikminFlags", "panzakuPriority", "Life", "weight"];
-const editableBools = ["bMabikiPongashi", "bInitialPortalMove", "bDeactivateByExit", "bDisableIsFlareGuard"];
+const editableNumberFields = ["generateNum", "generateRadius", "X", "Y", "Z", "W", "groupingRadius", "rebirthInterval", "birthDay", "deadDay", "spawnNum", "spawnRadius", "noSpawnRadius", "mabikiNumFromFollow", "unknownInt", "pongashiChangeColorFollowNum", "portalNumber", "toPortalId", "baseCampId", "playAnimDist", "disablePikminFlags", "panzakuPriority", "Life", "weight", "piecePutNum", "demoID", "waterRange", "openTime", "flatEffectOffsetZ"];
+const editableBools = ["bMabikiPongashi", "bInitialPortalMove", "bDeactivateByExit", "bDisableIsFlareGuard", "bSprinklerOnly", "bAutoSpawnMush"];
 const ignoreFields = ["drops", "type", "infoType", "ddId", "outlineFolderPath", "spareBytes"];
-const editableStrings = ["ignoreList", "toLevelName", "toSubLevelName", "CIDList", "switchID", "warpID"];
+const editableStrings = ["ignoreList", "toLevelName", "toSubLevelName", "CIDList", "switchID", "warpID", "valveID", "navMeshTriggerID", "demoBindName"];
 const arrayStrings = ["ignoreList", "CIDList"];
 const selectFields = {
     pongashiChangeColorFromFollow: Object.values(PikminTypes),
@@ -17,8 +17,9 @@ const selectFields = {
     portalType: Object.values(PortalTypes),
     demoPlayParamEnter: DemoPlayParamEnter,
     demoPlayParamExit: DemoPlayParamExit,
+    workType: Object.values(ValveWorkType)
 };
-
+//#region updateCreature
 const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId) => {
     console.log("updateObj", obj);
     let type = obj.infoType;
@@ -31,14 +32,7 @@ const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId) => {
             deepUpdate(creature, path, value);
             // rework this shite
             if (path === 'creatureId') {
-                if (value.includes('NoraSpawner') && !creature.AIProperties)
-                    creature.AIProperties = { ...defaultAIProperties };
-                if (['TriggerDoor', 'Switch', 'Conveyor265uu'].some(e => value.includes(e)) && !creature.AIProperties)
-                    creature.AIProperties = { ...defaultTriggerAI };
-                if (['Tunnel', 'WarpCarry', 'HappyDoor'].some(s => value.includes(s)) && !creature.AIProperties)
-                    creature.AIProperties = { warpID: 'TunnelID_1'} // Not sure if it HAS to be WarpCarryID_0 for WCs, and TunnelID_0 for tunnels
-                if (!['NoraSpawner', 'Camp', 'TriggerDoor', 'Switch', 'Conveyor265uu', 'WarpCarry', 'HappyDoor', 'Tunnel'].some(e => value.includes(e)) && creature.AIProperties)
-                    delete creature.AIProperties;
+                mutateAIProperties(creature, value);
             }
         }
         return { ...creature };
@@ -58,6 +52,7 @@ const deepUpdate = (obj, path, value) => {
         return deepUpdate(obj[path[0]], path.slice(1), value);
 };
 
+//#region Component
 export const CreatureInfo = ({ obj, mapMarkerData, setMapData, parent, ddId, mapId }) => {
     if (!obj) {
         return null;

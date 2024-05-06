@@ -1,5 +1,4 @@
 import { default as MapTransforms } from './map-transforms.json';
-import { getFeatureLayers } from '../components/Map/FeatureStyles';
 import { MarkerType } from './types';
 /*
 TODO:
@@ -68,4 +67,3 @@ export const getMarkerData = async (mapId) => {
     return mapMarkerData;
 };
 
-export const getMarkerLayers = mapMarkerData => getFeatureLayers(mapMarkerData);

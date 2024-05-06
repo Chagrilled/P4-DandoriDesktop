@@ -19,7 +19,7 @@ export const MapMenu = ({ }) => {
             [Onion]: 'OnyonCarryBoost',
             [Object]: 'Pellet1',
             [Portal]: 'MadoriRuins',
-            [WorkObject]: 'Burning',
+            [WorkObject]: 'PiecePick',
             [Pikmin]: 'PikminRed',
             [Treasure]: 'OtaBanana'
         }[id];

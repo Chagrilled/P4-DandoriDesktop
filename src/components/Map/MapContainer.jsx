@@ -4,10 +4,12 @@ import { defaults as defaultControls } from 'ol/control';
 import { getCenter } from 'ol/extent';
 import PointerInteraction from 'ol/interaction/Pointer';
 import { Select, defaults as defaultInteractions, Modify } from 'ol/interaction';
-import { getMapData, getMarkerLayers } from "../../api/MapAPI";
+import { getMapData } from "../../api/MapAPI";
 import { getImageLayersForMap, getProjectionForMap } from '../../api/getImageLayers';
 import { useContextMenu } from 'react-contexify';
 import { MapMenu } from './MapMenu';
+import { useConfig } from '../../hooks/useConfig';
+import { getFeatureLayers } from './FeatureStyles';
 // import { Style, Stroke, Fill, Circle } from 'ol/style';
 // import VectorLayer from 'ol/layer/Vector';
 // import VectorSource from 'ol/source/Vector';
@@ -24,6 +26,7 @@ export const MapContainer = ({
     const [markerLayers, setMarkerLayers] = useState({});
     const { show } = useContextMenu({ id: 'MAP_MENU ' });
     const prevFilter = useRef({});
+    const config = useConfig();
 
     useEffect(() => {
         const load = async () => {
@@ -41,7 +44,7 @@ export const MapContainer = ({
                 minZoom: 1,
             });
             // add markers
-            const markerLayers = await getMarkerLayers(mapMarkerData);
+            const markerLayers = await getFeatureLayers(mapMarkerData, config);
             const visibleLayers = Object.entries(markerLayers)
                 .filter(([k, _v]) => !!filter[k])
                 .map(([_k, v]) => v);
@@ -96,7 +99,7 @@ export const MapContainer = ({
         if (mapMarkerData) {
             load();
         };
-    }, [mapId, mapMarkerData]);
+    }, [mapId, mapMarkerData, config]);
 
     useEffect(() => {
         const filterKeys = Object.keys(filter);

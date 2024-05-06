@@ -3,8 +3,7 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Feature } from 'ol';
 import { Point } from 'ol/geom';
-
-import { Categories, MarkerType, isCreature, isTreasure, GimmickNames, InfoType, iconOverrides } from '../../api/types';
+import { Categories, MarkerType, isCreature, isTreasure, GimmickNames, InfoType, iconOverrides, invisibleEntities } from '../../api/types';
 import { getAngleRotation, getNameFromAsset, shouldIconRotate } from '../../utils';
 
 const { Gimmick, Hazard, Portal, Onion, Base, WorkObject, Pikmin } = InfoType;
@@ -14,6 +13,7 @@ const ROOT_GIMMICKS_URL = '../images/gimmicks';
 const ROOT_TREASURE_URL = '../images/treasures';
 const ROOT_CREATURE_URL = '../images/creatures';
 
+//#region Overrides
 const SCALE_OVERRIDES = {
     "egg": "0.6",
     "bigegg": "0.8",
@@ -40,6 +40,8 @@ const SCALE_OVERRIDES = {
     poisonmush: 1.3,
     poisonkomush: 1.4,
     stickymush: 1.2,
+    stickymushb: 1.2,
+    stickymushc: 1.2,
     stickymushpoison: 1.3,
     ojamablockair: 0.45,
     ojamablock: 0.5,
@@ -68,6 +70,9 @@ const SCALE_OVERRIDES = {
     warptrigger: 0.5,
     burrow: 0.5,
     ropebranch: 0.5,
+    ropebranchsmall: 0.5,
+    navmeshtriggerlinkforsplash: 0.5,
+    navmeshtriggerclear: 0.5
 };
 
 export const getIconOptions = (type) => {
@@ -80,7 +85,7 @@ export const getIconOptions = (type) => {
 };
 
 const MAX_MARKER_Z_INDEX = 1000;
-export const getFeatureLayers = (groupedData) => {
+export const getFeatureLayers = (groupedData, config) => {
     const featureLayers = {};
 
     for (let i = 0; i < LayerOrder.length; i++) {
@@ -91,7 +96,7 @@ export const getFeatureLayers = (groupedData) => {
 
         // Categories are sorted by layer importance.
         const layerZIndex = MAX_MARKER_Z_INDEX - i;
-        const features = getFeatures(markerType, groupedData[markerType]);
+        const features = getFeatures(markerType, groupedData[markerType], config);
         const layer = new VectorLayer({
             source: new VectorSource({
                 features
@@ -105,9 +110,11 @@ export const getFeatureLayers = (groupedData) => {
     return featureLayers;
 };
 
-const getFeatures = (markerType, markers) => {
+const getFeatures = (markerType, markers, config) => {
     const globalMarkerStyle = MarkerStyles[markerType];
+
     return markers.map(marker => {
+        if (config.hideInvisEntities && invisibleEntities.some(e => marker.creatureId.includes(e))) return;
         const feature = new Feature({
             // Why are x and y flipped???
             // Capitalise them because the AGL has the capitalised, and cba to keep transforming the key cases
@@ -119,7 +126,7 @@ const getFeatures = (markerType, markers) => {
             getFeatureStyle(marker, globalMarkerStyle)
         );
         return feature;
-    });
+    }).filter(f => !!f);
 };
 
 const MarkerStyles = Object.fromEntries(
@@ -140,6 +147,7 @@ const TREASURE_TEXT_STYLE = new Text({
     scale: 2
 });
 
+//#region Styles
 // TODO: Refactor this duplication - it's been through a lot 😪
 const getFeatureStyle = (marker, globalMarkerStyle) => {
     // console.log("getFeatureStyle", marker, globalMarkerStyle)

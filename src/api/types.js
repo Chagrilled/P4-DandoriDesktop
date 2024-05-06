@@ -11,6 +11,12 @@ export const PikminTypes = {
     16: 'Not set (PongashiColor only)'
 };
 
+export const TeamIDs = {
+    A: "ETeamIdEditor::A",
+    B: "ETeamIdEditor::B",
+    No: "ETeamIdEditor::No"
+};
+
 export const PortalTypes = {
     2: 'DungeonExit',
     3: 'UpPortal',
@@ -41,6 +47,11 @@ export const PikminPlayType = {
     2: "Guidance",
     3: "GatherInCircle",
     // RideAndJump, RunAroundHappy and AmazeByHappySneeze are also in this enum, values unknown    
+};
+
+export const ValveWorkType = {
+    2: "Once",
+    6: "Build"
 };
 
 export const DropConditions = {
@@ -588,6 +599,22 @@ export const defaultTriggerAI = {
     CIDList: '[]'
 };
 
+export const defaultSprinklerAI = {
+    navMeshTriggerID: 'NavMeshTrigger00',
+    valveID: 'valve0',
+    waterRange: 365,
+    openTime: 10,
+    flatEffectOffsetZ: -30,
+    bSprinklerOnly: false
+};
+
+export const defaultValveAI = {
+    valveID: 'valve0',
+    workType: ValveWorkType[6],
+    demoID: 0,
+    piecePutNum: 4
+};
+
 export const defaultBaseAIProperties = {
     baseCampId: 1,
     bDeactivateByExit: false,
@@ -605,6 +632,7 @@ export const defaultBaseAIProperties = {
 
 export const GateMiddleBytes = [5, 0, 0, 0, 78, 111, 110, 101, 0, 205, 204, 204, 61, 0, 0, 32, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 200, 66, 0, 0, 122, 67, 0, 0, 200, 66, 0, 0, 150, 66, 0, 0, 150, 66, 34, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 export const TriggerDoorAIBytes = [13, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 87, 195, 0, 128, 110, 68, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 122, 68, 0, 0, 122, 68, 0, 0, 72, 67];
+export const ValveAPBytes = [0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 191, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 128, 191];
 
 export const TreasureNames = {
     Ota3DMegane: "Dimension Converter",
@@ -911,6 +939,7 @@ export const BaseNames = {
 };
 
 export const GimmickNames = {
+    AirWallBox: 'AirWallBox',
     Branch_Long: 'Long Branch',
     Burning: 'Straw',
     Circulator: 'Fan',
@@ -931,6 +960,7 @@ export const GimmickNames = {
     CrushJelly_S: 'Hydro Jelly (S)',
     CrushJelly_M: 'Hydro Jelly (M)',
     CrushJelly_L: 'Hydro Jelly (L)',
+    Excavation: 'Excavation',
     Fence: 'Fence',
     FenceFall: 'Iron Fence?',
     FenceFallNoSideColNoSE: 'Iron Fence (???)',
@@ -946,6 +976,8 @@ export const GimmickNames = {
     MoveFloorHappy: 'Oatchi Platform?',
     MoveFloorHover: 'Platform (Floating)',
     MoveFloorRound: 'Platform (Round)',
+    NavMeshTriggerClear: 'NavMeshTriggerClear',
+    NavMeshTriggerLinkForSplash: 'NavMesh Sprinkler Trigger',
     NoraSpawnerHeadLock: 'Pikmin Spawn',
     NoraSpawnerPikminLock: 'Pikmin Spawn',
     NoraSpawnerPrologue: 'Pikmin Spawn (Prologue)',
@@ -966,6 +998,7 @@ export const GimmickNames = {
     TriggerDoorSwitchOff: 'Trigger Gate (Off?)',
     TriggerDoorSwitchRed: 'Trigger Gate (Red)',
     WallFlexible: 'Climbable Wall',
+    WarpTrigger: 'WarpTrigger',
     ZiplineAnother: 'Zipline 2',
     ZiplineSplineMesh: 'Zipline',
 };
@@ -1203,6 +1236,9 @@ export const iconOverrides = {
     stickyfloor175uu: 'stickyfloor',
     stickyfloor525uu: 'stickyfloor',
     stickyfloorfew: 'stickyfloor',
+    stickyfloorpartsotas: 'stickyfloor',
+    stickyfloorpartsmadori: 'stickyfloor',
+    stickyfloorpartsotab: 'stickyfloor',
     stickyfloorpoison175uu: 'stickyfloorpoison',
     stickyfloorpoisonfew: 'stickyfloorpoison',
     stickymushb: 'stickymush',
@@ -1252,6 +1288,9 @@ export const iconOverrides = {
     warptrigger: 'default',
     burrow: 'default',
     ropebranch: 'default',
+    ropebranchsmall: 'default',
+    navmeshtriggerlinkforsplash: 'default',
+    navmeshtriggerclear: 'default'
 };
 
 // A 207 byte slice from an AreaBaseCamp_GEN_VARIABLE
@@ -2424,3 +2463,12 @@ export const Times = {
     NIGHT: 'Night',
     PERM: 'Permanent'
 };
+
+export const invisibleEntities = [
+    "Ojama",
+    "NavMeshTrigger",
+    "ConveyNav",
+    "AirWall",
+    "WarpTrigger",
+    "Excavation"
+];

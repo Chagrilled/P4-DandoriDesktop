@@ -1,4 +1,4 @@
-import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs } from '../api/types';
 import { default as entityData } from '../api/entityData.json';
 import { floatToByteArr, intToByteArr } from '../utils/bytes';
 import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue } from '../utils';
@@ -19,30 +19,31 @@ export const NONE_BYTES = [5, 0, 0, 0, 78, 111, 110, 101, 0];
 // Might be computed for the game's contents when unmodded. Who knows what happens if it no longer matches
 const COMPUTED_ID = "18446744073709551615";
 
-const ASP_FIELDS = [
-    "Hash",
-    "CheckComp",
-    "Affordance",
-    "CakAudioTable",
-    "CakEmitterConfig",
-    "Strategy",
-    "Life",
-    "AI",
-    "ActorParameter",
-    "SubAI",
-    "PortalTrigger",
-    "DemoTrigger",
-    "Pikmin",
-    "CharacterEdit",
-    "PopPlace",
-    "CakSimpleState",
-    "CakAudioTable",
-    "WaterTrigger",
-    "NavMeshTrigger",
-    "HiddenBoxTrigger",
-    "NarrowSpaceBoxTrigger",
-    "WarpTrigger",
-    "ActionMarker"
+export const ASP_FIELDS = [
+    'AI',
+    'ActionMarker',
+    'ActorParameter',
+    'Affordance',
+    'CakAudioTable',
+    'CakEmitterConfig',
+    'CakMultiplePosition',
+    'CakSimpleState',
+    'CakTrigger',
+    'CharacterEdit',
+    'CheckComp',
+    'DemoTrigger',
+    'Hash',
+    'HiddenBoxTrigger',
+    'Life',
+    'NarrowSpaceBoxTrigger',
+    'NavMeshTrigger',
+    'Pikmin',
+    'PopPlace',
+    'PortalTrigger',
+    'Strategy',
+    'SubAI',
+    'WarpTrigger',
+    'WaterTrigger'
 ];
 
 const writeAsciiString = (bytes, string) => {
@@ -54,8 +55,10 @@ const writeAsciiString = (bytes, string) => {
     );
 };
 
+//#region Func Controllers
 // The contract for these functions is (drops, aiStatic, { variousProperties })
-export const getConstructAIFunc = (creatureId, infoType) => {
+export const getConstructAIStaticFunc = (creatureId, infoType) => {
+    if (creatureId.startsWith('Spline')) return defaultAI;
     if (creatureId === 'GroupDropManager') return constructGDMAI;
     if (creatureId === 'ActorSpawner') return constructActorSpawnerAI;
     if (creatureId === 'BurrowDemejako') return defaultAI;
@@ -71,9 +74,88 @@ export const getConstructAIFunc = (creatureId, infoType) => {
     if (creatureId.includes('Mush')) return constructCreatureAI;
     if (['Tunnel', 'WarpCarry', 'HappyDoor'].some(s => creatureId.includes(s))) return constructWarpAI;
     if (infoType === InfoType.Base) return constructBaseAI;
+    if (creatureId === 'Sprinkler') return constructSprinklerAI;
+    if (creatureId.includes('Valve')) return constructValveAI;
+    if (creatureId.includes('StickyFloor')) return constructStickyFloorAI;
     return defaultAI;
 };
 
+export const getConstructDynamicFunc = (creatureId) => {
+    if (creatureId.includes('Valve')) return constructValveAI_Dynamic;
+    return (ai) => ai;
+};
+
+export const getConstructActorParamFunc = (creatureId) => {
+    if (creatureId.includes('Valve')) return constructValveActorParam;
+    if (creatureId.includes('Sprinkler')) return constructValveActorParam;
+    return (ap) => ap;
+};
+
+export const getConstructNavMeshTriggerFunc = (creatureId) => {
+    if (creatureId.includes('NavMeshTrigger')) return constructNavMeshTrigger;
+    return (nmt) => nmt;
+};
+
+//#region NavMeshTriger
+const constructNavMeshTrigger = (trigger, triggerProperties) => {
+    const bytes = [
+        ...floatBytes(triggerProperties.overlapBoxExtent.X),
+        ...floatBytes(triggerProperties.overlapBoxExtent.Y),
+        ...floatBytes(triggerProperties.overlapBoxExtent.Z),
+        ...floatBytes(triggerProperties.navCollBoxExtent.X),
+        ...floatBytes(triggerProperties.navCollBoxExtent.Y),
+        ...floatBytes(triggerProperties.navCollBoxExtent.Z)
+    ];
+
+    if (typeof triggerProperties.CIDList === 'string') triggerProperties.CIDList = JSON.parse(triggerProperties.CIDList);
+    bytes.push(triggerProperties.CIDList.length, 0, 0, 0);
+    triggerProperties.CIDList.forEach(actor => writeAsciiString(bytes, actor));
+
+    writeAsciiString(bytes, triggerProperties.navMeshTriggerID);
+    return bytes;
+};
+
+//#region StickyFloor
+const constructStickyFloorAI = ({ parsed }, aiStatic, { AIProperties, inventoryEnd }) => {
+    const bytes = [];
+    bytes.push(parsed.length, 0, 0, 0);
+
+    constructInventory(parsed, bytes);
+
+    bytes.push(255, 255, 255, 255);
+    if (!inventoryEnd) {
+        ({ inventoryEnd } = parsePotDrops(aiStatic)); // PotDrops is basically the same - split this out later?
+    }
+    const finalBytes = [...bytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)];
+    finalBytes[finalBytes.length - 4] = AIProperties.bAutoSpawnMush ? 1 : 0;
+    return finalBytes;
+};
+
+//#region Valve
+const constructValveAI_Dynamic = (aiDynamic, { AIProperties }) => {
+    return [
+        ...aiDynamic.slice(0, 12),
+        parseInt(AIProperties.piecePutNum),
+        ...aiDynamic.slice(13, aiDynamic.length)
+    ];
+};
+
+const constructValveAI = (_, aiStatic, { AIProperties, transform }) => {
+    let index = 163;
+    let bytes = aiStatic.slice(0, index);
+    writeAsciiString(bytes, AIProperties.valveID);
+    bytes.push(parseInt(findObjectKeyByValue(ValveWorkType, AIProperties.workType)), 0, 0, 0);
+    bytes.push(parseInt(AIProperties.demoID), 0, 0, 0);
+    return bytes;
+};
+
+const constructValveActorParam = (_, { demoBindName }) => {
+    const bytes = [];
+    writeAsciiString(bytes, demoBindName);
+    return [...bytes, ...ValveAPBytes];
+};
+
+//#region Base
 const constructBaseAI = (_, aiStatic, { AIProperties }) => {
     // push the unknown chunk on
     const bytes = [...areaBaseGenVarBytes];
@@ -96,6 +178,27 @@ const constructBaseAI = (_, aiStatic, { AIProperties }) => {
     return bytes;
 };
 
+//#region Sprinkler
+const constructSprinklerAI = (_, aiStatic, { AIProperties, transform }) => {
+    let index = 133;
+    let bytes = aiStatic.slice(0, index);
+    console.log("transform", transform);
+    writeAsciiString(bytes, AIProperties.navMeshTriggerID);
+    index += aiStatic[index] + 4;
+    bytes.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    writeAsciiString(bytes, AIProperties.valveID);
+    bytes.push(...floatBytes(parseFloat(transform.X)));
+    bytes.push(...floatBytes(parseFloat(transform.Y)));
+    bytes.push(...floatBytes(parseFloat(transform.Z) + 50.0));
+    bytes.push(...floatBytes(parseFloat(AIProperties.waterRange)));
+    bytes.push(...floatBytes(parseFloat(AIProperties.openTime)));
+    bytes.push(1, 0, 0, 0);
+    bytes.push(...floatBytes(parseFloat(AIProperties.flatEffectOffsetZ)));
+    bytes.push(AIProperties.bSprinklerOnly ? 1 : 0, 0, 0, 0);
+    return bytes;
+};
+
+//#region Gate
 const constructGateAI = ({ parsed, rareDrops, spareBytes }, aiStatic) => {
     const bytes = [];
     bytes.push(rareDrops.length, 0, 0, 0);
@@ -109,6 +212,7 @@ const constructGateAI = ({ parsed, rareDrops, spareBytes }, aiStatic) => {
     return bytes;
 };
 
+//#region TriggerDoor
 const constructTriggerDoorAI = (_, aiStatic, { AIProperties }) => {
     // because aiStatic may or may not have the segment with the CIDList in, we need to determine if it exists first
     // entityData[0] for TriggerDoor has a Mar CIDList. Haven't checked the switch ones.
@@ -132,6 +236,7 @@ const constructTriggerDoorAI = (_, aiStatic, { AIProperties }) => {
     return bytes;
 };
 
+//#region Switch
 const constructSwitchAI = (_, aiStatic, { AIProperties }) => {
     let bytes = aiStatic.slice(0, 155);
 
@@ -141,6 +246,7 @@ const constructSwitchAI = (_, aiStatic, { AIProperties }) => {
     return bytes;
 };
 
+//#region Conveyor
 const constructConveyorAI = (_, aiStatic, { AIProperties }) => {
     let bytes = aiStatic.slice(0, 155);
 
@@ -151,6 +257,7 @@ const constructConveyorAI = (_, aiStatic, { AIProperties }) => {
     return bytes;
 };
 
+//#region Warp
 const constructWarpAI = (_, aiStatic, { AIProperties }) => {
     let bytes = aiStatic.slice(0, 155);
 
@@ -159,6 +266,7 @@ const constructWarpAI = (_, aiStatic, { AIProperties }) => {
     return bytes;
 };
 
+//#region PortalTrigger
 export const getConstructPortalTriggerFunc = infoType => {
     if (infoType == InfoType.Portal) return constructPortalTrigger;
     return (_, pt) => pt;
@@ -198,6 +306,7 @@ const constructPortalTrigger = ({ transform, PortalTrigger }) => {
     return bytes;
 };
 
+//#region NoraSpawner
 const constructNoraSpawnerAI = ({ parsed }, aiStatic, { AIProperties }) => {
     const bytes = [];
     console.log("Constructing NoraSpawner from:", parsed, AIProperties);
@@ -260,43 +369,7 @@ const constructNoraSpawnerAI = ({ parsed }, aiStatic, { AIProperties }) => {
     return bytes;
 };
 
-const constructInventory = (drops, bytes) => {
-    drops.forEach(drop => {
-        bytes.push(255, 255, 255, 255, 255, 255, 255, 255); // This is the start of each GDM item
-        bytes.push(drop.minDrops, 0, 0, 0);
-        bytes.push(drop.maxDrops, 0, 0, 0);
-        bytes.push(...floatBytes(parseFloat(drop.dropChance)));
-        bytes.push(drop.bRegistGenerator ? 1 : 0, 0, 0, 0);
-        if (drop.dropCondition && drop.dropCondition != 'None') {
-            bytes.push(1, 0, 0, 0);
-            bytes.push(parseInt(drop.dropCondition));
-            bytes.push(0, 0, 0, 0); // We'll 0 dropCondInt for now, idk what -1 is for
-            bytes.push(...NONE_BYTES); // Force dropCondName to None for now.
-            bytes.push(0); // Also zero demoFlag for now too
-        }
-        else bytes.push(0, 0, 0, 0);
-        writeAsciiString(bytes, drop.assetName);
-
-        const actorName = getNameFromAsset(drop.assetName);
-
-        if (actorName.includes("Survivor")) { // Push custom sleep params if survivor
-            writeAsciiString(bytes, CustomParameterOverrides[actorName]);
-        }
-        else bytes.push(...NONE_BYTES);
-
-        bytes.push(...floatBytes(parseFloat(drop.customFloatParam)));
-        bytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag)).reverse().slice(0, 2));
-        bytes.push(drop.bSetTerritory ? 1 : 0, 0, 0, 0);
-        if (drop.bSetTerritory) {
-            bytes.push(...floatBytes(parseFloat(drop.x || 0.0)));
-            bytes.push(...floatBytes(parseFloat(drop.y || 0.0)));
-            bytes.push(...floatBytes(parseFloat(drop.z || 0.0)));
-            bytes.push(...floatBytes(parseFloat(drop.halfHeight || 0.0)));
-            bytes.push(...floatBytes(parseFloat(drop.radius || 0.0)));
-        }
-    });
-};
-
+//#region GDM
 const constructGDMAI = ({ parsed }, aiStatic, { groupingRadius, ignoreList = [], inventoryEnd }) => {
     const bytes = [];
     bytes.push(...floatBytes(groupingRadius));
@@ -319,6 +392,7 @@ const constructGDMAI = ({ parsed }, aiStatic, { groupingRadius, ignoreList = [],
     return [...bytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)];
 };
 
+//#region Pot
 const constructPotAI = ({ parsed }, aiStatic, { inventoryEnd }) => {
     const bytes = [];
     bytes.push(parsed.length, 0, 0, 0);
@@ -332,6 +406,7 @@ const constructPotAI = ({ parsed }, aiStatic, { inventoryEnd }) => {
     return [...bytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)];
 };
 
+//#region ActorSpawner
 const constructActorSpawnerAI = ({ parsed: [drop] }, aiStatic) => {
     const bytes = [];
     // These are some ordering of avatar, pikmin, both, and something else 
@@ -356,7 +431,7 @@ const constructActorSpawnerAI = ({ parsed: [drop] }, aiStatic) => {
     // SphereRadius
     bytes.push(...floatBytes(drop.sphereRadius));
     // CustomParameter
-    bytes.push(5, 0, 0, 0, 78, 111, 110, 101, 0);
+    writeAsciiString(bytes, drop.fallStart ? 'FallStart' : 'None');
 
     // ???
     bytes.push(1, 0, 0, 0);
@@ -388,6 +463,7 @@ const constructActorSpawnerAI = ({ parsed: [drop] }, aiStatic) => {
     return bytes;
 };
 
+//#region Teki
 const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd }) => {
     // The -1 at the end of an inventory could be at [24] for 0 inventories
     const inventoryBytes = [parsed.length, 0, 0, 0];
@@ -442,17 +518,10 @@ const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd }) => {
     return [...aiStatic.slice(0, 20), ...inventoryBytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)];
 };
 
-export const writeLifeDynamic = Life => {
-    return [
-        ...floatBytes(Life),
-        ...floatBytes(Life)
-    ];
-};
-
-export const writeAffordanceWeight = (weight, { Static }) => Static.toSpliced(Static.length - 4, 4, ...intToByteArr(weight).reverse());
-
+//#region Actor
 export const constructActor = (actor, mapId) => {
     console.log("Constructing a", actor);
+    const entData = entityData[actor.creatureId];
     const transforms = {
         Rotation: {
             X: -0.0,
@@ -464,6 +533,7 @@ export const constructActor = (actor, mapId) => {
         Scale3D: setFloats(actor.transform.scale3D),
         Rotation: setFloats(actor.transform.rotation)
     };
+    console.log(actor.NavMeshTrigger);
     return {
         AssetVersion: 8626647386,
         GeneratorVersion: 8626647386,
@@ -479,7 +549,7 @@ export const constructActor = (actor, mapId) => {
         Transform: transforms,
         GenerateInfo: {
             EnableSave: true,
-            DebugUniqueId: entityData[actor.creatureId].DebugUniqueId[0], // Not unique - just grab one?
+            DebugUniqueId: entData.DebugUniqueId[0], // Not unique - just grab one?
             ActorGlobalId: "None",
             GenerateNum: parseInt(actor.generateNum),
             GenerateRadius: parseFloat(actor.generateRadius),
@@ -497,7 +567,7 @@ export const constructActor = (actor, mapId) => {
             CurrNum: 1,
             ExpireProgress: 0,
             RebirthInterval: parseInt(actor.rebirthInterval) || 0,
-            SaveFlag: entityData[actor.creatureId].SaveFlag[0],
+            SaveFlag: entData.SaveFlag[0],
             MyID: -1,
             RefID: -1,
             RebirthInfoFlags: 0,
@@ -520,36 +590,94 @@ export const constructActor = (actor, mapId) => {
         ActorSerializeParameter: {
             ...ASP_FIELDS.reduce((acc, key) => ({
                 ...acc,
-                [key]: entityData[actor.creatureId][key][0] // Grab the first thing from the dump data.
+                [key]: entData[key][0] // Grab the first thing from the dump data.
                 // Aside from AI (drops), and CakAudioTable(?), they're the same per actor type 
             }), {}),
             AI: {
-                Static: getConstructAIFunc(actor.creatureId, actor.infoType)(actor.drops, entityData[actor.creatureId].AI[0].Static, {
+                Static: getConstructAIStaticFunc(actor.creatureId, actor.infoType)(actor.drops, entData.AI[0].Static, {
                     groupingRadius: actor?.groupingRadius,
                     ignoreList: actor?.ignoreList,
-                    AIProperties: actor?.AIProperties || defaultAIProperties
+                    AIProperties: actor?.AIProperties || defaultAIProperties,
+                    transform: transforms.Translation
                 }),
-                Dynamic: entityData[actor.creatureId].AI[0].Dynamic
+                Dynamic: getConstructDynamicFunc(actor.creatureId, actor.infoType)(entData.AI[0].Dynamic, {
+                    AIProperties: actor?.AIProperties
+                })
             },
             PortalTrigger: {
-                Static: getConstructPortalTriggerFunc(actor.infoType)(actor, entityData[actor.creatureId].PortalTrigger[0].Static),
-                Dynamic: entityData[actor.creatureId].PortalTrigger[0].Dynamic
+                Static: getConstructPortalTriggerFunc(actor.infoType)(actor, entData.PortalTrigger[0].Static),
+                Dynamic: entData.PortalTrigger[0].Dynamic
             },
             Life: {
-                Static: entityData[actor.creatureId].Life[0].Static,
-                Dynamic: actor.Life ? writeLifeDynamic(actor.Life) : entityData[actor.creatureId].Life[0].Dynamic
+                Static: entData.Life[0].Static,
+                Dynamic: actor.Life ? writeLifeDynamic(actor.Life) : entData.Life[0].Dynamic
             },
             Affordance: {
-                Static: actor.weight ? writeAffordanceWeight(actor.weight, entityData[actor.creatureId].Affordance[0]) : entityData[actor.creatureId].Affordance[0].Static,
-                Dynamic: entityData[actor.creatureId].Affordance[0].Dynamic
+                Static: actor.weight ? writeAffordanceWeight(actor.weight, entData.Affordance[0]) : entData.Affordance[0].Static,
+                Dynamic: entData.Affordance[0].Dynamic
+            },
+            ActorParameter: {
+                Static: getConstructActorParamFunc(actor.creatureId)(entData.ActorParameter[0].Static, actor.ActorParameter),
+                Dynamic: entData.ActorParameter[0].Dynamic
+            },
+            NavMeshTrigger: {
+                Static: getConstructNavMeshTriggerFunc(actor.creatureId)(entData.NavMeshTrigger[0].Static, actor.NavMeshTrigger),
+                Dynamic: entData.NavMeshTrigger[0].Dynamic
             }
         },
         SubLevelName: mapId,
-        TeamId: "ETeamIdEditor::No",
-        GenerateFlags: entityData[actor.creatureId].GenerateFlags[0],
-        OriginalPhysicsRadiusZ: entityData[actor.creatureId].OriginalPhysicsRadiusZ[0],
+        TeamId: actor.creatureId.startsWith('NavMeshTrigger') ? TeamIDs.A : TeamIDs.No,
+        GenerateFlags: entData.GenerateFlags[0],
+        OriginalPhysicsRadiusZ: entData.OriginalPhysicsRadiusZ[0],
         LastNavPos: transforms.Translation,
         CarcassFlags: 0,
         RefOriginalGenID: -1
     };
+};
+
+//#region Extras
+export const writeLifeDynamic = Life => {
+    return [
+        ...floatBytes(Life),
+        ...floatBytes(Life)
+    ];
+};
+
+export const writeAffordanceWeight = (weight, { Static }) => Static.toSpliced(Static.length - 4, 4, ...intToByteArr(weight).reverse());
+
+const constructInventory = (drops, bytes) => {
+    drops.forEach(drop => {
+        bytes.push(255, 255, 255, 255, 255, 255, 255, 255); // This is the start of each GDM item
+        bytes.push(drop.minDrops, 0, 0, 0);
+        bytes.push(drop.maxDrops, 0, 0, 0);
+        bytes.push(...floatBytes(parseFloat(drop.dropChance)));
+        bytes.push(drop.bRegistGenerator ? 1 : 0, 0, 0, 0);
+        if (drop.dropCondition && drop.dropCondition != 'None') {
+            bytes.push(1, 0, 0, 0);
+            bytes.push(parseInt(drop.dropCondition));
+            bytes.push(0, 0, 0, 0); // We'll 0 dropCondInt for now, idk what -1 is for
+            bytes.push(...NONE_BYTES); // Force dropCondName to None for now.
+            bytes.push(0); // Also zero demoFlag for now too
+        }
+        else bytes.push(0, 0, 0, 0);
+        writeAsciiString(bytes, drop.assetName);
+
+        const actorName = getNameFromAsset(drop.assetName);
+
+        if (actorName.includes("Survivor")) { // Push custom sleep params if survivor
+            writeAsciiString(bytes, CustomParameterOverrides[actorName]);
+        }
+        else bytes.push(...NONE_BYTES);
+
+        bytes.push(...floatBytes(parseFloat(drop.customFloatParam)));
+        bytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag)).reverse().slice(0, 2));
+        bytes.push(drop.bSetTerritory ? 1 : 0, 0, 0, 0);
+        if (drop.bSetTerritory) {
+            bytes.push(...floatBytes(parseFloat(drop.x || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.y || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.z || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.halfHeight || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.radius || 0.0)));
+        }
+    });
 };

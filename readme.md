@@ -210,6 +210,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ❌ How do handleboard weights work
 - 🚧 Base camp AI - some of the genvar bytes are editable, but I haven't been able to create a new, locked base.
 - 🚧 Missing icons - excavation, ojama blocks, bookends, bank - for now some are mapped to a default icon
+- ❌ Refactor `regenerateAGLEntity` and `constructActor` as they're getting very similar now
 
 </details>
 
@@ -267,11 +268,15 @@ These objects have (most) of their pertinent bytes parsed and displayed for mani
  - ❌ Circulators
  - ❌ Bridges/buildables
  - ✅ Mush
- - ❌ Stickyfloors
+ - ✅ Stickyfloors
+ - ❌ PanModoki/breadbug burrows
  - ❌ Hazards - I have no leads on how these bytes work 🥲
  - ❌ Cardboard boxes
  - ❌ Hangboards - WorkNum is at [155] too
  - 🚧 Conveyors - switches reverse direction - I have no idea what conveyor navs do then 🤷‍♂️ but they have a lot of extra AI bytes
  - ❌ Fences - fences with switch IDs start on byte 155 as well, but there's lots of extra stuff, and the switch name isn't defaulted
- - ❌ Valves (can these link up to triggerdoors and conveyors?)
- - ❌ Sprinklers
+ - ✅ Valves (can these link up to triggerdoors and conveyors? No they can't). Not sure if ValveVariable is meant to be able to turn multiple times or not.
+ - ✅ Sprinklers - these are volatile and easy to break. 
+   - To have a valve that is permanently on - enable `bSprinklerOnly` and set `valveID` to `None`. 
+   - To connect a valve, match the `valveID` to the valve object's ID. The only valve config I've found works is to use the `Build` workType. This setup will have a sprinkler turn on once for `OpenTime` number of seconds upon valve activation, then turn off - this is how Cave013 douses fire. 
+   - To have a sprinkler always on, make a `NavMeshTriggerLinkForSplash` object on top of the sprinkler, and make the `NavMeshTriggerID`s for both match. The sprinkler and valve cannot have the same `demoBindName`. I've not played much with these, but I believe they _may_ be to do with saving the state of the sprinkler after the cutscene has played. In my working example, I used `GSprinkler05` and `GValveOnce06` for my `demoBindName`s, and `demoId` of `0`.
