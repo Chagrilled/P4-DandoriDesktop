@@ -202,17 +202,44 @@ export const mutateAIProperties = (creature, value) => {
                 CIDList: [],
                 navMeshTriggerID: 'NavMeshTrigger00'
             }
+        },
+        {
+            ents: ['Geyser'],
+            AIProperties: {
+                bEnableCustomSoftEdge: true,
+                bDisableSoftEdge: false,
+                bSetCrystal: false,
+                stopQueenDistXY: -1,
+                navLinkLeft: {
+                    X: 1.0,
+                    Y: 0.0,
+                    Z: 0.0
+                },
+                navLinkRight: {
+                    X: 100.0,
+                    Y: 0.0,
+                    Z: 10.0
+                },
+                leftProjectHeight: 0.0,
+                maxFallDownLength: 1000.0,
+                snapRadius: 30.0,
+                snapHeight: 30.0,
+                bUseSnapHeight: false
+            }
+        },
+        {
+            ents: ["BridgeStation", "HikariStation"],
+            AIProperties: {
+                pieceNum: 15
+            }
         }
     ].forEach(o => {
         aiEnts.push(...o.ents);
         if (o.ents.some(e => value.includes(e))) { // There was an && !creature.AIProperties here, I forget why
-            creature.AIProperties = { ...deepCopy(o.AIProperties) };
-
-            if (o.ActorParameter) creature.ActorParameter = { ...deepCopy(o.ActorParameter) };
-            else delete creature.ActorParameter;
-
-            if (o.NavMeshTrigger) creature.NavMeshTrigger = { ...deepCopy(o.NavMeshTrigger) };
-            else delete creature.NavMeshTrigger;
+            ["AIProperties", "ActorParameter", "NavMeshTrigger"].forEach(prop => {
+                if (o[prop]) creature[prop] = { ...deepCopy(o[prop]) };
+                else delete creature[prop];
+            });
         }
     });
 

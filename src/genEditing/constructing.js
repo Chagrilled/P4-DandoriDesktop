@@ -1,4 +1,4 @@
-import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs, ObjectAIParameter } from '../api/types';
 import { default as entityData } from '../api/entityData.json';
 import { floatToByteArr, intToByteArr } from '../utils/bytes';
 import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue } from '../utils';
@@ -77,11 +77,13 @@ export const getConstructAIStaticFunc = (creatureId, infoType) => {
     if (creatureId === 'Sprinkler') return constructSprinklerAI;
     if (creatureId.includes('Valve')) return constructValveAI;
     if (creatureId.includes('StickyFloor')) return constructStickyFloorAI;
+    if (creatureId.includes('Geyser')) return constructGeyserAI;
     return defaultAI;
 };
 
 export const getConstructDynamicFunc = (creatureId) => {
     if (creatureId.includes('Valve')) return constructValveAI_Dynamic;
+    if (['HikariStation', 'BridgeStation', 'KinkaiStation'].some(e => creatureId === e)) return constructPileAI_Dynamic;
     return (ai) => ai;
 };
 
@@ -95,6 +97,38 @@ export const getConstructNavMeshTriggerFunc = (creatureId) => {
     if (creatureId.includes('NavMeshTrigger')) return constructNavMeshTrigger;
     return (nmt) => nmt;
 };
+
+//#region Treasure Pile
+const constructPileAI_Dynamic = (aiDynamic, { AIProperties }) => [
+    ...Array(36).fill(0),
+    ...intToByteArr(parseInt(AIProperties.pieceNum)).reverse(),
+    255, 255, 255, 255
+];
+
+//#region Geyser
+const constructGeyserAI = (_, aiStatic, { AIProperties }) => [
+    ...ObjectAIParameter.slice(0, 99),
+    AIProperties.bEnableCustomSoftEdge ? 1 : 0, 0, 0, 0,
+    AIProperties.bDisableSoftEdge ? 1 : 0, 0, 0, 0,
+    ...ObjectAIParameter.slice(107, 155),
+    AIProperties.bSetCrystal ? 1 : 0, 0, 0, 0,
+    ...floatBytes(AIProperties.stopQueenDistXY),
+    1, 0, 0, 0,
+    ...floatBytes(AIProperties.navLinkLeft.X),
+    ...floatBytes(AIProperties.navLinkLeft.Y),
+    ...floatBytes(AIProperties.navLinkLeft.Z),
+    ...floatBytes(AIProperties.navLinkRight.X),
+    ...floatBytes(AIProperties.navLinkRight.Y),
+    ...floatBytes(AIProperties.navLinkRight.Z),
+    ...floatBytes(AIProperties.leftProjectHeight),
+    ...floatBytes(AIProperties.maxFallDownLength),
+    1,
+    ...floatBytes(AIProperties.snapRadius),
+    ...floatBytes(AIProperties.snapHeight),
+    255, 255, 255, 255,
+    AIProperties.bUseSnapHeight ? 1 : 0,
+    1
+];
 
 //#region NavMeshTriger
 const constructNavMeshTrigger = (trigger, triggerProperties) => {

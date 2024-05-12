@@ -62,6 +62,7 @@ const readInventory = (drops, index, invSize) => {
 //#region Func Controllers
 export const getReadAIDynamicFunc = (creatureId, infoType) => {
     if (creatureId.includes('Valve')) return parseValveAI_Dynamic;
+    if (['HikariStation', 'BridgeStation', 'KinkaiStation'].some(e => creatureId === e)) return parsePileAI_Dynamic;
     return () => ({});
 };
 
@@ -88,6 +89,7 @@ export const getReadAIStaticFunc = (creatureId, infoType) => {
     if (creatureId === 'Sprinkler') return parseSprinklerAI;
     if (creatureId.includes('Valve')) return parseValveAI;
     if (creatureId.includes('StickyFloor')) return parseStickyFloorAI;
+    if (creatureId.includes('Geyser')) return parseGeyserAI;
     return () => ({ parsed: [] });
 };
 
@@ -105,6 +107,44 @@ export const getReadActorParameterFunc = creatureId => {
 export const getReadNavMeshTriggerFunc = creatureId => {
     if (creatureId.startsWith('NavMeshTrigger')) return parseNavMeshTrigger;
     return () => false;
+};
+
+//#region Material Piles
+const parsePileAI_Dynamic = ai => ({ pieceNum: bytesToInt(ai.slice(36, 40).join(',')) });
+
+//#region Geyser
+const parseGeyserAI = ai => {
+    const offset = ai.length === 214 ? 0 : 4; // in 1 geyser there are 4 more bytes of ObjectAIParameter, all 0. No idea.
+    let index = 155 + offset;
+    const AIProperties = {
+        bEnableCustomSoftEdge: ai[99 + offset],
+        bDisableSoftEdge: ai[103 + offset],
+        bSetCrystal: ai[index]
+    };
+    index += 4;
+    AIProperties.stopQueenDistXY = readFloat(ai.slice(index, index += 4));
+    index += 4;
+    AIProperties.navLinkLeft = {
+        X: readFloat(ai.slice(index, index += 4)),
+        Y: readFloat(ai.slice(index, index += 4)),
+        Z: readFloat(ai.slice(index, index += 4))
+    };
+    AIProperties.navLinkRight = {
+        X: readFloat(ai.slice(index, index += 4)),
+        Y: readFloat(ai.slice(index, index += 4)),
+        Z: readFloat(ai.slice(index, index += 4))
+    };
+    AIProperties.leftProjectHeight = readFloat(ai.slice(index, index += 4));
+    AIProperties.maxFallDownLength = readFloat(ai.slice(index, index += 4));
+    index += 1; //mystery u8 here, always 1
+    AIProperties.snapRadius = readFloat(ai.slice(index, index += 4));
+    AIProperties.snapHeight = readFloat(ai.slice(index, index += 4));
+    index += 4;
+    AIProperties.bUseSnapHeight = ai[index];
+    return {
+        parsed: [],
+        AIProperties
+    };
 };
 
 //#region NavMeshTrigger
