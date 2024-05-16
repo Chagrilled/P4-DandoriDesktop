@@ -6,13 +6,6 @@ export const floatToByteArr = (num) => {
         .map((_, i) => view.getUint8(i));
 };
 
-export const intToByteArr = (num) => {
-    const view = new DataView(new ArrayBuffer(4));
-    view.setInt32(0, num);
-    return new Array(4)
-        .fill(4)
-        .map((_, i) => view.getUint8(i));
-};
 
 export const padArray = (arr, len = 4, fill = 0) => {
     return arr.slice().concat(
@@ -47,3 +40,12 @@ export const byteArrToFloat = (nums) => {
 export const byteArrToInt = (nums) => {
     return byteArrToDataView(nums).getInt32(0);
 };
+
+export const intToByteArr = (number, numBytes = 4) => {
+    const bytes = [];
+    for (let i = 0; i < numBytes; i++) {
+        bytes.push(number & 0xFF);
+        number >>= 8;
+    }
+    return bytes;
+}

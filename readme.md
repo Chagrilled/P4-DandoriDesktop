@@ -204,13 +204,14 @@ The bytes I construct are then spliced together with the base template for that 
 - ❌ How does hazard AI work? Surely you can override the HibaBase blueprint - Some HibaIce do this in their HibaAIParameters, but the changes aren't reflected in the AI.
 - ❌ Refactor the map to see if I can separate state from the map data, which might fix the component-refreshing problem. A bit similarly to filters. Perhaps the map doesn't have to use the main data set and can maintain its own without having the main map set as a prop? 
 - ✅ Portals
-- ❌ Need a way to arbitrarily add parameters to objects, so swapping to things like gates, where `Life` is needed, but not anywhere else, is possible for newly created objects.
+- ✅ Need a way to arbitrarily add parameters to objects, so swapping to things like gates, where `Life` is needed, but not anywhere else, is possible for newly created objects.
 - ❌ Marigumo net
 - ❌ CIDList for hydrojelly
 - ❌ How do handleboard weights work
 - 🚧 Base camp AI - some of the genvar bytes are editable, but I haven't been able to create a new, locked base.
 - 🚧 Missing icons - excavation, ojama blocks, bookends, bank - for now some are mapped to a default icon
 - ❌ Refactor `regenerateAGLEntity` and `constructActor` as they're getting very similar now
+- ❌ Implement some tracking during byte reading/writing to let the UI indicate at least _a little bit_ what went wrong, like what property we were trying to read when throwing.
 
 </details>
 
@@ -232,7 +233,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ DebouncedInput doesn't get to reinitialise state when swapping to a new entity, and thus doesn't refresh when a new InfoPanel is rendered
 - ✅ Exception is thrown early if no teki file is present - Cave004_F00 is an example of this where no teki file naturally exists
 - ✅ DebouncedInput didn't update if dragging entities around the map, because the transform was only looking for changes observed by the input
-- 🐛 Some objects just crash the game upon being added to an AGL (at least the prologue). Probably not a bug per se, but just how the entities work. AirGeyser is one of these. Unsure why. Haven't tested with editing existing geysers.
+- 🐛 Some objects just crash the game upon being added to an AGL (at least the prologue). Probably not a bug per se, but just how the entities work.
 - 🐛 Icons that are filtered off the map still have their draggable center on hover
 - 🐛 Changing entity IDs for things like pots will probably mess up the inventoryEnd indices for AI arrays?
 - ✅ Changing entity types of existing actors caused it to apply the AI constructor to the bytes of a different entity type, which can make them radically different. i.e a NoraSpawner function applied to the bytes of a Gate (changed to a NoraSpawner). All asset swaps will use the defaults.
@@ -262,7 +263,7 @@ These objects have (most) of their pertinent bytes parsed and displayed for mani
  - ✅ Gates - Health is adjustable and they can be given drops. I don't know what `RareDropParameter` is, but I've exposed it for editing.
  - 🚧 Paper bags - you can adjust their weight requirement. I've not looked at their AI to see if they have an inventory to mutate.
  - 🚧 Bases - The genvar's fields are editable, but I've not tested new areas. The base text names isn't in the actor, so there's more to the base system I think.
- - ✅ TriggerDoor
+ - ✅ TriggerDoor (these don't seem to work with enemy counts?)
  - ✅ Switches
  - ✅ Tunnels
  - ❌ Circulators
@@ -280,3 +281,5 @@ These objects have (most) of their pertinent bytes parsed and displayed for mani
    - To have a valve that is permanently on - enable `bSprinklerOnly` and set `valveID` to `None`. 
    - To connect a valve, match the `valveID` to the valve object's ID. The only valve config I've found works is to use the `Build` workType. This setup will have a sprinkler turn on once for `OpenTime` number of seconds upon valve activation, then turn off - this is how Cave013 douses fire. 
    - To have a sprinkler always on, make a `NavMeshTriggerLinkForSplash` object on top of the sprinkler, and make the `NavMeshTriggerID`s for both match. The sprinkler and valve cannot have the same `demoBindName`. I've not played much with these, but I believe they _may_ be to do with saving the state of the sprinkler after the cutscene has played. In my working example, I used `GSprinkler05` and `GValveOnce06` for my `demoBindName`s, and `demoId` of `0`.
+  - ✅ Geysers
+

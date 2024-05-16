@@ -47,7 +47,7 @@ export const ASP_FIELDS = [
 ];
 
 const writeAsciiString = (bytes, string) => {
-    let lengthBytes = intToByteArr(string.length + 1).reverse();
+    let lengthBytes = intToByteArr(string.length + 1);
     bytes.push(
         ...lengthBytes,
         ...string.split('').map(char => char.charCodeAt(0)),
@@ -101,7 +101,7 @@ export const getConstructNavMeshTriggerFunc = (creatureId) => {
 //#region Treasure Pile
 const constructPileAI_Dynamic = (aiDynamic, { AIProperties }) => [
     ...Array(36).fill(0),
-    ...intToByteArr(parseInt(AIProperties.pieceNum)).reverse(),
+    ...intToByteArr(parseInt(AIProperties.pieceNum)),
     255, 255, 255, 255
 ];
 
@@ -323,14 +323,14 @@ const constructPortalTrigger = ({ transform, PortalTrigger }) => {
         PortalTrigger.checkPointLevelNames.forEach(level => writeAsciiString(bytes, level));
     }
     else bytes.push(0, 0, 0, 0);
-    bytes.push(...intToByteArr(parseInt(PortalTrigger.toBaseCampId)).reverse());
+    bytes.push(...intToByteArr(parseInt(PortalTrigger.toBaseCampId)));
     bytes.push(PortalTrigger.bInitialPortalMove ? 1 : 0, 0, 0, 0);
     bytes.push(PortalTrigger.bDeactivateByExit ? 1 : 0, 0, 0, 0);
     bytes.push(0, 0, 250, 67); // this float seems regular
     bytes.push(...floatBytes(parseFloat(PortalTrigger.playAnimDist)));
     bytes.push(0, 0, 0, 0);
     bytes.push(parseInt(PortalTrigger.panzakuPriority), 0, 0, 0);
-    bytes.push(...intToByteArr(parseInt(PortalTrigger.disablePikminFlags)).reverse());
+    bytes.push(...intToByteArr(parseInt(PortalTrigger.disablePikminFlags)));
     bytes.push(PortalTrigger.bDisableIsFlareGuard ? 1 : 0, 0, 0, 0);
     // bytes.push(...PortalTrigger.spareBytes);
     bytes.push(0, 0, 200, 66, 0, 0, 180, 66, 0, 0, 72, 66);
@@ -350,10 +350,10 @@ const constructNoraSpawnerAI = ({ parsed }, aiStatic, { AIProperties }) => {
     bytes.push(parseInt(findObjectKeyByValue(PikminTypes, AIProperties.pikminType)));
     bytes.push(1, 0, 0, 0);
     bytes.push(2);
-    bytes.push(...intToByteArr(AIProperties.mabikiNumFromFollow).reverse());
+    bytes.push(...intToByteArr(AIProperties.mabikiNumFromFollow));
     bytes.push(...aiStatic.slice(22, 26));
     bytes.push(AIProperties.bMabikiPongashi ? 1 : 0, 0, 0, 0);
-    bytes.push(...intToByteArr(AIProperties.pongashiChangeColorFollowNum).reverse());
+    bytes.push(...intToByteArr(AIProperties.pongashiChangeColorFollowNum));
     bytes.push(parseInt(findObjectKeyByValue(PikminTypes, AIProperties.pongashiChangeColorFromFollow)));
     bytes.push(0, 0, 0, 0); // bReservedBirth
     bytes.push(0, 0, 0, 0);
@@ -378,7 +378,7 @@ const constructNoraSpawnerAI = ({ parsed }, aiStatic, { AIProperties }) => {
         else bytes.push(...NONE_BYTES);
 
         bytes.push(...floatBytes(parseFloat(drop.customFloatParam)));
-        bytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag)).reverse().slice(0, 2));
+        bytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag), 2));
         bytes.push(drop.bSetTerritory ? 1 : 0, 0, 0, 0);
         if (drop.bSetTerritory) {
             bytes.push(...floatBytes(parseFloat(drop.x || 0.0)));
@@ -475,14 +475,18 @@ const constructActorSpawnerAI = ({ parsed: [drop] }, aiStatic) => {
     bytes.push(...floatBytes(drop.spawnLocationY));
     // Spawn Z
     bytes.push(...floatBytes(drop.spawnLocationZ));
-    // 16 of whatever
-    bytes.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+    bytes.push(drop.bSpawnAngRand ? 1 : 0, 0, 0, 0);
+    bytes.push(...floatBytes(drop.spawnAng));
+    bytes.push(...floatBytes(drop.spawnVelX));
+    bytes.push(...floatBytes(drop.spawnVelY));
+
     // infiniteSpawn
     bytes.push(parseInt(drop.infiniteSpawn) ? 1 : 0, 0, 0, 0);
     // spawnInterval
     bytes.push(...floatBytes(drop.spawnInterval));
     // spawnLimit
-    bytes.push(parseInt(drop.spawnLimit), 0, 0, 0);
+    bytes.push(...intToByteArr(parseInt(drop.spawnLimit)));
     // ???
     bytes.push(1, 0, 0, 0);
     /// bRandomRotation
@@ -492,8 +496,19 @@ const constructActorSpawnerAI = ({ parsed: [drop] }, aiStatic) => {
     // assetPath
     writeAsciiString(bytes, drop.assetName);
     writeAsciiString(bytes, drop.customParameter);
+    bytes.push(...floatBytes(drop.customFloatParameter));
+    bytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag), 2));
+    bytes.push(drop.bSetTerritory ? 1 : 0, 0, 0, 0);
+    if (drop.bSetTerritory) {
+        bytes.push(...floatBytes(drop.territoryX));
+        bytes.push(...floatBytes(drop.territoryY));
+        bytes.push(...floatBytes(drop.territoryZ));
+        bytes.push(...floatBytes(drop.territoryHalfHeight));
+        bytes.push(...floatBytes(drop.territoryRadius));
+    }
+    bytes.push(...floatBytes(drop.invasionStartTimeRatio));
 
-    bytes.push(...drop.spareBytes);
+    // bytes.push(...drop.spareBytes);
     return bytes;
 };
 
@@ -528,7 +543,7 @@ const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd }) => {
         // if (typeof parsed.params == 'string') drop.params = JSON.parse(drop.params);
         // slotBytes.push(...drop.params);
         slotBytes.push(...floatBytes(parseFloat(drop.customFloatParam)));
-        slotBytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag)).reverse().slice(0, 2));
+        slotBytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag), 2));
         slotBytes.push(drop.bSetTerritory ? 1 : 0, 0, 0, 0);
         if (drop.bSetTerritory) {
             slotBytes.push(...floatBytes(parseFloat(drop.x || 0.0)));
@@ -677,7 +692,7 @@ export const writeLifeDynamic = Life => {
     ];
 };
 
-export const writeAffordanceWeight = (weight, { Static }) => Static.toSpliced(Static.length - 4, 4, ...intToByteArr(weight).reverse());
+export const writeAffordanceWeight = (weight, { Static }) => Static.toSpliced(Static.length - 4, 4, ...intToByteArr(weight));
 
 const constructInventory = (drops, bytes) => {
     drops.forEach(drop => {
@@ -704,7 +719,7 @@ const constructInventory = (drops, bytes) => {
         else bytes.push(...NONE_BYTES);
 
         bytes.push(...floatBytes(parseFloat(drop.customFloatParam)));
-        bytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag)).reverse().slice(0, 2));
+        bytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag), 2));
         bytes.push(drop.bSetTerritory ? 1 : 0, 0, 0, 0);
         if (drop.bSetTerritory) {
             bytes.push(...floatBytes(parseFloat(drop.x || 0.0)));

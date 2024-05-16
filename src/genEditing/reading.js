@@ -43,8 +43,7 @@ const readInventory = (drops, index, invSize) => {
         index += drops[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
 
         slot.customFloatParam = readFloat(drops.slice(index, index += 4));
-        slot.gameRulePermissionFlag = bytesToInt(drops.slice(index, index + 2).join(','));
-        index += 2;
+        slot.gameRulePermissionFlag = bytesToInt(drops.slice(index, index += 2).join(','));
         slot.bSetTerritory = drops[index];
         index += 4;
         if (slot.bSetTerritory) {
@@ -314,8 +313,7 @@ const parseNoraSpawnerAI = ai => {
         index += ai[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
 
         slot.customFloatParam = readFloat(ai.slice(index, index += 4));
-        slot.gameRulePermissionFlag = bytesToInt(ai.slice(index, index + 2).join(','));
-        index += 2;
+        slot.gameRulePermissionFlag = bytesToInt(ai.slice(index, index += 2).join(','));
         slot.bSetTerritory = ai[index];
         index += 4;
         if (slot.bSetTerritory) {
@@ -421,7 +419,12 @@ const parseActorSpawnerDrops = drops => {
     bytes.spawnLocationX = readFloat(drops.slice(index, index += 4));
     bytes.spawnLocationY = readFloat(drops.slice(index, index += 4));
     bytes.spawnLocationZ = readFloat(drops.slice(index, index += 4));
-    index += 16; // No clue what these 4 bytes do - always 0
+    bytes.bSpawnAngRand = drops[index];
+    index += 4;
+    bytes.spawnAng = readFloat(drops.slice(index, index += 4));
+    bytes.spawnVelX = readFloat(drops.slice(index, index += 4));
+    bytes.spawnVelY = readFloat(drops.slice(index, index += 4));
+
     bytes.infiniteSpawn = drops[index];
     index += 4;
     bytes.spawnInterval = readFloat(drops.slice(index, index += 4));
@@ -437,11 +440,23 @@ const parseActorSpawnerDrops = drops => {
 
     bytes.customParameter = readAsciiString(drops, index);
     index += drops[index] + 4;
-    // Customer parameters and territory comes after this, but I've no idea what they do
-    // So I'm not going to read/expose yet. We'll just splice all zeroes instead.
+    bytes.customFloatParameter = readFloat(drops.slice(index, index += 4));
+    bytes.gameRulePermissionFlag = bytesToInt(drops.slice(index, index += 2).join(','));
+
+    const bSetTerritory = drops[index];
+    bytes.bSetTerritory = bSetTerritory;
+    index += 4;
+    if (bSetTerritory) {
+        bytes.territoryX = readFloat(drops.slice(index, index += 4));
+        bytes.territoryY = readFloat(drops.slice(index, index += 4));
+        bytes.territoryZ = readFloat(drops.slice(index, index += 4));
+        bytes.territoryHalfHeight = readFloat(drops.slice(index, index += 4));
+        bytes.territoryRadius = readFloat(drops.slice(index, index += 4));
+    }
+    bytes.invasionStartTimeRatio = readFloat(drops.slice(index, index += 4));
 
     // Keep anything after the asset path and just splice it back in
-    bytes.spareBytes = drops.slice(index, drops.length);
+    // bytes.spareBytes = drops.slice(index, drops.length);
     return {
         parsed: [bytes]
         // I think the vectors are offsets from the ActorSpawner's origin? 
@@ -563,8 +578,7 @@ export const parseTekiDrops = drops => {
 
         index += drops[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
         slot.customFloatParam = readFloat(drops.slice(index, index += 4));
-        slot.gameRulePermissionFlag = bytesToInt(drops.slice(index, index + 2).join(','));
-        index += 2;
+        slot.gameRulePermissionFlag = bytesToInt(drops.slice(index, index += 2).join(','));
         slot.bSetTerritory = drops[index];
         index += 4;
         if (slot.bSetTerritory) {

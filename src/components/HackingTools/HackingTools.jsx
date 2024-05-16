@@ -112,7 +112,7 @@ export const HackingTools = () => {
     }, [floatString, floatIsValid]);
 
     const stringBytes = useMemo(() => {
-        const lengthBytes = intToByteArr(stringString.length + 1).reverse();
+        const lengthBytes = intToByteArr(stringString.length + 1);
 
         return [
             ...lengthBytes,

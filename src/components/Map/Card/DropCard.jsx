@@ -32,11 +32,56 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
             </div>
             <div>
                 <b>Spawn interval</b>:&nbsp;
-                <DebouncedInput value={drop.spawnInterval} changeFunc={(v) => updateDrops(v, drop, "spawnInterval")} ddId={ddId} />
+                <DebouncedInput value={drop.spawnInterval} type="number" changeFunc={(v) => updateDrops(v, drop, "spawnInterval")} ddId={ddId} />
             </div>
             <div>
                 <b>Spawn limit</b>:&nbsp;
-                <DebouncedInput value={drop.spawnLimit} changeFunc={(v) => updateDrops(v, drop, "spawnLimit")} ddId={ddId} />
+                <DebouncedInput value={drop.spawnLimit} tpe="number" changeFunc={(v) => updateDrops(v, drop, "spawnLimit")} ddId={ddId} />
+            </div>
+            <div className="flex">
+                <b>overlapCenterX</b>:&nbsp;
+                <DebouncedInput value={drop.overlapCenterX} type="number" changeFunc={(v) => updateDrops(v, drop, "overlapCenterX")} ddId={ddId} />
+            </div>
+            <div className="flex">
+                <b>overlapCenterY</b>:&nbsp;
+                <DebouncedInput value={drop.overlapCenterY} type="number" changeFunc={(v) => updateDrops(v, drop, "overlapCenterY")} ddId={ddId} />
+            </div>
+            <div className="flex">
+                <b>overlapCenterZ</b>:&nbsp;
+                <DebouncedInput value={drop.overlapCenterZ} type="number" changeFunc={(v) => updateDrops(v, drop, "overlapCenterZ")} ddId={ddId} />
+            </div>
+            <div className="flex">
+                <b>overlapAreaHalfHeight</b>:&nbsp;
+                <DebouncedInput value={drop.halfHeight} type="number" changeFunc={(v) => updateDrops(v, drop, "halfHeight")} ddId={ddId} />
+            </div>
+            <div className="flex">
+                <b>overlapAreaRadius</b>:&nbsp;
+                <DebouncedInput value={drop.radius} type="number" changeFunc={(v) => updateDrops(v, drop, "radius")} ddId={ddId} />
+            </div>
+            <div className="flex">
+                <b>overlapAreaAngle</b>:&nbsp;
+                <DebouncedInput value={drop.angle} type="number" changeFunc={(v) => updateDrops(v, drop, "angle")} ddId={ddId} />
+            </div>
+            <div className="flex">
+                <b>spawnAng</b>:&nbsp;
+                <DebouncedInput value={drop.spawnAng} type="number" changeFunc={(v) => updateDrops(v, drop, "spawnAng")} ddId={ddId} />
+            </div>
+            <div className="flex">
+                <b>spawnVelX</b>:&nbsp;
+                <DebouncedInput value={drop.spawnVelX} type="number" changeFunc={(v) => updateDrops(v, drop, "spawnVelX")} ddId={ddId} />
+            </div>
+            <div className="flex">
+                <b>spawnVelY</b>:&nbsp;
+                <DebouncedInput value={drop.spawnVelY} type="number" changeFunc={(v) => updateDrops(v, drop, "spawnVelY")} ddId={ddId} />
+            </div>
+            <div className="flex">
+                <b>bSpawnAngRand</b>:&nbsp;
+                <input
+                    type="checkbox"
+                    checked={drop.bSpawnAngRand}
+                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    onChange={(e) => updateDrops(e.target.checked, drop, "bSpawnAngRand")}
+                />    
             </div>
             <div className="flex">
                 <b>Random rotation</b>:&nbsp;
@@ -131,7 +176,47 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                     )}
                 </select>
             </div>
-
+            <div className="flex">
+                <b>customFloatParameter</b>:&nbsp;
+                <DebouncedInput value={drop.customFloatParameter} type="number" changeFunc={(v) => updateDrops(v, drop, "customFloatParameter")} ddId={ddId} />
+            </div>
+            <div className="flex">
+                <b>gameRulePermissionFlag</b>:&nbsp;
+                <DebouncedInput value={drop.gameRulePermissionFlag} type="number" changeFunc={(v) => updateDrops(v, drop, "gameRulePermissionFlag")} ddId={ddId} />
+            </div>
+            <div className="flex">
+                <b>bSetTerritory</b>:&nbsp;
+                <input
+                    type="checkbox"
+                    checked={drop.bSetTerritory}
+                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    onChange={(e) => updateDrops(e.target.checked, drop, "bSetTerritory")}
+                />
+            </div>
+            {!!drop.bSetTerritory && <div className="flex">
+                <b>territoryX</b>:&nbsp;
+                <DebouncedInput value={drop.territoryX} type="number" changeFunc={(v) => updateDrops(v, drop, "territoryX")} ddId={ddId} />
+            </div>}
+            {!!drop.bSetTerritory && <div className="flex">
+                <b>territoryY</b>:&nbsp;
+                <DebouncedInput value={drop.territoryY} type="number" changeFunc={(v) => updateDrops(v, drop, "territoryY")} ddId={ddId} />
+            </div>}
+            {!!drop.bSetTerritory && <div className="flex">
+                <b>territoryZ</b>:&nbsp;
+                <DebouncedInput value={drop.territoryZ} type="number" changeFunc={(v) => updateDrops(v, drop, "territoryZ")} ddId={ddId} />
+            </div>}
+            {!!drop.bSetTerritory && <div className="flex">
+                <b>territoryHalfHeight</b>:&nbsp;
+                <DebouncedInput value={drop.territoryHalfHeight} type="number" changeFunc={(v) => updateDrops(v, drop, "territoryHalfHeight")} ddId={ddId} />
+            </div>}
+            {!!drop.bSetTerritory && <div className="flex">
+                <b>territoryRadius</b>:&nbsp;
+                <DebouncedInput value={drop.territoryRadius} type="number" changeFunc={(v) => updateDrops(v, drop, "territoryRadius")} ddId={ddId} />
+            </div>}
+            <div className="flex">
+                <b>invasionStartTimeRatio</b>:&nbsp;
+                <DebouncedInput value={drop.invasionStartTimeRatio} type="number" changeFunc={(v) => updateDrops(v, drop, "invasionStartTimeRatio")} ddId={ddId} />
+            </div>
         </> :
         <>
             <span>
