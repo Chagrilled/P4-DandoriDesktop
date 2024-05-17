@@ -138,6 +138,18 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                     }, null, 4), { encoding: "utf-8" }, () => { });
                     mainWindow.webContents.send('getConfig', config);
                 }
+            },
+            {
+                label: 'Disable Auto Update',
+                type: 'checkbox',
+                checked: config.disableAutoUpdate,
+                click: () => {
+                    config.disableAutoUpdate = !config.disableAutoUpdate;
+                    writeFile(CONFIG_PATH, JSON.stringify({
+                        ...config,
+                        disableAutoUpdate: config.disableAutoUpdate
+                    }, null, 4), { encoding: "utf-8" }, () => { });
+                }
             }
         ]
     },

@@ -13,8 +13,6 @@ import { createMenu } from './utils/createMenu';
 import { byteArrToInt } from './utils/bytes';
 import { updateElectronApp } from 'update-electron-app';
 
-updateElectronApp();
-
 const CONFIG_PATH = join(`${app.getPath('userData')}`, "config.json");
 const TEKI = 'Teki';
 const OBJECTS = 'Objects';
@@ -25,7 +23,8 @@ const DEFAULT_CONFIG = {
     castocDir: '',
     outputDir: '',
     internalNames: false,
-    hideInvisEntities: false
+    hideInvisEntities: false,
+    disableAutoUpdate: false
 };
 let config = {};
 let mapsCache = {};
@@ -564,6 +563,8 @@ try {
     writeFileSync(CONFIG_PATH, JSON.stringify(DEFAULT_CONFIG, null, 4), { encoding: "utf-8" });
     config = DEFAULT_CONFIG;
 }
+
+if (!config.disableAutoUpdate) updateElectronApp();
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
