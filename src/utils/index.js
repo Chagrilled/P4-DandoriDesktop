@@ -228,7 +228,7 @@ export const mutateAIProperties = (creature, value) => {
             }
         },
         {
-            ents: ["BridgeStation", "HikariStation"],
+            ents: ["BridgeStation", "HikariStation", "KinkaiStation"],
             AIProperties: {
                 pieceNum: 15
             }
