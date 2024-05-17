@@ -281,5 +281,5 @@ These objects have (most) of their pertinent bytes parsed and displayed for mani
    - To have a valve that is permanently on - enable `bSprinklerOnly` and set `valveID` to `None`. 
    - To connect a valve, match the `valveID` to the valve object's ID. The only valve config I've found works is to use the `Build` workType. This setup will have a sprinkler turn on once for `OpenTime` number of seconds upon valve activation, then turn off - this is how Cave013 douses fire. 
    - To have a sprinkler always on, make a `NavMeshTriggerLinkForSplash` object on top of the sprinkler, and make the `NavMeshTriggerID`s for both match. The sprinkler and valve cannot have the same `demoBindName`. I've not played much with these, but I believe they _may_ be to do with saving the state of the sprinkler after the cutscene has played. In my working example, I used `GSprinkler05` and `GValveOnce06` for my `demoBindName`s, and `demoId` of `0`.
-  - ✅ Geysers
-
+  - ✅ Geysers - the vector is ADDED to the player's translation upon use
+  - ✅ Material piles (number per pile)

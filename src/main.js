@@ -11,6 +11,9 @@ import { constructActor } from './genEditing/constructing';
 import { protectNumbers, unprotectNumbers, getInfoType, getAvailableTimes } from './utils';
 import { createMenu } from './utils/createMenu';
 import { byteArrToInt } from './utils/bytes';
+import { updateElectronApp } from 'update-electron-app';
+
+updateElectronApp();
 
 const CONFIG_PATH = join(`${app.getPath('userData')}`, "config.json");
 const TEKI = 'Teki';

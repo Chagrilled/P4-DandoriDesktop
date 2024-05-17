@@ -60,4 +60,17 @@ module.exports = {
             },
         },
     ],
+    publishers: [
+        {
+            name: '@electron-forge/publisher-github',
+            config: {
+                repository: {
+                    owner: 'Chagrilled',
+                    name: 'P4-DandoriDesktop'
+                },
+                draft: true
+            },
+            platforms: ['win32']
+        }
+    ]
 };
