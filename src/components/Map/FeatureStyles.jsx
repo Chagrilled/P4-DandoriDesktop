@@ -71,6 +71,7 @@ const SCALE_OVERRIDES = {
     burrow: 0.5,
     ropebranch: 0.5,
     ropebranchsmall: 0.5,
+    navmeshtrigger: 0.5,
     navmeshtriggerlinkforsplash: 0.5,
     navmeshtriggerclear: 0.5
 };

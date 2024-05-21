@@ -978,6 +978,7 @@ export const GimmickNames = {
     MoveFloorHappy: 'Oatchi Platform?',
     MoveFloorHover: 'Platform (Floating)',
     MoveFloorRound: 'Platform (Round)',
+    NavMeshTrigger: 'NavMeshTrigger',
     NavMeshTriggerClear: 'NavMeshTriggerClear',
     NavMeshTriggerLinkForSplash: 'NavMesh Sprinkler Trigger',
     NoraSpawnerHeadLock: 'Pikmin Spawn',
@@ -1039,7 +1040,7 @@ export const HazardNames = {
     StickyMush: 'Sticky Spotcap?',
     StickyMushB: 'Sticky Spotcap (B)?',
     StickyMushC: 'Sticky Spotcap (C)?',
-    PoisonStickyMush: 'Poison Sticky Spotcap?'
+    StickyMushPoison: 'Poison Sticky Spotcap?'
 };
 
 export const OnionNames = {
@@ -1291,6 +1292,7 @@ export const iconOverrides = {
     burrow: 'default',
     ropebranch: 'default',
     ropebranchsmall: 'default',
+    navmeshtrigger: 'default',
     navmeshtriggerlinkforsplash: 'default',
     navmeshtriggerclear: 'default'
 };
