@@ -47,7 +47,12 @@ export const findMarkerById = (ddId, mapMarkerData) => {
     };
 };
 
-export const getAngleRotation = (q) => 2 * Math.acos(q.W) * (180 / Math.PI);
+export const getAngleRotation = (q) => {
+    const norm = Math.sqrt(q.W ** 2 + q.X ** 2 + q.Y ** 2 + q.Z ** 2);
+
+    const angle = 2 * Math.acos(q.W / norm);
+    return q.Z / norm < 0 ? -angle : angle;
+};
 
 export const getInfoType = subPath => {
     let infoType = InfoType.Object;
@@ -231,6 +236,18 @@ export const mutateAIProperties = (creature, value) => {
             ents: ["BridgeStation", "HikariStation", "KinkaiStation"],
             AIProperties: {
                 pieceNum: 15
+            }
+        },
+        {
+            ents: ["Circulator"],
+            AIProperties: {
+                bWindLong: false,
+                switchID: "CirculatorSwitch01",
+                navLinkRight: {
+                    X: 100.0,
+                    Y: 100.0,
+                    Z: 100.0
+                }
             }
         }
     ].forEach(o => {

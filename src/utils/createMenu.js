@@ -140,6 +140,19 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                 }
             },
             {
+                label: 'Show Z Direction',
+                type: 'checkbox',
+                checked: config.showZDirection,
+                click: () => {
+                    config.showZDirection = !config.showZDirection;
+                    writeFile(CONFIG_PATH, JSON.stringify({
+                        ...config,
+                        showZDirection: config.showZDirection
+                    }, null, 4), { encoding: "utf-8" }, () => { });
+                    mainWindow.webContents.send('getConfig', config);
+                }
+            },
+            {
                 label: 'Disable Auto Update',
                 type: 'checkbox',
                 checked: config.disableAutoUpdate,

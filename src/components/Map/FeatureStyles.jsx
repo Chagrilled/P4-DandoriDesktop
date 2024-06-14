@@ -3,7 +3,7 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Feature } from 'ol';
 import { Point } from 'ol/geom';
-import { Categories, MarkerType, isCreature, isTreasure, GimmickNames, InfoType, iconOverrides, invisibleEntities } from '../../api/types';
+import { Categories, isCreature, isTreasure, GimmickNames, InfoType, iconOverrides, invisibleEntities } from '../../api/types';
 import { getAngleRotation, getNameFromAsset, shouldIconRotate } from '../../utils';
 
 const { Gimmick, Hazard, Portal, Onion, Base, WorkObject, Pikmin } = InfoType;
@@ -91,7 +91,7 @@ export const getFeatureLayers = (groupedData, config) => {
 
     for (let i = 0; i < LayerOrder.length; i++) {
         const markerType = LayerOrder[i];
-        if (!groupedData[markerType] || markerType === MarkerType.WaterWater || markerType === MarkerType.WaterSwamp) {
+        if (!groupedData[markerType] || markerType === InfoType.WaterWater || markerType === InfoType.WaterSwamp) {
             continue;
         }
 
@@ -107,7 +107,6 @@ export const getFeatureLayers = (groupedData, config) => {
 
         featureLayers[markerType] = layer;
     }
-    // console.log("featureLayers", featureLayers)
     return featureLayers;
 };
 
@@ -123,16 +122,27 @@ const getFeatures = (markerType, markers, config) => {
             data: marker
         });
 
-        feature.setStyle(
-            getFeatureStyle(marker, globalMarkerStyle)
-        );
+        const styles = [
+            getFeatureStyle(marker, globalMarkerStyle),
+        ];
+        if (config.showZDirection) styles.push(new Style({
+            image: new Icon({
+                src: '../images/icons/arrow.png',
+                anchor: [0.5, 0.5],
+                rotateWithView: true,
+                scale: 0.03,
+                rotation: getAngleRotation(marker.transform.rotation),
+            })
+        }));
+
+        feature.setStyle(styles);
         return feature;
     }).filter(f => !!f);
 };
 
 const MarkerStyles = Object.fromEntries(
-    Object.values(MarkerType)
-        .filter(type => type !== MarkerType.WaterSwamp && type !== MarkerType.WaterWater)
+    Object.values(InfoType)
+        .filter(type => type !== InfoType.WaterSwamp && type !== InfoType.WaterWater)
         .map(obj => [
             obj,
             new Style({
@@ -141,22 +151,13 @@ const MarkerStyles = Object.fromEntries(
         ])
 );
 
-const TREASURE_TEXT_STYLE = new Text({
-    fill: new Fill({ color: [255, 255, 255] }),
-    stroke: new Stroke({ color: [0, 0, 0], width: 2 }),
-    offsetY: 40,
-    scale: 2
-});
-
 //#region Styles
 // TODO: Refactor this duplication - it's been through a lot 😪
 const getFeatureStyle = (marker, globalMarkerStyle) => {
-    // console.log("getFeatureStyle", marker, globalMarkerStyle)
     if (isCreature(marker)) {
-        // console.log(marker);
         const creatureId = marker.creatureId === 'ActorSpawner' ? getNameFromAsset(marker.drops.parsed[0].assetName) : marker.creatureId.toLowerCase().replace('night', '');
         const scale = SCALE_OVERRIDES[creatureId] || 0.35;
-        // console.log("scale", scale, creatureId)
+
         globalMarkerStyle = new Style({
             image: new Icon({
                 src: `${ROOT_CREATURE_URL}/creature-${creatureId.toLowerCase()}.png`,
@@ -179,7 +180,7 @@ const getFeatureStyle = (marker, globalMarkerStyle) => {
         }
         const rotationProps = shouldIconRotate(marker.creatureId) ? {
             rotateWithView: true,
-            rotation: (getAngleRotation(marker.transform.rotation)) * Math.PI / 180,
+            rotation: getAngleRotation(marker.transform.rotation),
         } : {};
 
         globalMarkerStyle = new Style({
@@ -187,10 +188,6 @@ const getFeatureStyle = (marker, globalMarkerStyle) => {
                 src: `../images/${infoType}s/${infoType}-${id || marker.creatureId.toLowerCase()}.png`,
                 scale: scale,
                 ...rotationProps
-                // I have no idea what combination makes the right angle - none seems to match to DDB
-                // Also I think only gates/bridges/caves want rotating otherwise it looks weird
-                // rotateWithView: true,
-                // rotation: -getAngleRotation(marker.transform.rotation),
             }),
         });
     }
@@ -231,32 +228,7 @@ const getFeatureStyle = (marker, globalMarkerStyle) => {
     }
 
     // must copy any icons that need to be edited.
-    const markerStyle = globalMarkerStyle.clone();
-    // if (marker.transform.rotation !== undefined) {
-    //     markerStyle.getImage().setRotateWithView(true);
-    //     markerStyle.getImage().setRotation(-(marker.transform.rotation) * Math.PI / 180);
-    // }
-
-    // const [totalWeight, totalValue] = (marker.drops || [])
-    //     .reduce((sums, drop) => {
-    //         if (!isTreasure(drop)) {
-    //             return sums;
-    //         }
-
-    //         return [
-    //             sums[0] + drop.weight * (drop.amount || 1),
-    //             sums[1] + drop.value * (drop.amount || 1)
-    //         ];
-    //     }, [0, 0]);
-    // if (totalWeight || totalValue > 0) {
-    //     // TODO: remove value for challenge caves somehow
-    //     const label = totalValue ? `${totalWeight} / ${totalValue}` : totalWeight + "";
-
-    //     const textStyle = TREASURE_TEXT_STYLE.clone();
-    //     textStyle.setText(label);
-    //     markerStyle.setText(textStyle);
-    // }
-    return markerStyle;
+    return globalMarkerStyle.clone();
 };
 
 const LayerOrder = Categories.reduce((markerTypes, category) => [...markerTypes, ...category.markers], []);

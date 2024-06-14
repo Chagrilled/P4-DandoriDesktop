@@ -1,5 +1,5 @@
 import { default as MapTransforms } from './map-transforms.json';
-import { MarkerType } from './types';
+import { InfoType } from './types';
 /*
 TODO:
 extents to check:
@@ -18,8 +18,8 @@ export const getMapData = async (mapId) => {
         rotation: mapTransform.rotation,
         extentRadius: mapTransform.extentRadius,
         waterboxes: [
-            ...(data[MarkerType.WaterWater] || []),
-            ...(data[MarkerType.WaterSwamp] || [])
+            ...(data[InfoType.WaterWater] || []),
+            ...(data[InfoType.WaterSwamp] || [])
         ]
     };
 };
@@ -56,8 +56,8 @@ const _getMarkerData = async (mapId) => {
     return {
         ...mapData,
         water: [
-            ...(generatedData[MarkerType.WaterWater] || []),
-            ...(generatedData[MarkerType.WaterSwamp] || [])
+            ...(generatedData[InfoType.WaterWater] || []),
+            ...(generatedData[InfoType.WaterSwamp] || [])
         ]
     };
 };

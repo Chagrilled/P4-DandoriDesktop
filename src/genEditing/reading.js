@@ -62,6 +62,7 @@ const readInventory = (drops, index, invSize) => {
 export const getReadAIDynamicFunc = (creatureId, infoType) => {
     if (creatureId.includes('Valve')) return parseValveAI_Dynamic;
     if (['HikariStation', 'BridgeStation', 'KinkaiStation'].some(e => creatureId === e)) return parsePileAI_Dynamic;
+    if (creatureId.includes('Circulator')) return parseCirculatorAI_Dynamic;
     return () => ({});
 };
 
@@ -89,6 +90,7 @@ export const getReadAIStaticFunc = (creatureId, infoType) => {
     if (creatureId.includes('Valve')) return parseValveAI;
     if (creatureId.includes('StickyFloor')) return parseStickyFloorAI;
     if (creatureId.includes('Geyser')) return parseGeyserAI;
+    if (creatureId.includes('Circulator')) return parseCirculatorAI;
     return () => ({ parsed: [] });
 };
 
@@ -107,6 +109,30 @@ export const getReadNavMeshTriggerFunc = creatureId => {
     if (creatureId.startsWith('NavMeshTrigger')) return parseNavMeshTrigger;
     return () => false;
 };
+
+//#region Circulators
+const parseCirculatorAI = ai => {
+    let index = 155;
+    if (!ai[index]) index += 4; // again, there's sometimes 4 extra bytes in the middle-ish of the array. Our switch ID is either 155 or 159
+    const AIProperties = {
+        switchID: readAsciiString(ai, index)
+    };
+    index += ai[index] + 4;
+    AIProperties.bWindLong = ai[index];
+    index += 4;
+    AIProperties.navLinkRight = {
+        X: readFloat(ai.slice(index, index += 4)),
+        Y: readFloat(ai.slice(index, index += 4)),
+        Z: readFloat(ai.slice(index, index += 4))
+    };
+
+    return {
+        AIProperties,
+        parsed: []
+    }
+}
+
+const parseCirculatorAI_Dynamic = ai => ({ bRotateDefault: ai[12] });
 
 //#region Material Piles
 const parsePileAI_Dynamic = ai => ({ pieceNum: bytesToInt(ai.slice(36, 40).join(',')) });
@@ -455,14 +481,8 @@ const parseActorSpawnerDrops = drops => {
     }
     bytes.invasionStartTimeRatio = readFloat(drops.slice(index, index += 4));
 
-    // Keep anything after the asset path and just splice it back in
-    // bytes.spareBytes = drops.slice(index, drops.length);
     return {
         parsed: [bytes]
-        // I think the vectors are offsets from the ActorSpawner's origin? 
-        // Not sure why that's useful, so I'm not going to make UI for them unless someone proves otherwise
-        // We do want them to reconstruct existing AIs the same though, and not change
-        // their vectors opaquely because we don't have the vectors later
     };
 };
 

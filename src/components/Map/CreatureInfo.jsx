@@ -1,24 +1,9 @@
 import React from 'react';
-import { NameMap, RebirthTypes, PikminTypes, PikminPlayType, DemoPlayParamEnter, DemoPlayParamExit, PortalTypes, ValveWorkType } from "../../api/types";
+import { NameMap, editableNumberFields, editableBools, ignoreFields, editableStrings, arrayStrings, selectFields } from "../../api/types";
 import { useConfig } from '../../hooks/useConfig';
 import { findMarkerById, getAvailableTimes, mutateAIProperties } from '../../utils';
 import { DebouncedInput } from './DebouncedInput';
 
-const editableNumberFields = ["generateNum", "generateRadius", "X", "Y", "Z", "W", "groupingRadius", "rebirthInterval", "birthDay", "deadDay", "spawnNum", "spawnRadius", "noSpawnRadius", "mabikiNumFromFollow", "unknownInt", "pongashiChangeColorFollowNum", "portalNumber", "toPortalId", "baseCampId", "playAnimDist", "disablePikminFlags", "panzakuPriority", "Life", "weight", "piecePutNum", "demoID", "waterRange", "openTime", "flatEffectOffsetZ", "stopQueenDistXY", "leftProjectHeight", "maxFallDownLength", "snapRadius", "snapHeight", "pieceNum"];
-const editableBools = ["bMabikiPongashi", "bInitialPortalMove", "bDeactivateByExit", "bDisableIsFlareGuard", "bSprinklerOnly", "bAutoSpawnMush", "bSetCrystal", "bEnableCustomSoftEdge", "bDisableSoftEdge", "bUseSnapHeight"];
-const ignoreFields = ["drops", "type", "infoType", "ddId", "outlineFolderPath", "spareBytes"];
-const editableStrings = ["ignoreList", "toLevelName", "toSubLevelName", "CIDList", "switchID", "warpID", "valveID", "navMeshTriggerID", "demoBindName"];
-const arrayStrings = ["ignoreList", "CIDList"];
-const selectFields = {
-    pongashiChangeColorFromFollow: Object.values(PikminTypes),
-    pikminType: Object.values(PikminTypes),
-    groupIdlingType: Object.values(PikminPlayType),
-    rebirthType: Object.values(RebirthTypes),
-    portalType: Object.values(PortalTypes),
-    demoPlayParamEnter: DemoPlayParamEnter,
-    demoPlayParamExit: DemoPlayParamExit,
-    workType: Object.values(ValveWorkType)
-};
 //#region updateCreature
 const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId) => {
     console.log("updateObj", obj);

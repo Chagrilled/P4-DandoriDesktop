@@ -131,6 +131,19 @@ If you want to run from source, you'll need npm and Node (I've been using Node 2
 
 Unit tests can be ran for regression testing with `npm run test` (though they're just dummy atm)
 
+#### 👥 How to Support Entities
+
+Most entities can be supported just via reading and constructing their AI arrays:
+
+- Add a condition to the function resolver for your new entity/(ies) for [reading](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/src/genEditing/reading.js#L61-L98) and [constructing](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/src/genEditing/constructing.js#L60-L88)
+- Write the relevant functions for parsing/constructing the bytes
+  - For reading, the function should return an object containing `parsed`, an array of objects representing the entities this entity drops on death. Properties of the ent's AI go in an object to be returned as `AIProperties`
+  - For constructing, the function is called with `func(drops: [{}], AI: [number], { AIProperties, ...extras })` and must return an array.
+  - `NavMeshTrigger` and `Dynamic` AI is also supported
+- Add your entity to the [mutator array](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/src/utils/index.js#L158-L236) which is what sets up the entity to a default state when using the dropdowns to change entity types. `ents` determines each _substring_ to apply the mutation to, and each gen variable name will overwrite the entity's.
+- If your entity drops stuff, add it to the [drop controller](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/src/utils/index.js#L86-L103) to have the UI enable the drop panel to display each object in your `parsed` array.
+- If new editable properties have been added, add the names to the corresponding [type arrays](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/src/api/types.js#L107-L195)
+
 ### 🤖 AI
 
 AI. Much of the difficulty of this and in-game bugs stem from the AI parameter. [I'd recommend reading up on it on TKB](https://pikmintkb.com/wiki/ActorSerializeParameter_and_AI).
@@ -180,8 +193,8 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ Egg tekis and their drops 
 - ❌ Rename all creature/creatureId references to entityId
 - ❌ Work out what the bytes are after the inventory so we don't set every default to some weird override
-- ❌ Draw radius around ActorSpawners/GDMs when highlighted
-- ❗ Jellyfloats seem broken when spawned by ActorSpawners? They just don't attack anything - I think they may have more important ties to their Territory and EatArea params that are often provided by the blueprints overriding the AI variable. There are no examples of kurage ActorSpawners. Might have to find another enemy being given territory parameters via spawners and understand the final bytes. It doesn't seem limited to just them. GrubChucker also showed very little natural aggression. Maybe aggression is tied to territory, and if they're out of it, they don't care, and the territory is out near the actorspawner? Idk I lowered the AS to be nearer to the 'ground', and they still seem unbothered. Must investigate later. KingChappy is very happy to chase me around and try eat me. I've tried using bSetTerritory as an offset and absolute position, and Foolix just wants to slink off somewhere slightly northwest of the spawn platform way off in the abyss. Using 0/0/310 as the vector made him go in a totally different direction, so it definitely does SOMETHING
+- ❌ Draw radius around ActorSpawners/GDMs when highlighted - probably has to be done after refactoring the map props otherwise each click will re-render the map, making it worse than it already is.
+- ❗ Jellyfloats seem broken when spawned by ActorSpawners? They just don't attack anything - I think they may have more important ties to their Territory and EatArea params that are often provided by the blueprints overriding the AI variable. There are no examples of kurage ActorSpawners. Might have to find another enemy being given territory parameters via spawners and understand the final bytes. It doesn't seem limited to just them. GrubChucker also showed very little natural aggression. Maybe aggression is tied to territory, and if they're out of it, they don't care, and the territory is out near the actorspawner? Idk I lowered the AS to be nearer to the 'ground', and they still seem unbothered. Must investigate later. KingChappy is very happy to chase me around and try eat me. I've tried using bSetTerritory as an offset and absolute position, and Foolix just wants to slink off somewhere slightly northwest of the spawn platform way off in the abyss. Using 0/0/310 as the vector made him go in a totally different direction, so it definitely does SOMETHING. I also tried SubAI, which is used by Tateana - FModel shows the blueprint using `ComponentTag` or something to label each AI_Gen_Variable as AI vs SubAI for the `Tateana` vs the `Baby` - I thought I could use this with ActorSpawners to inject AI bytes to its children, but no.
 - ❌ Fix the CSS of the map buttons being killed by tailwind
 - Front page styling
 - ❌ Work out why BigFireTank doesn't get a model
@@ -197,10 +210,10 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ Fix icons for night enemies in caves
 - ❌ Dandori battle maps - where/what even are they?
 - ✅ Support castaway drops (untested in game, but AI looks correct)
-- ❌ Better error reporting for the deploy process
+- ✅ Better error reporting for the deploy process
 - ✅ Alphabetise the creature dropdown by the type of name we're displaying first (swapping internal names still makes them ordered by internal) 
 - ✅ Refactor/cleanup the icons so there aren't duplicates
-- 🚧 Rotate icons that require it, like bridges/gates so they look better - works for most, some icons are being funny
+- ✅ Rotate icons that require it, like bridges/gates so they look better - works for most, some icons are being funny
 - ❌ How does hazard AI work? Surely you can override the HibaBase blueprint - Some HibaIce do this in their HibaAIParameters, but the changes aren't reflected in the AI.
 - ❌ Refactor the map to see if I can separate state from the map data, which might fix the component-refreshing problem. A bit similarly to filters. Perhaps the map doesn't have to use the main data set and can maintain its own without having the main map set as a prop? 
 - ✅ Portals
@@ -266,7 +279,7 @@ These objects have (most) of their pertinent bytes parsed and displayed for mani
  - ✅ TriggerDoor (these don't seem to work with enemy counts?)
  - ✅ Switches
  - ✅ Tunnels
- - ❌ Circulators
+ - ✅ Circulators (switchID@155, bWindLong after, bRotateDefault last 4 bytes of dynamic? last 3 floats of static are the added transform?)
  - ❌ Bridges/buildables
  - ✅ Mush
  - ✅ Stickyfloors

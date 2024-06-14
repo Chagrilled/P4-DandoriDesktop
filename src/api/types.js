@@ -96,23 +96,103 @@ export const PikminSpawnState = {
     Idle: 'idle',
 };
 
-export const MarkerType = {
-    Treasure: 'treasure',
-    Creature: 'creature',
+export const RebirthTypes = {
+    NoRebirth: "ERebirthType::NoRebirth",
+    AlwaysRebirth: "ERebirthType::AlwaysRebirth",
+    RebirthFullExplore: "ERebirthType::RebirthFullExplore",
+    RebirthLater: "ERebirthType::RebirthLater"
+};
 
-    // water
-    WaterWater: 'water-water',
-    WaterSwamp: 'water-swamp',
+// UI element controllers
+export const editableNumberFields = [
+    "generateNum",
+    "generateRadius",
+    "X",
+    "Y",
+    "Z",
+    "W",
+    "angle",
+    "groupingRadius",
+    "rebirthInterval",
+    "birthDay",
+    "deadDay",
+    "spawnNum",
+    "spawnRadius",
+    "noSpawnRadius",
+    "mabikiNumFromFollow",
+    "unknownInt",
+    "pongashiChangeColorFollowNum",
+    "portalNumber",
+    "toPortalId",
+    "baseCampId",
+    "playAnimDist",
+    "disablePikminFlags",
+    "panzakuPriority",
+    "Life",
+    "weight",
+    "piecePutNum",
+    "demoID",
+    "waterRange",
+    "openTime",
+    "flatEffectOffsetZ",
+    "stopQueenDistXY",
+    "leftProjectHeight",
+    "maxFallDownLength",
+    "snapRadius",
+    "snapHeight",
+    "pieceNum"
+];
 
-    // My types
-    Gimmick: 'gimmick',
-    Object: 'object',
-    WorkObject: 'workobject',
-    Pikmin: 'pikmin',
-    Base: 'base',
-    Onion: 'onion',
-    Hazard: 'hazard',
-    Portal: 'portal'
+export const editableBools = [
+    "bMabikiPongashi",
+    "bInitialPortalMove",
+    "bDeactivateByExit",
+    "bDisableIsFlareGuard",
+    "bSprinklerOnly",
+    "bAutoSpawnMush",
+    "bSetCrystal",
+    "bEnableCustomSoftEdge",
+    "bDisableSoftEdge",
+    "bUseSnapHeight",
+    "bWindLong",
+    "bRotateDefault"
+];
+
+export const ignoreFields = [
+    "drops",
+    "type",
+    "infoType",
+    "ddId",
+    "outlineFolderPath",
+    "spareBytes"
+];
+
+export const editableStrings = [
+    "ignoreList",
+    "toLevelName",
+    "toSubLevelName",
+    "CIDList",
+    "switchID",
+    "warpID",
+    "valveID",
+    "navMeshTriggerID",
+    "demoBindName"
+];
+
+export const arrayStrings = [
+    "ignoreList",
+    "CIDList"
+];
+
+export const selectFields = {
+    pongashiChangeColorFromFollow: Object.values(PikminTypes),
+    pikminType: Object.values(PikminTypes),
+    groupIdlingType: Object.values(PikminPlayType),
+    rebirthType: Object.values(RebirthTypes),
+    portalType: Object.values(PortalTypes),
+    demoPlayParamEnter: DemoPlayParamEnter,
+    demoPlayParamExit: DemoPlayParamExit,
+    workType: Object.values(ValveWorkType)
 };
 
 export const InfoType = {
@@ -131,7 +211,9 @@ export const InfoType = {
     Onion: 'onion',
     Hazard: 'hazard',
     Portal: 'portal',
-    Item: 'item'
+    Item: 'item',
+    WaterWater: 'water-water',
+    WaterSwamp: 'water-swamp',
 };
 
 export const CreatureNames = {
@@ -299,168 +381,15 @@ export const Legends = [
 
 export const Categories = [
     {
-        label: 'Collectibles',
+        label: 'Creatures',
         markers: [
-            MarkerType.Treasure,
-            MarkerType.CastawayNormal,
-            MarkerType.CastawayLeafling,
-            MarkerType.Creature,
-            MarkerType.OnionFlarlic,
-            MarkerType.OnionRed,
-            MarkerType.OnionYellow,
-            MarkerType.OnionBlue,
-            MarkerType.OnionPurple,
-            MarkerType.OnionWhite,
-            MarkerType.OnionRock,
-            MarkerType.OnionWing,
-            MarkerType.OnionIce,
+            InfoType.Creature
         ]
     },
     {
-        label: 'Pikmin',
+        label: 'Treasure',
         markers: [
-            MarkerType.PikminRed,
-            MarkerType.PikminYellow,
-            MarkerType.PikminBlue,
-            MarkerType.PikminPurple,
-            MarkerType.PikminWhite,
-            MarkerType.PikminRock,
-            MarkerType.PikminWing,
-            MarkerType.PikminIce,
-            MarkerType.CandypopRed,
-            MarkerType.CandypopYellow,
-            MarkerType.CandypopBlue,
-            MarkerType.CandypopPurple,
-            MarkerType.CandypopWhite,
-            MarkerType.CandypopRock,
-            MarkerType.CandypopWing,
-            MarkerType.CandypopIce
-        ]
-    },
-    {
-        label: 'Structures',
-        markers: [
-            MarkerType.PileMaterials,
-            MarkerType.StructureBridge,
-            MarkerType.StructureSlope,
-            MarkerType.StructureValve,
-            MarkerType.StructureWall,
-            MarkerType.HazardSprinkler
-        ]
-    },
-    {
-        label: 'Breakables',
-        markers: [
-            MarkerType.MiscGroupdropmanager,
-            MarkerType.BreakableHydrojelly,
-            MarkerType.BreakablePot,
-            MarkerType.BreakableKingcapnormal,
-            MarkerType.BreakableKingcappoison,
-            MarkerType.BreakableSpotcapnormal,
-            MarkerType.BreakableSpotcappoison,
-            MarkerType.BreakableStraw,
-            MarkerType.BreakableIcebox,
-            MarkerType.FirepitLit,
-            MarkerType.FirepitUnlit,
-            MarkerType.BreakableCrystal
-        ]
-    },
-    {
-        label: 'Items',
-        markers: [
-            MarkerType.BreakableMound,
-            MarkerType.BreakableEgg,
-            MarkerType.MiscBomb,
-            MarkerType.MiscIcebomb,
-            MarkerType.MiscSpicy,
-            MarkerType.MiscSpiderwort
-        ]
-    },
-    {
-        label: 'Hazards',
-        markers: [
-            MarkerType.HazardSpoutFire,
-            MarkerType.HazardSpoutElectric,
-            MarkerType.HazardSpoutWater,
-            MarkerType.HazardSpoutPoison,
-            MarkerType.HazardSpoutIce,
-            MarkerType.HazardSpoutBubble,
-            MarkerType.HazardFloorfire,
-            MarkerType.HazardCharcoal,
-            MarkerType.HazardFloormushroom
-        ]
-    },
-    {
-        label: 'Shortcuts',
-        markers: [
-            MarkerType.ShortcutClipboardhigh,
-            MarkerType.ShortcutClipboardlow,
-            MarkerType.ShortcutPushbag,
-            MarkerType.ShortcutPushboxcardboard,
-            MarkerType.ShortcutPushboxmetal,
-            MarkerType.ShortcutRoot,
-            MarkerType.ShortcutStringup,
-            MarkerType.ShortcutStringdown,
-            MarkerType.RidableGeyser,
-            MarkerType.RidableZipline,
-            MarkerType.TunnelAny,
-            MarkerType.TunnelCaptain,
-            MarkerType.TunnelOatchi,
-            MarkerType.PlatformBounce,
-            MarkerType.PlatformCharge,
-            MarkerType.RidableMovefloor,
-        ]
-    },
-    {
-        label: 'Gates',
-        markers: [
-            MarkerType.GateBomb,
-            MarkerType.GateCrystal,
-            MarkerType.GateDirt,
-            MarkerType.GateElectric,
-            MarkerType.GateIce,
-            MarkerType.Gatconstbered,
-            MarkerType.ShortcutSquashbag
-        ]
-    },
-    {
-        label: 'Switchables',
-        markers: [
-            MarkerType.SwitchConveyor,
-            MarkerType.SwitchFan,
-            MarkerType.SwitchFenceiron,
-            MarkerType.SwitchFencenormal,
-            MarkerType.SwitchSingle,
-            MarkerType.SwitchDouble,
-            MarkerType.SwitchDrain,
-        ]
-    },
-    {
-        label: 'Locations',
-        markers: [
-            MarkerType.BaseOnion,
-            MarkerType.BaseBeagle,
-            MarkerType.CaveEntrance,
-            MarkerType.CaveExit,
-            MarkerType.CaveChallenge,
-            MarkerType.CaveBattle,
-        ]
-    },
-    {
-        label: 'Misc',
-        markers: [
-            MarkerType.MiscPullrope,
-            MarkerType.MiscStick,
-            MarkerType.MiscIcicle,
-            MarkerType.MiscHoney,
-        ]
-    },
-    {
-        label: 'Night',
-        markers: [
-            MarkerType.NightLumiknoll,
-            MarkerType.NightTricknoll,
-            MarkerType.PileGlowpellets,
+            InfoType.Treasure
         ]
     },
     {
@@ -507,13 +436,6 @@ export const Categories = [
         ]
     }
 ];
-
-export const RebirthTypes = {
-    NoRebirth: "ERebirthType::NoRebirth",
-    AlwaysRebirth: "ERebirthType::AlwaysRebirth",
-    RebirthFullExplore: "ERebirthType::RebirthFullExplore",
-    RebirthLater: "ERebirthType::RebirthLater"
-};
 
 export const exposedGenVars = ["AttackAffordance", "AI", "CarrotMove", "Life", "PointerAssist", "CarryAffordance"];
 

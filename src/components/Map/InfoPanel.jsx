@@ -182,8 +182,7 @@ export const InfoPanel = ({ marker, mapMarkerData, setMapData, mapId, setSelecte
 
     if (!creature) return null; // CreatureInfo likes to hold on to the selected ID if you change maps
     console.log("CreatureInfo", creature);
-    console.log("Rotation", getAngleRotation(creature.transform.rotation));
-    console.log("Rotation used", -getAngleRotation(creature.transform.rotation) * Math.PI / 180);
+    console.log("Rotation (radians)", getAngleRotation(creature.transform.rotation));
     const isActorSpawner = creature.creatureId === 'ActorSpawner';
 
     const title = creature.generateNum

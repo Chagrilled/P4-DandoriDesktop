@@ -78,12 +78,14 @@ export const getConstructAIStaticFunc = (creatureId, infoType) => {
     if (creatureId.includes('Valve')) return constructValveAI;
     if (creatureId.includes('StickyFloor')) return constructStickyFloorAI;
     if (creatureId.includes('Geyser')) return constructGeyserAI;
+    if (creatureId.includes('Circulator')) return constructCirculatorAI;
     return defaultAI;
 };
 
 export const getConstructDynamicFunc = (creatureId) => {
     if (creatureId.includes('Valve')) return constructValveAI_Dynamic;
     if (['HikariStation', 'BridgeStation', 'KinkaiStation'].some(e => creatureId === e)) return constructPileAI_Dynamic;
+    if (creatureId.includes('Circulator')) return constructCirculatorAI_Dynamic;
     return (ai) => ai;
 };
 
@@ -97,6 +99,26 @@ export const getConstructNavMeshTriggerFunc = (creatureId) => {
     if (creatureId.includes('NavMeshTrigger')) return constructNavMeshTrigger;
     return (nmt) => nmt;
 };
+
+//#region Circulators
+const constructCirculatorAI = (_, aiStatic, { AIProperties }) => {
+    // We just take the first 155 bytes here and pretend
+    // those mysterious 4 bytes don't exist and hope they aren't important
+    const bytes = [
+        ...ObjectAIParameter.slice(0, 155)
+    ];
+    writeAsciiString(bytes, AIProperties.switchID);
+    bytes.push(AIProperties.bWindLong ? 1 : 0, 0, 0, 0);
+    bytes.push(...floatBytes(AIProperties.navLinkRight.X));
+    bytes.push(...floatBytes(AIProperties.navLinkRight.Y));
+    bytes.push(...floatBytes(AIProperties.navLinkRight.Z));
+    return bytes;
+};
+
+const constructCirculatorAI_Dynamic = (aiDynamic, { AIProperties }) => [
+    ...Array(12).fill(0),
+    AIProperties.bRotateDefault ? 1 : 0, 0, 0, 0
+];
 
 //#region Treasure Pile
 const constructPileAI_Dynamic = (aiDynamic, { AIProperties }) => [

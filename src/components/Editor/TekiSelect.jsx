@@ -1,7 +1,7 @@
 import { MarkerIcon } from '../Icon';
 import React, { useEffect, useState } from 'react';
 import { CreatureNames } from '../../api/types';
-import { MarkerType } from '../../api/types';
+import { InfoType } from '../../api/types';
 
 export const TekiSelect = ({ onEntChange, currentEnt }) => {
     const [tekis, setTekis] = useState([]);
@@ -29,11 +29,10 @@ export const TekiSelect = ({ onEntChange, currentEnt }) => {
     }
 
     const tekiLinks = tekis.map(tekiId => {
-        let tekiName = CreatureNames[tekiId];
         // TODO: Add night creatures to the types list
         // console.log(tekiName)
         return <div key={tekiId}>
-            <MarkerIcon size="small" type={MarkerType.Creature} id={tekiId} />
+            <MarkerIcon size="small" type={InfoType.Creature} id={tekiId} />
             <button className={currentEnt == tekiId ? "font-bold" : ""} onClick={() => { onEntChange(tekiId); return false; }}>{`${tekiId} (${CreatureNames[tekiId]})`}</button>
         </div>;
     }, [onEntChange]);

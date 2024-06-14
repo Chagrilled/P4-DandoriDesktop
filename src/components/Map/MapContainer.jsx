@@ -43,6 +43,7 @@ export const MapContainer = ({
                 maxZoom: 8,
                 minZoom: 1,
             });
+
             // add markers
             const markerLayers = await getFeatureLayers(mapMarkerData, config);
             const visibleLayers = Object.entries(markerLayers)
