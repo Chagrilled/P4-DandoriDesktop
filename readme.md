@@ -179,7 +179,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅Toast messages 
 - ✅ActorSpawners 
 - ✅ Hook up the drop inputs 
-- ❌ Refactor to use context to help global state stuff?
+- 🚧 Refactor to use context to help global state stuff?
 - ❌ Error handling when stuff like bad JSON is attempted to be parsed
 - ✅❗ Debounce all inputs 
 - ❌ kurage fall AI - cave024_f03 - how is FallStart defined in the AI bytes?
@@ -215,7 +215,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ Refactor/cleanup the icons so there aren't duplicates
 - ✅ Rotate icons that require it, like bridges/gates so they look better - works for most, some icons are being funny
 - ❌ How does hazard AI work? Surely you can override the HibaBase blueprint - Some HibaIce do this in their HibaAIParameters, but the changes aren't reflected in the AI.
-- ❌ Refactor the map to see if I can separate state from the map data, which might fix the component-refreshing problem. A bit similarly to filters. Perhaps the map doesn't have to use the main data set and can maintain its own without having the main map set as a prop? 
+- ✅ Refactor the map to see if I can separate state from the map data, which might fix the component-refreshing problem. A bit similarly to filters. Perhaps the map doesn't have to use the main data set and can maintain its own without having the main map set as a prop? 
 - ✅ Portals
 - ✅ Need a way to arbitrarily add parameters to objects, so swapping to things like gates, where `Life` is needed, but not anywhere else, is possible for newly created objects.
 - ❌ Marigumo net

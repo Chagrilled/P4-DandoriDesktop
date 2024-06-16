@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Menu, Item, Separator, Submenu } from 'react-contexify';
 import { RebirthTypes, DefaultActorSpawnerDrop, InfoType, DefaultPortalTrigger, GateMiddleBytes, defaultBaseAIProperties } from '../../api/types';
 import { getAvailableTimes } from '../../utils';
+import { MapContext } from './MapContext';
 
 const { Creature, Treasure, Gimmick, Object, WorkObject, Pikmin, Base, Onion, Hazard, Portal } = InfoType;
 
 export const MapMenu = ({ }) => {
+    const { mapMarkerData, setMapData, mapId } = useContext(MapContext);
 
     const getDefaultId = (id) => {
         return {
@@ -25,7 +27,7 @@ export const MapMenu = ({ }) => {
         }[id];
     };
 
-    const handleItemClick = ({ id, event, props: { mapMarkerData, setMapData, mapId, coords } }) => {
+    const handleItemClick = ({ id, event, props: { coords } }) => {
         const infoType = id === 'GroupDropManager' ? Gimmick : id === 'ActorSpawner' ? Creature : id;
 
         const newMarker = {

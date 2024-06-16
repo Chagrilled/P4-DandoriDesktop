@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useState, useCallback, useContext } from 'react';
 import { Map, View, Collection } from "ol";
 import { defaults as defaultControls } from 'ol/control';
 import { getCenter } from 'ol/extent';
@@ -13,94 +13,106 @@ import { getFeatureLayers } from './FeatureStyles';
 // import { Style, Stroke, Fill, Circle } from 'ol/style';
 // import VectorLayer from 'ol/layer/Vector';
 // import VectorSource from 'ol/source/Vector';
+import { MapContext } from './MapContext';
 
 export const MapContainer = ({
-    mapId,
-    onSelect,
-    mapMarkerData,
-    setMapData,
-    filter
+    onSelect
 }) => {
     const mapContainerRef = useRef(null);
-    const [map, setMap] = useState(() => new Map({}));
+    const [map, setMap] = useState(() => new Map());
     const [markerLayers, setMarkerLayers] = useState({});
     const { show } = useContextMenu({ id: 'MAP_MENU ' });
     const prevFilter = useRef({});
     const config = useConfig();
+    const { mapMarkerData, setMapData, filter, mapId } = useContext(MapContext);
 
     useEffect(() => {
+        if (!mapContainerRef?.current) return;
+
+        // Only initialise the map object once, and instead mutate the views
+        setMap(new Map({
+            target: mapContainerRef.current,
+            controls: defaultControls({ rotate: false }),
+            interactions: defaultInteractions(),
+        }));
+    }, []);
+
+    //#region Rebuild Layers
+    // This hook fires on data changes and mutates the map in situ by clearing and re-adding the layers
+    // This could be further improved later by only editing the FEATURE that was changed, although
+    // the gains there are minimal as the main issue was the map resetting.
+    const rebuildLayers = async () => {
+        if (!mapId) return;
+
+        console.log(mapMarkerData);
+        const mapData = await getMapData(mapId);
+        const imageLayers = getImageLayersForMap(mapData, mapData.waterboxes);
+        // Clear out existing images - clone because forEaching the actual layer array causes indexes to change while looping
+        const layers = [...map.getLayers().getArray()];
+        layers.forEach((layer) => map.removeLayer(layer));
+
+        const markerLayers = await getFeatureLayers(mapMarkerData, config);
+        const visibleLayers = Object.entries(markerLayers)
+            .filter(([k, _v]) => !!filter[k])
+            .map(([_k, v]) => v);
+
+        // Drag and drop inteaction - updates the map data with new translation
+        // you could just update the feature, but we also need the main context to know
+        // to update the infopanel
+        Object.values(markerLayers).forEach(layer => {
+            const modifyFeature = new Modify({
+                features: new Collection(layer.getSource().getFeatures())
+            });
+            modifyFeature.on('modifyend', evt => {
+                const data = evt.features.array_[0].values_.data;
+                setMapData({
+                    ...mapMarkerData,
+                    [data.infoType]: mapMarkerData[data.infoType].map(marker => marker.ddId !== data.ddId ? marker : {
+                        ...data,
+                        transform: {
+                            ...data.transform,
+                            translation: {
+                                X: evt.mapBrowserEvent.coordinate[1],
+                                Y: evt.mapBrowserEvent.coordinate[0],
+                                Z: data.transform.translation.Z
+                            }
+                        }
+                    }),
+                });
+            });
+            map.addInteraction(modifyFeature);
+        });
+
+        map.setLayers([
+            ...imageLayers,
+            ...visibleLayers
+        ]);
+        setMarkerLayers(markerLayers);
+    };
+
+    //#region Map Loader
+    useEffect(() => {
         const load = async () => {
-            // load map data
             const mapData = await getMapData(mapId);
-            const imageLayers = getImageLayersForMap(mapData, mapData.waterboxes);
             const projection = getProjectionForMap(mapData);
 
+            // Overwrite the view rather than initialise new map objects
             const view = new View({
                 projection: projection,
                 center: getCenter(projection.getExtent()),
                 zoom: 2,
                 rotation: -mapData.rotation * Math.PI / 180,
                 maxZoom: 8,
-                minZoom: 1,
+                minZoom: 1
             });
-
-            // add markers
-            const markerLayers = await getFeatureLayers(mapMarkerData, config);
-            const visibleLayers = Object.entries(markerLayers)
-                .filter(([k, _v]) => !!filter[k])
-                .map(([_k, v]) => v);
-
-            // TODO figure out why map.setLayers and map.setView aren't working
-            const map = new Map({
-                layers: [
-                    ...imageLayers,
-                    ...visibleLayers
-                ],
-                target: 'map',
-                view,
-                // disable rotation
-                interactions: defaultInteractions(),
-                // disable "resetNorth" button; TODO: see if rotateOptions.resetNorth can reset to original rotation
-                controls: defaultControls({ rotate: false })
-            });
-
-            console.log(mapMarkerData);
-            Object.values(markerLayers).forEach(layer => {
-                const modifyFeature = new Modify({
-                    features: new Collection(layer.getSource().getFeatures())
-                });
-                modifyFeature.on('modifyend', evt => {
-                    const data = evt.features.array_[0].values_.data;
-                    console.log("type", data.infoType);
-                    setMapData({
-                        ...mapMarkerData,
-                        // TODO: yes this will be annoying later if things are in different arrays
-                        [data.infoType]: mapMarkerData[data.infoType].map(marker => {
-                            return marker.ddId !== data.ddId ? marker : {
-                                ...data,
-                                transform: {
-                                    ...data.transform,
-                                    translation: {
-                                        X: evt.mapBrowserEvent.coordinate[1],
-                                        Y: evt.mapBrowserEvent.coordinate[0],
-                                        Z: data.transform.translation.Z
-                                    }
-                                }
-                            };
-                        }),
-
-                    });
-                });
-                map.addInteraction(modifyFeature);
-            });
-
-            setMap(map);
-            setMarkerLayers(markerLayers);
+            map.setView(view);
         };
-        if (mapMarkerData) {
-            load();
-        };
-    }, [mapId, mapMarkerData, config]);
+        if (mapId && map) load();
+    }, [mapId, map]);
+
+    useEffect(() => {
+        (async () => await rebuildLayers())();
+    }, [mapMarkerData, config]);
 
     useEffect(() => {
         const filterKeys = Object.keys(filter);
@@ -123,6 +135,7 @@ export const MapContainer = ({
         prevFilter.current = filter;
     }, [filter]);
 
+    //#region Interactions
     const handleSelect = useCallback((evt) => {
         if (evt.mapBrowserEvent.originalEvent.shiftKey) {
             // entity is being added.
@@ -179,16 +192,11 @@ export const MapContainer = ({
     }, [onSelect]);
 
     const handleAddEntity = useCallback((evt) => {
-        if (!mapMarkerData) return false;
-
         if (evt.type === 'contextmenu') {
             show({
                 event: evt.originalEvent,
                 id: 'MAP_MENU',
                 props: {
-                    mapMarkerData,
-                    setMapData,
-                    mapId,
                     coords: {
                         x: evt.coordinate[1],
                         y: evt.coordinate[0]
@@ -219,16 +227,6 @@ export const MapContainer = ({
             map.removeInteraction(clickFeature);
         };
     }, [map, handleSelect]);
-
-    useEffect(() => {
-        if (mapContainerRef.current) {
-            map.setTarget(mapContainerRef.current);
-        }
-
-        return () => {
-            map.dispose();
-        };
-    }, [map, mapMarkerData]);
 
     return <div className='w-full h-full MapContainer__container'>
         <MapMenu />

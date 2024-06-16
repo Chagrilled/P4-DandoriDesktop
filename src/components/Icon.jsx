@@ -3,8 +3,6 @@ import { getIconOptions } from "./Map/FeatureStyles";
 import { InfoType, iconOverrides } from "../api/types";
 
 export const MarkerIcon = ({ type, id, size = 'small', card }) => {
-    console.log("Icon", type, id, card);
-
     const typeOverrides = {
         [InfoType.Gimmick]: 'w-48 h-48 mr-2 mt-4 inline self-center',
         [InfoType.Object]: 'w-48 h-48 mr-2 mt-4 inline self-center',

@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
+import { MapContext } from './MapContext';
 
-export const MapSelect = ({ onSelect, currentMap }) => {
+export const MapSelect = ({ }) => {
     const [maps, setMaps] = useState([]);
     const [loaded, setLoaded] = useState(false);
+    const { setMapId, mapId: currentMap } = useContext(MapContext);
+
+    const onMapChange = useCallback(newMapId => {
+        setMapId(newMapId);
+    }, []);
 
     const handleIPC = (evt, message) => {
         if (message.error) {
@@ -33,9 +39,9 @@ export const MapSelect = ({ onSelect, currentMap }) => {
         let mapName = IdToNameMap[splitId[0]];
         mapName += splitId[1] ? ' ' + splitId[1] : '';
         return <div key={mapId}>
-            <button className={currentMap == mapId ? "font-bold" : ""} onClick={() => { onSelect(mapId); return false; }}>{mapName} <i>{` (${mapId})`}</i></button>
+            <button className={currentMap == mapId ? "font-bold" : ""} onClick={() => { onMapChange(mapId); return false; }}>{mapName} <i>{` (${mapId})`}</i></button>
         </div>;
-    }, [onSelect]);
+    }, [onMapChange]);
 
     return <div className="MapSelect__container">
         {mapLinks}

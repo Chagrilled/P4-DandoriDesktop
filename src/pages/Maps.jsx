@@ -1,35 +1,15 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { NavigationPanel } from '../components/Map/NavigationPanel';
 import { PanelLayout } from '../components/Map/PanelLayout';
 import { InfoPanel } from '../components/Map/InfoPanel';
 import { getMarkerData } from '../api/MapAPI';
 import { MapContainer } from '../components/Map/MapContainer';
 import { toast } from 'react-hot-toast';
-import { Legends } from '../api/types';
-
-const InitialFilter = Object.values(Legends).reduce((filter, type) => {
-    filter[type] = true;
-    return filter;
-}, {});
+import { MapContext } from '../components/Map/MapContext';
 
 export const Maps = () => {
-    const [mapId, setMapId] = useState();
     const [selectedMarker, setSelectedMarker] = useState();
-    const [mapMarkerData, setMapData] = useState(null);
-    const [filter, setFilter] = useState(InitialFilter);
-
-    const onMapChange = useCallback(newMapId => {
-        setMapId(newMapId);
-    }, []);
-
-    const onFilterChange = useCallback((newFilters) => {
-        setFilter(prev => {
-            return {
-                ...prev,
-                ...newFilters
-            };
-        });
-    }, []);
+    const { mapMarkerData, setMapData, mapId } = useContext(MapContext);
 
     useEffect(() => {
         const load = async () => {
@@ -42,6 +22,14 @@ export const Maps = () => {
     }, [mapId]);
 
     useEffect(() => {
+        // Hack to doubly ensure we don't stack event listeners
+        // The issue here is that the callback retains stale state and sends old/undefined mapData/mapIDs to main - very bad.
+        // should probably use useCallback for this, but seems like more effort.
+        // While testing, I didn't _seem_ to get any duplicate listeners despite having mapData as a dep
+        // but just in case to prevent a big leak.
+        window.electron.ipcRenderer.removeAllListeners('saveRequest');
+        window.electron.ipcRenderer.removeAllListeners('fileNameRequest');
+
         window.electron.ipcRenderer.on('fileNameRequest', () => window.electron.ipcRenderer.sendFileName(mapId));
         window.electron.ipcRenderer.on('saveRequest', async () => {
             const res = await window.electron.ipcRenderer.saveMaps(mapId, mapMarkerData);
@@ -68,21 +56,13 @@ export const Maps = () => {
         return () => {
             window.electron.ipcRenderer.removeAllListeners('saveRequest');
             window.electron.ipcRenderer.removeAllListeners('fileNameRequest');
-
         };
-    });
+    }, [mapMarkerData]);
 
-    const navPanel = <NavigationPanel
-        onMapChange={onMapChange}
-        mapId={mapId}
-        onFilterChange={onFilterChange}
-        filter={filter}
-    />;
+    const navPanel = <NavigationPanel />;
+
     const infoPanel = <InfoPanel
         marker={selectedMarker}
-        mapMarkerData={mapMarkerData}
-        setMapData={setMapData}
-        mapId={mapId}
         setSelectedMarker={setSelectedMarker}
     />;
 
@@ -90,11 +70,7 @@ export const Maps = () => {
         <div className='h-full w-full'>
             <PanelLayout leftPanel={navPanel} width={"20%"} rightPanel={infoPanel}>
                 <MapContainer
-                    mapId={mapId}
                     onSelect={setSelectedMarker}
-                    mapMarkerData={mapMarkerData}
-                    setMapData={setMapData}
-                    filter={filter}
                 />
             </PanelLayout>
         </div>

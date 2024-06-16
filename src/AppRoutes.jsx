@@ -5,6 +5,7 @@ import { Maps } from './pages/Maps';
 import { Editor } from './pages/Editor';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import { MapProvider } from './components/Map/MapContext';
 
 export const AppRoutes = () => {
     useEffect(() => {
@@ -61,7 +62,11 @@ export const AppRoutes = () => {
         <HashRouter>
             <Routes>
                 <Route path="/" element={<SplashScreen />} />
-                <Route path="/maps" element={<Maps />} />
+                <Route path="/maps" element={
+                    <MapProvider>
+                        <Maps />
+                    </MapProvider>
+                }/>
                 <Route path="/editor" element={<Editor />} />
             </Routes>
         </HashRouter>

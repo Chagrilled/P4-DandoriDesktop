@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NameMap, editableNumberFields, editableBools, ignoreFields, editableStrings, arrayStrings, selectFields } from "../../api/types";
 import { useConfig } from '../../hooks/useConfig';
 import { findMarkerById, getAvailableTimes, mutateAIProperties } from '../../utils';
 import { DebouncedInput } from './DebouncedInput';
+import { MapContext } from './MapContext';
 
 //#region updateCreature
 const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId) => {
@@ -11,7 +12,7 @@ const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId) => {
     if (!type) {
         ({ type } = findMarkerById(ddId, mapMarkerData));
     }
-    console.log(mapMarkerData);
+
     const newMapData = mapMarkerData[type].map(creature => {
         if (creature.ddId == ddId) {
             deepUpdate(creature, path, value);
@@ -38,11 +39,11 @@ const deepUpdate = (obj, path, value) => {
 };
 
 //#region Component
-export const CreatureInfo = ({ obj, mapMarkerData, setMapData, parent, ddId, mapId }) => {
+export const CreatureInfo = ({ obj, parent, ddId }) => {
     if (!obj) {
         return null;
     }
-
+    const { mapMarkerData, setMapData, mapId } = useContext(MapContext);
     const config = useConfig();
 
     return Object.entries(obj).map(([key, value]) => {

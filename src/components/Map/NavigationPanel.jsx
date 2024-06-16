@@ -4,16 +4,16 @@ import { Legend } from './Legend';
 import { Tabs, Tab } from './Tabs';
 import { HackingTools } from '../HackingTools/HackingTools';
 
-export const NavigationPanel = ({ onMapChange, mapId, onFilterChange, filter }) => {
+export const NavigationPanel = ({ }) => {
 
     return (
         <div className="flex flex-col items-center gap-1 overflow-hidden NavigationPanel__container" style={{ 'marginBlock': '0.25rem' }}>
             <Tabs>
                 <Tab id="maps" label="Maps">
-                    <MapSelect onSelect={onMapChange} currentMap={mapId} />
+                    <MapSelect />
                 </Tab>
                 <Tab id="legend" label="Legend">
-                    <Legend onFilterChange={onFilterChange} filter={filter} />
+                    <Legend />
                 </Tab>
                 <Tab id="tools" label="Tools">
                     <HackingTools />

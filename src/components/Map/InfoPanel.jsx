@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState, useContext } from "react";
 import { DefaultDrop, EntityNames, InfoType } from "../../api/types";
 import { MarkerIcon } from "../Icon";
 import { ExpandPanel } from "./ExpandPanel";
@@ -6,6 +6,7 @@ import { DropCard } from "./Card/DropCard";
 import { CardList } from "./Card/CardList";
 import { doesEntityHaveDrops, findMarkerById, getAngleRotation, getAssetPathFromId, getNameFromAsset, doesEntityHaveRareDrops, deepCopy } from "../../utils";
 import { CreatureInfo } from "./CreatureInfo";
+import { MapContext } from "./MapContext";
 
 //#region updateDrops
 const updateDrops = (value, mapMarkerData, setMapData, ddId, drop, key, dropDeleteStack, setDropDeleteStack, isRare) => {
@@ -124,11 +125,12 @@ const addDrop = (ddId, setMapData, mapMarkerData, isRare) => {
 };
 
 //#region Component
-export const InfoPanel = ({ marker, mapMarkerData, setMapData, mapId, setSelectedMarker }) => {
+export const InfoPanel = ({ marker, setSelectedMarker }) => {
     // Getting kinda messy, but I need everything to be 
     // sourced from the data array so components rerender on change
     const [deleteStack, setDeleteStack] = useState([]);
     const [dropDeleteStack, setDropDeleteStack] = useState([]);
+    const { mapMarkerData, setMapData, mapId } = useContext(MapContext);
 
     useEffect(() => {
         const callback = (event) => {
@@ -182,7 +184,6 @@ export const InfoPanel = ({ marker, mapMarkerData, setMapData, mapId, setSelecte
 
     if (!creature) return null; // CreatureInfo likes to hold on to the selected ID if you change maps
     console.log("CreatureInfo", creature);
-    console.log("Rotation (radians)", getAngleRotation(creature.transform.rotation));
     const isActorSpawner = creature.creatureId === 'ActorSpawner';
 
     const title = creature.generateNum

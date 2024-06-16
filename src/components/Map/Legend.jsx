@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useCallback, useContext } from 'react';
 import { Legends, InfoType } from '../../api/types';
 import { capitalise } from '../../utils';
 import { MarkerIcon } from '../Icon';
+import { MapContext } from './MapContext';
 
-const FilterCategory = ({ category, filter, onFilterChange }) => {
+const FilterCategory = ({ category }) => {
+    const onFilterChange = useCallback((newFilters) => {
+        setFilter(prev => ({
+            ...prev,
+            ...newFilters
+        }));
+    }, []);
+
+    const { filter, setFilter } = useContext(MapContext);
+
     const isChecked = !!filter && !!filter[category];
     const imgProps = {
         [InfoType.Creature]: { type: 'creature' },

@@ -222,6 +222,7 @@ ipcMain.handle('getEntityData', async (event, entityId) => {
 
 ipcMain.handle('saveMaps', async (event, mapId, data) => {
     // console.log(rawData.teki.Content[0].ActorGeneratorList);
+    if (!data) return;
     const tekiAGL = data.creature.map(actor => {
         // console.log("creature array ddId:", actor.ddId);
         const aglData = rawData.teki.Content[0].ActorGeneratorList.find(gameActor => gameActor.ddId == actor.ddId);
