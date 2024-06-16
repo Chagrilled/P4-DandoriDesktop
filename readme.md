@@ -233,7 +233,7 @@ The bytes I construct are then spliced together with the base template for that 
 <details>
 <summary>Bugs List</summary>
 
-- 🐛 Map unzooming on re-render - can't reaaaaally fix this. Map is tied to the map elements, so React will re-render the component when it updates, which is how the map updates. I could look into retaining the zoom and position, but idk
+- ✅ Map unzooming on re-render - Map is tied to the map elements, so React will re-render the component when it updates, which is how the map updates. I could look into retaining the zoom and position, but idk - fixed by rewriting how the map handles state, in [v1.1.0](https://github.com/Chagrilled/P4-DandoriDesktop/commit/70c3a04ac954ecfea5073859df9a08809a9e6fee)
 - ✅ Map select re-render bug
 - ✅ Can't type into amount freely (debounce should fix)
 - 🐛 Castoc's error reporting is bad - is it because it's bundled into the robocopy one with errorCode > 7, or is it because castoc doesn't really error properly.
