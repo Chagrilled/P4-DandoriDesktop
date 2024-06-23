@@ -51,7 +51,11 @@ export const MapContainer = ({
         const layers = [...map.getLayers().getArray()];
         layers.forEach((layer) => map.removeLayer(layer));
 
-        const markerLayers = await getFeatureLayers(mapMarkerData, config);
+        // Remove all Modify interactions otherwise they get leftover from other maps
+        const interactions = [...map.getInteractions().getArray()];
+        interactions.forEach(int => int instanceof Modify ? map.removeInteraction(int) : null);
+
+        const markerLayers = await getFeatureLayers(mapMarkerData, config, mapId);
         const visibleLayers = Object.entries(markerLayers)
             .filter(([k, _v]) => !!filter[k])
             .map(([_k, v]) => v);
