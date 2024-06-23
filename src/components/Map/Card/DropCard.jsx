@@ -11,10 +11,12 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
     const subPath = getSubpathFromAsset(drop.assetName);
     const infoType = getInfoType(subPath);
     const asset = getNameFromAsset(drop.assetName);
+    const classNameStyles = "w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600";
 
     const amountStr = (!isActorSpawner && drop.maxDrops !== drop.minDrops)
         ? `${drop.minDrops}-${drop.maxDrops}`
         : drop.maxDrops + '';
+
     const footerFragment = isActorSpawner ?
         <>
             <div>
@@ -26,7 +28,7 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                 <input
                     type="checkbox"
                     checked={drop.infiniteSpawn}
-                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className={classNameStyles}
                     onChange={(e) => updateDrops(e.target.checked, drop, "infiniteSpawn")}
                 />
             </div>
@@ -79,16 +81,16 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                 <input
                     type="checkbox"
                     checked={drop.bSpawnAngRand}
-                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className={classNameStyles}
                     onChange={(e) => updateDrops(e.target.checked, drop, "bSpawnAngRand")}
-                />    
+                />
             </div>
             <div className="flex">
                 <b>Random rotation</b>:&nbsp;
                 <input
                     type="checkbox"
                     checked={drop.randomRotation}
-                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className={classNameStyles}
                     onChange={(e) => updateDrops(e.target.checked, drop, "randomRotation")}
                 />
             </div>
@@ -97,7 +99,7 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                 <input
                     type="checkbox"
                     checked={drop.avatar}
-                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className={classNameStyles}
                     onChange={(e) => updateDrops(e.target.checked, drop, "avatar")}
                 />
             </div>
@@ -106,7 +108,7 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                 <input
                     type="checkbox"
                     checked={drop.pikmin}
-                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className={classNameStyles}
                     onChange={(e) => updateDrops(e.target.checked, drop, "pikmin")}
                 />
             </div>
@@ -115,7 +117,7 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                 <input
                     type="checkbox"
                     checked={drop.avatarAndPikmin}
-                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className={classNameStyles}
                     onChange={(e) => updateDrops(e.target.checked, drop, "avatarAndPikmin")}
                 />
             </div>
@@ -124,7 +126,7 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                 <input
                     type="checkbox"
                     checked={drop.carry}
-                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className={classNameStyles}
                     onChange={(e) => updateDrops(e.target.checked, drop, "carry")}
                 />
             </div>
@@ -133,7 +135,7 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                 <input
                     type="checkbox"
                     checked={drop.bNotOverlap}
-                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className={classNameStyles}
                     onChange={(e) => updateDrops(e.target.checked, drop, "bNotOverlap")}
                 />
             </div>
@@ -142,7 +144,7 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                 <input
                     type="checkbox"
                     checked={drop.bGenseiControl}
-                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className={classNameStyles}
                     onChange={(e) => updateDrops(e.target.checked, drop, "bGenseiControl")}
                 />
             </div>
@@ -151,7 +153,7 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                 <input
                     type="checkbox"
                     checked={drop.noDropItem}
-                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className={classNameStyles}
                     onChange={(e) => updateDrops(e.target.checked, drop, "noDropItem")}
                 />
             </div>
@@ -160,7 +162,7 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                 <input
                     type="checkbox"
                     checked={drop.fallStart}
-                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className={classNameStyles}
                     onChange={(e) => updateDrops(e.target.checked, drop, "fallStart")}
                 />
             </div>
@@ -189,7 +191,7 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                 <input
                     type="checkbox"
                     checked={drop.bSetTerritory}
-                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className={classNameStyles}
                     onChange={(e) => updateDrops(e.target.checked, drop, "bSetTerritory")}
                 />
             </div>
@@ -219,16 +221,14 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
             </div>
         </> :
         <>
-            <span>
+            {amountStr != 'undefined' && <span>
                 <b>Amount</b>:&nbsp;
                 <DebouncedInput value={amountStr} changeFunc={(v) => updateDrops(v, drop, "amount")} ddId={ddId} />
-            </span>
-            {
-                <span>
-                    <b>Chance</b>:
-                    <DebouncedInput value={Math.round(drop.dropChance * 100) + '%'} changeFunc={(v) => updateDrops(v, drop, "dropChance")} ddId={ddId} />
-                </span>
-            }
+            </span>}
+            {!!drop.dropChance && <span>
+                <b>Chance</b>:
+                <DebouncedInput value={Math.round(drop.dropChance * 100) + '%'} changeFunc={(v) => updateDrops(v, drop, "dropChance")} ddId={ddId} />
+            </span>}
             <div>
                 <b>Drop Condition</b>:
                 <select
@@ -278,8 +278,17 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                 <input
                     type="checkbox"
                     checked={drop.bSetTerritory}
-                    className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    className={classNameStyles}
                     onChange={(e) => updateDrops(e.target.checked, drop, "bSetTerritory")}
+                />
+            </div>
+            <div>
+                <b>bRegistGenerator</b>:&nbsp;
+                <input
+                    type="checkbox"
+                    checked={drop.bRegistGenerator}
+                    className={classNameStyles}
+                    onChange={(e) => updateDrops(e.target.checked, drop, "bRegistGenerator")}
                 />
             </div>
             {drop.bSetTerritory ? ["x", "y", "z", "halfHeight", "radius"].map(key => (
