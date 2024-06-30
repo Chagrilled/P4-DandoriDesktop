@@ -5,7 +5,7 @@
 
 💸 DDT is a big codebase, and has taken a lot of time. The funding badges are above if you want to support the development of it 🥰
 
-A Pikmin 4 editing tool to assist with modding. Still fairly beta. <b>Please backup any files before you let DDT touch them)</b>.
+A Pikmin 4 editing tool to assist with modding. <b>Please backup any files before you let DDT touch them</b>.
 
 Special thanks goes to Dodiou for making [DandoriDB](https://github.com/Dodiou/DandoriDB) which gave me the basis for the map projection, and thus motivation to make this.
 
