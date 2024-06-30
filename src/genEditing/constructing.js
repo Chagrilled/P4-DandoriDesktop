@@ -1,8 +1,8 @@
-import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs, ObjectAIParameter } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs, ObjectAIParameter, weirdAIEntities } from '../api/types';
 import { default as entityData } from '../api/entityData.json';
 import { floatToByteArr, intToByteArr } from '../utils/bytes';
 import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue } from '../utils';
-import { parseGDMDrops, parseTekiDrops, parsePotDrops } from './reading';
+import { parseGDMDrops, parseTekiAI, parsePotDrops } from './reading';
 
 const defaultAI = (_, ai) => ai;
 
@@ -61,7 +61,7 @@ export const getConstructAIStaticFunc = (creatureId, infoType) => {
     if (creatureId.startsWith('Spline')) return defaultAI;
     if (creatureId === 'GroupDropManager') return constructGDMAI;
     if (creatureId === 'ActorSpawner') return constructActorSpawnerAI;
-    if (creatureId === 'BurrowDemejako') return defaultAI;
+    if (weirdAIEntities.some(e => e === creatureId)) return defaultAI;
     if (creatureId.includes('CrackP')) return constructPotAI;
     if (creatureId.includes('NoraSpawner')) return constructNoraSpawnerAI;
     if (creatureId.includes('CrushJelly')) return constructPotAI;
@@ -87,6 +87,11 @@ export const getConstructDynamicFunc = (creatureId) => {
     if (['HikariStation', 'BridgeStation', 'KinkaiStation'].some(e => creatureId === e)) return constructPileAI_Dynamic;
     if (creatureId.includes('Circulator')) return constructCirculatorAI_Dynamic;
     return (ai) => ai;
+};
+
+export const getConstructSubAIStaticFunc = (creatureId) => {
+    if (creatureId.includes('Tateana')) return constructActorSpawnerAI;
+    return defaultAI;
 };
 
 export const getConstructActorParamFunc = (creatureId) => {
@@ -403,9 +408,9 @@ const constructNoraSpawnerAI = ({ parsed }, aiStatic, { AIProperties }) => {
         bytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag), 2));
         bytes.push(drop.bSetTerritory ? 1 : 0, 0, 0, 0);
         if (drop.bSetTerritory) {
-            bytes.push(...floatBytes(parseFloat(drop.x || 0.0)));
-            bytes.push(...floatBytes(parseFloat(drop.y || 0.0)));
-            bytes.push(...floatBytes(parseFloat(drop.z || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.X || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.Y || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.Z || 0.0)));
             bytes.push(...floatBytes(parseFloat(drop.halfHeight || 0.0)));
             bytes.push(...floatBytes(parseFloat(drop.radius || 0.0)));
         }
@@ -415,9 +420,9 @@ const constructNoraSpawnerAI = ({ parsed }, aiStatic, { AIProperties }) => {
     if (AIProperties.optionalPointOffsets) {
         bytes.push(AIProperties.optionalPointOffsets.length, 0, 0, 0);
         AIProperties.optionalPointOffsets.forEach(offset => {
-            bytes.push(...floatBytes(offset.x));
-            bytes.push(...floatBytes(offset.y));
-            bytes.push(...floatBytes(offset.z));
+            bytes.push(...floatBytes(offset.X));
+            bytes.push(...floatBytes(offset.Y));
+            bytes.push(...floatBytes(offset.Z));
         });
     }
     else bytes.push(0, 0, 0, 0);
@@ -535,11 +540,19 @@ const constructActorSpawnerAI = ({ parsed: [drop] }, aiStatic) => {
 };
 
 //#region Teki
-const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd }) => {
+const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd, AIProperties }) => {
     // The -1 at the end of an inventory could be at [24] for 0 inventories
-    const inventoryBytes = [parsed.length, 0, 0, 0];
+    const inventoryBytes = [
+        ...floatBytes(parseFloat(AIProperties.territory.X)),
+        ...floatBytes(parseFloat(AIProperties.territory.Y)),
+        ...floatBytes(parseFloat(AIProperties.territory.Z)),
+        ...floatBytes(parseFloat(AIProperties.territory.halfHeight)),
+        ...floatBytes(parseFloat(AIProperties.territory.radius)),
+        parsed.length, 0, 0, 0
+    ];
+
     parsed.forEach(drop => {
-        const slotBytes = [parseInt(drop.id), 0, 0, 0];
+        const slotBytes = intToByteArr(parseInt(drop.id));
         if (typeof drop.flags == 'string') drop.flags = JSON.parse(drop.flags);
         slotBytes.push(...drop.flags);
         slotBytes.push(drop.minDrops, 0, 0, 0);
@@ -568,30 +581,72 @@ const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd }) => {
         slotBytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag), 2));
         slotBytes.push(drop.bSetTerritory ? 1 : 0, 0, 0, 0);
         if (drop.bSetTerritory) {
-            slotBytes.push(...floatBytes(parseFloat(drop.x || 0.0)));
-            slotBytes.push(...floatBytes(parseFloat(drop.y || 0.0)));
-            slotBytes.push(...floatBytes(parseFloat(drop.z || 0.0)));
+            slotBytes.push(...floatBytes(parseFloat(drop.X || 0.0)));
+            slotBytes.push(...floatBytes(parseFloat(drop.Y || 0.0)));
+            slotBytes.push(...floatBytes(parseFloat(drop.Z || 0.0)));
             slotBytes.push(...floatBytes(parseFloat(drop.halfHeight || 0.0)));
             slotBytes.push(...floatBytes(parseFloat(drop.radius || 0.0)));
         }
         inventoryBytes.push(...slotBytes);
     });
     inventoryBytes.push(255, 255, 255, 255);
+    writeAsciiString(inventoryBytes, AIProperties.boneName);
+
+    ["localOffset", "vel", "randVel"].forEach(prop => {
+        inventoryBytes.push(...floatBytes(parseFloat(AIProperties[prop].X || 0.0)));
+        inventoryBytes.push(...floatBytes(parseFloat(AIProperties[prop].Y || 0.0)));
+        inventoryBytes.push(...floatBytes(parseFloat(AIProperties[prop].Z || 0.0)));
+    });
+    inventoryBytes.push(...intToByteArr(parseInt(AIProperties.dropOption), 2));
+    inventoryBytes.push(0, 0, 0, 0); //FixedHotExtractDropNum?
+    inventoryBytes.push(AIProperties.bOverrideInitLocation ? 1 : 0, 0, 0, 0);
+    inventoryBytes.push(...floatBytes(parseFloat(AIProperties.overrideInitLocation.X || 0.0)));
+    inventoryBytes.push(...floatBytes(parseFloat(AIProperties.overrideInitLocation.Y || 0.0)));
+    inventoryBytes.push(...floatBytes(parseFloat(AIProperties.overrideInitLocation.Z || 0.0)));
+
+    inventoryBytes.push(parsed.length, 0, 0, 0);
+    parsed.forEach(drop => {
+        inventoryBytes.push(...intToByteArr(parseInt(drop.id)));
+        inventoryBytes.push(...drop.flags);
+    });
+    inventoryBytes.push(1, 0, 0, 0); // no idea what this bool is, but it's usually 1?
+    AIProperties.bEnableFreezeBothDrop ? inventoryBytes.push(1, 0, 0, 0) : '';
+    inventoryBytes.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // 3 somethings
+    inventoryBytes.push(0, 0, 72, 66);
+    inventoryBytes.push(...floatBytes(AIProperties.searchAreaOtakaraCarryRadius));
+    inventoryBytes.push(0, 0, 52, 67, 0, 0, 240, 65);
+    inventoryBytes.push(...floatBytes(AIProperties.invasionStartTimeRatio));
+    inventoryBytes.push(0, 0, 0, 0);
+    inventoryBytes.push(1, 0, 0, 0);
+    inventoryBytes.push(0, 0, 0, 0);
+    inventoryBytes.push(AIProperties.bEnableOptionalPoint ? 1 : 0, 0, 0, 0);
+
+    if (AIProperties.bEnableOptionalPoint) {
+        inventoryBytes.push(AIProperties.optionalPointOffsets.length, 0, 0, 0);
+        AIProperties.optionalPointOffsets.forEach(offset => {
+            inventoryBytes.push(...floatBytes(offset.X));
+            inventoryBytes.push(...floatBytes(offset.Y));
+            inventoryBytes.push(...floatBytes(offset.Z));
+        });
+    }
+    else inventoryBytes.push(0, 0, 0, 0);
+    inventoryBytes.push(0, 0, 0, 0); // possible OptionalPointPriorityInfo
+
     if (!inventoryEnd) {
         // Because we won't have an aiStatic to "edit into", we take the first in the scraped list
         // Find its end of inventory byte, and splice the rest into our AI to form a complete one.
         // This may cause some enemies to have some odd overrides if the scraped one has something special done to it
-        ({ inventoryEnd } = parseTekiDrops(aiStatic));
+        ({ inventoryEnd } = parseTekiAI(aiStatic));
     }
 
     // console.log("AI:", [...aiStatic.slice(0, 20), ...inventoryBytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)]);
     // Splice our new inventory into a regular functioning AI
-    return [...aiStatic.slice(0, 20), ...inventoryBytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)];
+    return [...inventoryBytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)];
 };
 
 //#region Actor
 export const constructActor = (actor, mapId) => {
-    console.log("Constructing a", actor);
+    console.log("Constructing a", actor, " at ", actor.transform.translation.X);
     const entData = entityData[actor.creatureId];
     const transforms = {
         Rotation: {
@@ -604,7 +659,7 @@ export const constructActor = (actor, mapId) => {
         Scale3D: setFloats(actor.transform.scale3D),
         Rotation: setFloats(actor.transform.rotation)
     };
-    console.log(actor.NavMeshTrigger);
+
     return {
         AssetVersion: 8626647386,
         GeneratorVersion: 8626647386,
@@ -613,7 +668,7 @@ export const constructActor = (actor, mapId) => {
             AssetPathName: getAssetPathFromId(actor.creatureId),
             SubPathString: 0
         },
-        ExploreRateType: "EExploreRateTargetType::None",
+        ExploreRateType: actor.exploreRateType,
         ActorVersion: 1,
         OutlineFolderPath: "Teki/Day", // idk if this is used for anything
         InitTransform: transforms,
@@ -630,7 +685,7 @@ export const constructActor = (actor, mapId) => {
             bNoChkCondWhenDead: false
         },
         RebirthInfo: {
-            ActivityTime: "EActivityTime::Daytime",
+            ActivityTime: actor.activityTime,
             RebirthType: actor.rebirthType,
             BirthDay: parseInt(actor.birthDay) || 0,
             DeadDay: parseInt(actor.deadDay) || 0,
@@ -642,9 +697,17 @@ export const constructActor = (actor, mapId) => {
             MyID: -1,
             RefID: -1,
             RebirthInfoFlags: 0,
-            BirthCond: [],
             bIgnoreFullFillBirthCondWhenFirstAndNightTime: false,
-            EraseCond: []
+            EraseCond: actor.eraseCond.map(cond => ({
+                ...cond,
+                Condition: cond.Condition,
+                CondInt: parseInt(cond.CondInt),
+            })),
+            BirthCond: actor.birthCond.map(cond => ({
+                ...cond,
+                Condition: cond.Condition,
+                CondInt: parseInt(cond.CondInt),
+            }))
         },
         CarriedInfo: {
             bEnableInitializeLocation: false,
@@ -694,9 +757,13 @@ export const constructActor = (actor, mapId) => {
             NavMeshTrigger: {
                 Static: getConstructNavMeshTriggerFunc(actor.creatureId)(entData.NavMeshTrigger[0].Static, actor.NavMeshTrigger),
                 Dynamic: entData.NavMeshTrigger[0].Dynamic
+            },
+            SubAI: {
+                Static: getConstructSubAIStaticFunc(actor.creatureId)({ parsed: actor.drops.parsedSubAI }, entData.SubAI[0].Static),
+                Dynamic: []
             }
         },
-        SubLevelName: mapId,
+        SubLevelName: mapId.replace('Night', 'Area').replace(/-\d/, ''),
         TeamId: actor.creatureId.startsWith('NavMeshTrigger') ? TeamIDs.A : TeamIDs.No,
         GenerateFlags: entData.GenerateFlags[0],
         OriginalPhysicsRadiusZ: entData.OriginalPhysicsRadiusZ[0],
@@ -744,9 +811,9 @@ const constructInventory = (drops, bytes) => {
         bytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag), 2));
         bytes.push(drop.bSetTerritory ? 1 : 0, 0, 0, 0);
         if (drop.bSetTerritory) {
-            bytes.push(...floatBytes(parseFloat(drop.x || 0.0)));
-            bytes.push(...floatBytes(parseFloat(drop.y || 0.0)));
-            bytes.push(...floatBytes(parseFloat(drop.z || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.X || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.Y || 0.0)));
+            bytes.push(...floatBytes(parseFloat(drop.Z || 0.0)));
             bytes.push(...floatBytes(parseFloat(drop.halfHeight || 0.0)));
             bytes.push(...floatBytes(parseFloat(drop.radius || 0.0)));
         }

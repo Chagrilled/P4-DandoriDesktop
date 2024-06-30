@@ -60,6 +60,7 @@ module.exports = {
             },
         },
     ],
+    // GITHUB_TOKEN PAT required
     publishers: [
         {
             name: '@electron-forge/publisher-github',

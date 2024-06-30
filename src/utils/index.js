@@ -1,8 +1,11 @@
-import { InfoType, internalAssetNames, Times, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI } from "../api/types";
+import { InfoType, Times, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, weirdAIEntities } from "../api/types";
+import { internalAssetNames } from "../api/assetList";
 
 export const getPathType = assetName => assetName.match(/Placeables\/(.+)\/G/)[1];
-export const getNameFromAsset = assetName => assetName.match(/\.G(.+)_C/)[1];
-
+export const getNameFromAsset = assetName => {
+    if (assetName === 'None') return assetName;
+    return assetName.match(/\.G(.+)_C/)[1];
+};
 // Huge numbers like DropOwnerDebugUniqueId that are in JSON as numbers
 // exceed MAX_SAFE_INTEGER, so as soon as JS parses them as numbers they're truncated.
 // This can be identified in a 21~-length number that ends in 2000 usually.
@@ -72,7 +75,10 @@ export const getInfoType = subPath => {
     return infoType;
 };
 
-export const getSubpathFromAsset = asset => asset.match(/Placeables\/(.+)\/G/)[1];
+export const getSubpathFromAsset = asset => {
+    if (asset === 'None') return asset;
+    return asset.match(/Placeables\/(.+)\/G/)[1];
+};
 
 export const capitalise = string => string.charAt(0).toUpperCase() + string.slice(1);
 
@@ -80,7 +86,7 @@ export const getAssetPathFromId = id => internalAssetNames.find(asset => asset.i
 
 export const getAvailableTimes = mapId => {
     if (['HeroStory', 'Cave', 'Area011'].some(area => mapId.includes(area))) return [Times.PERM];
-    if (mapId.includes('Night')) return [Times.PERM, Times.NIGHT];
+    if (mapId.includes('Night')) return [Times.NIGHT, Times.PERM];
     return [Times.DAY, Times.PERM];
 };
 
@@ -89,6 +95,7 @@ export const findObjectKey = (object, target) => Object.keys(object).find(key =>
 export const findObjectKeyByValue = (object, target) => Object.keys(object).find(key => object[key] === target);
 
 export const doesEntityHaveDrops = entity => {
+    if (weirdAIEntities.some(e => e === entity.creatureId)) return false;
     if (entity.infoType === InfoType.Creature) return true;
 
     if (["Mush", "PoisonMush"].some(e => e === entity.creatureId)) return true; // Mush is a substring of several other entities that aren't ready yet
@@ -161,6 +168,11 @@ export const mutateAIProperties = (creature, value) => {
     const aiEnts = ['Camp'];
 
     [
+        {
+            infoTypes: [InfoType.Creature],
+            AIProperties: defaultCreatureAI,
+            ents: [],
+        },
         {
             ents: ['TriggerDoor', 'Switch', 'Conveyor265uu'],
             AIProperties: defaultTriggerAI
@@ -252,7 +264,7 @@ export const mutateAIProperties = (creature, value) => {
         }
     ].forEach(o => {
         aiEnts.push(...o.ents);
-        if (o.ents.some(e => value.includes(e))) { // There was an && !creature.AIProperties here, I forget why
+        if (o.ents.some(e => value.includes(e) || o.infoTypes?.some(e => value.includes(e)))) { // There was an && !creature.AIProperties here, I forget why
             ["AIProperties", "ActorParameter", "NavMeshTrigger"].forEach(prop => {
                 if (o[prop]) creature[prop] = { ...deepCopy(o[prop]) };
                 else delete creature[prop];
@@ -260,6 +272,12 @@ export const mutateAIProperties = (creature, value) => {
         }
     });
 
-    if (!aiEnts.some(e => value.includes(e)) && creature.AIProperties)
+    if (!aiEnts.some(e => value.includes(e)) && creature.AIProperties && creature.infoType != InfoType.Creature)
         delete creature.AIProperties;
+};
+
+export const isEntityOnNightMap = (entity, mapId) => {
+    const nightStage = mapId.slice(-1);
+
+    return !entity.birthCond.length || entity.birthCond.some(cond => parseInt(cond.CondInt) + 1 == nightStage);
 };

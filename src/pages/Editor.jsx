@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { NavigationPanel } from '../components/Editor/NavigationPanel';
 import { PanelLayout } from '../components/Map/PanelLayout';
-import { InfoPanel } from '../components/Map/InfoPanel';
 import { toast } from 'react-hot-toast';
 import { ParameterDisplay } from '../components/Editor/ParameterDisplay';
 

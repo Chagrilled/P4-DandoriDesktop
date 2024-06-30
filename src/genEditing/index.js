@@ -2,7 +2,7 @@
 import { setFloats, getAssetPathFromId } from '../utils';
 import deepEqual from 'deep-equal';
 import { getReadAIDynamicFunc, getReadAIStaticFunc, getReadPortalFunc } from './reading';
-import { getConstructAIStaticFunc, getConstructPortalTriggerFunc, writeLifeDynamic, writeAffordanceWeight, getConstructDynamicFunc, getConstructActorParamFunc, ASP_FIELDS, getConstructNavMeshTriggerFunc } from './constructing';
+import { getConstructAIStaticFunc, getConstructPortalTriggerFunc, writeLifeDynamic, writeAffordanceWeight, getConstructDynamicFunc, getConstructActorParamFunc, ASP_FIELDS, getConstructNavMeshTriggerFunc, getConstructSubAIStaticFunc } from './constructing';
 import { default as entityData } from '../api/entityData.json';
 import { TeamIDs } from '../api/types';
 
@@ -30,7 +30,8 @@ export const regenerateAGLEntity = (actor, aglData) => {
     const { parsed, inventoryEnd, AIProperties: staticAI, rareDrops } = getReadAIStaticFunc(actor.creatureId, actor.infoType)(originalAI);
     const dynamicAI = getReadAIDynamicFunc(actor.creatureId, actor.infoType)(originalAI_Dynamic);
     const AIProperties = { ...staticAI, ...dynamicAI };
-
+    console.log(AIProperties);
+    console.log("Generating new actor:");
     const isAIEqual = deepEqual({
         parsed,
         rareDrops,
@@ -43,7 +44,7 @@ export const regenerateAGLEntity = (actor, aglData) => {
     let newAI = {};
     console.log("Is AI equal?", isAIEqual);
     if (!isAIEqual || newAsset) {
-        console.log(actor.creatureId, "constructing new AI");
+        console.log(actor.creatureId, "constructing new AI", actor.transform.translation.X);
         // If an object or enemy is changed in-place to another type, its existing AI in the AGL will be used as a base
         // Which means we'll be modifying the AI of something else, in-place, assuming it's the same type we're constructing
         // i.e constructing a NoraSpawner using the existing bytes of a Gate. Not good.
@@ -94,6 +95,15 @@ export const regenerateAGLEntity = (actor, aglData) => {
         }
     };
 
+    // Only tateanas seem to use SubAI for an AS gen var, so jank the func to work with that.
+    let subAI = {};
+    if (actor.creatureId.includes('Tateana')) subAI = {
+        SubAI: {
+            Static: getConstructSubAIStaticFunc(actor.creatureId)({ parsed: actor.drops.parsedSubAI }),
+            Dynamic: []
+        }
+    };
+
     if (actor.ActorParameter) {
         newAP.ActorParameter.Static = getConstructActorParamFunc(actor.creatureId)(newAP.ActorParameter.Static, actor.ActorParameter);
     }
@@ -121,12 +131,24 @@ export const regenerateAGLEntity = (actor, aglData) => {
             GenerateRadius: parseFloat(actor.generateRadius),
 
         },
+        ExploreRateType: actor.exploreRateType,
         RebirthInfo: {
             ...aglData.RebirthInfo,
+            ActivityTime: actor.activityTime,
             RebirthType: actor.rebirthType,
             RebirthInterval: parseInt(actor.rebirthInterval) || 0,
             BirthDay: parseInt(actor.birthDay) || 0,
-            DeadDay: parseInt(actor.deadDay) || 0
+            DeadDay: parseInt(actor.deadDay) || 0,
+            EraseCond: actor.eraseCond.map(cond => ({
+                ...cond,
+                Condition: cond.Condition,
+                CondInt: parseInt(cond.CondInt),
+            })),
+            BirthCond: actor.birthCond.map(cond => ({
+                ...cond,
+                Condition: cond.Condition,
+                CondInt: parseInt(cond.CondInt),
+            }))
         },
         ActorSerializeParameter: {
             ...newASP,
@@ -144,7 +166,8 @@ export const regenerateAGLEntity = (actor, aglData) => {
             NavMeshTrigger: {
                 Static: getConstructNavMeshTriggerFunc(actor.creatureId)(newAsset ? entData.NavMeshTrigger[0].Static : asp.NavMeshTrigger.Static, actor.NavMeshTrigger),
                 Dynamic: newAsset ? entData.NavMeshTrigger[0].Dynamic : asp.NavMeshTrigger.Dynamic
-            }
+            },
+            ...subAI
         },
         LastNavPos: transforms.Translation,
         TeamId: actor.creatureId.startsWith('NavMeshTrigger') ? TeamIDs.A : TeamIDs.No

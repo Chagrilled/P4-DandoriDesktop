@@ -9,12 +9,11 @@ import { CreatureInfo } from "./CreatureInfo";
 import { MapContext } from "./MapContext";
 
 //#region updateDrops
-const updateDrops = (value, mapMarkerData, setMapData, ddId, drop, key, dropDeleteStack, setDropDeleteStack, isRare) => {
+const updateDrops = (value, mapMarkerData, setMapData, ddId, drop, key, dropDeleteStack, setDropDeleteStack, dropType) => {
     console.log("val", value);
     // if (!value && key !== 'delete') return;
     console.log("UpdateDrops", ddId);
     const { type } = findMarkerById(ddId, mapMarkerData);
-    const dropType = isRare ? 'rareDrops' : 'parsed';
     const newMapData = mapMarkerData[type].map(creature => {
         if (creature.ddId == ddId) {
             creature.drops[dropType] = creature.drops[dropType].map(d => {
@@ -98,9 +97,8 @@ const undoItemDelete = (dropDeleteStack, setDropDeleteStack, mapMarkerData, setM
 };
 
 //#region addDrop
-const addDrop = (ddId, setMapData, mapMarkerData, isRare) => {
+const addDrop = (ddId, setMapData, mapMarkerData, dropType) => {
     const { type } = findMarkerById(ddId, mapMarkerData);
-    const dropType = isRare ? 'rareDrops' : 'parsed';
     setMapData({
         ...mapMarkerData,
         [type]: mapMarkerData[type].map(creature => {
@@ -148,7 +146,8 @@ export const InfoPanel = ({ marker, setSelectedMarker }) => {
                 }
             }
             if ((event.metaKey || event.ctrlKey) && event.code === 'KeyV') {
-                if (!marker) return;
+                let inInput = ['input', 'textarea'].some(el => el === document.activeElement.localName);
+                if (!marker || inInput) return;
                 const { infoType, transform } = marker;
                 const newMarker = {
                     ...deepCopy(marker),
@@ -171,6 +170,12 @@ export const InfoPanel = ({ marker, setSelectedMarker }) => {
                 });
                 setSelectedMarker(newMarker);
             }
+            if (event.code === 'Backspace') {
+                let inInput = ['input', 'textarea'].some(el => el === document.activeElement.localName);
+                if (!marker || !mapMarkerData[marker.infoType].find(m => m.ddId === marker.ddId) || inInput) return;
+                deleteMarker(mapMarkerData, setMapData, marker);
+                setDeleteStack([...deleteStack, marker]);
+            }
         };
         document.addEventListener('keydown', callback);
         return () => {
@@ -180,7 +185,7 @@ export const InfoPanel = ({ marker, setSelectedMarker }) => {
 
     if (!marker) return null;
 
-    const { marker: creature, type } = findMarkerById(marker.ddId, mapMarkerData);
+    const { marker: creature } = findMarkerById(marker.ddId, mapMarkerData);
 
     if (!creature) return null; // CreatureInfo likes to hold on to the selected ID if you change maps
     console.log("CreatureInfo", creature);
@@ -193,14 +198,14 @@ export const InfoPanel = ({ marker, setSelectedMarker }) => {
     // This function control is degusting. Maybe use context or something.
     const label = creature.creatureId.includes('NoraSpawner') ? "RandomActorList" : "Drops";
     const dropList = doesEntityHaveDrops(creature) ?
-        <ExpandPanel isActorSpawner={isActorSpawner} addDrop={() => addDrop(creature.ddId, setMapData, mapMarkerData)} label={label}>
+        <ExpandPanel isActorSpawner={isActorSpawner} addDrop={() => addDrop(creature.ddId, setMapData, mapMarkerData, 'parsed')} label={label}>
             {creature.drops?.parsed?.length ? (
                 <CardList>
                     {creature.drops.parsed.map(drop => <DropCard
                         key={drop.id || "1"}
                         isActorSpawner={isActorSpawner}
                         drop={drop}
-                        updateDrops={(e, drop, key) => updateDrops(e, mapMarkerData, setMapData, creature.ddId, drop, key, dropDeleteStack, setDropDeleteStack)}
+                        updateDrops={(e, drop, key) => updateDrops(e, mapMarkerData, setMapData, creature.ddId, drop, key, dropDeleteStack, setDropDeleteStack, 'parsed')}
                         ddId={creature.ddId}
                     />)}
                 </CardList>
@@ -208,14 +213,29 @@ export const InfoPanel = ({ marker, setSelectedMarker }) => {
         </ExpandPanel> : '';
 
     const rareDropList = doesEntityHaveRareDrops(creature) && creature?.drops?.rareDrops ?
-        <ExpandPanel isActorSpawner={isActorSpawner} addDrop={() => addDrop(creature.ddId, setMapData, mapMarkerData, true)} label={"Rare Drops"}>
+        <ExpandPanel isActorSpawner={isActorSpawner} addDrop={() => addDrop(creature.ddId, setMapData, mapMarkerData, 'rareDrops')} label={"Rare Drops"}>
             {(
                 <CardList>
                     {creature.drops.rareDrops.map(drop => <DropCard
                         key={drop.id || "1"}
                         isActorSpawner={isActorSpawner}
                         drop={drop}
-                        updateDrops={(e, drop, key) => updateDrops(e, mapMarkerData, setMapData, creature.ddId, drop, key, dropDeleteStack, setDropDeleteStack, true)}
+                        updateDrops={(e, drop, key) => updateDrops(e, mapMarkerData, setMapData, creature.ddId, drop, key, dropDeleteStack, setDropDeleteStack, 'rareDrops')}
+                        ddId={creature.ddId}
+                    />)}
+                </CardList>
+            )}
+        </ExpandPanel> : '';
+
+    const subAIDropList = creature.creatureId.includes('Tateana') && creature?.drops?.parsedSubAI ?
+        <ExpandPanel isActorSpawner={true} addDrop={() => addDrop(creature.ddId, setMapData, mapMarkerData, 'parsedSubAI')} label={"SubAI Drops"}>
+            {(
+                <CardList>
+                    {creature.drops.parsedSubAI.map(drop => <DropCard
+                        key={drop.id || "1"}
+                        isActorSpawner={true}
+                        drop={drop}
+                        updateDrops={(e, drop, key) => updateDrops(e, mapMarkerData, setMapData, creature.ddId, drop, key, dropDeleteStack, setDropDeleteStack, 'parsedSubAI')}
                         ddId={creature.ddId}
                     />)}
                 </CardList>
@@ -246,6 +266,7 @@ export const InfoPanel = ({ marker, setSelectedMarker }) => {
         </ul>
         {dropList}
         {rareDropList}
+        {subAIDropList}
         <div className="flex">
             <svg onClick={() => { deleteMarker(mapMarkerData, setMapData, creature); setDeleteStack([...deleteStack, creature]); }} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="m-auto pt-4 min-h-[5rem] w-20 h-20 hover:text-red-600">
                 <path strokeLinecap="round" strokeLinejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />

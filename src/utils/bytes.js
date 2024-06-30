@@ -13,13 +13,7 @@ export const padArray = (arr, len = 4, fill = 0) => {
     ).slice(0, len);
 };
 
-export const bytesToInt = (byteString) => {
-    const rawBytes = byteString.split(',').map(byte => {
-        return parseInt(byte.trim());
-    });
-    const byteArr = padArray(rawBytes).reverse();
-    return byteArrToInt(byteArr);
-};
+export const bytesToInt = (bytes) => byteArrToInt(padArray(bytes).reverse());
 
 const byteArrToDataView = (nums) => {
     nums = padArray(nums);
@@ -48,4 +42,4 @@ export const intToByteArr = (number, numBytes = 4) => {
         number >>= 8;
     }
     return bytes;
-}
+};

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 
 import { Menu, Item, Separator, Submenu } from 'react-contexify';
-import { RebirthTypes, DefaultActorSpawnerDrop, InfoType, DefaultPortalTrigger, GateMiddleBytes, defaultBaseAIProperties } from '../../api/types';
-import { getAvailableTimes } from '../../utils';
+import { RebirthTypes, DefaultActorSpawnerDrop, InfoType, DefaultPortalTrigger, GateMiddleBytes, defaultBaseAIProperties, defaultCreatureAI, ActivityTimes, ActorPlacementCondition } from '../../api/types';
+import { deepCopy, getAvailableTimes } from '../../utils';
 import { MapContext } from './MapContext';
 
 const { Creature, Treasure, Gimmick, Object, WorkObject, Pikmin, Base, Onion, Hazard, Portal } = InfoType;
@@ -56,6 +56,7 @@ export const MapMenu = ({ }) => {
                     Z: 1.0
                 }
             },
+            activityTime: ActivityTimes.Allday,
             generateNum: 1,
             generateRadius: 300,
             rebirthType: RebirthTypes.AlwaysRebirth,
@@ -63,22 +64,34 @@ export const MapMenu = ({ }) => {
             birthDay: 0,
             deadDay: 0,
             ddId: window.crypto.randomUUID(),
+            birthCond: [],
+            eraseCond: [],
             drops: {
                 parsed: [],
-                rareDrops: []
+                rareDrops: [],
+                parsedSubAI: [],
             }
         };
 
-        if (id === 'ActorSpawner') newMarker.drops.parsed[0] = DefaultActorSpawnerDrop;
+        if (id === 'ActorSpawner') newMarker.drops.parsed[0] =  deepCopy(DefaultActorSpawnerDrop);
         if (id === 'GroupDropManager') {
             newMarker.infoType = InfoType.Gimmick;
             newMarker.ignoreList = "[]";
             newMarker.groupingRadius = 300;
         }
-        if (id === Portal) newMarker.PortalTrigger = DefaultPortalTrigger;
+        if (id === Portal) newMarker.PortalTrigger = deepCopy(DefaultPortalTrigger);
         if (id !== Creature) newMarker.time = getAvailableTimes(mapId)[0];
         if (id === WorkObject) newMarker.drops.spareBytes = GateMiddleBytes;
-        if (id === Base) newMarker.AIProperties = defaultBaseAIProperties;
+        if (id === Base) newMarker.AIProperties =  deepCopy(defaultBaseAIProperties);
+        if (id === Creature) {
+            newMarker.AIProperties =  deepCopy(defaultCreatureAI);
+            if (mapId.includes("Night")) newMarker.birthCond.push({
+                Condition: ActorPlacementCondition.NightAdventurePattern,
+                CondInt: parseInt(mapId.slice(-1)) - 1,
+                CondName: "None",
+                CondPikminColor: "EPikminColor::Undef"
+            });
+        }
 
         setMapData({
             ...mapMarkerData,

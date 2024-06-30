@@ -1,4 +1,4 @@
-import { InfoType, PikminTypes, PikminPlayType, PortalTypes, ValveWorkType } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, PortalTypes, ValveWorkType, weirdAIEntities } from '../api/types';
 import { findSequenceStartIndex } from '../utils';
 import { bytesToInt } from '../utils/bytes';
 import { NONE_BYTES } from './constructing';
@@ -43,13 +43,13 @@ const readInventory = (drops, index, invSize) => {
         index += drops[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
 
         slot.customFloatParam = readFloat(drops.slice(index, index += 4));
-        slot.gameRulePermissionFlag = bytesToInt(drops.slice(index, index += 2).join(','));
+        slot.gameRulePermissionFlag = bytesToInt(drops.slice(index, index += 2));
         slot.bSetTerritory = drops[index];
         index += 4;
         if (slot.bSetTerritory) {
-            slot.x = readFloat(drops.slice(index, index += 4));
-            slot.y = readFloat(drops.slice(index, index += 4));
-            slot.z = readFloat(drops.slice(index, index += 4));
+            slot.X = readFloat(drops.slice(index, index += 4));
+            slot.Y = readFloat(drops.slice(index, index += 4));
+            slot.Z = readFloat(drops.slice(index, index += 4));
             slot.halfHeight = readFloat(drops.slice(index, index += 4));
             slot.radius = readFloat(drops.slice(index, index += 4));
         }
@@ -66,24 +66,29 @@ export const getReadAIDynamicFunc = (creatureId, infoType) => {
     return () => ({});
 };
 
+export const getReadSubAIStaticFunc = (creatureId) => {
+    if (creatureId.includes('Tateana')) return parseActorSpawnerDrops;
+    return () => ({});
+};
+
 export const getReadAIStaticFunc = (creatureId, infoType) => {
     // console.log("Reading", creatureId, infoType);
     if (creatureId.startsWith('Spline')) return () => ({ parsed: [] });
     if (creatureId === 'GroupDropManager') return parseGDMDrops;
     if (creatureId === 'ActorSpawner') return parseActorSpawnerDrops;
-    if (creatureId === 'BurrowDemejako') return () => ({ parsed: [] });
+    if (weirdAIEntities.some(e => e === creatureId)) return () => ({ parsed: [] });
     if (creatureId.includes('CrackP')) return parsePotDrops;
     if (creatureId.includes('NoraSpawner')) return parseNoraSpawnerAI;
     // These are actually the same, except CJs have searchCIDList right at the end
     // idk what it does. It's to do with the jelly containing items. The default is fine for now.
     if (creatureId.includes('CrushJelly')) return parsePotDrops;
     if (creatureId.includes('Tateana')) return parsePotDrops;
-    if (infoType === InfoType.Creature) return parseTekiDrops;
+    if (infoType === InfoType.Creature) return parseTekiAI;
     if (creatureId.includes('Gate')) return parseGateAI;
     if (creatureId.includes('TriggerDoor')) return parseTriggerDoorAI;
     if (creatureId.includes('Switch')) return parseTriggerDoorAI; // Switches use the same AI, without TriggerDoorAIComponent on the end
     if (creatureId === 'Conveyor265uu') return parseTriggerDoorAI;
-    if (creatureId.includes('Mush')) return parseTekiDrops;
+    if (creatureId.includes('Mush')) return parseTekiAI;
     if (['Tunnel', 'WarpCarry', 'HappyDoor'].some(s => creatureId.includes(s))) return parseWarpAI;
     if (infoType === InfoType.Base) return parseBaseAI;
     if (creatureId === 'Sprinkler') return parseSprinklerAI;
@@ -129,13 +134,13 @@ const parseCirculatorAI = ai => {
     return {
         AIProperties,
         parsed: []
-    }
-}
+    };
+};
 
 const parseCirculatorAI_Dynamic = ai => ({ bRotateDefault: ai[12] });
 
 //#region Material Piles
-const parsePileAI_Dynamic = ai => ({ pieceNum: bytesToInt(ai.slice(36, 40).join(',')) });
+const parsePileAI_Dynamic = ai => ({ pieceNum: bytesToInt(ai.slice(36, 40)) });
 
 //#region Geyser
 const parseGeyserAI = ai => {
@@ -302,14 +307,11 @@ const parseNoraSpawnerAI = ai => {
     index += 1;
     index += 4; // No idea what this bool is
     index += 1; // dunno what this int is either
-    AIProperties.mabikiNumFromFollow = bytesToInt(ai.slice(index, index + 4).join(','));
-    index += 4;
-    AIProperties.unknownInt = bytesToInt(ai.slice(index, index + 4).join(','));
-    index += 4;
+    AIProperties.mabikiNumFromFollow = bytesToInt(ai.slice(index, index += 4));
+    AIProperties.unknownInt = bytesToInt(ai.slice(index, index += 4));
     AIProperties.bMabikiPongashi = ai[index];
     index += 4;
-    AIProperties.pongashiChangeColorFollowNum = bytesToInt(ai.slice(index, index + 4).join(','));
-    index += 4;
+    AIProperties.pongashiChangeColorFollowNum = bytesToInt(ai.slice(index, index += 4));
     AIProperties.pongashiChangeColorFromFollow = PikminTypes[ai[index]];
     index += 1;
     index += 13; // unknown bytes here
@@ -339,13 +341,13 @@ const parseNoraSpawnerAI = ai => {
         index += ai[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
 
         slot.customFloatParam = readFloat(ai.slice(index, index += 4));
-        slot.gameRulePermissionFlag = bytesToInt(ai.slice(index, index += 2).join(','));
+        slot.gameRulePermissionFlag = bytesToInt(ai.slice(index, index += 2));
         slot.bSetTerritory = ai[index];
         index += 4;
         if (slot.bSetTerritory) {
-            slot.x = readFloat(ai.slice(index, index += 4));
-            slot.y = readFloat(ai.slice(index, index += 4));
-            slot.z = readFloat(ai.slice(index, index += 4));
+            slot.X = readFloat(ai.slice(index, index += 4));
+            slot.Y = readFloat(ai.slice(index, index += 4));
+            slot.Z = readFloat(ai.slice(index, index += 4));
             slot.halfHeight = readFloat(ai.slice(index, index += 4));
             slot.radius = readFloat(ai.slice(index, index += 4));
         }
@@ -359,9 +361,9 @@ const parseNoraSpawnerAI = ai => {
     if (arrayLength) AIProperties.optionalPointOffsets = [];
     for (let i = 0; i < arrayLength; i++) {
         AIProperties.optionalPointOffsets.push({
-            x: readFloat(ai.slice(index, index += 4)),
-            y: readFloat(ai.slice(index, index += 4)),
-            z: readFloat(ai.slice(index, index += 4))
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
         });
     }
 
@@ -467,7 +469,7 @@ const parseActorSpawnerDrops = drops => {
     bytes.customParameter = readAsciiString(drops, index);
     index += drops[index] + 4;
     bytes.customFloatParameter = readFloat(drops.slice(index, index += 4));
-    bytes.gameRulePermissionFlag = bytesToInt(drops.slice(index, index += 2).join(','));
+    bytes.gameRulePermissionFlag = bytesToInt(drops.slice(index, index += 2));
 
     const bSetTerritory = drops[index];
     bytes.bSetTerritory = bSetTerritory;
@@ -559,63 +561,124 @@ const parseBaseAI = ai => {
 };
 
 //#region Teki
-export const parseTekiDrops = drops => {
+export const parseTekiAI = ai => {
     // find the inventory size byte
     // if 0, return empty list
+    let index = 0; // start of the first item
     const parsed = [];
-    const invSize = drops[20]; // This seems consistent across tekis
-    if (invSize === 0) {
-        return { parsed, inventoryEnd: 28 };
-    }
+    const AIProperties = {};
+    AIProperties.territory = {
+        X: readFloat(ai.slice(index, index += 4)),
+        Y: readFloat(ai.slice(index, index += 4)),
+        Z: readFloat(ai.slice(index, index += 4)),
+        halfHeight: readFloat(ai.slice(index, index += 4)),
+        radius: readFloat(ai.slice(index, index += 4))
+    };
+    const invSize = ai[20]; // This seems consistent across tekis
+    index += 4;
 
-    let index = 24; // start of the first item
     for (let i = 0; i < invSize; i++) {
         const slot = {};
-        slot.id = drops[index];
+        slot.id = bytesToInt(ai.slice(index, index += 4));
+        slot.flags = ai.slice(index, index += 4);
+        slot.minDrops = ai[index];
         index += 4;
-        slot.flags = drops.slice(index, index + 4);
+        slot.maxDrops = ai[index];
         index += 4;
-        slot.minDrops = drops[index];
-        index += 4;
-        slot.maxDrops = drops[index];
-        index += 4;
-        slot.dropChance = readFloat(drops.slice(index, index += 4));
-        slot.bRegistGenerator = drops[index];
+        slot.dropChance = readFloat(ai.slice(index, index += 4));
+        slot.bRegistGenerator = ai[index];
         index += 4;
         let dropCondition;
-        if (drops[index] == 1) {
-            const one = drops[index]; // I think this just signifies an object is in the dropconditions array
+        if (ai[index] == 1) {
+            const one = ai[index]; // I think this just signifies an object is in the dropconditions array
             index += 4;
-            slot.dropCondition = drops[index];
+            slot.dropCondition = ai[index];
             index += 4;
-            const dropCondInt = drops[index];
+            const dropCondInt = ai[index];
             index += 1;
-            index += drops[index] + 4 + 1; // start of dropCond string, usually None. We also don't care about the DemoFlag
+            index += ai[index] + 4 + 1; // start of dropCond string, usually None. We also don't care about the DemoFlag
         } else index += 4;
+        slot.assetName = readAsciiString(ai, index);
+        index += ai[index] + 4;
 
-        slot.assetName = readAsciiString(drops, index);
-        index += drops[index] + 4;
-
-        index += drops[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
-        slot.customFloatParam = readFloat(drops.slice(index, index += 4));
-        slot.gameRulePermissionFlag = bytesToInt(drops.slice(index, index += 2).join(','));
-        slot.bSetTerritory = drops[index];
+        index += ai[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
+        slot.customFloatParam = readFloat(ai.slice(index, index += 4));
+        slot.gameRulePermissionFlag = bytesToInt(ai.slice(index, index += 2));
+        slot.bSetTerritory = ai[index];
         index += 4;
+
         if (slot.bSetTerritory) {
-            slot.x = readFloat(drops.slice(index, index += 4));
-            slot.y = readFloat(drops.slice(index, index += 4));
-            slot.z = readFloat(drops.slice(index, index += 4));
-            slot.halfHeight = readFloat(drops.slice(index, index += 4));
-            slot.radius = readFloat(drops.slice(index, index += 4));
+            slot.X = readFloat(ai.slice(index, index += 4));
+            slot.Y = readFloat(ai.slice(index, index += 4));
+            slot.Z = readFloat(ai.slice(index, index += 4));
+            slot.halfHeight = readFloat(ai.slice(index, index += 4));
+            slot.radius = readFloat(ai.slice(index, index += 4));
         }
-        // const params = drops.slice(index, index + 10);
+        // const params = ai.slice(index, index + 10);
         // index += 10;
         parsed.push(slot);
     }
-    while (drops[index] != 255 && index < drops.length) {
-        index += 1; // Just iterate till we find the 255 byte? Shouldn't run, I think
+    index += 4; // Advance past 255s
+
+    AIProperties.boneName = readAsciiString(ai, index);
+    index += ai[index] + 4;
+
+    AIProperties.localOffset = {
+        X: readFloat(ai.slice(index, index += 4)),
+        Y: readFloat(ai.slice(index, index += 4)),
+        Z: readFloat(ai.slice(index, index += 4))
+    };
+
+    AIProperties.vel = {
+        X: readFloat(ai.slice(index, index += 4)),
+        Y: readFloat(ai.slice(index, index += 4)),
+        Z: readFloat(ai.slice(index, index += 4))
+    };
+
+    AIProperties.randVel = {
+        X: readFloat(ai.slice(index, index += 4)),
+        Y: readFloat(ai.slice(index, index += 4)),
+        Z: readFloat(ai.slice(index, index += 4))
+    };
+
+    AIProperties.dropOption = bytesToInt(ai.slice(index, index += 2));
+    index += 4; // unknown bool - FixedHotExtractDropNum? it's only ever 0 maybe except on kogane
+    AIProperties.bOverrideInitLocation = ai[index];
+    index += 4;
+    console.log(index);
+    AIProperties.overrideInitLocation = {
+        X: readFloat(ai.slice(index, index += 4)),
+        Y: readFloat(ai.slice(index, index += 4)),
+        Z: readFloat(ai.slice(index, index += 4))
+    };
+    index += 4 + invSize * 8; // skip the inventory flag loop
+    index += 4; // this is always 1 - maybe bEnableZukanDrop
+    AIProperties.bEnableBothFreezeDrop = ai[index];
+    index += AIProperties.bEnableBothFreezeDrop ? 16 : 12; // this bool is ADDITIONAL bytes if present
+    index += 4; //unknown float
+    AIProperties.searchAreaOtakaraCarryRadius = readFloat(ai.slice(index, index += 4));
+    index += 8; // unknown floats
+    AIProperties.invasionStartTimeRatio = readFloat(ai.slice(index, index += 4));
+    index += 12; // always 1 and 0 bools?
+    AIProperties.bEnableOptionalPoint = ai[index];
+    index += 4;
+
+    const arrayLength = ai[index];
+    index += 4;
+    AIProperties.optionalPointOffsets = [];
+    for (let i = 0; i < arrayLength; i++) {
+        AIProperties.optionalPointOffsets.push({
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        });
     }
-    return { parsed, inventoryEnd: index + 4 };
+    index += 4; // something else to end SniffPointParameter
+    // while (ai[index] != 255 && index < ai.length) {
+    //     console.log("Iterating in creature to find end of inventory?");
+    //     index += 1; // Just iterate till we find the 255 byte? Shouldn't run, I think
+    // }
+    return { parsed, AIProperties, inventoryEnd: index };
 };
 
 //#region PortalTrigger
@@ -656,7 +719,7 @@ const parsePortalTrigger = portalTrigger => {
         index += portalTrigger[index] + 4;
     }
 
-    PortalTrigger.toBaseCampId = bytesToInt(portalTrigger.slice(index, index += 4).join(','));
+    PortalTrigger.toBaseCampId = bytesToInt(portalTrigger.slice(index, index += 4));
     PortalTrigger.bInitialPortalMove = portalTrigger[index];
     index += 4;
     PortalTrigger.bDeactivateByExit = portalTrigger[index];
@@ -666,7 +729,7 @@ const parsePortalTrigger = portalTrigger => {
     index += 4; // unknown zeros
     PortalTrigger.panzakuPriority = portalTrigger[index];
     index += 4;
-    PortalTrigger.disablePikminFlags = bytesToInt(portalTrigger.slice(index, index += 4).join(','));
+    PortalTrigger.disablePikminFlags = bytesToInt(portalTrigger.slice(index, index += 4));
     PortalTrigger.bDisableIsFlareGuard = portalTrigger[index];
     index += 4;
     PortalTrigger.spareBytes = portalTrigger.slice(index, portalTrigger.length); // These last 3 floats are the trigger coordinates

@@ -291,7 +291,7 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                     onChange={(e) => updateDrops(e.target.checked, drop, "bRegistGenerator")}
                 />
             </div>
-            {drop.bSetTerritory ? ["x", "y", "z", "halfHeight", "radius"].map(key => (
+            {drop.bSetTerritory ? ["X", "Y", "Z", "halfHeight", "radius"].map(key => (
                 <div key={key}>
                     <b>{key}</b>:&nbsp;
                     <DebouncedInput

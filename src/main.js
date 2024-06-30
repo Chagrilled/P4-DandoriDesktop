@@ -1,12 +1,12 @@
 const { app, BrowserWindow, ipcMain, Menu, dialog, shell } = require('electron');
 import { readdir, promises, constants, readFileSync, accessSync, writeFileSync, readdirSync } from 'fs';
-import { join } from 'path';
+import { join, sep } from 'path';
 import { randomBytes } from 'crypto';
 import swf from 'stringify-with-floats';
 import { spawn } from 'child_process';
-import { exposedGenVars, InfoType, Times } from './api/types';
+import { exposedGenVars, InfoType, Times, NightMaps } from './api/types';
 import { regenerateAGLEntity } from './genEditing';
-import { getReadAIStaticFunc, getReadPortalFunc, getReadAIDynamicFunc, getReadActorParameterFunc, getReadNavMeshTriggerFunc } from './genEditing/reading';
+import { getReadAIStaticFunc, getReadPortalFunc, getReadAIDynamicFunc, getReadActorParameterFunc, getReadNavMeshTriggerFunc, getReadSubAIStaticFunc } from './genEditing/reading';
 import { constructActor } from './genEditing/constructing';
 import { protectNumbers, unprotectNumbers, getInfoType, getAvailableTimes } from './utils';
 import { createMenu } from './utils/createMenu';
@@ -29,7 +29,7 @@ const DEFAULT_CONFIG = {
 };
 let config = {};
 let mapsCache = {};
-const rawData = {};
+let rawData = {};
 const cache = {};
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -104,7 +104,9 @@ const getFilePath = (mapId, type, baseFile = false) => {
     const specialMaps = mapId.startsWith('HeroStory') || mapId.startsWith('Cave') || mapId === 'Area011';
     if (specialMaps && baseFile) return false; // Otherwise caves/etc will read the same file twice and duplicate features
 
-    const areaId = ["HeroStory", "Night"].some(p => mapId.startsWith(p)) ? `Area${mapId.slice(-3)}` : mapId;
+    let areaId = ["HeroStory"].some(p => mapId.startsWith(p)) ? `Area${mapId.slice(-3)}` : mapId;
+    if (mapId.startsWith('Night')) areaId = mapId.replace('Night', 'Area').replace(/-\d/, ''); // Change Night003-1 back to Area003
+
     const hero = mapId.startsWith('HeroStory') ? '_Hero' : '';
     const mapPath = getMapPath(areaId);
     const day = specialMaps ? '' : mapId.includes('Night') ? '_Night' : '_Day';
@@ -112,7 +114,9 @@ const getFilePath = (mapId, type, baseFile = false) => {
 };
 
 const getBaseFilePath = (mapId, type) => {
-    const areaId = ["HeroStory", "Night"].some(p => mapId.startsWith(p)) ? `Area${mapId.slice(-3)}` : mapId;
+    let areaId = ["HeroStory"].some(p => mapId.startsWith(p)) ? `Area${mapId.slice(-3)}` : mapId;
+    if (mapId.startsWith('Night')) areaId = mapId.replace('Night', 'Area').replace(/-\d/, '');
+
     const mapPath = getMapPath(areaId);
     const hero = mapId.startsWith('HeroStory') ? '_Hero' : '';
     return join(mapPath, `AP_${areaId}_P${hero}_${type}.json`);
@@ -163,7 +167,8 @@ ipcMain.on('fileNameRequest', (event, fileName) => {
         // Teki
         filePath = join(config.gameDir, 'Placeables', 'Teki', `${fileName}.json`);
     } else {
-        filePath = getFilePath(fileName, TEKI);
+        const path = getFilePath(fileName, TEKI);
+        filePath = path.split(sep).slice(0, -1).join(sep)
     }
 
     if (process.platform === 'win32') {
@@ -235,15 +240,24 @@ ipcMain.handle('saveMaps', async (event, mapId, data) => {
 
     const dayObjectAGL = [];
     const baseObjectAGL = [];
+    const nightObjectAGL = [];
+
+    const outputArrays = {
+        [Times.DAY]: dayObjectAGL,
+        [Times.NIGHT]: nightObjectAGL
+    };
+    const objectTime = mapId.includes("Night") ? "objectsNight" : "objectsDay";
+
     Object.entries(data).forEach(([typeName, typeArray]) => {
         if (typeName === 'creature' || typeName === 'water') return;
 
         // Use regenerateAGLEntity later on to de-dupe this once AI is sorted across the board
         typeArray.forEach(actor => {
-            const outputArray = actor.time == Times.DAY ? dayObjectAGL : baseObjectAGL;
+            const outputArray = outputArrays[actor.time] || baseObjectAGL;
             // Search both rawData arrays in case an actor is swapped from one to the other - we can still find its AGL entry
             let aglData = rawData.objectsPermanent.Content[0].ActorGeneratorList.find(gameActor => gameActor.ddId == actor.ddId);
-            if (!aglData && rawData.objectsDay) aglData = rawData.objectsDay.Content[0].ActorGeneratorList.find(gameActor => gameActor.ddId == actor.ddId);
+
+            if (!aglData && rawData[objectTime]) aglData = rawData[objectTime].Content[0].ActorGeneratorList.find(gameActor => gameActor.ddId == actor.ddId);
             if (aglData) outputArray.push(regenerateAGLEntity(actor, aglData));
             // New actor not in the AGL - construct it
             else outputArray.push(constructActor(actor, mapId));
@@ -271,7 +285,7 @@ ipcMain.handle('saveMaps', async (event, mapId, data) => {
         writeAGL(rawData.teki, tekiAGL, mapId, TEKI),
     ];
     mapTimes.forEach(time => {
-        if (time === Times.DAY) aglPromises.push(writeAGL(rawData.objectsDay, dayObjectAGL, mapId, OBJECTS));
+        if (time !== Times.PERM) aglPromises.push(writeAGL(rawData[objectTime], outputArrays[time], mapId, OBJECTS));
         else aglPromises.push(writeAGL(rawData.objectsPermanent, baseObjectAGL, mapId, OBJECTS, true));
     });
 
@@ -328,6 +342,7 @@ ipcMain.handle('readMapData', async (event, mapId) => {
         [InfoType.Portal]: [],
         [InfoType.Item]: []
     };
+    rawData = {};
 
     let tekiFile;
     try {
@@ -354,7 +369,9 @@ ipcMain.handle('readMapData', async (event, mapId) => {
             // Return an AIProperties from this and spread it into the editor's object - NoraSpawners actual entity
             // is meaningfully affected by AI, like ActorSpawner, so we need it on hand, not as a drop
             console.log("Reading ", creatureId, infoType);
-            const { parsed, inventoryEnd, groupingRadius, ignoreList } = getReadAIStaticFunc(creatureId, infoType)(teki.ActorSerializeParameter.AI.Static);
+            const { parsed, inventoryEnd, groupingRadius, ignoreList, AIProperties } = getReadAIStaticFunc(creatureId, infoType)(teki.ActorSerializeParameter.AI.Static);
+            const { parsed: parsedSubAI } = getReadSubAIStaticFunc(creatureId, infoType)(teki.ActorSerializeParameter.SubAI.Static);
+            console.log(AIProperties);
             // Sadly, changing Life.Dynamic seems not to do anything to tekis
             // const Life = teki.ActorSerializeParameter.Life.Dynamic.length ? parseFloat(new Float32Array(new Uint8Array(teki.ActorSerializeParameter.Life.Dynamic.slice(0, 4)).buffer)[0]) : null;
             return {
@@ -363,22 +380,28 @@ ipcMain.handle('readMapData', async (event, mapId) => {
                 creatureId,
                 ...(groupingRadius && { groupingRadius }),
                 ...(ignoreList && { ignoreList }),
+                ...(AIProperties && { AIProperties }),
                 // ...(Life && { Life }),
                 transform: {
                     rotation: teki.InitTransform.Rotation,
                     translation: teki.InitTransform.Translation,
                     scale3D: teki.InitTransform.Scale3D,
                 },
+                activityTime: teki.RebirthInfo.ActivityTime,
+                exploreRateType: teki.ExploreRateType,
+                birthDay: teki.RebirthInfo.BirthDay,
+                deadDay: teki.RebirthInfo.DeadDay,
                 generateNum: parseInt(teki.GenerateInfo.GenerateNum),
                 generateRadius: parseFloat(teki.GenerateInfo.GenerateRadius), // sometimes these decide to be strings. Persuade them not to be.
                 rebirthType: teki.RebirthInfo.RebirthType,
                 rebirthInterval: teki.RebirthInfo.RebirthInterval,
-                birthDay: teki.RebirthInfo.BirthDay,
-                deadDay: teki.RebirthInfo.DeadDay,
                 outlineFolderPath: teki.OutlineFolderPath, // Handle these better than including them then excluding them
+                birthCond: teki.RebirthInfo.BirthCond,
+                eraseCond: teki.RebirthInfo.EraseCond,
                 drops: {
                     parsed,
-                    inventoryEnd
+                    inventoryEnd,
+                    parsedSubAI
                 },
                 ddId
             };
@@ -403,6 +426,7 @@ ipcMain.handle('readMapData', async (event, mapId) => {
         const ActorParameter = getReadActorParameterFunc(entityId)(asp.ActorParameter.Static);
         const NavMeshTrigger = getReadNavMeshTriggerFunc(entityId)(asp.NavMeshTrigger.Static);
         const AIProperties = { ...staticAI, ...dynamicAI };
+        const { parsed: parsedSubAI } = getReadSubAIStaticFunc(entityId, infoType)(asp.SubAI.Static);
         const Life = entityId.includes('Gate') ? parseFloat(new Float32Array(new Uint8Array(asp.Life.Dynamic.slice(0, 4)).buffer)[0]) : null;
         const weight = entityId.includes('DownWall') ? byteArrToInt(asp.Affordance.Static.slice(-4).reverse()) : null;
         // console.log("AIProperties", AIProperties);
@@ -411,7 +435,7 @@ ipcMain.handle('readMapData', async (event, mapId) => {
             type: 'object',
             infoType,
             creatureId: entityId, // rename later
-            ...(AIProperties && { AIProperties }),
+            ...(Object.keys(AIProperties).length !== 0 && { AIProperties }),
             ...(PortalTrigger && { PortalTrigger }),
             ...(Life && { Life }),
             ...(weight && { weight }),
@@ -422,15 +446,22 @@ ipcMain.handle('readMapData', async (event, mapId) => {
                 translation: object.InitTransform.Translation,
                 scale3D: object.InitTransform.Scale3D
             },
+            activityTime: object.RebirthInfo.ActivityTime,
+            exploreRateType: object.ExploreRateType,
+            birthDay: object.RebirthInfo.BirthDay,
+            deadDay: object.RebirthInfo.DeadDay,
             generateNum: parseInt(object.GenerateInfo.GenerateNum),
             generateRadius: parseFloat(object.GenerateInfo.GenerateRadius), // sometimes these decide to be strings. Persuade them not to be.
             rebirthType: object.RebirthInfo.RebirthType,
             rebirthInterval: object.RebirthInfo.RebirthInterval,
             outlineFolderPath: object.OutlineFolderPath, // Handle these better than including them then excluding them
+            birthCond: object.RebirthInfo.BirthCond,
+            eraseCond: object.RebirthInfo.EraseCond,
             drops: {
                 parsed,
                 rareDrops,
-                spareBytes
+                spareBytes,
+                parsedSubAI
             },
             ddId,
             time: fileType
@@ -455,8 +486,9 @@ ipcMain.handle('readMapData', async (event, mapId) => {
             objectFile = await getFileData(objectPath);
             if (!objectFile) return features;
         } catch (e) { }
-        rawData.objectsDay = objectFile;
-        rawData.objectsDay.Content[0].ActorGeneratorList.forEach(actor => objectProcessor(actor, Times.DAY));
+        const time = mapId.includes('Night') ? "objectsNight" : "objectsDay";
+        rawData[time] = objectFile;
+        rawData[time].Content[0].ActorGeneratorList.forEach(actor => objectProcessor(actor, mapId.includes('Night') ? Times.NIGHT : Times.DAY));
     }
 
     return features;
@@ -511,7 +543,7 @@ const readMaps = (force) => {
             mainWindow.webContents.send('nonBlockingNotify', `Failed to read main area maps from: ${AREA_PATH}`);
             // return mainWindow.webContents.send('getMaps', { maps: [] });
         }
-        // maps.push(...areaMaps);
+
         areaMaps.forEach(map => {
             const files = readdirSync(join(AREA_PATH, map, 'ActorPlacementInfo'));
             files.forEach(file => {
@@ -521,9 +553,9 @@ const readMaps = (force) => {
                 else if (file.match(/_P_(?:Teki|Objects)/) && !maps.includes(map)) {
                     maps.push(map);
                 }
-                // if (file.includes('Night') && !maps.includes(`Night${map.slice(-3)}`) {
-                //     maps.push(`Night${map.slice(-3)}`);
-                // }
+                if (file.includes('Night') && !maps.includes(`Night${map.slice(-3)}-1`)) {
+                    maps.push(...NightMaps[map]);
+                }
             });
         });
         readdir(CAVE_PATH, async (err, caveMaps) => {

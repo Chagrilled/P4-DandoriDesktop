@@ -4,7 +4,7 @@ import VectorSource from 'ol/source/Vector';
 import { Feature } from 'ol';
 import { Point } from 'ol/geom';
 import { Categories, isCreature, isTreasure, GimmickNames, InfoType, iconOverrides, invisibleEntities } from '../../api/types';
-import { getAngleRotation, getNameFromAsset, shouldIconRotate } from '../../utils';
+import { getAngleRotation, getNameFromAsset, shouldIconRotate, isEntityOnNightMap } from '../../utils';
 
 const { Gimmick, Hazard, Portal, Onion, Base, WorkObject, Pikmin } = InfoType;
 
@@ -73,7 +73,8 @@ const SCALE_OVERRIDES = {
     ropebranchsmall: 0.5,
     navmeshtrigger: 0.5,
     navmeshtriggerlinkforsplash: 0.5,
-    navmeshtriggerclear: 0.5
+    navmeshtriggerclear: 0.5,
+    hikaristation: 0.7,
 };
 
 export const getIconOptions = (type) => {
@@ -86,7 +87,7 @@ export const getIconOptions = (type) => {
 };
 
 const MAX_MARKER_Z_INDEX = 1000;
-export const getFeatureLayers = (groupedData, config) => {
+export const getFeatureLayers = (groupedData, config, mapId) => {
     const featureLayers = {};
 
     for (let i = 0; i < LayerOrder.length; i++) {
@@ -97,7 +98,7 @@ export const getFeatureLayers = (groupedData, config) => {
 
         // Categories are sorted by layer importance.
         const layerZIndex = MAX_MARKER_Z_INDEX - i;
-        const features = getFeatures(markerType, groupedData[markerType], config);
+        const features = getFeatures(markerType, groupedData[markerType], config, mapId);
         const layer = new VectorLayer({
             source: new VectorSource({
                 features
@@ -110,11 +111,13 @@ export const getFeatureLayers = (groupedData, config) => {
     return featureLayers;
 };
 
-const getFeatures = (markerType, markers, config) => {
+const getFeatures = (markerType, markers, config, mapId) => {
     const globalMarkerStyle = MarkerStyles[markerType];
 
     return markers.map(marker => {
         if (config.hideInvisEntities && invisibleEntities.some(e => marker.creatureId.includes(e))) return;
+        if (mapId.includes('Night') && !isEntityOnNightMap(marker, mapId)) return;
+
         const feature = new Feature({
             // Why are x and y flipped???
             // Capitalise them because the AGL has the capitalised, and cba to keep transforming the key cases
