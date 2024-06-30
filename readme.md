@@ -14,7 +14,7 @@ Special thanks goes to Dodiou for making [DandoriDB](https://github.com/Dodiou/D
       + [⛏️ Extracting Maps](#%EF%B8%8F-extracting-maps)
    * [✏️ Editing](#%EF%B8%8F-editing)
       + [🗺️ Maps](#%EF%B8%8F-maps)
-      + [🌙 Night](#%EF%B8%8F-maps)
+      + [🌙 Night](#%EF%B8%8F-night)
       + [📦️ Blueprints](#%EF%B8%8F-blueprints)
    * [🐛 Bug Reporting/Feature Requests](#-bug-reportingfeature-requests)
    * [👷‍♂️ Developer Notes](#%EF%B8%8F-developer-notes)
