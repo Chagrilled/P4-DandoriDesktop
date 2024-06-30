@@ -19,8 +19,8 @@ Special thanks goes to Dodiou for making [DandoriDB](https://github.com/Dodiou/D
    * [🐛 Bug Reporting/Feature Requests](#-bug-reportingfeature-requests)
    * [👷‍♂️ Developer Notes](#%EF%B8%8F-developer-notes)
       + [🤖 AI](#-ai)
-   * [🏗️ To Do List:](#%EF%B8%8F-to-do-list)
-   * [🐛 Bugs/known issues:](#-bugsknown-issues)
+   * [🏗️ To Do List](#%EF%B8%8F-to-do-list)
+   * [🐛 Bugs/known issues](#-bugsknown-issues)
 
 Currently supports:
 
