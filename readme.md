@@ -14,7 +14,8 @@ Special thanks goes to Dodiou for making [DandoriDB](https://github.com/Dodiou/D
       + [⛏️ Extracting Maps](#%EF%B8%8F-extracting-maps)
    * [✏️ Editing](#%EF%B8%8F-editing)
       + [🗺️ Maps](#%EF%B8%8F-maps)
-      + [📦️ Objects](#%EF%B8%8F-objects)
+      + [🌙 Night](#%EF%B8%8F-maps)
+      + [📦️ Blueprints](#%EF%B8%8F-blueprints)
    * [🐛 Bug Reporting/Feature Requests](#-bug-reportingfeature-requests)
    * [👷‍♂️ Developer Notes](#%EF%B8%8F-developer-notes)
       + [🤖 AI](#-ai)
@@ -105,9 +106,9 @@ Once you want to output these to your emulator, use `Tools > Deploy to Emulator`
 
 ❗For the most part, the app is not fully user-safe and will not try to protect your inputs. Therefore, ensure you are keeping your input data in the correct types - arrays remain strict arrays, lists of strings (like `ignoreList` are correctly formatted - `["Kochappy", "Mush"]`) etc.
 
-####  🌙 Night
+#### 🌙 Night
 
-🌙 Night enemies are loaded based on their `BirthCond` being `NightAdventurePattern`, and their `CondInt` being the (zero indexed) number of the night mission. There _are_ `CondInt`s greater than the number of night missions and I don't know what that does, possibly extra enemies for repeat plays of missions. DDT will display the enemies for the mission (`CondInt + 1`) you're selecting. 
+Night enemies are loaded based on their `BirthCond` being `NightAdventurePattern`, and their `CondInt` being the (zero indexed) number of the night mission. There _are_ `CondInt`s greater than the number of night missions and I don't know what that does, possibly extra enemies for repeat plays of missions. DDT will display the enemies for the mission (`CondInt + 1`) you're selecting. 
 
 I've found enemies that will target/damage the lumiknolls vary. Chappies seem to all do it. Things like jellyfloats/grubchuckers/foolix/amprats etc that grab to attack, do not target it and don't seem to aggro towards it. However I've also found that setting their territory centre (which is an _offset_, not an absolute) can be used to lure the enemy to the lumiknoll (or other location) as a nuisance/obstacle with delay as they want to return to their territory from afar, rather than dumping it in front of the spawn.
 
