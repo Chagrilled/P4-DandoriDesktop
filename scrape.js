@@ -169,16 +169,17 @@ readdirSync('Main/Area').forEach(areaDir => {
     reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Objects${day}.json`, sublevelParser);
     reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Objects.json`, sublevelParser);
     if ((areaDir !== 'Area011')) {
+        reader(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Teki_Night.json`, parser);
+        reader(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Objects_Night.json`, parser);
         reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Teki_Night.json`, sublevelParser);
         reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Objects_Night.json`, sublevelParser);
     }
-    try {
+    if (!['Area006', 'Area011', 'Area004'].includes(areaDir)) {
         reader(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Hero_Teki.json`, parser);
         reader(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Hero_Objects.json`, parser);
         reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Hero_Teki.json`, sublevelParser);
         reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Hero_Objects.json`, sublevelParser);
-
-    } catch (e) { console.log(e); } // cba to filter out the non-hero stages
+    }
 });
 
 readdirSync('Madori/Cave').forEach(cave => {
@@ -195,6 +196,7 @@ writeFileSync('output-pretty.json', unprotectNumbers(JSON.stringify(data, null, 
 writeFileSync('output-compressed.json', unprotectNumbers(JSON.stringify(data)));
 writeFileSync('sublevels.json', unprotectNumbers(JSON.stringify(sublevelData, null, 4)));
 writeFileSync('names.json', JSON.stringify(names, null, 4));
+console.log("Wrote files");
 
 
 // Scraper to pull _some_ treasure names from the zukan file
