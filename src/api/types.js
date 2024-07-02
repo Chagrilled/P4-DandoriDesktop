@@ -1384,12 +1384,24 @@ export const invisibleEntities = [
     "Excavation"
 ];
 
+// Strange entities 
 export const weirdAIEntities = [
     'BurrowDemejako',
+    'BurrowDemejakoClose',
     'Perch',
     'MarigumoNet',
     'Burrow',
     'CaptureThrowPoint',
     'MiniMochi',
-    'PanModokiHideArea'
+    'PanModokiHideArea',
+    'CaptureThrowPoint',
+    'CapturePoint',
+    'RestPoint_LivingRoom',
+    'RestPoint_Kitchen',
+    'JumpPoint_LivingRoom',
+    'JumpPoint_Kitchen',
+    'TargetPoint_Kitchen',
+    'TargetPoint_LivingRoom',
+    'DemoWarpPoint',
+    'PerchTakeOff'
 ];
