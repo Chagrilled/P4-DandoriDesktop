@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { Menu, Item, Separator, Submenu } from 'react-contexify';
-import { RebirthTypes, DefaultActorSpawnerDrop, InfoType, DefaultPortalTrigger, GateMiddleBytes, defaultBaseAIProperties, defaultCreatureAI, ActivityTimes, ActorPlacementCondition } from '../../api/types';
+import { RebirthTypes, DefaultActorSpawnerDrop, InfoType, DefaultPortalTrigger, GateMiddleBytes, defaultBaseAIProperties, defaultCreatureAI, ActivityTimes, ActorPlacementCondition, ExploreRateTargetType } from '../../api/types';
 import { deepCopy, getAvailableTimes } from '../../utils';
 import { MapContext } from './MapContext';
 
@@ -57,6 +57,7 @@ export const MapMenu = ({ }) => {
                 }
             },
             activityTime: ActivityTimes.Allday,
+            exploreRateType: ExploreRateTargetType.None,
             generateNum: 1,
             generateRadius: 300,
             rebirthType: RebirthTypes.AlwaysRebirth,

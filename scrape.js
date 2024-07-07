@@ -159,7 +159,10 @@ const looper = (parent, obj, key, arrayVal) => {
 };
 
 readdirSync('Main/Area').forEach(areaDir => {
-    if (areaDir == 'Area500') return;
+    if (areaDir == 'Area500') {
+        reader(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Objects.json`, parser);
+        return;
+    }
     const day = areaDir === 'Area011' ? '' : '_Day';
     reader(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Teki${day}.json`, parser);
     reader(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Objects${day}.json`, parser);
@@ -175,10 +178,13 @@ readdirSync('Main/Area').forEach(areaDir => {
         reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Objects_Night.json`, sublevelParser);
     }
     if (!['Area006', 'Area011', 'Area004'].includes(areaDir)) {
-        reader(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Hero_Teki.json`, parser);
-        reader(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Hero_Objects.json`, parser);
-        reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Hero_Teki.json`, sublevelParser);
-        reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Hero_Objects.json`, sublevelParser);
+        try {
+            reader(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Hero_Teki.json`, parser);
+            reader(`Main/Area/${areaDir}/ActorPlacementInfo/AP_${areaDir}_P_Hero_Objects.json`, parser);
+            reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Hero_Teki.json`, sublevelParser);
+            reader(`Main/Area/${areaDir}/Sublevels/${areaDir}_Hero_Objects.json`, sublevelParser);
+
+        } catch (e) { console.log("Ignore this error:", e); } // cba to filter out the non-hero stages
     }
 });
 

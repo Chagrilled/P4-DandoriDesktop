@@ -1,4 +1,4 @@
-import { InfoType, Times, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, weirdAIEntities } from "../api/types";
+import { InfoType, Times, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, weirdAIEntities, ActorPlacementCondition } from "../api/types";
 import { internalAssetNames } from "../api/assetList";
 
 export const getPathType = assetName => assetName.match(/Placeables\/(.+)\/G/)[1];
@@ -264,7 +264,7 @@ export const mutateAIProperties = (creature, value) => {
         }
     ].forEach(o => {
         aiEnts.push(...o.ents);
-        if (o.ents.some(e => value.includes(e) || o.infoTypes?.some(e => value.includes(e)))) { // There was an && !creature.AIProperties here, I forget why
+        if (o.ents.some(e => value.includes(e)) || o.infoTypes?.some(e => value.includes(e))) { // There was an && !creature.AIProperties here, I forget why
             ["AIProperties", "ActorParameter", "NavMeshTrigger"].forEach(prop => {
                 if (o[prop]) creature[prop] = { ...deepCopy(o[prop]) };
                 else delete creature[prop];
@@ -272,12 +272,22 @@ export const mutateAIProperties = (creature, value) => {
         }
     });
 
-    if (!aiEnts.some(e => value.includes(e)) && creature.AIProperties && creature.infoType != InfoType.Creature)
+    if (!aiEnts.some(e => value.includes(e)) && creature.AIProperties && creature.infoType != InfoType.Creature) {
         delete creature.AIProperties;
+        delete creature.NavMeshTrigger;
+        delete creature.ActorParameter;
+    }
 };
 
+// An entity should show on night maps if: 
+// - it has no birth conditions (caught by [].every()) 
+// - none of its birth condiions are NightAdventurePattern
+// - For NightAdventurePattern, it's CondInt is equal to the mission ID (night map ID - 1)
 export const isEntityOnNightMap = (entity, mapId) => {
     const nightStage = mapId.slice(-1);
 
-    return !entity.birthCond.length || entity.birthCond.some(cond => parseInt(cond.CondInt) + 1 == nightStage);
+    const nonNightCondition = entity.birthCond.every(cond => cond.Condition !== ActorPlacementCondition.NightAdventurePattern);
+    return nonNightCondition || entity.birthCond.some(cond =>
+        cond.Condition === ActorPlacementCondition.NightAdventurePattern && parseInt(cond.CondInt) + 1 == nightStage
+    );
 };

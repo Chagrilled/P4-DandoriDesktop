@@ -168,7 +168,7 @@ ipcMain.on('fileNameRequest', (event, fileName) => {
         filePath = join(config.gameDir, 'Placeables', 'Teki', `${fileName}.json`);
     } else {
         const path = getFilePath(fileName, TEKI);
-        filePath = path.split(sep).slice(0, -1).join(sep)
+        filePath = path.split(sep).slice(0, -1).join(sep);
     }
 
     if (process.platform === 'win32') {
@@ -207,7 +207,7 @@ ipcMain.handle('getEntityData', async (event, entityId) => {
     try {
         contents = await promises.readFile(filePath, { encoding: 'utf-8' });
     } catch (err) {
-        return mainWindow.webContents.send('errorNotify', `Failed to read from ${filePath}`);
+        return mainWindow.webContents.send('errorNotify', `Failed to read from ${filePath}`, err.stack);
     }
     const tekiContent = JSON.parse(protectNumbers(contents)).Content;
     const params = {};
@@ -322,7 +322,7 @@ const writeAGL = async (originalRaw, newAGL, mapId, mapType, baseFile) => {
         return 0; //idk return status codes or something
     } catch (e) {
         console.log(e);
-        mainWindow.webContents.send('errorNotify', `Couldn't write to file: ${e}`);
+        mainWindow.webContents.send('errorNotify', `Couldn't write to file: ${e}`, e.stack);
         return e; // ??
     }
 };
@@ -358,7 +358,7 @@ ipcMain.handle('readMapData', async (event, mapId) => {
             // return features;
         }
 
-        features.creature = rawData.teki.Content[0].ActorGeneratorList.map(teki => {
+        else features.creature = rawData.teki.Content[0].ActorGeneratorList.map(teki => {
             // Unify our ID and the raw ID, so we can ensure we save back to the right one
             // In case array orders change (they shouldn't?)
             const ddId = randomBytes(16).toString('hex');
@@ -408,7 +408,7 @@ ipcMain.handle('readMapData', async (event, mapId) => {
         }).filter(i => !!i);
     } catch (e) {
         console.log(e);
-        if (!["Cave004_F00", "Cave013_F02"].some(m => mapId === m)) mainWindow.webContents.send('errorNotify', `Failed reading teki data from: ${mapPath}`);
+        if (!["Cave004_F00", "Cave013_F02"].some(m => mapId === m)) mainWindow.webContents.send('errorNotify', `Failed reading teki data from: ${mapPath}`, e.stack);
     }
 
     const objectProcessor = (object, fileType) => {
@@ -472,7 +472,7 @@ ipcMain.handle('readMapData', async (event, mapId) => {
     try {
         const baseObjectPath = getBaseFilePath(mapId, OBJECTS);
         baseObjectFile = await getFileData(baseObjectPath);
-    } catch (e) { }
+    } catch (e) { console.log(e); }
     if (baseObjectFile) {
         rawData.objectsPermanent = baseObjectFile;
         rawData.objectsPermanent.Content[0].ActorGeneratorList.forEach(actor => objectProcessor(actor, Times.PERM));
@@ -485,7 +485,7 @@ ipcMain.handle('readMapData', async (event, mapId) => {
             const objectPath = getFilePath(mapId, OBJECTS);
             objectFile = await getFileData(objectPath);
             if (!objectFile) return features;
-        } catch (e) { }
+        } catch (e) { console.log(e); }
         const time = mapId.includes('Night') ? "objectsNight" : "objectsDay";
         rawData[time] = objectFile;
         rawData[time].Content[0].ActorGeneratorList.forEach(actor => objectProcessor(actor, mapId.includes('Night') ? Times.NIGHT : Times.DAY));
@@ -504,7 +504,7 @@ const getFileData = async fileName => {
         const fileData = await promises.readFile(fileName, { encoding: 'utf-8' });
         return JSON.parse(protectNumbers(fileData));
     } catch (e) {
-        mainWindow.webContents.send('errorNotify', `Failed reading data from: ${fileName}`);
+        mainWindow.webContents.send('errorNotify', `Failed reading data from: ${fileName}`, e.stack);
         return undefined;
     }
 };
@@ -514,7 +514,7 @@ const getTekis = (force) => {
     readdir(`${join(config.gameDir, 'Placeables', 'Teki')}`, (err, files) => {
         if (err) {
             console.log(err);
-            return mainWindow.webContents.send('errorNotify', `Failed to read from Placeaebles/Teki: ${err}`);
+            return mainWindow.webContents.send('errorNotify', `Failed to read from Placeaebles/Teki: ${err}`, err.stack);
         }
         files.forEach((fileName) => {
             if (fileName.includes(".json")) {

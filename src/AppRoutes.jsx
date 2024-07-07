@@ -9,7 +9,7 @@ import { MapProvider } from './components/Map/MapContext';
 
 export const AppRoutes = () => {
     useEffect(() => {
-        window.electron.ipcRenderer.on('errorNotify', (something, message) => {
+        window.electron.ipcRenderer.on('errorNotify', (something, message, e) => {
             toast(message, {
                 duration: 7000,
                 icon: '❌',
@@ -18,6 +18,7 @@ export const AppRoutes = () => {
                     maxWidth: 'fit-content'
                 }
             });
+            if (e) console.error(e);
         });
         window.electron.ipcRenderer.on('successNotify', (something, message) => {
             toast(message, {
@@ -66,7 +67,7 @@ export const AppRoutes = () => {
                     <MapProvider>
                         <Maps />
                     </MapProvider>
-                }/>
+                } />
                 <Route path="/editor" element={<Editor />} />
             </Routes>
         </HashRouter>
