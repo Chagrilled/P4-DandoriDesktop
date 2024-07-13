@@ -11,7 +11,6 @@ Special thanks goes to Dodiou for making [DandoriDB](https://github.com/Dodiou/D
 
 - [🌸 Dandori Desktop](#-dandori-desktop)
    * [🛠️ Setup/Workflow](#%EF%B8%8F-setupworkflow)
-      + [⛏️ Extracting Maps](#%EF%B8%8F-extracting-maps)
    * [✏️ Editing](#%EF%B8%8F-editing)
       + [🗺️ Maps](#%EF%B8%8F-maps)
       + [🌙 Night](#-night)
@@ -44,7 +43,7 @@ The following folders are made:
 - `MapArchive` a full dump of the map JSONs - leave this alone, and use it as a backup when you break files, or for datamining.
 
 <details>
-<summary>⛏️ Manual Setup Method</summary> 
+<summary>⛏️ <b>Manual Setup Method</b></summary> 
 
 This is the old manual setup if the automated one doesn't work, or you need to tweak things. 
 
