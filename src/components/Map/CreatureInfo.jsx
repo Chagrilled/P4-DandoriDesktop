@@ -121,12 +121,12 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
         }
 
         if (selectFields[key]) {
-            value = value.replace("EActorPlacementCondition::", "");
+            // value = value.replace("EActorPlacementCondition::", "");
 
             return <li key={fullKey}>
                 <b>{key}</b>:
                 <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, fullKey, ddId, index)}>
-                    {selectFields[key].map(value => <option key={value} value={value}>{value}</option>)}
+                    {selectFields[key].map(value => <option key={value} value={value}>{value.replace("EActorPlacementCondition::", "")}</option>)}
                 </select>
             </li>;
         }

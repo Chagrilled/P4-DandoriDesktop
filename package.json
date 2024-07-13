@@ -1,7 +1,7 @@
 {
     "name": "p4-dandoridesktop",
     "productName": "p4-dandoridesktop",
-    "version": "1.2.3",
+    "version": "1.2.4",
     "description": "A Pikmin 4 Editor",
     "main": ".webpack/main",
     "icon": "src/images/icon/icon.ico",
@@ -47,6 +47,8 @@
     },
     "dependencies": {
         "@heroicons/react": "^2.0.18",
+        "adm-zip": "^0.5.14",
+        "axios": "^1.7.2",
         "deep-equal": "^2.2.3",
         "electron-squirrel-startup": "^1.0.0",
         "ol": "^7.4.0",

@@ -109,19 +109,19 @@ export const ActivityTimes = {
     Nighttime: "EActivityTime::Nighttime",
 };
 
-//EActorPlacementCondition:: (enum not displayed for size)
+//EActorPlacementCondition
 export const ActorPlacementCondition = {
-    ExploreRateNotLessThen: "ExploreRateNotLessThen",
-    LessMaxPikminLimit: "LessMaxPikminLimit",
-    MoreRescuerLeafNumber: "MoreRescuerLeafNumber",
-    MoreRescuerNpcNumber: "MoreRescuerNpcNumber",
-    MoreRescuerNumber: "MoreRescuerNumber",
-    NightAdventurePattern: "NightAdventurePattern",
-    QuestClear: "QuestClear",
-    RescueSurvivor: "RescueSurvivor",
-    ResistActorGlobalId: "ResistActorGlobalId",
-    UnclearCaveAfterEnding: "UnclearCaveAfterEnding",
-    UnionPikmin: "UnionPikmin",
+    ExploreRateNotLessThen: "EActorPlacementCondition::ExploreRateNotLessThen",
+    LessMaxPikminLimit: "EActorPlacementCondition::LessMaxPikminLimit",
+    MoreRescuerLeafNumber: "EActorPlacementCondition::MoreRescuerLeafNumber",
+    MoreRescuerNpcNumber: "EActorPlacementCondition::MoreRescuerNpcNumber",
+    MoreRescuerNumber: "EActorPlacementCondition::MoreRescuerNumber",
+    NightAdventurePattern: "EActorPlacementCondition::NightAdventurePattern",
+    QuestClear: "EActorPlacementCondition::QuestClear",
+    RescueSurvivor: "EActorPlacementCondition::RescueSurvivor",
+    ResistActorGlobalId: "EActorPlacementCondition::ResistActorGlobalId",
+    UnclearCaveAfterEnding: "EActorPlacementCondition::UnclearCaveAfterEnding",
+    UnionPikmin: "EActorPlacementCondition::UnionPikmin",
 };
 
 export const ExploreRateTargetType = {
@@ -187,7 +187,7 @@ export const editableBools = [
     "bDeactivateByExit",
     "bDisableIsFlareGuard",
     "bDisableSoftEdge",
-    "bEnableBothFreezeDrop",
+    "bEnableFreezeBothDrop",
     "bEnableCustomSoftEdge",
     "bEnableOptionalPoint",
     "bInitialPortalMove",
@@ -403,21 +403,22 @@ export const defaultVector = {
 };
 
 export const DefaultActorSpawnerDrop = {
-    angle: 180,
     assetName: "/Game/Carrot4/Placeables/Teki/GKochappy.GKochappy_C",
     bGenseiControl: 0,
-    carry: 1,
     halfHeight: 100,
     infiniteSpawn: 0,
     avatar: 1,
     pikmin: 1,
     avatarAndPikmin: 1,
+    carry: 1,
     bNotOverlap: 1,
     noDropItem: 0,
     overlapCenterX: 0,
     overlapCenterY: 0,
     overlapCenterZ: 0,
     radius: 350,
+    angle: 180,
+    sphereRadius: 500,
     randomRotation: 0,
     spareBytes: [5, 0, 0, 0, 78, 111, 110, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63],
     spawnInterval: 1,
@@ -425,8 +426,14 @@ export const DefaultActorSpawnerDrop = {
     spawnLocationX: 0,
     spawnLocationY: 0,
     spawnLocationZ: 0,
-    sphereRadius: 500,
-    customParameter: "None"
+    customParameter: "None",
+    fallStart: 0,
+    spawnAng: 0.0,
+    spawnVelX: 0.0,
+    spawnVelY: 0.0,
+    customFloatParameter: 0.0,
+    bSetTerritory: 0.0,
+    invasionStartTimeRatio: 0.0
 };
 
 export const DefaultPortalTrigger = {

@@ -7,6 +7,8 @@ import { readdir, promises, writeFile, accessSync, createWriteStream } from 'fs'
 import { join } from 'path';
 import { spawn } from 'child_process';
 import { version } from '../../package.json';
+import AdmZip from "adm-zip";
+import axios from 'axios';
 
 const isMac = process.platform === 'darwin';
 const LOG_PATH = join(`${app.getPath('userData')}`, "deploy-log.txt");
@@ -14,6 +16,74 @@ const LOG_PATH = join(`${app.getPath('userData')}`, "deploy-log.txt");
 const defaultLogger = (data, logStream) => {
     console.log(data.toString('utf8'));
     logStream.write(data.toString('utf8'));
+};
+
+const extractFiles = async (filePath, destination) => {
+    const AREA_PATH = join(`${filePath}`, "Main", "Area");
+    const CAVE_PATH = join(`${filePath}`, "Madori", "Cave");
+    const basePath = destination || join(filePath, 'DandoriDesktop-Carrot4', 'Maps');
+    await promises.mkdir(join(basePath, 'Maps'), { recursive: true });
+    await promises.mkdir(join(basePath, 'Maps', 'Main', 'Area'), { recursive: true });
+    await promises.mkdir(join(basePath, 'Maps', 'Madori', 'Cave'), { recursive: true });
+    const exportAreaPath = join(basePath, 'Maps', 'Main', 'Area');
+    const exportCavePath = join(basePath, 'Maps', 'Madori', 'Cave');
+
+    console.log(AREA_PATH);
+    readdir(AREA_PATH, (err, areaMaps) => {
+        console.log("areaMap", areaMaps);
+        if (err) {
+            return mainWindow.webContents.send('errorNotify', `Could not find any maps in ${AREA_PATH}`);
+        }
+        areaMaps.forEach(async map => {
+            if (map === 'Area500') return;
+            const fileNames = [
+                "Teki_Day",
+                "Teki_Night",
+                "Objects_Day",
+                "Objects_Night",
+                "Hero_Teki",
+                "Hero_Objects",
+                "Teki",
+                "Objects"
+            ];
+            await promises.mkdir(join(exportAreaPath, map, 'ActorPlacementInfo'), { recursive: true });
+
+            fileNames.forEach(async file => {
+                try {
+                    const mapPath = join(map, 'ActorPlacementInfo', `AP_${map}_P_${file}.json`);
+                    accessSync(join(AREA_PATH, mapPath));
+                    await promises.cp(join(AREA_PATH, mapPath), join(exportAreaPath, mapPath));
+                } catch (e) { }
+            });
+        });
+        readdir(CAVE_PATH, async (err, caveMaps) => {
+            console.log("caveMaps", caveMaps);
+            if (err) {
+                shell.openPath(filePath);
+                mainWindow.webContents.send('errorNotify', 'Could not read cave maps');
+                return mainWindow.webContents.send('successNotify', "Main area files copied - This is your Carrot4 folder. Put it in UassetEditor's _EDIT folder.");
+            }
+            const caves = await Promise.all([...caveMaps.map(path => promises.readdir(join(CAVE_PATH, path)))]);
+            caves.flat().forEach(async subfloor => {
+                console.log(subfloor);
+                const [cave] = subfloor.split('_');
+                const fileNames = [
+                    "Teki",
+                    "Objects"
+                ];
+                await promises.mkdir(join(exportCavePath, cave, subfloor, 'ActorPlacementInfo'), { recursive: true });
+                fileNames.forEach(async file => {
+                    const mapPath = join(cave, subfloor, 'ActorPlacementInfo', `AP_${subfloor}_P_${file}.json`);
+                    try {
+                        accessSync(join(CAVE_PATH, mapPath));
+                    } catch (e) { }
+                    await promises.cp(join(CAVE_PATH, mapPath), join(exportCavePath, mapPath));
+                });
+            });
+            if (!destination) shell.openPath(filePath);
+            return mainWindow.webContents.send('successNotify', "Files copied - This is your Carrot4 folder. Put it in UassetEditor's _EDIT folder.");
+        });
+    });
 };
 
 export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) => Menu.buildFromTemplate([
@@ -275,70 +345,48 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                         buttonLabel: "This is my Maps/ folder"
                     }).then(async result => {
                         if (result.filePaths && !result.canceled) {
-                            const AREA_PATH = join(`${result.filePaths[0]}`, "Main", "Area");
-                            const CAVE_PATH = join(`${result.filePaths[0]}`, "Madori", "Cave");
-                            await promises.mkdir(join(result.filePaths[0], 'DandoriDesktop-Carrot4', 'Maps'), { recursive: true });
-                            await promises.mkdir(join(result.filePaths[0], 'DandoriDesktop-Carrot4', 'Maps', 'Main', 'Area'), { recursive: true });
-                            await promises.mkdir(join(result.filePaths[0], 'DandoriDesktop-Carrot4', 'Maps', 'Madori', 'Cave'), { recursive: true });
-                            const exportAreaPath = join(result.filePaths[0], 'DandoriDesktop-Carrot4', 'Maps', 'Main', 'Area');
-                            const exportCavePath = join(result.filePaths[0], 'DandoriDesktop-Carrot4', 'Maps', 'Madori', 'Cave');
+                            await extractFiles(result.filePaths[0]);
+                        }
+                    });
+                }
+            },
+            {
+                label: 'Setup Files',
+                click: () => {
+                    dialog.showOpenDialog(mainWindow, {
+                        properties: ['openDirectory'],
+                        title: 'Select your destination folder',
+                        multiSelections: false,
+                        buttonLabel: "Put stuff here"
+                    }).then(async result => {
+                        if (result.filePaths && !result.canceled) {
+                            mainWindow.webContents.send('progressNotify', 'Downloading contents, hold tight');
+                            const [maps, castoc, uasseteditor] = await Promise.all([
+                                axios.get('https://github.com/Chagrilled/P4-Utils/raw/master/Maps.zip', { responseType: 'arraybuffer' }),
+                                axios.get('https://github.com/Chagrilled/P4-Utils/raw/master/tooling/castoc.zip', { responseType: 'arraybuffer' }),
+                                axios.get('https://github.com/Chagrilled/P4-Utils/raw/master/tooling/P4UassetEditor.zip', { responseType: 'arraybuffer' })
+                            ]);
+                            const dest = result.filePaths[0];
 
-                            console.log(AREA_PATH);
-                            readdir(AREA_PATH, (err, areaMaps) => {
-                                console.log("areaMap", areaMaps);
-                                if (err) {
-                                    return mainWindow.webContents.send('errorNotify', `Could not find any maps in ${AREA_PATH}`);
-                                }
-                                areaMaps.forEach(async map => {
-                                    if (map === 'Area500') return;
-                                    const fileNames = [
-                                        "Teki_Day",
-                                        "Teki_Night",
-                                        "Objects_Day",
-                                        "Objects_Night",
-                                        "Hero_Teki",
-                                        "Hero_Objects",
-                                        "Teki",
-                                        "Objects"
-                                    ];
-                                    await promises.mkdir(join(exportAreaPath, map, 'ActorPlacementInfo'), { recursive: true });
+                            new AdmZip(Buffer.from(uasseteditor.data, 'binary')).extractAllTo(dest);
+                            new AdmZip(Buffer.from(castoc.data, 'binary')).extractAllTo(dest);
+                            new AdmZip(Buffer.from(maps.data, 'binary')).extractAllTo(join(dest, 'MapArchive'));
+                            await extractFiles(join(dest, 'MapArchive', 'Maps'), join(dest, 'P4UassetEditor', '_EDIT', 'Carrot4'));
 
-                                    fileNames.forEach(async file => {
-                                        try {
-                                            const mapPath = join(map, 'ActorPlacementInfo', `AP_${map}_P_${file}.json`);
-                                            accessSync(join(AREA_PATH, mapPath));
-                                            await promises.cp(join(AREA_PATH, mapPath), join(exportAreaPath, mapPath));
-                                        } catch (e) { }
-                                    });
-                                });
-                                readdir(CAVE_PATH, async (err, caveMaps) => {
-                                    console.log("caveMaps", caveMaps);
-                                    if (err) {
-                                        shell.openPath(result.filePaths[0]);
-                                        mainWindow.webContents.send('errorNotify', 'Could not read cave maps');
-                                        return mainWindow.webContents.send('successNotify', "Main area files copied - This is your Carrot4 folder. Put it in UassetEditor's _EDIT folder.");
-                                    }
-                                    const caves = await Promise.all([...caveMaps.map(path => promises.readdir(join(CAVE_PATH, path)))]);
-                                    caves.flat().forEach(async subfloor => {
-                                        console.log(subfloor);
-                                        const [cave] = subfloor.split('_');
-                                        const fileNames = [
-                                            "Teki",
-                                            "Objects"
-                                        ];
-                                        await promises.mkdir(join(exportCavePath, cave, subfloor, 'ActorPlacementInfo'), { recursive: true });
-                                        fileNames.forEach(async file => {
-                                            const mapPath = join(cave, subfloor, 'ActorPlacementInfo', `AP_${subfloor}_P_${file}.json`);
-                                            try {
-                                                accessSync(join(CAVE_PATH, mapPath));
-                                            } catch (e) { }
-                                            await promises.cp(join(CAVE_PATH, mapPath), join(exportCavePath, mapPath));
-                                        });
-                                    });
-                                    shell.openPath(result.filePaths[0]);
-                                    return mainWindow.webContents.send('successNotify', "Files copied - This is your Carrot4 folder. Put it in UassetEditor's _EDIT folder.");
-                                });
-                            });
+                            config.castocDir = join(dest, 'castoc');
+                            config.encoderDir = join(dest, 'P4UassetEditor');
+                            config.gameDir = join(dest, 'P4UassetEditor', '_EDIT', 'Carrot4');
+
+                            shell.openPath(join(dest));
+                            shell.openPath(join(config.encoderDir, 'README.txt'));
+
+                            writeFile(CONFIG_PATH, JSON.stringify({
+                                ...config,
+                                castocDir: config.castocDir,
+                                encoderDir: config.encoderDir,
+                                gameDir: config.gameDir
+                            }, null, 4), { encoding: "utf-8" }, () => { });
+                            mainWindow.webContents.send('successNotify', 'Setup files. Read the encoder readme and make sure you have Python/cityhash. Set emulator output path and off you go.');
                         }
                     });
                 }

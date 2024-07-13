@@ -653,8 +653,8 @@ export const parseTekiAI = ai => {
     };
     index += 4 + invSize * 8; // skip the inventory flag loop
     index += 4; // this is always 1 - maybe bEnableZukanDrop
-    AIProperties.bEnableBothFreezeDrop = ai[index];
-    index += AIProperties.bEnableBothFreezeDrop ? 16 : 12; // this bool is ADDITIONAL bytes if present
+    AIProperties.bEnableFreezeBothDrop = ai[index];
+    index += AIProperties.bEnableFreezeBothDrop ? 16 : 12; // this bool is ADDITIONAL bytes if present
     index += 4; //unknown float
     AIProperties.searchAreaOtakaraCarryRadius = readFloat(ai.slice(index, index += 4));
     index += 8; // unknown floats

@@ -527,11 +527,11 @@ const constructActorSpawnerAI = ({ parsed: [drop] }, aiStatic) => {
     bytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag), 2));
     bytes.push(drop.bSetTerritory ? 1 : 0, 0, 0, 0);
     if (drop.bSetTerritory) {
-        bytes.push(...floatBytes(drop.territoryX));
-        bytes.push(...floatBytes(drop.territoryY));
-        bytes.push(...floatBytes(drop.territoryZ));
-        bytes.push(...floatBytes(drop.territoryHalfHeight));
-        bytes.push(...floatBytes(drop.territoryRadius));
+        bytes.push(...floatBytes(drop.territoryX || 0));
+        bytes.push(...floatBytes(drop.territoryY || 0));
+        bytes.push(...floatBytes(drop.territoryZ || 0));
+        bytes.push(...floatBytes(drop.territoryHalfHeight || 0));
+        bytes.push(...floatBytes(drop.territoryRadius || 0));
     }
     bytes.push(...floatBytes(drop.invasionStartTimeRatio));
 
@@ -648,6 +648,14 @@ const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd, AIProperties 
 export const constructActor = (actor, mapId) => {
     console.log("Constructing a", actor, " at ", actor.transform.translation.X);
     const entData = entityData[actor.creatureId];
+    if (!entData && actor.infoType === InfoType.Treasure) {
+        // Treasures (and all entities) that only appear as drops won't have any 
+        // construction data, as there's no AGL data to scrape. Thus, we either need to
+        // fully understand the full ASP, or use a sensible default. While I've charted the treasure bytes
+        // there's a lot of facets to fully recreating the ASP beyond just AI. Thus, we'll just assign
+        // the default data to this paints one, which seems to have a very basic bitch config.
+        entData = entityData.OtaPaintsAQU;
+    }
     const transforms = {
         Rotation: {
             X: -0.0,

@@ -33,13 +33,28 @@ Currently supports:
 
 ## 🛠️ Setup/Workflow
 
+Make sure you have Python 3.7+ installed, and run `pip install cityhash` from a shell in order to run UassetEncoder.
+
+❗Click `Tools` -> `Setup Files`, choose your directory, and everything will get unzipped and configured. Set your `Output Paks Folder` from `Settings` to the output folder in your emulator, and you're good to go.
+
+The following folders are made:
+
+- `P4UassetEditor` contains the en/decoder, and is where your edited maps are living
+- `castoc` to package mods.
+- `MapArchive` a full dump of the map JSONs - leave this alone, and use it as a backup when you break files, or for datamining.
+
+<details>
+<summary>⛏️ Manual Setup Method</summary> 
+
+This is the old manual setup if the automated one doesn't work, or you need to tweak things. 
+
 DDT reads and writes to local game files that must be decoded to their JSON forms from **extracted `.uasset`** files. It is assumed you have these files already.
 
 Use the `Settings` menu to set 4 things:
 
 - `Carrot4 Folder` - Folder containing your folder structure of decoded game JSONs - this folder should contain `Maps/` and `Placeables/`. Use the [⛏️ Extracting Maps](#%EF%B8%8F-extracting-maps) process to generate this.
 - `Encoder Folder` - Folder containing [P4UassetEditor](https://gamebanana.com/tools/15077). Assumes the files/folders are not renamed. The contents of this folder should be the extracted uasset editor - **so must contain `_EDIT`, `P4UassetEditor/`, `encode.bat`**, etc.
-- `castoc Folder` - Folder containing `castoc`. Assumes the files/folders are not renamed. There are several versions of this tool distributed, and we as a community haven't yet organised these tools into repos. I've zipped mine [in the repo](./castoc.zip) for use.
+- `castoc Folder` - Folder containing `castoc`. Assumes the files/folders are not renamed. There are several versions of this tool distributed, and we as a community haven't yet organised these tools into repos. [I've zipped mine](https://github.com/Chagrilled/P4-Utils/raw/master/tooling/castoc.zip) for use.
 - `Output Paks Folder` - Folder (probably) in your emulator you want your built mod's outputs to go to
 
 My folder structure looks like:
@@ -83,6 +98,8 @@ Because you only really want to package files you need into your mod, I've made 
 - You should end up with a folder in there called `DandoriDesktop-Carrot4`. This folder contains just the teki/object files it needs.
 - Drag that folder to your P4UassetEditor's `_EDIT` folder and rename it `Carrot4`.
 - Set your `Carrot4 Folder` in DDT to this Carrot4 folder. 
+
+</details>
 
 ## ✏️ Editing
 
