@@ -22,6 +22,10 @@ export const regenerateAGLEntity = (actor, aglData) => {
     };
     const asp = aglData.ActorSerializeParameter;
     const entData = entityData[actor.creatureId];
+    if (!entData && actor.infoType === InfoType.Treasure) {
+        // see constructing.js for why
+        entData = entityData.OtaPaintsAQU;
+    }
     const assetPathName = getAssetPathFromId(actor.creatureId) || `/Game/Carrot4/Placeables/${getSubpath(actor.creatureId)}/G${actor.creatureId}.G${actor.creatureId}_C`;
     const newAsset = assetPathName !== aglData.SoftRefActorClass.AssetPathName;
     console.log("is it different?", newAsset);
