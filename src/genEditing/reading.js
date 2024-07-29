@@ -1,6 +1,6 @@
 import { InfoType, PikminTypes, PikminPlayType, PortalTypes, ValveWorkType, weirdAIEntities } from '../api/types';
 import { findSequenceStartIndex } from '../utils';
-import { bytesToInt } from '../utils/bytes';
+import { bytesToInt, getDisableSettings } from '../utils/bytes';
 import { NONE_BYTES } from './constructing';
 
 //#region Stocks
@@ -729,7 +729,8 @@ const parsePortalTrigger = portalTrigger => {
     index += 4; // unknown zeros
     PortalTrigger.panzakuPriority = portalTrigger[index];
     index += 4;
-    PortalTrigger.disablePikminFlags = bytesToInt(portalTrigger.slice(index, index += 4));
+    const flags = bytesToInt(portalTrigger.slice(index, index += 4));
+    PortalTrigger.disablePikminFlags = getDisableSettings(flags);
     PortalTrigger.bDisableIsFlareGuard = portalTrigger[index];
     index += 4;
     PortalTrigger.spareBytes = portalTrigger.slice(index, portalTrigger.length); // These last 3 floats are the trigger coordinates

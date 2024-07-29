@@ -1,6 +1,6 @@
 import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs, ObjectAIParameter, weirdAIEntities } from '../api/types';
 import { default as entityData } from '../api/entityData.json';
-import { floatToByteArr, intToByteArr } from '../utils/bytes';
+import { floatToByteArr, intToByteArr, disableFlagsToInt } from '../utils/bytes';
 import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue } from '../utils';
 import { parseGDMDrops, parseTekiAI, parsePotDrops } from './reading';
 
@@ -357,7 +357,7 @@ const constructPortalTrigger = ({ transform, PortalTrigger }) => {
     bytes.push(...floatBytes(parseFloat(PortalTrigger.playAnimDist)));
     bytes.push(0, 0, 0, 0);
     bytes.push(parseInt(PortalTrigger.panzakuPriority), 0, 0, 0);
-    bytes.push(...intToByteArr(parseInt(PortalTrigger.disablePikminFlags)));
+    bytes.push(...intToByteArr(parseInt(disableFlagsToInt(PortalTrigger.disablePikminFlags))));
     bytes.push(PortalTrigger.bDisableIsFlareGuard ? 1 : 0, 0, 0, 0);
     // bytes.push(...PortalTrigger.spareBytes);
     bytes.push(0, 0, 200, 66, 0, 0, 180, 66, 0, 0, 72, 66);

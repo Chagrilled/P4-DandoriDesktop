@@ -1,4 +1,5 @@
 // EPikminColor enum
+// According to DT_PikminProperty, bean is 8
 export const PikminTypes = {
     0: "PikminRed",
     1: "PikminBlue",
@@ -8,6 +9,7 @@ export const PikminTypes = {
     5: "PikminPurple",
     6: "PikminWhite",
     7: "PikminIce",
+    9: "PikminPhoton",
     16: "Not set (PongashiColor only)"
 };
 
@@ -149,7 +151,6 @@ export const editableNumberFields = [
     "birthDay",
     "deadDay",
     "demoID",
-    "disablePikminFlags",
     "dropOption",
     "flatEffectOffsetZ",
     "generateNum",
@@ -449,7 +450,7 @@ export const DefaultPortalTrigger = {
     bDeactivateByExit: false,
     playAnimDist: 300,
     panzakuPriority: 0,
-    disablePikminFlags: 0,
+    disablePikminFlags: Object.fromEntries(Array.from({ length: 16 }, (_, i) => [i, false])),
     bDisableIsFlareGuard: false,
 };
 
@@ -1242,7 +1243,8 @@ export const PikminNames = {
     PikminIce: "Ice Pikmin",
     PikminWing: "Wing Pikmin",
     PikminWhite: "White Pikmin",
-    PikminPurple: "Purple Pikmin"
+    PikminPurple: "Purple Pikmin",
+    PikminPhoton: "Glow Pikmin"
 };
 
 export const EntityNames = {
@@ -1368,7 +1370,15 @@ export const iconOverrides = {
     navmeshtrigger: "default",
     navmeshtriggerlinkforsplash: "default",
     navmeshtriggerclear: "default",
-    none: "default"
+    none: "default",
+    pelplant1revive: "pelplant1",
+    pelplant1ddb: "pelplant1",
+    pelplant1reviveforhero: "pelplant1",
+    pelplant5revive: "pelplant5",
+    pelplant5ddb: "pelplant5",
+    pelplant5reviveforhero: "pelplant5",
+    pelplant10ddb: "pelplant10",
+    pelplant10revive: "pelplant10",
 };
 
 // A 207 byte slice from an AreaBaseCamp_GEN_VARIABLE

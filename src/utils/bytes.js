@@ -43,3 +43,22 @@ export const intToByteArr = (number, numBytes = 4) => {
     }
     return bytes;
 };
+
+export const getDisableSettings = (flags) => {
+    const pikmin = {};
+    for (let i = 0; i < 16; i++) {
+        // Extract the bit at position i
+        pikmin[i] = (flags & (1 << i)) !== 0;
+    }
+    return pikmin;
+};
+
+export const disableFlagsToInt = (pikminSettings) => {
+    let flags = 0;
+    for (const [index, isEnabled] of Object.entries(pikminSettings)) {
+        if (isEnabled) {
+            flags |= (1 << index);
+        }
+    }
+    return flags;
+};

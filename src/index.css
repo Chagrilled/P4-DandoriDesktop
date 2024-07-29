@@ -7,3 +7,34 @@
     font-family: 'Pikmin';
     src: url('./assets/Pikmin.ttf');
 }
+
+.ol-control button {
+    background-color: #ffffff !important;
+    /* Ensure background color is white */
+    color: #000000 !important;
+    /* Ensure text color is black */
+    border: 1px solid #cccccc !important;
+    /* Add a border */
+    width: 30px !important;
+    /* Set a specific width */
+    height: 30px !important;
+    /* Set a specific height */
+    line-height: 30px !important;
+    /* Center the text vertically */
+    text-align: center !important;
+    /* Center the text horizontally */
+    cursor: pointer !important;
+    /* Ensure pointer cursor */
+    font-size: 16px !important;
+    /* Set font size */
+}
+
+.ol-control button:hover {
+    background-color: #f0f0f0 !important;
+    /* Change background on hover */
+}
+
+.ol-control button:active {
+    background-color: #e0e0e0 !important;
+    /* Change background on active */
+}

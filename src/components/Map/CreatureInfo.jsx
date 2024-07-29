@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
-import { NameMap, editableNumberFields, editableBools, ignoreFields, editableStrings, arrayStrings, selectFields, defaultPlacementCond, defaultVector } from "../../api/types";
+import { NameMap, editableNumberFields, editableBools, ignoreFields, editableStrings, arrayStrings, selectFields, defaultPlacementCond, defaultVector, PikminTypes } from "../../api/types";
 import { useConfig } from '../../hooks/useConfig';
 import { findMarkerById, getAvailableTimes, mutateAIProperties, deepCopy } from '../../utils';
 import { DebouncedInput } from './DebouncedInput';
 import { MapContext } from './MapContext';
+import { MarkerIcon } from '../Icon';
 
 //#region updateCreature
 const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId, index) => {
@@ -143,6 +144,34 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
             </li>;
         }
 
+
+        if (key === 'disablePikminFlags') {
+            return <li key={fullKey}>
+                <b>{key}</b>
+                <ul className='columns-3 gap-x-0'>
+                    {Object.entries(value).slice(0, 8).map(([type, disabled]) =>
+                        <li className='flex'>
+                            <input
+                                type="checkbox"
+                                checked={disabled}
+                                className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                onChange={(e) => updateCreature(e.target.checked, mapMarkerData, setMapData, obj, `${fullKey}.${type}`, ddId, index)}
+                            />
+                            <MarkerIcon type="pikmin" override="-disable" id={PikminTypes[type].toLowerCase()} />
+                        </li>
+                    )}
+                    <li className='flex'>
+                        <input
+                            type="checkbox"
+                            checked={value[9]}
+                            className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                            onChange={(e) => updateCreature(e.target.checked, mapMarkerData, setMapData, obj, `${fullKey}.9`, ddId, index)}
+                        />
+                        <MarkerIcon type="pikmin" override="-disable" id={PikminTypes[9].toLowerCase()} />
+                    </li>
+                </ul>
+            </li>;
+        }
 
         if (["birthCond", "eraseCond", "optionalPointOffsets"].includes(key)) {
             const objectType = key === "optionalPointOffsets" ? defaultVector : defaultPlacementCond;
