@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { NavigationPanel } from '../components/Map/NavigationPanel';
 import { PanelLayout } from '../components/Map/PanelLayout';
 import { InfoPanel } from '../components/Map/InfoPanel';
-import { getMarkerData } from '../api/MapAPI';
+import { getMarkerData } from '../api/mapAPI';
 import { MapContainer } from '../components/Map/MapContainer';
 import { toast } from 'react-hot-toast';
 import { MapContext } from '../components/Map/MapContext';

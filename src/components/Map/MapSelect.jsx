@@ -35,9 +35,12 @@ export const MapSelect = ({ }) => {
 
     const mapLinks = maps.map(mapId => {
         const splitId = mapId.split('_');
+        // this could definitely be reowrked, but caves need splitting on _, but DDB doesn't
+        // so just splice the ID back on. Could be an if
+        const ddbSuffix = mapId.startsWith('DDB') ? `_${splitId[1]}` : '';
 
-        let mapName = IdToNameMap[splitId[0]];
-        mapName += splitId[1] ? ' ' + splitId[1] : '';
+        let mapName = IdToNameMap[`${splitId[0]}${ddbSuffix}`];
+        mapName += mapId.startsWith('Cave') ? ' ' + splitId[1] : '';
         return <div key={mapId}>
             <button className={currentMap == mapId ? "font-bold" : ""} onClick={() => { onMapChange(mapId); return false; }}>{mapName} <i>{` (${mapId})`}</i></button>
         </div>;
@@ -112,5 +115,17 @@ const IdToNameMap = {
     "Night004-1": "Giant's Hearth (Line of Logs)",
     "Night004-2": "Giant's Hearth (Abandoned Throne)",
     "Night006-1": "Primordial Thicket (The Sylvan Gate)",
-    "Night006-2": "Primordial Thicket (Autumnal Gully)"
+    "Night006-2": "Primordial Thicket (Autumnal Gully)",
+    "DDB_AI001": "Trial Run",
+    "DDB_AI002": "Battle in a Box",
+    "DDB_AI003": "Dandori Castle",
+    "DDB_AI004": "Leafy Showdown",
+    "DDB_AI005": "Hot Sandy Duel",
+    "DDB_AI006": "Final Battle",
+    "DDB_AI001-VS": "Trial Run (VS)",
+    "DDB_AI002-VS": "Battle in a Box (VS)",
+    "DDB_AI003-VS": "Dandori Castle (VS)",
+    "DDB_AI004-VS": "Leafy Showdown (VS)",
+    "DDB_AI005-VS": "Hot Sandy Duel (VS)",
+    "DDB_AI006-VS": "Final Battle (VS)"
 };

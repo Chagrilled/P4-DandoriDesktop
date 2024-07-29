@@ -1,4 +1,4 @@
-import { InfoType, Times, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, weirdAIEntities, ActorPlacementCondition } from "../api/types";
+import { InfoType, Times, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, weirdAIEntities, ActorPlacementCondition, AGLs } from "../api/types";
 import { internalAssetNames } from "../api/assetList";
 
 export const getPathType = assetName => assetName.match(/Placeables\/(.+)\/G/)[1];
@@ -72,6 +72,9 @@ export const getInfoType = subPath => {
     if (subPath === 'Teki') infoType = InfoType.Creature;
     if (subPath === 'Items') infoType = InfoType.Item;
     if (subPath === 'Gimmicks/WarpCarry') infoType = InfoType.WorkObject;
+    if (subPath === 'Actor/VS') infoType = InfoType.PopPlaceActor;
+    if (subPath === 'Teki') infoType = InfoType.Creature;
+    if (subPath.includes('ActorSpawner')) infoType = InfoType.Creature;
     return infoType;
 };
 
@@ -85,10 +88,23 @@ export const capitalise = string => string.charAt(0).toUpperCase() + string.slic
 export const getAssetPathFromId = id => internalAssetNames.find(asset => asset.includes(`G${id}_C`));
 
 export const getAvailableTimes = mapId => {
-    if (['HeroStory', 'Cave', 'Area011'].some(area => mapId.includes(area))) return [Times.PERM];
+    if (['HeroStory', 'Cave', 'Area011', 'DDB'].some(area => mapId.includes(area))) return [Times.PERM];
     if (mapId.includes('Night')) return [Times.NIGHT, Times.PERM];
     return [Times.DAY, Times.PERM];
 };
+
+export const getAvaiableAGLs = mapId => {
+    if (mapId.includes('-VS')) return [AGLs.Objects_VS];
+    if (['HeroStory', 'Cave', 'Area011', 'DDB'].some(area => mapId.includes(area))) return [
+        AGLs.Objects_Perm,
+        AGLs.Teki_Perm
+    ];
+    if (mapId.includes('Night')) return [
+        Times.NIGHT, 
+        Times.PERM
+    ];
+    return [Times.DAY, Times.PERM];
+} 
 
 export const findObjectKey = (object, target) => Object.keys(object).find(key => key === target);
 

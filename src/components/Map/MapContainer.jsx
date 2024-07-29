@@ -4,7 +4,7 @@ import { defaults as defaultControls } from 'ol/control';
 import { getCenter } from 'ol/extent';
 import PointerInteraction from 'ol/interaction/Pointer';
 import { Select, defaults as defaultInteractions, Modify } from 'ol/interaction';
-import { getMapData } from "../../api/MapAPI";
+import { getMapData } from "../../api/mapAPI";
 import { getImageLayersForMap, getProjectionForMap } from '../../api/getImageLayers';
 import { useContextMenu } from 'react-contexify';
 import { MapMenu } from './MapMenu';

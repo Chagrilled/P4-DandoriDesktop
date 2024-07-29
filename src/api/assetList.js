@@ -1156,5 +1156,6 @@ export const internalAssetNames = [
     "/Game/Carrot4/Placeables/WorkObjects/YBox/GYBoxSmallAnother.GYBoxSmallAnother_C",
     "/Game/Carrot4/Placeables/Zukan/DT_ZukanBP.DT_ZukanBP_C",
     "/Game/Carrot4/Placeables/Zukan/DT_ZukanOtakaraParameter.DT_ZukanOtakaraParameter_C",
-    "/Game/Carrot4/Placeables/Zukan/DT_ZukanTekiParameter.DT_ZukanTekiParameter_C"
+    "/Game/Carrot4/Placeables/Zukan/DT_ZukanTekiParameter.DT_ZukanTekiParameter_C",
+    "/Game/Carrot4/Core/Actor/VS/GPopPlaceActor.GPopPlaceActor_C"
 ];

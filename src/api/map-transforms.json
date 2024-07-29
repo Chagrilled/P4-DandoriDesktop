@@ -526,5 +526,29 @@
     "Night010": {
         "rotation": -90,
         "extentRadius": 6000
+    },
+    "DDB_AI001": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "DDB_AI002": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "DDB_AI003": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "DDB_AI004": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "DDB_AI005": {
+        "rotation": 0,
+        "extentRadius": 2000
+    },
+    "DDB_AI006": {
+        "rotation": 0,
+        "extentRadius": 2000
     }
 }

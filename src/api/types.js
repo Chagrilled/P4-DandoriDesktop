@@ -125,15 +125,15 @@ export const ActorPlacementCondition = {
 };
 
 export const ExploreRateTargetType = {
-    Kinkai: "EExploreRateTargetType::Kinkai",
     None: "EExploreRateTargetType::None",
+    TekiDay: "EExploreRateTargetType::TekiDay",
+    Kinkai: "EExploreRateTargetType::Kinkai",
     Otakara: "EExploreRateTargetType::Otakara",
     OnyonCarry: "EExploreRateTargetType::OnyonCarry",
     ShizaiStation: "EExploreRateTargetType::ShizaiStation",
     ShizaiTateana: "EExploreRateTargetType::ShizaiTateana",
     Survivor: "EExploreRateTargetType::Survivor",
-    SurvivorLeaf: "EExploreRateTargetType::SurvivorLeaf",
-    TekiDay: "EExploreRateTargetType::TekiDay"
+    SurvivorLeaf: "EExploreRateTargetType::SurvivorLeaf"
 };
 
 //#region UI element controllers
@@ -292,6 +292,7 @@ export const InfoType = {
     Hazard: "hazard",
     Portal: "portal",
     Item: "item",
+    PopPlaceActor: "popplaceactor",
     WaterWater: "water-water",
     WaterSwamp: "water-swamp",
 };
@@ -319,7 +320,8 @@ export const Legends = [
     InfoType.Onion,
     InfoType.Hazard,
     InfoType.Portal,
-    InfoType.Item
+    InfoType.Item,
+    InfoType.PopPlaceActor
 ];
 
 export const Categories = [
@@ -376,6 +378,12 @@ export const Categories = [
         label: "Pikmin",
         markers: [
             InfoType.Pikmin
+        ]
+    },
+    {
+        label: "PopPlace Actors",
+        markers: [
+            InfoType.PopPlaceActor
         ]
     }
 ];
@@ -1156,12 +1164,15 @@ export const ObjectNames = {
     Pellet1: "1 Pellet",
     Pellet5: "5 Pellet",
     Pelplant1: "1 Pellet Posy",
+    Pelplant1DDB: "1 Pellet Posy (DDB)",
     Pelplant1Revive: "1 Pellet Posy (Reviving)",
     Pelplant1ReviveForHero: "1 Pellet Posy (Reviving) (Hero)",
     Pelplant5: "5 Pellet Posy",
+    Pelplant5DDB: "5 Pellet Posy (DDB)",
     Pelplant5Revive: "5 Pellet Posy (Reviving)",
     Pelplant5ReviveForHero: "5 Pellet Posy (Reviving) (Hero)",
     Pelplant10: "10 Pellet Posy",
+    Pelplant10DDB: "10 Pellet Posy (DDB)",
     Pelplant10ReviveForHero: "10 Pellet Posy (Reviving) (Hero)",
     Pod: "Pod",
     SurvivorA: "Survivor (A)",
@@ -1255,7 +1266,8 @@ export const EntityNames = {
     ...OnionNames,
     ...BaseNames,
     ...ObjectNames,
-    ...PortalNames
+    ...PortalNames,
+    "PopPlaceActor": "Pop Place Actor"
 };
 
 export const NameMap = {
@@ -1270,6 +1282,7 @@ export const NameMap = {
     [InfoType.Portal]: PortalNames,
     [InfoType.Item]: ItemNames,
     [InfoType.Treasure]: TreasureNames,
+    [InfoType.PopPlaceActor]: { "PopPlaceActor": "Pop Place Actor" }
 };
 
 //#region Icon Overrides
@@ -1368,7 +1381,16 @@ export const iconOverrides = {
     navmeshtrigger: "default",
     navmeshtriggerlinkforsplash: "default",
     navmeshtriggerclear: "default",
-    none: "default"
+    none: "default",
+    pelplant1revive: "pelplant1",
+    pelplant1ddb: "pelplant1",
+    pelplant1reviveforhero: "pelplant1",
+    pelplant5revive: "pelplant5",
+    pelplant5ddb: "pelplant5",
+    pelplant5reviveforhero: "pelplant5",
+    pelplant10ddb: "pelplant10",
+    pelplant10revive: "pelplant10",
+    // popplaceactor: "default"
 };
 
 // A 207 byte slice from an AreaBaseCamp_GEN_VARIABLE
@@ -1382,6 +1404,10 @@ export const Times = {
     PERM: "Permanent"
 };
 
+export const getAGLs = mapId => {
+    if (mapId.startsWith('DDB')) return []
+}
+
 export const invisibleEntities = [
     "Ojama",
     "NavMeshTrigger",
@@ -1391,7 +1417,7 @@ export const invisibleEntities = [
     "Excavation"
 ];
 
-// Strange entities 
+// Strange entities to ignore for now
 export const weirdAIEntities = [
     'BurrowDemejako',
     'BurrowDemejakoClose',
@@ -1410,5 +1436,16 @@ export const weirdAIEntities = [
     'TargetPoint_Kitchen',
     'TargetPoint_LivingRoom',
     'DemoWarpPoint',
-    'PerchTakeOff'
+    'PerchTakeOff',
+    "GenericPoolActor"
 ];
+
+export const AGLs = {
+    Objects_Perm: 'Objects (All)',
+    Objects_Day: 'Objects (Day)',
+    Objects_Night: 'Objects (Night)',
+    Objects_VS: 'Objects (VS)',
+    Teki_Day: 'Teki (Day)',
+    Teki_Night: 'Teki (Night)',
+    Teki_Perm: 'Teki (All)'
+}
