@@ -13,6 +13,17 @@ export const PikminTypes = {
     16: "Not set (PongashiColor only)"
 };
 
+export const OnionToPikminMap = {
+    "OnyonCarryRed": PikminTypes[0],
+    "OnyonCarryBlue": PikminTypes[1],
+    "OnyonCarryYellow": PikminTypes[2],
+    "OnyonCarryStone": PikminTypes[3],
+    "OnyonCarryPink": PikminTypes[4],
+    "OnyonCarryPurple": PikminTypes[5],
+    "OnyonCarryWhite": PikminTypes[6],
+    "OnyonCarryIce": PikminTypes[7],
+};
+
 export const TeamIDs = {
     A: "ETeamIdEditor::A",
     B: "ETeamIdEditor::B",
@@ -389,6 +400,7 @@ export const DefaultDrop = {
     bRegistGenerator: 0,
     dropChance: 1,
     dropCondition: 0,
+    gameRulePermissionFlag: 0,
     flags: [1, 8, 16, 64],
     customFloatParam: 0.0,
     bSetTerritory: false,
@@ -636,7 +648,8 @@ export const CreatureNames = {
     Kurage: "Lesser Spotted Jellyfloat",
     Kurione: "Honeywisp",
     Mar: "Puffy Blowhog",
-    Marigumo: "Arachnode",
+    MarigumoNet: "Arachnode (+Net?)",
+    MarigumoNet_Low: "Arachnode (+Low net?)",
     MaroFrog: "Wollyhop",
     MiniMochi: "Sunsquish",
     MitsuMochi: "Foolix",
@@ -669,7 +682,7 @@ export const CreatureNames = {
     PikminWing: "Wing Pikmin",
     PikminPurple: "Purple Pikmin",
     PikminWhite: "White Pikmin",
-    PikminGlow: "Glow Pikmin",
+    PikminPhoton: "Glow Pikmin",
     PikminIce: "Ice Pikmin",
     Queen: "Empress Bulblax",
     RedShijimi: "Red Spectralids",
@@ -984,8 +997,7 @@ export const ItemNames = {
     PhotonBall: "Glow Seed?",
     ShugoFlag: "Idler's Alert?",
     Stone: "Stone?",
-    HotExtract: "Ultra-Spicy Spray",
-    // PiecePick: "Raw Material"
+    HotExtract: "Ultra-Spicy Spray"
 };
 
 export const BaseNames = {
@@ -993,23 +1005,26 @@ export const BaseNames = {
     OnyonCamp01: "Onion Camp 1",
     OnyonCamp02: "Onion Camp 2",
     OnyonCamp03: "Onion Camp 3",
+    OnyonCamp04: "Onion Camp 4",
     OnyonCampSimple: "Simple Onion Camp (?)",
     OnyonCampDummy: "Dummy Onion Camp",
     PodCamp: "Pod Camp",
     PodCamp01: "Pod Camp 1",
     PodCamp02: "Pod Camp 2",
     PodCamp03: "Pod Camp 3",
+    PodCamp04: "Pod Camp 4",
     PodCampCave00: "Cave Pod Camp",
     PodCampCave01: "Cave Pod Camp 1",
     PodCampCave02: "Cave Pod Camp 2",
     PodCampCave03: "Cave Pod Camp 3",
     PodCampSimple: "Simple Pod Camp",
-    PodCampyDummy: "Dummy Pod Camp"
+    PodCampDummy: "Dummy Pod Camp"
 };
 
 //#region Gimmick Names
 export const GimmickNames = {
     AirWallBox: "AirWallBox",
+    AirWallFlick: "AirWallFlick",
     Branch_Long: "Long Branch",
     Burning: "Straw",
     Circulator: "Fan",
@@ -1030,7 +1045,7 @@ export const GimmickNames = {
     CrushJelly_S: "Hydro Jelly (S)",
     CrushJelly_M: "Hydro Jelly (M)",
     CrushJelly_L: "Hydro Jelly (L)",
-    Excavation: "Excavation",
+    ExcavationL: "Excavation (L)",
     ExcavationM: "Excavation (M)",
     ExcavationS: "Excavation (S)",
     ExcavationOnyon: "Excavation (Onion)",
@@ -1100,13 +1115,11 @@ export const HazardNames = {
     PoisonKomushL: "Poison Kingcap (L)",
     PoisonMush: "Poison Spotcap",
     PoisonMushS: "Poison Spotcap (S)",
-    PoisonMushL: "Poison Spotcap (L)",
     StickyFloor: "Sticky Floor",
     StickyFloor175uu: "Sticky Floor (175uu)",
     StickyFloor525uu: "Sticky Floor (525uu)",
     StickyFloorFew: "Sticky Floor (Small?)",
     StickyFloorPoison: "Poison Sticky Floor",
-    StickyFloorPoison175uu: "Poison Sticky Floor (175uu)",
     StickyFloorPoisonFew: "Poison Sticky Floor (Small?)",
     StickyMush: "Sticky Spotcap?",
     StickyMushB: "Sticky Spotcap (B)?",
@@ -1124,7 +1137,8 @@ export const OnionNames = {
     OnyonCarryRed: "Red Onion",
     OnyonCarryStone: "Rock Onion",
     OnyonCarryWhite: "White Onion",
-    OnyonCarryYellow: "Yellow Onion"
+    OnyonCarryYellow: "Yellow Onion",
+    OnyonBootUpRed: "Area 500 Red Onion"
 };
 
 //#region Object Names
@@ -1146,14 +1160,24 @@ export const ObjectNames = {
     CushionB: "Cushion (B)",
     CushionC: "Cushion (C)",
     CushionD: "Cushion (D)",
+    DolphinArea500Before: "Dolphin (Area500 Before OST)",
+    DolphinArea500After: "Dolphin (Area500 After OST)",
     PelplantTable: "Pellet Posy Platform",
     Burrow: "Burrow",
     BikkuriKinokoPlant: "Startle Spore Plant",
+    Happy: "Oatchi",
     Hikarikinoko: "Common Glowcap",
     Icicle: "Icicle",
     IcicleClose: "Icicle (Close)",
     IcicleUp: "Icicle (Up)",
     IwakkoCrystal: "Breakable Crystal",
+    MultiBlockArea500_01A: "MultiBlockArea500_01A",
+    MultiBlockArea500_01B: "MultiBlockArea500_01B",
+    MultiBlockArea500_02A: "MultiBlockArea500_02A",
+    MultiBlockArea500_02B: "MultiBlockArea500_02B",
+    MultiBlockArea500_03A: "MultiBlockArea500_03A",
+    MultiBlockArea500_03B: "MultiBlockArea500_03B",
+    MultiBlockArea500_Cave: "MultiBlockArea500_Cave",
     Pellet1: "1 Pellet",
     Pellet5: "5 Pellet",
     Pelplant1: "1 Pellet Posy",
@@ -1165,9 +1189,11 @@ export const ObjectNames = {
     Pelplant10: "10 Pellet Posy",
     Pelplant10ReviveForHero: "10 Pellet Posy (Reviving) (Hero)",
     Pod: "Pod",
+    SpaceBus: "Space Bus",
     SurvivorA: "Survivor (A)",
     SurvivorKoppai: "Koppai Survivor",
     SurvivorLeaf: "Leafling Survivor",
+    SurvivorLouie: "Louie",
     Tsuyukusa: "Burgeoning Spiderwort",
     SurvivorOlimarLeaf: "Olimar Leafling",
     HikariStation: "Glow Pellets",
@@ -1183,7 +1209,11 @@ export const PortalNames = {
     MadoriArena: "Dandori Battle",
     MadoriPoko: "Dandori Challenge",
     MadoriRuins: "Cave Entrance",
-    MadoriRuinsForExit: "Overworld Cave Exit"
+    MadoriRuinsForExit: "Overworld Cave Exit",
+    ZukanPortalBase: "Daytime Exploration",
+    OtakaraZukanPortal: "Treasure Trove Portal",
+    GenseiZukanPortal: "Piklopedia Portal",
+    CharacterEditPortal: "Character Edit"
 };
 
 //#region WorkObject Names
@@ -1282,7 +1312,6 @@ export const iconOverrides = {
     circulatorleanpurple: "circulator",
     circulatorpurple: "circulator",
     circulatorred: "circulator",
-    crackpot2: "crackpot",
     crackpotl: "crackpot",
     crackpotlanother: "crackpot",
     crackpots: "crackpot",
@@ -1308,7 +1337,6 @@ export const iconOverrides = {
     mushs: "mush",
     poisonkomushl: "poisonkomush",
     poisonkomushs: "poisonkomush",
-    poisonmushl: "poisonmush",
     poisonmushs: "poisonmush",
     stickyfloor175uu: "stickyfloor",
     stickyfloor525uu: "stickyfloor",
@@ -1325,12 +1353,14 @@ export const iconOverrides = {
     onyoncamp01: "onyoncamp",
     onyoncamp02: "onyoncamp",
     onyoncamp03: "onyoncamp",
+    onyoncamp04: "onyoncamp",
     onyoncampsimple: "onyoncamp",
     onyoncampdummy: "onyoncamp",
     podcamp: "podcamp",
     podcamp01: "podcamp",
     podcamp02: "podcamp",
     podcamp03: "podcamp",
+    podcamp04: "podcamp",
     podcampsimple: "podcamp",
     podcampdummy: "podcamp",
     podcampcave00: "podcamp",
@@ -1346,7 +1376,7 @@ export const iconOverrides = {
     ojamablockwoodparts: "default",
     ojamablockwoodpartsb: "default",
     movefloorslowtrigger: "default",
-    excavation: "default",
+    excavationl: "default",
     excavations: "default",
     excavationonyon: "default",
     excavationunders: "default",
@@ -1379,6 +1409,18 @@ export const iconOverrides = {
     pelplant5reviveforhero: "pelplant5",
     pelplant10ddb: "pelplant10",
     pelplant10revive: "pelplant10",
+    pullnekkotutorial: "pullnekko",
+    multiblockarea500_01a: "default",
+    multiblockarea500_01b: "default",
+    multiblockarea500_02a: "default",
+    multiblockarea500_02b: "default",
+    multiblockarea500_03a: "default",
+    multiblockarea500_03b: "default",
+    multiblockarea500_cave: "default",
+    onyonbootupred: "onyoncarryred",
+    happypointactorpullnekkotutorial: "pullnekko",
+    dolphinarea500before: "dolphinarea500",
+    dolphinarea500after: "dolphinarea500"
 };
 
 // A 207 byte slice from an AreaBaseCamp_GEN_VARIABLE
@@ -1422,3 +1464,132 @@ export const weirdAIEntities = [
     'DemoWarpPoint',
     'PerchTakeOff'
 ];
+
+export const DandoriChallengeMaps = [
+    "Cave003_F00",
+    "Cave008_F00",
+    "Cave015_F00",
+    "Cave017_F00",
+    "Cave020_F00",
+    "Cave027_F00",
+    "Cave028_F00",
+    "Cave029_F00",
+    "Cave030_F00",
+    "Cave031_F00",
+    "Cave032_F00",
+    "Cave034_F00",
+    "CaveESP000_Title"
+];
+
+// ToLevelName
+export const PortalDestinations = [
+    'Area001', 'Area002', 'Area003', 'Area004', 'Area006',
+    'Area010', 'Area500', 'Cave001_F00', 'Cave002_F00', 'Cave002_F01',
+    'Cave004_F00', 'Cave004_F01', 'Cave005_F00', 'Cave005_F01', 'Cave006_F00',
+    'Cave006_F01', 'Cave006_F02', 'Cave006_F03', 'Cave007_F00', 'Cave007_F01',
+    'Cave007_F02', 'Cave007_F03', 'Cave009_F00', 'Cave010_F00', 'Cave010_F01',
+    'Cave010_F02', 'Cave010_F03', 'Cave010_F04', 'Cave010_F05', 'Cave011_F00',
+    'Cave011_F01', 'Cave011_F02', 'Cave011_F03', 'Cave012_F00', 'Cave012_F01',
+    'Cave012_F02', 'Cave013_F00', 'Cave013_F01', 'Cave013_F02', 'Cave013_F04',
+    'Cave014_F00', 'Cave014_F01', 'Cave014_F02', 'Cave014_F03', 'Cave014_F04',,
+    'Cave018_F00', 'Cave018_F01', 'Cave018_F02', 'Cave019_F00', 'Cave019_F01',
+    'Cave019_F02', 'Cave019_F03', 'Cave019_F04', 'Cave021_F00', 'Cave021_F01',
+    'Cave021_F02', 'Cave021_F03', 'Cave022_F00', 'Cave022_F01', 'Cave022_F02',
+    'Cave022_F03', 'Cave023_F00', 'Cave023_F01', 'Cave023_F02', 'Cave023_F03',
+    'Cave023_F04', 'Cave024_F00', 'Cave024_F01', 'Cave024_F02', 'Cave024_F03',
+    'Cave024_F04', 'Cave025_F00', 'Cave026_F00', 'Cave026_F01', 'Cave026_F02',
+    'Cave033_F00', 'Cave033_F01'
+];
+
+export const StartingLevels = [
+    "Cave001_F00",
+    "Cave002_F00",
+    "Cave004_F00",
+    "Cave005_F00",
+    "Cave006_F00",
+    "Cave007_F00",
+    "Cave009_F00",
+    "Cave010_F00",
+    "Cave011_F00",
+    "Cave012_F00",
+    "Cave013_F00",
+    "Cave014_F00",
+    "Cave018_F00",
+    "Cave019_F00",
+    "Cave021_F00",
+    "Cave022_F00",
+    "Cave023_F00",
+    "Cave024_F00",
+    "Cave025_F00",
+    "Cave026_F00"
+];
+
+export const FinalFloors = [
+    "Cave001_F00",
+    "Cave002_F01",
+    "Cave004_F01",
+    "Cave005_F01",
+    "Cave006_F03",
+    "Cave007_F03",
+    "Cave009_F00",
+    "Cave010_F05",
+    "Cave011_F03",
+    "Cave012_F02",
+    "Cave013_F04",
+    "Cave014_F04",
+    "Cave016_F18",
+    "Cave018_F02",
+    "Cave019_F04",
+    "Cave021_F03",
+    "Cave022_F03",
+    "Cave023_F04",
+    "Cave024_F04",
+    "Cave025_F00",
+    "Cave026_F02"
+];
+
+export const OverworldPortals = [
+    { toLevelName: 'Area001', portalNumber: 10 },
+    { toLevelName: 'Area001', portalNumber: 21 },
+    { toLevelName: 'Area001', portalNumber: 4 },
+    { toLevelName: 'Area001', portalNumber: 9 },
+    { toLevelName: 'Area001', portalNumber: 2 },
+    { toLevelName: 'Area001', portalNumber: 7 },
+    { toLevelName: 'Area002', portalNumber: 50 },
+    { toLevelName: 'Area002', portalNumber: 58 },
+    { toLevelName: 'Area002', portalNumber: 51 },
+    { toLevelName: 'Area002', portalNumber: 54 },
+    { toLevelName: 'Area003', portalNumber: 51 },
+    { toLevelName: 'Area003', portalNumber: 53 },
+    { toLevelName: 'Area003', portalNumber: 52 },
+    { toLevelName: 'Area003', portalNumber: 55 },
+    { toLevelName: 'Area003', portalNumber: 50 },
+    { toLevelName: 'Area004', portalNumber: 51 },
+    { toLevelName: 'Area004', portalNumber: 54 },
+    { toLevelName: 'Area004', portalNumber: 51 },
+    { toLevelName: 'Area006', portalNumber: 50 },
+    { toLevelName: 'Area006', portalNumber: 53 },
+    { toLevelName: 'Area006', portalNumber: 52 },
+    { toLevelName: 'Area0010', portalNumber: 50 },
+    { toLevelName: 'Area0010', portalNumber: 53 },
+    { toLevelName: 'Area0010', portalNumber: 56 },
+    { toLevelName: 'Area0010', portalNumber: 51 },
+];
+
+export const onionWeights = {
+    OnyonCarryBlue: 20,
+    OnyonCarryIce: 30,
+    OnyonCarryPink: 10,
+    OnyonCarryPurple: 10,
+    OnyonCarryRed: 10,
+    OnyonCarryStone: 30,
+    OnyonCarryWhite: 10,
+    OnyonCarryYellow: 20,
+};
+
+export const Messages = {
+    PROGRESS: 'progressNotify',
+    ERROR: 'errorNotify',
+    SUCCESS: 'successNotify',
+    NONBLOCKING: 'nonBlockingNotify'
+}

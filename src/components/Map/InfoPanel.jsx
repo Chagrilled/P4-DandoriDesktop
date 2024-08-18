@@ -228,7 +228,7 @@ export const InfoPanel = ({ marker, setSelectedMarker }) => {
         </ExpandPanel> : '';
 
     const subAIDropList = creature.creatureId.includes('Tateana') && creature?.drops?.parsedSubAI ?
-        <ExpandPanel isActorSpawner={true} addDrop={() => addDrop(creature.ddId, setMapData, mapMarkerData, 'parsedSubAI')} label={"SubAI Drops"}>
+        <ExpandPanel isActorSpawner={true} addDrop={() => addDrop(creature.ddId, setMapData, mapMarkerData, 'parsedSubAI')} label={"Spawns (SubAI)"}>
             {(
                 <CardList>
                     {creature.drops.parsedSubAI.map(drop => <DropCard

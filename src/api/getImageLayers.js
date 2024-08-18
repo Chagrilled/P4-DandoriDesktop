@@ -16,7 +16,7 @@ export const getImageLayersForMap = (mapData, waterboxes) => {
 
     const mapLayer = new Image({
         source: new ImageStatic({
-            attributions: 'Nintendo',
+            // attributions: 'Nintendo',
             url: mapData.imageUrl,
             projection: mapProjection,
             imageExtent: mapProjection.getExtent(),

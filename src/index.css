@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import '~react-contexify/dist/ReactContexify.css';
+@import '~react-tooltip/dist/react-tooltip.css';
 
 @font-face {
     font-family: 'Pikmin';

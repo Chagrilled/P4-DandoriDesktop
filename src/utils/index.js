@@ -72,6 +72,8 @@ export const getInfoType = subPath => {
     if (subPath === 'Teki') infoType = InfoType.Creature;
     if (subPath === 'Items') infoType = InfoType.Item;
     if (subPath === 'Gimmicks/WarpCarry') infoType = InfoType.WorkObject;
+    if (subPath === 'Gimmicks/ActorSpawner') infoType = InfoType.Creature;
+    if (subPath === 'Objects/Egg') infoType = InfoType.Creature;
     return infoType;
 };
 
@@ -84,8 +86,10 @@ export const capitalise = string => string.charAt(0).toUpperCase() + string.slic
 
 export const getAssetPathFromId = id => internalAssetNames.find(asset => asset.includes(`G${id}_C`));
 
+export const getInfoTypeFromId = id => getInfoType(getSubpathFromAsset(getAssetPathFromId(id)));
+
 export const getAvailableTimes = mapId => {
-    if (['HeroStory', 'Cave', 'Area011'].some(area => mapId.includes(area))) return [Times.PERM];
+    if (['HeroStory', 'Cave', 'Area011', 'Area500'].some(area => mapId.includes(area))) return [Times.PERM];
     if (mapId.includes('Night')) return [Times.NIGHT, Times.PERM];
     return [Times.DAY, Times.PERM];
 };
@@ -128,7 +132,8 @@ export const shouldIconRotate = creatureId => {
     if (creatureId.includes('Flexible')) return true;
     if (creatureId.includes('Switch')) return true;
     if (creatureId.includes('Slope')) return true;
-    if (['PullNekko', 'DownWall', 'Conveyor265uu'].some(asset => asset === creatureId)) return true;
+    if (creatureId.includes('PullNekko')) return true;
+    if (['DownWall', 'Conveyor265uu', 'SpaceBus'].some(asset => asset === creatureId)) return true;
 };
 
 export const findSequenceStartIndex = (array, offset, sequence) => {
@@ -171,14 +176,14 @@ export const mutateAIProperties = (creature, value) => {
         {
             infoTypes: [InfoType.Creature],
             AIProperties: defaultCreatureAI,
-            ents: [],
+            ents: ['Mush'],
         },
         {
             ents: ['TriggerDoor', 'Switch', 'Conveyor265uu'],
             AIProperties: defaultTriggerAI
         },
         {
-            ents: ['NoraSpawner'],
+            ents: ['NoraSpawner', "Pikmin"],
             AIProperties: defaultAIProperties
         },
         {
@@ -201,7 +206,7 @@ export const mutateAIProperties = (creature, value) => {
         },
         {
             ents: ['StickyFloor'],
-            AIProperties: { bAutoSpawnMush: true }
+            AIProperties: { bAutoSpawnMush: false }
         },
         {
             ents: ['NavMeshTrigger'],

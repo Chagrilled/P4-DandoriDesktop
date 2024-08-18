@@ -645,7 +645,7 @@ export const parseTekiAI = ai => {
     index += 4; // unknown bool - FixedHotExtractDropNum? it's only ever 0 maybe except on kogane
     AIProperties.bOverrideInitLocation = ai[index];
     index += 4;
-    console.log(index);
+
     AIProperties.overrideInitLocation = {
         X: readFloat(ai.slice(index, index += 4)),
         Y: readFloat(ai.slice(index, index += 4)),

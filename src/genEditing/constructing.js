@@ -3,6 +3,7 @@ import { default as entityData } from '../api/entityData.json';
 import { floatToByteArr, intToByteArr, disableFlagsToInt } from '../utils/bytes';
 import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue } from '../utils';
 import { parseGDMDrops, parseTekiAI, parsePotDrops } from './reading';
+import logger from '../utils/logger';
 
 const defaultAI = (_, ai) => ai;
 
@@ -243,7 +244,6 @@ const constructBaseAI = (_, aiStatic, { AIProperties }) => {
 const constructSprinklerAI = (_, aiStatic, { AIProperties, transform }) => {
     let index = 133;
     let bytes = aiStatic.slice(0, index);
-    console.log("transform", transform);
     writeAsciiString(bytes, AIProperties.navMeshTriggerID);
     index += aiStatic[index] + 4;
     bytes.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -646,8 +646,8 @@ const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd, AIProperties 
 
 //#region Actor
 export const constructActor = (actor, mapId) => {
-    console.log("Constructing a", actor, " at ", actor.transform.translation.X);
-    const entData = entityData[actor.creatureId];
+    logger.info(`Constructing a ${actor.creatureId} :: ${JSON.stringify(actor)}`);
+    let entData = entityData[actor.creatureId];
     if (!entData && actor.infoType === InfoType.Treasure) {
         // Treasures (and all entities) that only appear as drops won't have any 
         // construction data, as there's no AGL data to scrape. Thus, we either need to
@@ -656,6 +656,22 @@ export const constructActor = (actor, mapId) => {
         // the default data to this paints one, which seems to have a very basic bitch config.
         entData = entityData.OtaPaintsAQU;
     }
+    if (!entData && actor.infoType === InfoType.Pikmin) {
+        entData = entityData.PikminRed;
+    }
+    if (!entData && actor.creatureId === "NightBaby") {
+        entData = entityData.Baby;
+    }
+    if (!entData && actor.creatureId === "Dodoro") {
+        entData = entityData.Kochappy;
+    }
+    if (!entData && actor.creatureId === "PoisonKomush") {
+        entData = entityData.PoisonKomushS;
+    }
+    if (!entData && actor.creatureId === "OnyonCarryRed") {
+        entData = entityData.OnyonCarryYellow;
+    }
+
     const transforms = {
         Rotation: {
             X: -0.0,

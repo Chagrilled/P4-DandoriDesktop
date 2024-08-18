@@ -54,7 +54,7 @@ const SCALE_OVERRIDES = {
     ojamablockwoodparts: 0.5,
     ojamablockwoodpartsb: 0.5,
     movefloorslowtrigger: 0.5,
-    excavation: 0.5,
+    excavationl: 0.5,
     excavations: 0.5,
     excavationonyon: 0.5,
     excavationunders: 0.5,
@@ -79,6 +79,9 @@ const SCALE_OVERRIDES = {
     navmeshtriggerlinkforsplash: 0.5,
     navmeshtriggerclear: 0.5,
     hikaristation: 0.7,
+    happy: 0.6,
+    spacebus: 0.6,
+    bikkurigikuplant: 0.4
 };
 
 export const getIconOptions = (type) => {

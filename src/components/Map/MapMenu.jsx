@@ -31,7 +31,6 @@ export const MapMenu = ({ }) => {
         const infoType = id === 'GroupDropManager' ? Gimmick : id === 'ActorSpawner' ? Creature : id;
 
         const newMarker = {
-            type: 'creature',
             infoType,
             creatureId: getDefaultId(id),
             ...(id === 'GroupDropManager' && {
@@ -60,7 +59,7 @@ export const MapMenu = ({ }) => {
             exploreRateType: ExploreRateTargetType.None,
             generateNum: 1,
             generateRadius: 300,
-            rebirthType: RebirthTypes.AlwaysRebirth,
+            rebirthType: RebirthTypes.NoRebirth,
             rebirthInterval: 0,
             birthDay: 0,
             deadDay: 0,
@@ -74,7 +73,7 @@ export const MapMenu = ({ }) => {
             }
         };
 
-        if (id === 'ActorSpawner') newMarker.drops.parsed[0] =  deepCopy(DefaultActorSpawnerDrop);
+        if (id === 'ActorSpawner') newMarker.drops.parsed[0] = deepCopy(DefaultActorSpawnerDrop);
         if (id === 'GroupDropManager') {
             newMarker.infoType = InfoType.Gimmick;
             newMarker.ignoreList = "[]";
@@ -83,15 +82,17 @@ export const MapMenu = ({ }) => {
         if (id === Portal) newMarker.PortalTrigger = deepCopy(DefaultPortalTrigger);
         if (id !== Creature) newMarker.time = getAvailableTimes(mapId)[0];
         if (id === WorkObject) newMarker.drops.spareBytes = GateMiddleBytes;
-        if (id === Base) newMarker.AIProperties =  deepCopy(defaultBaseAIProperties);
+        if (id === Base) newMarker.AIProperties = deepCopy(defaultBaseAIProperties);
         if (id === Creature) {
-            newMarker.AIProperties =  deepCopy(defaultCreatureAI);
+            newMarker.AIProperties = deepCopy(defaultCreatureAI);
             if (mapId.includes("Night")) newMarker.birthCond.push({
                 Condition: ActorPlacementCondition.NightAdventurePattern,
                 CondInt: parseInt(mapId.slice(-1)) - 1,
                 CondName: "None",
                 CondPikminColor: "EPikminColor::Undef"
             });
+            newMarker.rebirthType = RebirthTypes.RebirthLater;
+            newMarker.rebirthInterval = 4;
         }
 
         setMapData({

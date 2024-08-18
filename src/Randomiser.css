@@ -1,0 +1,4 @@
+.randoInput::-webkit-inner-spin-button,
+.randoInput::-webkit-outer-spin-button {
+    opacity: 1;
+}

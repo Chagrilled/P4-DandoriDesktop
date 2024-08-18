@@ -118,7 +118,7 @@ const sublevelData = {};
 
 const sublevelParser = data => {
     data.forEach(obj => {
-        if (!obj.Template || !['ActorSpawner_GEN_VARIABLE', 'AI_GEN_VARIABLE', 'GroupDropManager_GEN_VARIABLE'].some(s => obj.Template.includes(s)) || !obj.Properties) return;
+        if (!obj.Template || !['ActorSpawner_GEN_VARIABLE', 'AI_GEN_VARIABLE', 'GroupDropManager_GEN_VARIABLE', 'PortalTrigger_GEN_VARIABLE'].some(s => obj.Template.includes(s)) || !obj.Properties) return;
         Object.entries(obj.Properties).forEach(([key, val]) => {
             // console.log(key);
             if (!sublevelData[obj.Template]) sublevelData[obj.Template] = {};

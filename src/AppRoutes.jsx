@@ -6,10 +6,12 @@ import { Editor } from './pages/Editor';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { MapProvider } from './components/Map/MapContext';
+import { Randomiser } from './pages/Randomiser';
+import { Messages } from './api/types';
 
 export const AppRoutes = () => {
     useEffect(() => {
-        window.electron.ipcRenderer.on('errorNotify', (something, message, e) => {
+        window.electron.ipcRenderer.on(Messages.ERROR, (something, message, e) => {
             toast(message, {
                 duration: 7000,
                 icon: '❌',
@@ -20,7 +22,7 @@ export const AppRoutes = () => {
             });
             if (e) console.error(e);
         });
-        window.electron.ipcRenderer.on('successNotify', (something, message) => {
+        window.electron.ipcRenderer.on(Messages.SUCCESS, (something, message) => {
             toast(message, {
                 duration: 5000,
                 icon: '✅',
@@ -30,7 +32,7 @@ export const AppRoutes = () => {
                 }
             });
         });
-        window.electron.ipcRenderer.on('progressNotify', (something, message) => {
+        window.electron.ipcRenderer.on(Messages.PROGRESS, (something, message) => {
             toast(message, {
                 duration: 5000,
                 icon: '⌛',
@@ -40,7 +42,7 @@ export const AppRoutes = () => {
                 }
             });
         });
-        window.electron.ipcRenderer.on('nonBlockingNotify', (something, message) => {
+        window.electron.ipcRenderer.on(Messages.NONBLOCKING, (something, message) => {
             toast(message, {
                 duration: 5000,
                 icon: '🤷‍♂️',
@@ -52,10 +54,10 @@ export const AppRoutes = () => {
         });
 
         return () => {
-            window.electron.ipcRenderer.removeAllListeners('errorNotify');
-            window.electron.ipcRenderer.removeAllListeners('successNotify');
-            window.electron.ipcRenderer.removeAllListeners('progressNotify');
-            window.electron.ipcRenderer.removeAllListeners('nonBlockingNotify');
+            window.electron.ipcRenderer.removeAllListeners(Messages.ERROR);
+            window.electron.ipcRenderer.removeAllListeners(Messages.SUCCESS);
+            window.electron.ipcRenderer.removeAllListeners(Messages.PROGRESS);
+            window.electron.ipcRenderer.removeAllListeners(Messages.NONBLOCKING);
         };
     }, []);
 
@@ -68,6 +70,7 @@ export const AppRoutes = () => {
                         <Maps />
                     </MapProvider>
                 } />
+                <Route path="/randomiser" element={<Randomiser />} />
                 <Route path="/editor" element={<Editor />} />
             </Routes>
         </HashRouter>

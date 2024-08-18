@@ -4,7 +4,8 @@ import deepEqual from 'deep-equal';
 import { getReadAIDynamicFunc, getReadAIStaticFunc, getReadPortalFunc } from './reading';
 import { getConstructAIStaticFunc, getConstructPortalTriggerFunc, writeLifeDynamic, writeAffordanceWeight, getConstructDynamicFunc, getConstructActorParamFunc, ASP_FIELDS, getConstructNavMeshTriggerFunc, getConstructSubAIStaticFunc } from './constructing';
 import { default as entityData } from '../api/entityData.json';
-import { TeamIDs } from '../api/types';
+import { TeamIDs, InfoType } from '../api/types';
+import logger from '../utils/logger';
 
 export const getSubpath = creatureId => {
     if (creatureId === 'ActorSpawner') return 'Gimmicks/ActorSpawner';
@@ -21,21 +22,46 @@ export const regenerateAGLEntity = (actor, aglData) => {
         Scale3D: setFloats(actor.transform.scale3D)
     };
     const asp = aglData.ActorSerializeParameter;
-    const entData = entityData[actor.creatureId];
+    let entData = entityData[actor.creatureId];
     if (!entData && actor.infoType === InfoType.Treasure) {
         // see constructing.js for why
         entData = entityData.OtaPaintsAQU;
     }
+    if (!entData && actor.infoType === InfoType.Pikmin) {
+        entData = entityData.PikminRed;
+    }
+    if (!entData && actor.creatureId === "NightBaby") {
+        entData = entityData.Baby;
+    }
+    if (!entData && actor.creatureId === "Dodoro") {
+        entData = entityData.Kochappy;
+    }
+    if (!entData && actor.creatureId === "PoisonKomush") {
+        entData = entityData.PoisonKomushS;
+    }
+    if (!entData && actor.creatureId === "OnyonCarryRed") {
+        entData = entityData.OnyonCarryYellow;
+    }
+
+    
     const assetPathName = getAssetPathFromId(actor.creatureId) || `/Game/Carrot4/Placeables/${getSubpath(actor.creatureId)}/G${actor.creatureId}.G${actor.creatureId}_C`;
     const newAsset = assetPathName !== aglData.SoftRefActorClass.AssetPathName;
     console.log("is it different?", newAsset);
+    const generatorVersion = newAsset ? entData.GeneratorVersion[0] : aglData.GeneratorVersion
+    const assetVersion = newAsset ? entData.AssetVersion[0] : aglData.AssetVersion
+
     const originalAI = asp.AI.Static;
     const originalAI_Dynamic = asp.AI.Dynamic;
-    const { parsed, inventoryEnd, AIProperties: staticAI, rareDrops } = getReadAIStaticFunc(actor.creatureId, actor.infoType)(originalAI);
-    const dynamicAI = getReadAIDynamicFunc(actor.creatureId, actor.infoType)(originalAI_Dynamic);
+
+    const aiStatic = newAsset ? entData.AI[0].Static : originalAI;
+    const aiDynamic = newAsset ? entData.AI[0].Dynamic : originalAI_Dynamic;
+
+    // If the asset has changed, don't use the existing AGL ASP as it will likely be wrong
+    const { parsed, inventoryEnd, AIProperties: staticAI, rareDrops } = getReadAIStaticFunc(actor.creatureId, actor.infoType)(aiStatic);
+    const dynamicAI = getReadAIDynamicFunc(actor.creatureId, actor.infoType)(aiDynamic);
     const AIProperties = { ...staticAI, ...dynamicAI };
-    console.log(AIProperties);
-    console.log("Generating new actor:");
+    logger.info(JSON.stringify(AIProperties));
+    logger.info("Generating new actor:");
     const isAIEqual = deepEqual({
         parsed,
         rareDrops,
@@ -46,15 +72,14 @@ export const regenerateAGLEntity = (actor, aglData) => {
         AIProperties: actor.AIProperties
     });
     let newAI = {};
-    console.log("Is AI equal?", isAIEqual);
+    logger.info(`Is AI equal? ${isAIEqual}`);
     if (!isAIEqual || newAsset) {
-        console.log(actor.creatureId, "constructing new AI", actor.transform.translation.X);
+        logger.info(`${actor.creatureId}: constructing new AI: at ${JSON.stringify(actor.transform.translation)}`);
         // If an object or enemy is changed in-place to another type, its existing AI in the AGL will be used as a base
         // Which means we'll be modifying the AI of something else, in-place, assuming it's the same type we're constructing
         // i.e constructing a NoraSpawner using the existing bytes of a Gate. Not good.
         // if the asset has changed, regenerate using the defaults.
-        const aiStatic = newAsset ? entData.AI[0].Static : originalAI;
-        const aiDynamic = newAsset ? entData.AI[0].Dynamic : originalAI_Dynamic;
+
         newAI = {
             AI: {
                 Static: getConstructAIStaticFunc(actor.creatureId, actor.infoType)(actor.drops, aiStatic, {
@@ -123,6 +148,8 @@ export const regenerateAGLEntity = (actor, aglData) => {
 
     const newEntity = {
         ...aglData,
+        GeneratorVersion: generatorVersion,
+        AssetVersion: assetVersion,
         SoftRefActorClass: {
             ...aglData.SoftRefActorClass,
             AssetPathName: assetPathName,
@@ -133,7 +160,6 @@ export const regenerateAGLEntity = (actor, aglData) => {
             ...aglData.GenerateInfo,
             GenerateNum: parseInt(actor.generateNum),
             GenerateRadius: parseFloat(actor.generateRadius),
-
         },
         ExploreRateType: actor.exploreRateType,
         RebirthInfo: {

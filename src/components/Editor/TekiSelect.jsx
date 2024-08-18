@@ -30,7 +30,6 @@ export const TekiSelect = ({ onEntChange, currentEnt }) => {
 
     const tekiLinks = tekis.map(tekiId => {
         // TODO: Add night creatures to the types list
-        // console.log(tekiName)
         return <div key={tekiId}>
             <MarkerIcon size="small" type={InfoType.Creature} id={tekiId} />
             <button className={currentEnt == tekiId ? "font-bold" : ""} onClick={() => { onEntChange(tekiId); return false; }}>{`${tekiId} (${CreatureNames[tekiId]})`}</button>
