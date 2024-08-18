@@ -43,12 +43,12 @@ export const regenerateAGLEntity = (actor, aglData) => {
         entData = entityData.OnyonCarryYellow;
     }
 
-    
+
     const assetPathName = getAssetPathFromId(actor.creatureId) || `/Game/Carrot4/Placeables/${getSubpath(actor.creatureId)}/G${actor.creatureId}.G${actor.creatureId}_C`;
     const newAsset = assetPathName !== aglData.SoftRefActorClass.AssetPathName;
     console.log("is it different?", newAsset);
-    const generatorVersion = newAsset ? entData.GeneratorVersion[0] : aglData.GeneratorVersion
-    const assetVersion = newAsset ? entData.AssetVersion[0] : aglData.AssetVersion
+    const generatorVersion = newAsset ? entData.GeneratorVersion[0] : aglData.GeneratorVersion;
+    const assetVersion = newAsset ? entData.AssetVersion[0] : aglData.AssetVersion;
 
     const originalAI = asp.AI.Static;
     const originalAI_Dynamic = asp.AI.Dynamic;
@@ -60,8 +60,10 @@ export const regenerateAGLEntity = (actor, aglData) => {
     const { parsed, inventoryEnd, AIProperties: staticAI, rareDrops } = getReadAIStaticFunc(actor.creatureId, actor.infoType)(aiStatic);
     const dynamicAI = getReadAIDynamicFunc(actor.creatureId, actor.infoType)(aiDynamic);
     const AIProperties = { ...staticAI, ...dynamicAI };
+
+    logger.info(`Generating new actor ${actor.creatureId}from the following properties:`);
     logger.info(JSON.stringify(AIProperties));
-    logger.info("Generating new actor:");
+
     const isAIEqual = deepEqual({
         parsed,
         rareDrops,
@@ -108,7 +110,7 @@ export const regenerateAGLEntity = (actor, aglData) => {
     });
     let newPT = {};
     if (!isPTUnchanged) {
-        console.log(actor.creatureId, "constructing new PortalTrigger");
+        logger.info(`${actor.creatureId}: constructing new PortalTrigger from, ${JSON.stringify(actor.PortalTrigger)}`);
         newPT = {
             PortalTrigger: {
                 Static: getConstructPortalTriggerFunc(actor.infoType)(actor, originalPT),

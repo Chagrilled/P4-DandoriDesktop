@@ -102,6 +102,8 @@ When [All Objects](#all-objects-have-drops)/[Creatures Have Drops](#all-creature
 
 If this value is 4, the randomiser may select 2 as the value - the entity being given drops will then have its inventory padded to 2 drops. If it already has a treasure or creature drop, it will only be given one more.
 
+Affected by [Random Function](#random-function)
+
 ### Randomise GenerateNums
 
 Actors in the game are defined with a field called `GenerateNum` which is almost always set to 1. This defines how many of the actor is spawned in the "group". The actor's drop settings apply to each entity spawned in the group in-game.
@@ -114,7 +116,9 @@ This option enables the following options. If disabled, the actor's existing `Ge
 
 _Upper bound_ for a `GenerateNum` which is randomised on each creature.
 
-A value of 7 will randomise to anything between 1 and 7 - the game will spawn that many of the actor its currently randomising.
+A value of 7 will randomise to anything between 1 and 7 - the game will spawn that many of the actor it's currently randomising.
+
+Affected by [Random Function](#random-function)
 
 ### Randomise Boss GenerateNums
 
@@ -124,12 +128,13 @@ Due to the chaotic impact that `GenerateNum` brings, especially when paired with
 
 _Upper bound_ for a `GenerateNum` which is randomised on each boss.
 
+Affected by [Random Function](#random-function)
 
 ### Rebirth Interval
 
 Everything is randomised to have a `RebirthLater` respawn value, because Nintendo decided extinction was a more enjoyable way to play the game. I disagree.
 
-`RebirthLater` does what it says, and respawns actors X days after the group dies (kill all `GenerateNum` of them). Randomise likely makes the game more combat heavy, so this controls how repetitive that may be.
+`RebirthLater` does what it says, and respawns actors X days after the group dies (kill all `GenerateNum` of them). Randomiser likely makes the game more combat heavy, so this controls how repetitive that may be.
 
 ### Random Function
 
@@ -159,7 +164,7 @@ The randomiser won't change `ActorSpawner`s, or holes into other creatures, but 
 
 ### Retain Non-Bosses
 
-This prevents non-boss creatures randomising into bosses. Game will become a bit more chaotic.
+This prevents non-boss creatures randomising into bosses. Game will become a bit more chaotic with this disabled. Expect to see bosses on many floors, or even multiple at once.
 
 ### Retain Bosses
 
@@ -177,7 +182,7 @@ If disabled, they will all be randomised into a different pikmin type.
 
 ### Bosses Can Drop
 
-This adds bosses into the drop pool. It can be very chaotic to have 2 whole ass Gildemanders drop out of a Water Dumple in a small room.
+This adds bosses into the drop pool. It can be very chaotic to have 2 whole-ass Gildemanders drop out of a Water Dumple in a small room.
 
 Bosses dropping from creatures because increasingly ridiculous with inventory padding and drop limits greater than 1.
 
@@ -187,7 +192,7 @@ Prevents the Snowfake Fluttertail from spawning in overworld areas. Their presen
 
 ### ActorSpawner Infinite Chance
 
-`ActorSpawner`s drop a thing, and have unique settings. One of those is having the ActorSpawner infinitely drop its creature/item.
+`ActorSpawner`s spawn a thing, and have unique settings. One of those is having the ActorSpawner infinitely drop its creature/item.
 
 This is a percentage chance that will be rolled for making an ActorSpawner infinite. 
 
@@ -197,7 +202,7 @@ _Upper bound_ of how many creatures an ActorSpawner can have alive at any one ti
 
 ### ActorSpawner Interval Limit
 
-ActorSpawners that are infinite-enabled have a delay between each spawn. This is the _upper bound_ of what that number will randomise to.
+ActorSpawners that are infinite-enabled have a delay between each spawn. This is the _upper bound_ of what that number will randomise to. 1 is the minimum.
 
 ## Treasures
 
