@@ -52,7 +52,7 @@ export const Randomiser = () => {
         retainWildPikmin: true, // ✅
         randObjectDrops: true,
         objectsLfL: false, // ✅
-        startingFlarlics: 1, // ✅
+        startingFlarlics: 3, // ✅
         bossesCanDrop: false, // ✅
         rebirthInterval: 5, // ✅
         randIntFunction: 'even', // ✅
