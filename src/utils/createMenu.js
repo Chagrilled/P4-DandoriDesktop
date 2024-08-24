@@ -3,7 +3,7 @@
 
 const { app, Menu, dialog, shell } = require('electron');
 import { BrowserWindow } from 'electron';
-import { readdir, promises, writeFile, accessSync, createWriteStream, existsSync } from 'fs';
+import { readdir, promises, writeFile, accessSync, createWriteStream, existsSync, rmSync } from 'fs';
 import { join } from 'path';
 import { spawn } from 'child_process';
 import { version } from '../../package.json';
@@ -253,6 +253,10 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                 click: () => {
                     if (!config.castocDir || !config.encoderDir || !config.outputDir)
                         return mainWindow.webContents.send(Messages.ERROR, 'Set encoder/castoc/output folder first');
+
+                    rmSync(join(config.encoderDir, "_OUTPUT", "Carrot4"), { recursive: true, force: true });
+                    rmSync(join(config.castocDir, "_EDIT", "Carrot4"), { recursive: true, force: true });
+
                     mainWindow.webContents.send(Messages.PROGRESS, 'Encoding JSONs');
                     let errorFlag = false;
                     const logStream = createWriteStream(join(LOG_PATH, 'deploy-log.txt'), { flags: 'w' });

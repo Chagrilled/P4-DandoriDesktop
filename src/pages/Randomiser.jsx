@@ -77,7 +77,7 @@ export const Randomiser = () => {
                 label: 'Randomise Enemy Drops',
                 tooltip: <><span>Creature drops will get randomised</span></>,
                 type: 'checkbox',
-                onChange: (e) => setState({ ...state, randDrops: e.target.checked }),
+                onChange: (e) => setState({ ...state, randEnemyDrops: e.target.checked }),
                 id: 'randEnemyDrops'
             },
             {
