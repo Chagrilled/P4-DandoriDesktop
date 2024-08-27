@@ -1231,6 +1231,7 @@ export const WorkObjectNames = {
     HandleBoard: "Hanging Clipboard Handle",
     HandleBoardYellow: "Hanging Clipboard Handle (Yellow)",
     HikariStation: "Glow Pellets",
+    KinkaiPick: "Gold Nugget",
     KinkaiStation: "Gold Nugget Pile",
     PiecePick: "Raw Material",
     PullNekko: "Pullable Plant",
@@ -1420,7 +1421,8 @@ export const iconOverrides = {
     onyonbootupred: "onyoncarryred",
     happypointactorpullnekkotutorial: "pullnekko",
     dolphinarea500before: "dolphinarea500",
-    dolphinarea500after: "dolphinarea500"
+    dolphinarea500after: "dolphinarea500",
+    kinkaipick: "kinkaistation"
 };
 
 // A 207 byte slice from an AreaBaseCamp_GEN_VARIABLE

@@ -666,6 +666,18 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
     const isCreature = randCreature.infoType === InfoType.Creature;
     const objectDroppable = [InfoType.Object, InfoType.Gimmick, InfoType.Hazard, InfoType.WorkObject].includes(randCreature.infoType);
 
+    // Object DropParameters don't have the flags number - so when a StickyFloor randos to
+    // a creature, it's drops need to be adjusted to slot in as teki drops
+    // Also accounts for Mush types which for some reason use the creature inventory
+    // If a pot randomises to a creature or something, we need to ensure the existing drops are given flags
+    // Treasyres aren't a big deal because they won't randomise into non-treasures
+    parsed.forEach(drop => {
+        if ((randCreature.infoType === InfoType.Creature || randCreature.creatureId.match(/Mush/i))) {
+            if (!drop.flags) drop.flags = [1, 8, 16, 64];
+            if (typeof drop.dropCondition === 'undefined') drop.dropCondition = 0;
+        }
+    });
+
     if ((config.randEnemyDrops && isCreature) || (objectDroppable && config.randObjectDrops)) {
         logger.info(`Randomising drops for ${randCreature.creatureId}`);
 
@@ -673,10 +685,6 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
             const infoType = getInfoType(getSubpathFromAsset(drop.assetName));
             lastDropId = drop.id;
             const name = getNameFromAsset(drop.assetName);
-            // Object DropParameters don't have the flags number - so when a StickyFloor randos to
-            // a creature, it's drops need to be adjusted to slot in as teki drops
-            // Also accounts for Mush types which for some reason use the creature inventory
-            if ((randCreature.infoType === InfoType.Creature || randCreature.creatureId.includes('Mush')) && !drop.flags) drop.flags = [1, 8, 16, 64];
 
             if (infoType === InfoType.Creature) {
                 const creatureList = getCreatureList(name, config, true, map);
