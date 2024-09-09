@@ -1124,7 +1124,7 @@ describe('Randomiser Tests', () => {
                             parsed: [
                                 {
                                     ...DefaultDrop,
-                                    assetName: '/Game/Carrot4/Placeables/Items/GHoney.GHoney_C',
+                                    assetName: '/Game/Carrot4/Placeables/Items/GBomb.GBomb_C',
                                     maxDrops: 2,
                                 }
                             ]
@@ -1445,7 +1445,7 @@ describe('Randomiser Tests', () => {
                 drops: {
                     parsed: [
                         {
-                            assetName: '/Game/Carrot4/Placeables/Teki/GAmembo.GAmembo_C'
+                            assetName: '/Game/Carrot4/Placeables/Items/GBomb.GBomb_C'
                         }
                     ]
                 }

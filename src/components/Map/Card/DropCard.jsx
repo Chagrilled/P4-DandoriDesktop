@@ -226,7 +226,7 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                 <DebouncedInput value={amountStr} changeFunc={(v) => updateDrops(v, drop, "amount")} ddId={ddId} />
             </span>}
             {!!drop.dropChance && <span>
-                <b>Chance</b>:
+                <b>Chance</b>:&nbsp;
                 <DebouncedInput value={Math.round(drop.dropChance * 100) + '%'} changeFunc={(v) => updateDrops(v, drop, "dropChance")} ddId={ddId} />
             </span>}
             <div>

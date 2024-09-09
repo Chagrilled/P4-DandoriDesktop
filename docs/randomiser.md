@@ -49,6 +49,7 @@ The whackier you go with the settings, the less stable you should expect the gam
 - [Randomise Overworld Portals Only](#randomise-overworld-portals-only)
 - [Randomise Cave-Disabled Pikmin](#randomise-cave-disabled-pikmin)
 - [Randomise Unnecessary Objects](#randomise-unnecessary-objects)
+- [Retain Cave Exits](#retain-cave-exits)
 - [Objects Like-For-Like](#objects-like-for-like)
 - [Hazards Like-For-Like](#hazards-like-for-like)
 - [Exclude Gates](#exclude-gates)
@@ -227,6 +228,10 @@ Not playtested, very likely to be very difficult to progress.
 ### Randomise Cave-Disabled Pikmin
 
 Caves can have pikmin types disabled on the selection screen. This randomises which ones are and aren't. Definitely possible for this to make the game incompletable, given caves are built around puzzles for certain types. Or at least a lot of bombs required.
+
+### Retain Cave Exits
+
+Caves will _attempt_ to take you back to the exit you entered into. With this disabled they will take you to where they were meant to, so area-warping is a likely occurrence.
 
 ### Randomise Unnecessary Objects
 

@@ -32,7 +32,7 @@ export const Randomiser = () => {
         retainNonBosses: false, // ✅
         retainBosses: true, // ✅
         allBosses: false, // ✅
-        asInfiniteChance: 20, // ✅
+        asInfiniteChance: 40, // ✅
         asLimit: 4, // ✅
         asIntervalLimit: 60, // ✅
         randTreasures: true, // ✅
@@ -57,7 +57,8 @@ export const Randomiser = () => {
         rebirthInterval: 5, // ✅
         randIntFunction: 'even', // ✅
         forceCaves: false, // ✅
-        noOverworldSnowfake: true
+        noOverworldSnowfake: true,
+        retainExits: true
     });
 
     if (!state.maps) {
@@ -143,14 +144,14 @@ export const Randomiser = () => {
             },
             {
                 label: 'Rebirth Interval',
-                tooltip: <><span>Upper bound of how many bosses can spawn for each boss in the generator list</span></>,
+                tooltip: <><span>Number of days before an enemy group will respawn</span></>,
                 type: 'number',
                 onChange: (e) => setState({ ...state, rebirthInterval: e.target.value }),
                 id: 'rebirthInterval'
             },
             {
                 label: 'Random Function',
-                tooltip: <><span>Function used to generate integers for GenerateNums</span></>,
+                tooltip: <><span>Function used to generate integers for GenerateNums. Refer to documentation for <details className=""></details></span></>,
                 type: 'select',
                 onChange: (e) => setState({ ...state, randIntFunction: e.target.value }),
                 id: 'randIntFunction'
@@ -299,6 +300,15 @@ export const Randomiser = () => {
                 type: 'checkbox',
                 onChange: (e) => setState({ ...state, randDisabled: e.target.checked }),
                 id: 'randDisabled'
+            },
+            {
+                label: 'Retain Cave Exits',
+                tooltip: <>
+                    <span>You'll come out of the cave you went into</span>
+                </>,
+                type: 'checkbox',
+                onChange: (e) => setState({ ...state, retainExits: e.target.checked }),
+                id: 'retainExits'
             },
             {
                 break: true,

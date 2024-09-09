@@ -267,6 +267,7 @@ const ignoreList = [
     "SplineChaser_LivingRoom",
     "SplineChaser_Kitchen",
     "AmeBozu",
+    "Queen"
     // All splines are added in this list already
 ];
 
@@ -299,6 +300,32 @@ const entrancePairMaps = [
 //         newPortalId: 51,
 //     }
 // ];
+
+const pikminDropList = [
+    "PikminRed",
+    "PikminYellow",
+    "PikminBlue",
+    "PikminRock",
+    "PikminWing",
+    "PikminPurple",
+    "PikminPhoton",
+    "PikminWhite",
+    "PikminIce"
+];
+
+const miscDropList = [
+    "Bomb",
+    "IceBomb",
+    "Honey",
+    "HomingBomb",
+    "SearchBomb",
+    "YuudouEsa",
+    "DogFood",
+    "PhotonBall",
+    "ShugoFlag",
+    "HotExtract",
+    "PiecePick"
+];
 
 export const randomiser = async (config) => {
     logger.info(`randomiser config: ${JSON.stringify(config)}`);
@@ -438,7 +465,7 @@ export const randomiser = async (config) => {
             if (config.randPortals) markerData[InfoType.Portal].forEach(portal => {
                 if (portal.PortalTrigger.toLevelName.includes('Cave016')) return randomMarkers[InfoType.Portal].push(portal);
 
-                if (config.randOverworldOnly && portal.creatureId === 'DungeonExit') {
+                if (config.retainExits && portal.creatureId === 'DungeonExit') {
                     const cave = map.split('_')[0];
                     const overworldDestination = overworldPortalLinks.find(p => p.cave === cave);
 
@@ -475,7 +502,7 @@ export const randomiser = async (config) => {
                     if (!startingLevels.length) startingLevels.push(...StartingLevels);
                     logger.info(`Overworld ${portal.creatureId} at ${JSON.stringify(portal.transform.translation)} has had its level randomised to: ${toLevelName}`);
                     logger.info(`Portals left: ${JSON.stringify(startingLevels)}`);
-                    // This will result in all exist leading to the same exit hole 
+                    // This will result in all exits leading to the same exit hole 
                     // either transformed or original, unless we track and differentiate which one is that entrance portal
                     overworldPortalLinks.push({
                         entrance: map,
@@ -581,9 +608,8 @@ export const randomiser = async (config) => {
 
                 //#region Randomise workObjects
                 markerData[InfoType.WorkObject].forEach(workObject => {
-                    if (workObject.creatureId.includes('Gate') && !config.excludeGates) {
-                        workObject.creatureId = gates[randInt(gates.length)];
-                        // TODO: Move this outside of the gate randomiser
+                    if (workObject.creatureId.includes('Gate')) {
+                        if (!config.excludeGates) workObject.creatureId = gates[randInt(gates.length)];
                         randomiseRegularDrops(workObject, config, map);
                     }
                     randomMarkers[InfoType.WorkObject].push(workObject);
@@ -630,7 +656,6 @@ export const randomiser = async (config) => {
         }
         logger.info(`Saving ${map}`);
         await saveMaps(map, randomMarkers);
-        // }));
     }
 };
 
@@ -681,11 +706,12 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
     if ((config.randEnemyDrops && isCreature) || (objectDroppable && config.randObjectDrops)) {
         logger.info(`Randomising drops for ${randCreature.creatureId}`);
 
-        parsed.forEach(drop => {
+        const dropMutator = drop => {
             const infoType = getInfoType(getSubpathFromAsset(drop.assetName));
             lastDropId = drop.id;
             const name = getNameFromAsset(drop.assetName);
 
+            // Creatures are turned into creatures
             if (infoType === InfoType.Creature) {
                 const creatureList = getCreatureList(name, config, true, map);
                 const newCreature = creatureList[randInt(creatureList.length)];
@@ -693,41 +719,61 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
                 drop.assetName = newAsset;
                 drop.maxDrops = parseInt(config.randMaxDrops);
             }
+            // Treasures into treasures
             else if (infoType === InfoType.Treasure) {
                 const randTreasure = randomiseTreasure(map);
                 drop.assetName = getAssetPathFromId(randTreasure);
             }
+            // If configured, wild piks will randomise into other tpyes
             else if (name.startsWith('Pikmin') && !config.retainWildPikmin) {
                 const newPikmin = pikminList[randInt(pikminList.length)];
                 const newAsset = getAssetPathFromId(newPikmin);
                 drop.assetName = newAsset;
             }
-            // 25% chance that friendly drops will be a creature if pot or eggs
+            // 90% chance that friendly drops are mutated
+            // 50/50 creature or a new misc (which itself is 50/50 to include pikmin)
             else if (
-                ["Honey", "PiecePick", "HotExtract"].includes(name)
-                && Math.random() < 0.25
+                ["Honey", "PiecePick", "HotExtract", "PiecePick"].includes(name)
+                && Math.random() < 0.9
                 && (randCreature.creatureId.includes("Egg") || [InfoType.Gimmick, InfoType.Hazard].includes(randCreature.infoType))
             ) {
-                mutateCreatureDrop(drop, config, map);
+                if (Math.random() < 0.5) mutateCreatureDrop(drop, config, map);
+                else mutateMiscDrop(drop, config);
             }
+            // Piecepick inflation, or 50% chance to override to a creature
             else if (name === 'PiecePick') {
                 if (Math.random() < 0.5) {
-                    drop.maxDrops = randIntBounded(3, 8);
+                    drop.maxDrops = randIntBounded(4, 9);
                 }
                 else {
                     mutateCreatureDrop(drop, config, map);
                 }
             }
+            // 60% chance for honey/spicy in creatures to become creatures
             else if (
                 ["Honey", "HotExtract"].includes(name)
                 && Math.random() < 0.6
                 && InfoType.Creature === randCreature.infoType
+                && !["Egg", "Tateana"].includes(randCreature.creatureId)
             ) {
                 mutateCreatureDrop(drop, config, map);
             }
 
-            // if () // something other objects
-        });
+            // if honey/spicy are remaining drops, 70% chance they get randomised into other consumables
+            if (
+                ["Honey", "HotExtract", "PiecePick"].includes(getNameFromAsset(drop.assetName))
+                && Math.random() < 0.7
+            ) {
+                mutateMiscDrop(drop, config);
+            }
+            if (drop.dropChance <= 0.4) drop.dropChance += 0.3;
+            // Prevent things like 5 material being randomised to 5-3 dumples.
+            if (drop.minDrops > drop.maxDrops) drop.minDrops = drop.maxDrops;
+        };
+
+        parsed.forEach(dropMutator);
+        if (randCreature.creatureId.includes('Gate')) randCreature.drops.rareDrops.forEach(dropMutator);
+
     }
     if ((config.allCreaturesDrop && isCreature) || (objectDroppable && config.allObjectsDrop)) {
         const invSize = randFunctions[config.randIntFunction](1, config.dropLimitMax);
@@ -736,6 +782,16 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
             parsed.push(generateCreatureDrop(config, lastDropId += 1, randCreature, map));
         }
     }
+};
+
+const mutateMiscDrop = (drop, config) => {
+    let list = miscDropList;
+    if (Math.random() < 0.5) list = list.concat(pikminDropList);
+
+    const newCreature = list[randInt(list.length)];
+    const newAsset = getAssetPathFromId(newCreature);
+    drop.assetName = newAsset;
+    drop.maxDrops = parseInt(config.randMaxDrops);
 };
 
 const mutateCreatureDrop = (drop, config, map) => {
@@ -750,11 +806,13 @@ const mutateCreatureDrop = (drop, config, map) => {
 const generateCreatureDrop = (config, id, creature, map) => {
     let list = getCreatureList(creature.creatureId, config, true, map);
 
-    if (["Egg", "BigEgg", 'Komush', 'Mush'].includes(creature.creatureId) && Math.random() < 0.75) {
-        list = ["Honey", "PiecePick", "HotExtract"];
+    if (["Egg", "BigEgg", 'Komush', 'Mush'].includes(creature.creatureId) && Math.random() < 0.6) {
+        list = miscDropList;
+        if (Math.random() < 0.4) list = list.concat(pikminDropList);
     }
-    if (creature.creatureId.includes('Gate') && Math.random() < 0.6) {
-        list = ["Honey", "PiecePick", "HotExtract"];
+    if (creature.creatureId.includes('Gate') && Math.random() < 0.75) {
+        list = miscDropList;
+        if (Math.random() < 0.4) list = list.concat(pikminDropList);
     }
 
     return {
@@ -786,7 +844,6 @@ const randomiseActorSpawnerDrop = (creature, config, map) => {
         drop = creature.drops[dropProperty][0] = deepCopy(DefaultActorSpawnerDrop);
         dropList = appendCreatures;
     }
-
 
     const newCreature = dropList[randInt(dropList.length)];
     logger.info(`${creature.creatureId}'s drop in ${dropProperty} has been randomised to: ${newCreature}`);
@@ -837,17 +894,8 @@ const getCreatureList = (creature, config, isDrop, map) => {
     if (map.includes('Area') && config.noOverworldSnowfake) list = list.filter(e => e !== 'Yukimushi');
 
     // Let pikmin be in the drop pool so people have a lower chance of getting progression-locked
-    if (isDrop) list = list.concat([
-        "PikminRed",
-        "PikminYellow",
-        "PikminBlue",
-        "PikminRock",
-        "PikminWing",
-        "PikminPurple",
-        "PikminPhoton",
-        "PikminWhite",
-        "PikminIce"
-    ]);
+    // also includes consumables
+    if (isDrop) list = list.concat(miscDropList, pikminDropList);
 
     // We don't want to drop ActorSpawners, but they should be spawnable
     return isDrop ? list.filter(e => !nonDropList.includes(e)) : list;

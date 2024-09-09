@@ -996,7 +996,6 @@ export const ItemNames = {
     DogFood: "Scrummy Bone",
     PhotonBall: "Glow Seed?",
     ShugoFlag: "Idler's Alert?",
-    Stone: "Stone?",
     HotExtract: "Ultra-Spicy Spray"
 };
 
@@ -1155,7 +1154,7 @@ export const ObjectNames = {
     AirWallFlick: "AirWallFlick",
     AirWallJump: "AirWallJump",
     BookendSlope: "BookendSlope",
-    BookendPlope: "BookendSlope",
+    BookendPlane: "BookendSlope",
     CushionA: "Cushion (A)",
     CushionB: "Cushion (B)",
     CushionC: "Cushion (C)",
