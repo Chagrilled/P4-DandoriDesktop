@@ -25,6 +25,7 @@ Special thanks goes to Dodiou for making [DandoriDB](https://github.com/Dodiou/D
 Currently supports:
 
 - Editing/creating entities on the game maps
+- Full game randomisation
 - Manipulating drop tables
 - Writing back to game files
 - Primitive editing of some enemy parameters
