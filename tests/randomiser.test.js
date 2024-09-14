@@ -100,12 +100,12 @@ describe('Randomiser Tests', () => {
         }));
     });
 
-    test('Night, Dandori and prologue maps are skipped', async () => {
+    test('Dandori and prologue maps are skipped', async () => {
         main.readMapData.mockResolvedValue({
         });
 
         await randomiser({
-            maps: ['Night001-1', ...DandoriChallengeMaps, 'Area011']
+            maps: [...DandoriChallengeMaps, 'Area011']
         });
 
         expect(main.saveMaps).toHaveBeenCalledTimes(0);
@@ -151,13 +151,16 @@ describe('Randomiser Tests', () => {
                 ],
                 [InfoType.Object]: [],
                 [InfoType.Hazard]: [],
-                [InfoType.WorkObject]: []
+                [InfoType.WorkObject]: [],
             });
 
             vi.spyOn(global.Math, 'floor').mockReturnValue(1);
-            vi.spyOn(global.Math, 'random').mockReturnValueOnce(0.4)
+            vi.spyOn(global.Math, 'random')
                 .mockReturnValue(0.5)
-                .mockReturnValueOnce(0.5)
+                .mockReturnValueOnce(0.2)
+                .mockReturnValueOnce(0.2)
+                .mockReturnValueOnce(0.2)
+                .mockReturnValueOnce(0.2)
                 .mockReturnValueOnce(0.2);
 
             await randomiser({
@@ -565,6 +568,7 @@ describe('Randomiser Tests', () => {
                         disablePikminFlags: 0,
                     }
                 }],
+                [InfoType.Object]: [],
             });
 
             vi.spyOn(global.Math, 'floor').mockReturnValueOnce(11);
@@ -605,6 +609,7 @@ describe('Randomiser Tests', () => {
                         disablePikminFlags: 0,
                     }
                 }],
+                [InfoType.Object]: [],
             });
 
             vi.spyOn(global.Math, 'floor').mockReturnValueOnce(14);
@@ -646,6 +651,7 @@ describe('Randomiser Tests', () => {
                         disablePikminFlags: 0,
                     }
                 }],
+                [InfoType.Object]: [],
             });
 
             vi.spyOn(global.Math, 'floor').mockReturnValueOnce(14);
@@ -684,6 +690,7 @@ describe('Randomiser Tests', () => {
                         toPortalId: 53
                     }
                 }],
+                [InfoType.Object]: [],
             });
 
             vi.spyOn(global.Math, 'floor').mockReturnValueOnce(14);
@@ -763,6 +770,7 @@ describe('Randomiser Tests', () => {
                         disablePikminFlags: 0,
                     }
                 }],
+                [InfoType.Object]: [],
             });
 
             vi.spyOn(global.Math, 'random').mockReturnValue(0.5)
@@ -1432,8 +1440,9 @@ describe('Randomiser Tests', () => {
                     ]
                 }
             };
+
             vi.spyOn(global.Math, 'random').mockReturnValueOnce(0.2);
-            vi.spyOn(global.Math, 'floor').mockReturnValueOnce(0);
+            vi.spyOn(global.Math, 'floor').mockReturnValueOnce(3);
 
             randomiseRegularDrops(creature, {
                 randObjectDrops: true
@@ -1445,7 +1454,7 @@ describe('Randomiser Tests', () => {
                 drops: {
                     parsed: [
                         {
-                            assetName: '/Game/Carrot4/Placeables/Items/GBomb.GBomb_C'
+                            assetName: '/Game/Carrot4/Placeables/Teki/GBaby.GBaby_C'
                         }
                     ]
                 }
@@ -1465,9 +1474,12 @@ describe('Randomiser Tests', () => {
                 }
             };
 
+            vi.spyOn(global.Math, 'random').mockReturnValueOnce(0.2);
+            vi.spyOn(global.Math, 'floor').mockReturnValueOnce(1);
+
             randomiseRegularDrops(creature, {
                 randObjectDrops: true
-            });
+            }, 'Area001');
 
             expect(creature).toMatchObject({
                 creatureId: 'CrackPotL',
@@ -1475,7 +1487,7 @@ describe('Randomiser Tests', () => {
                 drops: {
                     parsed: [
                         {
-                            assetName: '/Game/Carrot4/Placeables/Pikmin/GHoney.GHoney_C'
+                            assetName: '/Game/Carrot4/Placeables/Teki/GArikui.GArikui_C'
                         }
                     ]
                 }

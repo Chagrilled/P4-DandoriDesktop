@@ -1,4 +1,4 @@
-import { CreatureNames, TreasureNames, InfoType, OnionNames, RebirthTypes, ExploreRateTargetType, weirdAIEntities, DandoriChallengeMaps, StartingLevels, FinalFloors, OverworldPortals, PortalDestinations, HazardNames, WorkObjectNames, PikminTypes, OnionToPikminMap, onionWeights, DefaultDrop, DefaultActorSpawnerDrop } from "../api/types";
+import { CreatureNames, TreasureNames, InfoType, OnionNames, RebirthTypes, ExploreRateTargetType, weirdAIEntities, DandoriChallengeMaps, StartingLevels, FinalFloors, OverworldPortals, PortalDestinations, HazardNames, WorkObjectNames, PikminTypes, OnionToPikminMap, onionWeights, DefaultDrop, DefaultActorSpawnerDrop, ActivityTimes } from "../api/types";
 import { readMapData, saveMaps } from "../main";
 import { getInfoType, deepCopy, getSubpathFromAsset, getAssetPathFromId, getNameFromAsset, doesEntityHaveDrops, getInfoTypeFromId, mutateAIProperties } from "../utils";
 import { randomBytes } from 'crypto';
@@ -165,7 +165,7 @@ const randCreatures = Object.keys(CreatureNames).filter(k => ![
     "PikminIce",
     "GroupDropManager",
     "Queen", // Crashes if game can't place her in spaces - GenerateRadius doens't seem to help
-    "AmeBozu", // Probably crashes without his spline
+    "AmeBozu", // Probably crashes without his spline,
 ].includes(k));
 
 const bosses = [
@@ -199,9 +199,11 @@ const nonDropList = [
     'ActorSpawner',
     'Kajiokoshi',
     'KinoKajiokoshi', // the slugs seem crashy for some reason, on some drops
-    'KajiokoshiFire',
     "MarigumoNet",
     "MarigumoNet_Low",
+    // These two are possibly crashy - haven't replicated though
+    // "Kanitama",
+    // "Kogani"
 ];
 const fillTreasureArray = excludeShips => Object.keys(TreasureNames).filter(t => excludeShips ^ t.includes('OtaHeroParts'));
 const remainingTreasures = fillTreasureArray(true);
@@ -242,6 +244,7 @@ const gimmicksToRand = [
     "CrackPotL",
     "CrackPotLAnother",
     "CrackPotS",
+    "CrackPlanter",
     "CrackPotSAnother",
     "CrushJelly_S",
     "CrushJelly_M",
@@ -267,7 +270,10 @@ const ignoreList = [
     "SplineChaser_LivingRoom",
     "SplineChaser_Kitchen",
     "AmeBozu",
-    "Queen"
+    "Queen",
+    "OtaPocketWatch",
+    "OtaBankCardC",
+    "OtaPinBadgeE"
     // All splines are added in this list already
 ];
 
@@ -327,6 +333,35 @@ const miscDropList = [
     "PiecePick"
 ];
 
+const nightCreatureList = [
+    ...Object.keys(CreatureNames).filter(c => c.startsWith('Night')),
+    "KareHambo",
+    "BigKingChappy",
+    "HageDamagumo",
+    "KingChappy",
+    "Arikui",
+    "Chappy",
+    "BigChappy",
+    "IceChappy",
+    "Kochappy",
+    "KinoKochappy",
+    "IceKochappy",
+    "TenKochappy",
+    "TentenChappy",
+    "Baby",
+    "Kemekuji",
+    "Rusher",
+    "Kajiokoshi",
+    "KinoKajiokoshi",
+    "IceMar",
+    "Namazu",
+    "KumaChappy",
+    "KumaKochappy",
+    "Dodoro",
+    "DodoroEgg",
+    "UjinkoB"
+];
+
 export const randomiser = async (config) => {
     logger.info(`randomiser config: ${JSON.stringify(config)}`);
     appendCreatures = config.allBosses ? bosses
@@ -369,10 +404,6 @@ export const randomiser = async (config) => {
                 generateNum: onionWeights[startingOnion]
             });
         }
-        else if (map.includes('Night')) {
-            logger.info(`Skipping: ${map}`);
-            continue;
-        }
         else if (DandoriChallengeMaps.includes(map)) continue;
         else if (map === 'Cave016_F19') continue;
         else if (map === 'Area011') continue;
@@ -396,6 +427,9 @@ export const randomiser = async (config) => {
 
             //#region Randomise Creatures
             if (config.randCreatures) markerData[InfoType.Creature].forEach(creature => {
+                if (map.startsWith('Night') && (!config.randomiseNight || creature.activityTime !== ActivityTimes.Nighttime))
+                    return randomMarkers[InfoType.Creature].push(creature);
+
                 logger.info(`Randomise creature: ${creature.creatureId}`);
                 if (config.retainSpawners && "ActorSpawner" === creature.creatureId) {
                     logger.info(`Randomising ActorSpawner that has a translation of: ${JSON.stringify(creature.transform.translation)}`);
@@ -455,14 +489,22 @@ export const randomiser = async (config) => {
 
             //#region Randomise Treasures
             if (config.randTreasures) markerData[InfoType.Treasure].forEach(treasure => {
-                logger.info(`${treasure.creatureId} has been randomised to: `);
-                treasure.creatureId = randomiseTreasure(map);
+                if (map.startsWith('Night'))
+                    return randomMarkers[InfoType.Treasure].push(treasure);
+
+                if (!ignoreList.includes(treasure.creatureId)) {
+                    logger.info(`${treasure.creatureId} has been randomised to: `);
+                    treasure.creatureId = randomiseTreasure(map);
+                }
                 randomMarkers[InfoType.Treasure].push(treasure);
             });
             else randomMarkers[InfoType.Treasure] = markerData[InfoType.Treasure];
 
             //#region Randomise Portals
             if (config.randPortals) markerData[InfoType.Portal].forEach(portal => {
+                if (map.startsWith('Night'))
+                    return randomMarkers[InfoType.Portal].push(portal);
+
                 if (portal.PortalTrigger.toLevelName.includes('Cave016')) return randomMarkers[InfoType.Portal].push(portal);
 
                 if (config.retainExits && portal.creatureId === 'DungeonExit') {
@@ -572,12 +614,15 @@ export const randomiser = async (config) => {
             //#region Randomise Objects
             if (config.randObjects) {
                 let objectList = config.objectsLfL ? objectRandLfLList : objectRandFullList;
-                if (map.includes('Area') && config.noOverworldSnowfake) objectList = objectList.filter(e => e !== 'Yukimushi');
+                if (map.match(/Area|Hero/) && config.noOverworldSnowfake) objectList = objectList.filter(e => e !== 'Yukimushi');
 
                 markerData[InfoType.Object].forEach(object => {
                     if (objectsToRand.includes(object.creatureId)) {
+                        if (map.startsWith('Night') && (!config.randomiseNight || object.activityTime !== ActivityTimes.Nighttime))
+                            return randomMarkers[InfoType.Object].push(object);
+
                         const newObject = objectList[randInt(objectList.length)];
-                        const newEnt = (map.includes('Cave') && config.forceCaves) || map.includes('Area') ? newObject : object.creatureId;
+                        const newEnt = (map.includes('Cave') && config.forceCaves) || map.match(/Area|Hero/) ? newObject : object.creatureId;
 
                         const infoType = morphObject(object, config, newEnt, map);
                         randomMarkers[infoType].push(object);
@@ -587,9 +632,16 @@ export const randomiser = async (config) => {
 
                 //#region Randomise Gimmicks
                 markerData[InfoType.Gimmick].forEach(gimmick => {
+                    if (map.startsWith('Night') && (!config.randomiseNight || gimmick.activityTime !== ActivityTimes.Nighttime))
+                        return randomMarkers[InfoType.Gimmick].push(gimmick);
+
                     if (gimmicksToRand.includes(gimmick.creatureId)) {
                         const newObject = objectList[randInt(objectList.length)];
-                        const newEnt = (map.includes('Cave') && config.forceCaves) || map.includes('Area') ? newObject : gimmick.creatureId;
+                        const newEnt = (map.includes('Cave') && config.forceCaves)
+                            || !gimmick.creatureId.includes('CrushJelly')
+                            && map.match(/Area|Hero/)
+                            ? newObject : gimmick.creatureId;
+
                         const infoType = morphObject(gimmick, config, newEnt, map);
                         randomMarkers[infoType].push(gimmick);
                     }
@@ -608,6 +660,9 @@ export const randomiser = async (config) => {
 
                 //#region Randomise workObjects
                 markerData[InfoType.WorkObject].forEach(workObject => {
+                    if (map.startsWith('Night') && (!config.randomiseNight || workObject.activityTime !== ActivityTimes.Nighttime))
+                        return randomMarkers[InfoType.WorkObject].push(workObject);
+
                     if (workObject.creatureId.includes('Gate')) {
                         if (!config.excludeGates) workObject.creatureId = gates[randInt(gates.length)];
                         randomiseRegularDrops(workObject, config, map);
@@ -617,12 +672,15 @@ export const randomiser = async (config) => {
 
                 //#region Randomise Hazards
                 markerData[InfoType.Hazard].forEach(hazard => {
+                    if (map.startsWith('Night') && (!config.randomiseNight || hazard.activityTime !== ActivityTimes.Nighttime))
+                        return randomMarkers[InfoType.Hazard].push(hazard);
+
                     let newHazard;
                     if (config.hazardsLfL) {
                         newHazard = hazards[randInt(hazards.length)];
                     }
                     else newHazard = objectList[randInt(objectList.length)];
-                    const newEnt = (map.includes('Cave') && config.forceCaves) || map.includes('Area') ? newHazard : hazard.creatureId;
+                    const newEnt = (map.includes('Cave') && config.forceCaves) || map.match(/Area|Hero/) ? newHazard : hazard.creatureId;
 
                     const infoType = morphObject(hazard, config, newEnt, map);
                     randomMarkers[infoType].push(hazard);
@@ -655,6 +713,13 @@ export const randomiser = async (config) => {
             randomMarkers[InfoType.Base] = markerData[InfoType.Base];
         }
         logger.info(`Saving ${map}`);
+
+        // Remove any entities that disappear upon clearing caves to reduce walling
+        if (config.randPortals) {
+            randomMarkers[InfoType.Object] = randomMarkers[InfoType.Object]
+                .filter(obj => !obj.eraseCond.some(cond => cond.CondName.includes("Quest_Generator_ClearCave")));
+        }
+
         await saveMaps(map, randomMarkers);
     }
 };
@@ -713,11 +778,7 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
 
             // Creatures are turned into creatures
             if (infoType === InfoType.Creature) {
-                const creatureList = getCreatureList(name, config, true, map);
-                const newCreature = creatureList[randInt(creatureList.length)];
-                const newAsset = getAssetPathFromId(newCreature);
-                drop.assetName = newAsset;
-                drop.maxDrops = parseInt(config.randMaxDrops);
+                mutateCreatureDrop(drop, config, map);
             }
             // Treasures into treasures
             else if (infoType === InfoType.Treasure) {
@@ -730,14 +791,13 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
                 const newAsset = getAssetPathFromId(newPikmin);
                 drop.assetName = newAsset;
             }
-            // 90% chance that friendly drops are mutated
+            // 90% chance that friendly drops are mutated on objects
             // 50/50 creature or a new misc (which itself is 50/50 to include pikmin)
             else if (
                 ["Honey", "PiecePick", "HotExtract", "PiecePick"].includes(name)
-                && Math.random() < 0.9
                 && (randCreature.creatureId.includes("Egg") || [InfoType.Gimmick, InfoType.Hazard].includes(randCreature.infoType))
             ) {
-                if (Math.random() < 0.5) mutateCreatureDrop(drop, config, map);
+                if (Math.random() <= 0.5) mutateCreatureDrop(drop, config, map);
                 else mutateMiscDrop(drop, config);
             }
             // Piecepick inflation, or 50% chance to override to a creature
@@ -749,26 +809,32 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
                     mutateCreatureDrop(drop, config, map);
                 }
             }
-            // 60% chance for honey/spicy in creatures to become creatures
+            // 75% chance for honey/spicy in creatures to become creatures
             else if (
                 ["Honey", "HotExtract"].includes(name)
-                && Math.random() < 0.6
-                && InfoType.Creature === randCreature.infoType
+                && Math.random() < 0.8
+                && randCreature.infoType === InfoType.Creature
                 && !["Egg", "Tateana"].includes(randCreature.creatureId)
             ) {
                 mutateCreatureDrop(drop, config, map);
             }
+            else if (!map.includes('Night') && name === 'HikariStation') {
+                if (Math.random() <= 0.75) mutateCreatureDrop(drop, config, map);
+                else mutateMiscDrop(drop, config);
+            }
 
-            // if honey/spicy are remaining drops, 70% chance they get randomised into other consumables
+            // if honey/spicy are remaining drops, 40% chance they get randomised into other consumables
             if (
-                ["Honey", "HotExtract", "PiecePick"].includes(getNameFromAsset(drop.assetName))
-                && Math.random() < 0.7
+                ["Honey", "HotExtract"].includes(name)
+                && Math.random() < 0.4
             ) {
                 mutateMiscDrop(drop, config);
             }
+
+            // Buff low drop chances so eggs do more.
             if (drop.dropChance <= 0.4) drop.dropChance += 0.3;
             // Prevent things like 5 material being randomised to 5-3 dumples.
-            if (drop.minDrops > drop.maxDrops) drop.minDrops = drop.maxDrops;
+            drop.minDrops = Math.min(drop.minDrops, drop.maxDrops);
         };
 
         parsed.forEach(dropMutator);
@@ -786,7 +852,7 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
 
 const mutateMiscDrop = (drop, config) => {
     let list = miscDropList;
-    if (Math.random() < 0.5) list = list.concat(pikminDropList);
+    if (Math.random() < 0.4) list = list.concat(pikminDropList);
 
     const newCreature = list[randInt(list.length)];
     const newAsset = getAssetPathFromId(newCreature);
@@ -806,13 +872,13 @@ const mutateCreatureDrop = (drop, config, map) => {
 const generateCreatureDrop = (config, id, creature, map) => {
     let list = getCreatureList(creature.creatureId, config, true, map);
 
-    if (["Egg", "BigEgg", 'Komush', 'Mush'].includes(creature.creatureId) && Math.random() < 0.6) {
+    if (["Egg", "BigEgg", 'Komush', 'Mush', 'CrackP'].includes(creature.creatureId) && Math.random() < 0.35) {
         list = miscDropList;
-        if (Math.random() < 0.4) list = list.concat(pikminDropList);
+        if (Math.random() < 0.3) list = list.concat(pikminDropList);
     }
-    if (creature.creatureId.includes('Gate') && Math.random() < 0.75) {
+    if (creature.creatureId.includes('Gate') && Math.random() < 0.7) {
         list = miscDropList;
-        if (Math.random() < 0.4) list = list.concat(pikminDropList);
+        if (Math.random() < 0.3) list = list.concat(pikminDropList);
     }
 
     return {
@@ -851,7 +917,6 @@ const randomiseActorSpawnerDrop = (creature, config, map) => {
     const newAssetDrop = getAssetPathFromId(newCreature);
     let customParameter = drop.customParameter;
     if (newCreature.includes('Otakara') && Math.random() < 0.25) customParameter = "ShoulderBomb";
-    logger.info(`Infinite chance: ${config.asInfiniteChance} : activated? ${Math.random() < (config.asInfiniteChance / 100)}`);
 
     const actorSpawner = {
         ...creature,
@@ -878,12 +943,16 @@ const randomiseActorSpawnerDrop = (creature, config, map) => {
     return actorSpawner;
 };
 
+//#region Creature List
 const getCreatureList = (creature, config, isDrop, map) => {
     const isBoss = bosses.includes(creature);
     let list;
 
-    if (config.allBosses) list = bosses;
+    // 15% for non-night enemies to be chucked into the mix
+    if (map.startsWith('Night') && Math.random() <= 0.85) list = nightCreatureList;
+    else if (config.allBosses) list = bosses;
     else if (isDrop && !config.bossesCanDrop) list = nonBosses;
+    else if (isDrop && config.bossesCanDrop && Math.random() < (parseFloat(config.bossDropChance) / 100)) list = randCreatures;
     else if (isBoss) {
         if (config.retainBosses) list = bosses;
         else list = randCreatures;
@@ -891,11 +960,14 @@ const getCreatureList = (creature, config, isDrop, map) => {
     else if (config.retainNonBosses) list = nonBosses;
     else list = randCreatures;
 
-    if (map.includes('Area') && config.noOverworldSnowfake) list = list.filter(e => e !== 'Yukimushi');
+    if (map.match(/Area|Hero/) && config.noOverworldSnowfake) list = list.filter(e => e !== 'Yukimushi');
 
-    // Let pikmin be in the drop pool so people have a lower chance of getting progression-locked
+    // Let pikmin be in the drop pool sometimes so people have a lower chance of getting progression-locked
     // also includes consumables
-    if (isDrop) list = list.concat(miscDropList, pikminDropList);
+    if (isDrop && Math.random() < 0.65) list = list.concat(miscDropList, pikminDropList);
+
+    // Filter night enemies out of the pool so they don't occupy two slots for basically the same mob
+    if (!map.startsWith('Night')) list = list.filter(i => !i.startsWith('Night'));
 
     // We don't want to drop ActorSpawners, but they should be spawnable
     return isDrop ? list.filter(e => !nonDropList.includes(e)) : list;
@@ -903,7 +975,6 @@ const getCreatureList = (creature, config, isDrop, map) => {
 
 const assignRebirth = (ent, config, previousInfoType) => {
     if (ent.infoType === InfoType.Creature) {
-
         ent.generateNum = getGenerateNum(ent, config, previousInfoType);
         ent.rebirthType = RebirthTypes.RebirthLater;
         ent.rebirthInterval = parseInt(config.rebirthInterval);
@@ -917,6 +988,10 @@ const morphObject = (object, config, newObject, map) => {
     object.infoType = infoType;
     if ('DodoroEgg' === newObject) object.transform.translation.Z += 150;
     if ('Yamashinju' === newObject) object.transform.translation.Z += 25;
+
+    // Allday bjects that morph into enemies on the overworld should stay on daytime only
+    if (map.includes('Area') && infoType === InfoType.Creature && object.activityTime == ActivityTimes.Allday)
+        object.activityTime = ActivityTimes.Daytime;
 
     mutateAIProperties(object, infoType === InfoType.Creature ? infoType : newObject);
     randomiseObjectDrop(object, newObject, config, map);

@@ -14,7 +14,6 @@ export const MarkerIcon = ({ type, id, size = 'small', card, override }) => {
         [InfoType.Portal]: 'w-48 h-48 mr-2 mt-4 inline self-center',
         [InfoType.Item]: 'w-48 h-48 mr-2 mt-4 inline self-center',
         [InfoType.PopPlaceActor]: 'w-48 h-48 mr-2 mt-4 inline self-center',
-        [InfoType.Item]: 'w-48 h-48 mr-2 mt-4 inline self-center',
         "pikmin-disable": 'w-10 h-10 mr-px mt-px inline self-center'
     };
     if (id?.startsWith('night')) id = id.replace('night', '');

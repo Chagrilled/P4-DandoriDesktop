@@ -994,8 +994,8 @@ export const ItemNames = {
     SearchBomb: "Mine",
     YuudouEsa: "PikPik Carrot",
     DogFood: "Scrummy Bone",
-    PhotonBall: "Glow Seed?",
-    ShugoFlag: "Idler's Alert?",
+    PhotonBall: "Glow Seed",
+    ShugoFlag: "Idler's Alert",
     HotExtract: "Ultra-Spicy Spray"
 };
 
@@ -1177,6 +1177,7 @@ export const ObjectNames = {
     MultiBlockArea500_03A: "MultiBlockArea500_03A",
     MultiBlockArea500_03B: "MultiBlockArea500_03B",
     MultiBlockArea500_Cave: "MultiBlockArea500_Cave",
+    PanModokiHideArea: "Breadbug Nest",
     Pellet1: "1 Pellet",
     Pellet5: "5 Pellet",
     Pelplant1: "1 Pellet Posy",
@@ -1421,7 +1422,8 @@ export const iconOverrides = {
     happypointactorpullnekkotutorial: "pullnekko",
     dolphinarea500before: "dolphinarea500",
     dolphinarea500after: "dolphinarea500",
-    kinkaipick: "kinkaistation"
+    kinkaipick: "kinkaistation",
+    panmodokihidearea: 'default'
 };
 
 // A 207 byte slice from an AreaBaseCamp_GEN_VARIABLE

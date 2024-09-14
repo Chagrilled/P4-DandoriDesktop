@@ -22,20 +22,17 @@ The whackier you go with the settings, the less stable you should expect the gam
 - [Randomise Enemies](#randomise-enemies)
 - [Randomise Enemy Drops](#randomise-enemy-drops)
 - [All Creatures Have Drops](#all-creatures-have-drops)
-- [Limit Per Drop](#limit-per-drop)
-- [Drop Limit](#drop-limit)
 - [Randomise GenerateNums](#randomise-generatenums)
 - [GenerateNum Limit](#generatenum-limit)
 - [Randomise Boss GenerateNums](#randomise-boss-generatenums)
 - [Boss GenerateNum Limit](#boss-generatenum-limit)
-- [Rebirth Interval](#rebirth-interval)
-- [Random Function](#random-function)
 - [Retain Spawners](#retain-spawners)
 - [Retain Non-Bosses](#retain-non-bosses)
 - [Retain Bosses](#retain-bosses)
 - [All Bosses](#all-bosses)
 - [Retain Wild Pikmin](#retain-wild-pikmin)
 - [Bosses Can Drop](#bosses-can-drop)
+- [Boss Drop Pool Chance](#boss-drop-pool-chance)
 - [No Overworld Snowfake](#no-overworld-snowfake)
 - [ActorSpawner Infinite Chance](#actorspawner-infinite-chance)
 - [ActorSpawner Limit](#actorspawner-limit)
@@ -59,6 +56,14 @@ The whackier you go with the settings, the less stable you should expect the gam
 - [Randomise starting onion](#randomise-starting-onion)
 - [Randomise other onions](#randomise-other-onions)
 - [Starting Flarlics](#starting-flarlics)
+
+### 🔧 General
+
+- [Limit Per Drop](#limit-per-drop)
+- [Drop Type Limit](#drop-type-limit)
+- [Randomise Night](#randomise-night)
+- [Rebirth Interval](#rebirth-interval)
+- [Random Function](#random-function)
 
 ### Randomise Enemies
 
@@ -97,13 +102,21 @@ Pikmin types are all added into the randomised drop pool to reduce chances of ge
 
 Drops are defined with minimum and maximum values. This option sets the _upper bound_ of the maximum drop limit. The game itself then randomises how many of the entity can drop.
 
-### Drop Limit
+### Drop Type Limit
 
 When [All Objects](#all-objects-have-drops)/[Creatures Have Drops](#all-creatures-have-drops) is enabled, this is the upper bound of what number of drops the inventory will be padded to.
 
 If this value is 4, the randomiser may select 2 as the value - the entity being given drops will then have its inventory padded to 2 drops. If it already has a treasure or creature drop, it will only be given one more.
 
 Affected by [Random Function](#random-function)
+
+### Randomise Night
+
+Randomises the night maps if set to true. The drop pool of creatures is [smaller](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/src/genEditing/randomiser.js#L335) and comprises enemies I found to work on night maps. 
+
+It seems anything that shares a base class of something that _does_ work, will work - i.e Sovereign Bulblax works because Emperor does, and ice kochappies work because regular kochappies do too. A foolix however, will never target the lumiknolls.
+
+There is a 15% chance for something to be rolled from the entire creature pool, because memes.
 
 ### Randomise GenerateNums
 
@@ -186,6 +199,10 @@ If disabled, they will all be randomised into a different pikmin type.
 This adds bosses into the drop pool. It can be very chaotic to have 2 whole-ass Gildemanders drop out of a Water Dumple in a small room.
 
 Bosses dropping from creatures because increasingly ridiculous with inventory padding and drop limits greater than 1.
+
+### Boss Drop Pool Chance
+
+If using [Bosses Can Drop](#bosses-can-drop), this is the % chance the boss pool will be included when rerolling the entity. It is not the % chance a boss WILL drop, but the chance for it to be an _available option_ to drop.
 
 ### No Overworld Snowfake
 

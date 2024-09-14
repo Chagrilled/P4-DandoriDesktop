@@ -81,7 +81,8 @@ const SCALE_OVERRIDES = {
     hikaristation: 0.7,
     happy: 0.6,
     spacebus: 0.6,
-    bikkurigikuplant: 0.4
+    bikkurigikuplant: 0.4,
+    panmodokihidearea: 0.75
 };
 
 export const getIconOptions = (type) => {

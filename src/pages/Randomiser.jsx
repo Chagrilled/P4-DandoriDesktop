@@ -10,7 +10,16 @@ export const Randomiser = () => {
     const pikminList = Object.keys(PikminNames);
 
     useEffect(() => {
+        if (!state.maps) {
+            window.electron.ipcRenderer.readMaps();
+            setInterval(() => setPikminState({
+                leftIconImage: pikminList[randInt(pikminList.length)],
+                rightIconImage: pikminList[randInt(pikminList.length)]
+            }), 1500);
+        }
+
         window.electron.ipcRenderer.on('getMaps', (evt, message) => { console.log(message); setState({ ...state, maps: message.maps }); });
+
         return () => {
             window.electron.ipcRenderer.removeAllListeners('getMaps');
         };
@@ -33,7 +42,7 @@ export const Randomiser = () => {
         retainBosses: true, // ✅
         allBosses: false, // ✅
         asInfiniteChance: 40, // ✅
-        asLimit: 4, // ✅
+        asLimit: 5, // ✅
         asIntervalLimit: 60, // ✅
         randTreasures: true, // ✅
         treasuresLfL: true,
@@ -46,24 +55,27 @@ export const Randomiser = () => {
         // gatesLfL: false,
         excludeGates: true,
         allObjectsDrop: true, // ✅
-        randStartingOnion: false, // ✅
-        randAllOnions: false, // ✅
+        randStartingOnion: true, // ✅
+        randAllOnions: true, // ✅
         retainMaterials: true,
         retainWildPikmin: true, // ✅
         randObjectDrops: true,
-        objectsLfL: false, // ✅
+        objectsLfL: true, // ✅
         startingFlarlics: 3, // ✅
-        bossesCanDrop: false, // ✅
+        bossesCanDrop: true, // ✅
         rebirthInterval: 5, // ✅
         randIntFunction: 'even', // ✅
         forceCaves: false, // ✅
         noOverworldSnowfake: true,
-        retainExits: true
+        retainExits: true, // add tests for these later V
+        randomiseNight: true,
+        bossDropChance: 25
     });
 
-    if (!state.maps) {
-        window.electron.ipcRenderer.readMaps();
-    }
+    const [pikminState, setPikminState] = useState({
+        leftIconImage: pikminList[randInt(pikminList.length)],
+        rightIconImage: pikminList[randInt(pikminList.length)],
+    });
 
     const settings = {
         creatures: [
@@ -90,23 +102,6 @@ export const Randomiser = () => {
                 type: 'checkbox',
                 onChange: (e) => setState({ ...state, allCreaturesDrop: e.target.checked }),
                 id: 'allCreaturesDrop'
-            },
-            {
-                label: 'Limit Per Drop',
-                tooltip: <><span> Upper bound of how many of each entity can be dropped per drop - 4 will mean 1-4 bulborbs could drop</span></>,
-                type: 'number',
-                onChange: (e) => setState({ ...state, randMaxDrops: e.target.value }),
-                id: 'randMaxDrops'
-            },
-            {
-                label: 'Drop Limit',
-                tooltip: <>
-                    <span>Upper bound of how many types of things each entity can drop.</span>
-                    <span>3 will mean an enemy can drop 1, 2 or 3 types of things (which may all be 1-Limit Per Drop)</span>
-                </>,
-                type: 'number',
-                onChange: (e) => setState({ ...state, dropLimitMax: e.target.value }),
-                id: 'dropLimitMax'
             },
             {
                 break: true,
@@ -141,20 +136,6 @@ export const Randomiser = () => {
                 type: 'number',
                 onChange: (e) => setState({ ...state, randBossGenerateNumLimit: e.target.value }),
                 id: 'randBossGenerateNumLimit'
-            },
-            {
-                label: 'Rebirth Interval',
-                tooltip: <><span>Number of days before an enemy group will respawn</span></>,
-                type: 'number',
-                onChange: (e) => setState({ ...state, rebirthInterval: e.target.value }),
-                id: 'rebirthInterval'
-            },
-            {
-                label: 'Random Function',
-                tooltip: <><span>Function used to generate integers for GenerateNums. Refer to documentation for <details className=""></details></span></>,
-                type: 'select',
-                onChange: (e) => setState({ ...state, randIntFunction: e.target.value }),
-                id: 'randIntFunction'
             },
             {
                 break: true,
@@ -200,7 +181,10 @@ export const Randomiser = () => {
             },
             {
                 label: 'Retain Wild Pikmin',
-                tooltip: <><span>Wild pikmin are kept exactly as they are.</span> <span>Disabling this randomise their pikmin type, which may help with randomised gates.</span></>,
+                tooltip: <>
+                    <span>Wild pikmin are kept exactly as they are.</span>
+                    <span>Disabling this randomise their pikmin type, which may help with randomised gates.</span>
+                </>,
                 type: 'checkbox',
                 onChange: (e) => setState({ ...state, retainWildPikmin: e.target.checked }),
                 id: 'retainWildPikmin'
@@ -211,6 +195,16 @@ export const Randomiser = () => {
                 type: 'checkbox',
                 onChange: (e) => setState({ ...state, bossesCanDrop: e.target.checked }),
                 id: 'bossesCanDrop'
+            },
+            {
+                label: 'Boss Drop Pool Chance',
+                tooltip: <>
+                    <span>If using Bosses Can Drop, this is the % chance bosses will be included in the drop pool at all</span>
+                    <span>Helps have the effect sometimes, but not be as impactful or frequent</span>
+                </>,
+                type: 'number',
+                onChange: (e) => setState({ ...state, bossDropChance: e.target.value }),
+                id: 'bossDropChance'
             },
             {
                 label: 'No Overworld Snowfake',
@@ -371,7 +365,7 @@ export const Randomiser = () => {
             },
             {
                 label: 'All Objects Have Drops',
-                tooltip: <><span>Every object is given a drop, and pads inventories from 1-Drop Limit</span></>,
+                tooltip: <><span>Every object is given a drop, and pads inventories from 1-Drop Type Limit</span></>,
                 type: 'checkbox',
                 onChange: (e) => setState({ ...state, allObjectsDrop: e.target.checked }),
                 id: 'allObjectsDrop'
@@ -418,6 +412,46 @@ export const Randomiser = () => {
             //     onChange: (e) => setState({ ...state, retainMaterials: e.target.checked }),
             //     id: 'retainMaterials'
             // },
+        ],
+        general: [
+            {
+                label: 'Limit Per Drop',
+                tooltip: <><span> Upper bound of how many of each entity can be dropped per drop - 4 will mean 1-4 bulborbs could drop</span></>,
+                type: 'number',
+                onChange: (e) => setState({ ...state, randMaxDrops: e.target.value }),
+                id: 'randMaxDrops'
+            },
+            {
+                label: 'Drop Type Limit',
+                tooltip: <>
+                    <span>Upper bound of how many types of things each entity can drop.</span>
+                    <span>3 will mean an enemy can drop 1, 2 or 3 types of things (which may all be 1-Limit Per Drop)</span>
+                </>,
+                type: 'number',
+                onChange: (e) => setState({ ...state, dropLimitMax: e.target.value }),
+                id: 'dropLimitMax'
+            },
+            {
+                label: 'Randomise Night',
+                tooltip: <><span>Randomises night entities if true. Night has its own creature pool.</span></>,
+                type: 'checkbox',
+                onChange: (e) => setState({ ...state, randomiseNight: e.target.checked }),
+                id: 'randomiseNight'
+            },
+            {
+                label: 'Rebirth Interval',
+                tooltip: <><span>Number of days before an enemy group will respawn</span></>,
+                type: 'number',
+                onChange: (e) => setState({ ...state, rebirthInterval: e.target.value }),
+                id: 'rebirthInterval'
+            },
+            {
+                label: 'Random Function',
+                tooltip: <><span>Function used to generate integers for GenerateNums. Refer to documentation for details</span></>,
+                type: 'select',
+                onChange: (e) => setState({ ...state, randIntFunction: e.target.value }),
+                id: 'randIntFunction'
+            },
         ]
     };
 
@@ -452,16 +486,16 @@ export const Randomiser = () => {
                 </label>
             </div>
     );
-
+    console.log(state);
     return (
         <div className="container py-20 px-10 mx-0 min-w-full flex flex-col items-center">
             <h2 className="text-7xl mb-8 text-blue-200 font-[Pikmin]">
-                <MarkerIcon type="pikmin" id={pikminList[randInt(pikminList.length)]} card={true} />
+                <MarkerIcon type="pikmin" id={pikminState.leftIconImage} card={true} />
                 Randomiser
-                <MarkerIcon type="pikmin" id={pikminList[randInt(pikminList.length)]} card={true} />
+                <MarkerIcon type="pikmin" id={pikminState.rightIconImage} card={true} />
             </h2>
 
-            <div className='columns-3 flex'>
+            <div className='columns-4 flex'>
                 {/* //#region Creatures */}
                 <div className='mx-4'>
                     <h3 className="text-center text-3xl mb-5 text-blue-200 font-[Pikmin]">
@@ -473,7 +507,7 @@ export const Randomiser = () => {
                     </div>
                 </div>
 
-                <div className='mx-6'>
+                <div className='ml-6 mr-3'>
                     <h3 className="text-center text-3xl mb-5 text-blue-200 font-[Pikmin]">
                         <MarkerIcon type="treasure" card={true} />
                         Treasures
@@ -481,14 +515,23 @@ export const Randomiser = () => {
                     {mapSettings(settings.treasures)}
                 </div>
 
-                <div className='mx-4'>
+                <div className='ml-3 mr-6'>
                     <h3 className="text-center text-3xl mb-5 text-blue-200 font-[Pikmin]">
                         <MarkerIcon type="workobject" card={true} />
                         Objects
                     </h3>
                     {mapSettings(settings.objects)}
                 </div>
+
+                <div className='mx-4'>
+                    <h3 className="text-center text-3xl mb-5 text-blue-200 font-[Pikmin]">
+                        <MarkerIcon type="object" card={true} id={"survivora"} />
+                        General
+                    </h3>
+                    {mapSettings(settings.general)}
+                </div>
             </div>
+
             <button
                 type="button"
                 className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-xl px-5 py-2.5 me-2 mt-8 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
