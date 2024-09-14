@@ -1,0 +1,722 @@
+{
+    "Otama": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "Chappy": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "FireTank": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "UjinkoA": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "UjinkoB": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "Kochappy": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Hari": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Kogane": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Egg": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "WhiteShijimi": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "NightKochappy": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "NightChappy": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "BigChappy": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "BigFireTank": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Mar": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Miulin": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Kaburi": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "FutakuchiAdult": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "BigUjinko": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "YellowShijimi": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "WaterTank": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "Futakuchi": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Kurione": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Mush": {
+        "bEnableFreezeBothDrop": [
+            1,
+            0
+        ]
+    },
+    "Komush": {
+        "bEnableFreezeBothDrop": [
+            1,
+            0
+        ]
+    },
+    "MushS": {
+        "bEnableFreezeBothDrop": [
+            1,
+            0
+        ]
+    },
+    "Suitori": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Frog": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "BikkuriGiku": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "BabyCrow": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "Billy": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "SnakeCrow": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Sarai": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "Hambo": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "TamagoMushi": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "NightKareHambo": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "NightKaburi": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "NightMar": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Rusher": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Kajiokoshi": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Iwakko": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "KareHambo": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "HageDamagumo": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "RedShijimi": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Shako": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Hariuo": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "Kanitama": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "Sakadachi": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Namazu": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Yamashinju": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Kogani": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Tobiuo": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "BigEgg": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Amembo": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "Arikui": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "WaterOtakara": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "Kemekuji": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "NightTobinko": {
+        "bEnableFreezeBothDrop": [
+            1,
+            0
+        ]
+    },
+    "BigFrog": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Awadako": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "ThrowEater": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "Demejako": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "TobiKaburi": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "BigKingChappy": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "KumaChappy": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "KumaKochappy": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "FireChappy": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "FireOtakara": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Patroller": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "OoKogane": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "NightFireChappy": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "KingChappy": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "BikkuriKinoko": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "KinoKochappy": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "KinoKajiokoshi": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "GasKogane": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "Nomi": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "NumaSuitori": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "Dorombo": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "BokeNameko": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "NightTobiKaburi": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "StickyMush": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "StickyMushB": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "StickyMushC": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "StickyMushPoison": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "DodoroEgg": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "TentenChappy": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "IceKochappy": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "NiseZako": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "ShippoZako": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "IceChappy": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "Chaser": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "IceMar": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "IceOtakara": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "NiseBoss": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "IceTank": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "DamagumoCannon": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Baby": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Tobinko": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "YakiSenbei": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "KomushL": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "ElecOtakara": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "NightFrog": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "MitsuMochi": {
+        "bEnableFreezeBothDrop": [
+            1,
+            0
+        ]
+    },
+    "ElecMushi": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "ElecSenbei": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "TenKochappy": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "Queen": {
+        "bEnableFreezeBothDrop": [
+            1
+        ]
+    },
+    "Kurage": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "OoKurage": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "IceFrog": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "YukiFutakuchi": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "YukiFutakuchiAdult": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "DiscoDamagumo": {
+        "bEnableFreezeBothDrop": [
+            1
+        ]
+    },
+    "AmeBozu": {
+        "bEnableFreezeBothDrop": [
+            1,
+            0
+        ]
+    },
+    "MaroFrog": {
+        "bEnableFreezeBothDrop": [
+            0,
+            1
+        ]
+    },
+    "Hanachirashi": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "GasOtakara": {
+        "bEnableFreezeBothDrop": [
+            1,
+            0
+        ]
+    },
+    "PoisonKomushS": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "PoisonKomushL": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "PoisonMushS": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "KomushS": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "DokuNameko": {
+        "bEnableFreezeBothDrop": [
+            1
+        ]
+    },
+    "BigIceTank": {
+        "bEnableFreezeBothDrop": [
+            1,
+            0
+        ]
+    },
+    "BossInu2": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "MushL": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "IceSenbei": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "Yukimushi": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "PanModoki": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    },
+    "OoPanModoki": {
+        "bEnableFreezeBothDrop": [
+            1
+        ]
+    },
+    "Shippo": {
+        "bEnableFreezeBothDrop": [
+            1,
+            0
+        ]
+    },
+    "PoisonMush": {
+        "bEnableFreezeBothDrop": [
+            0
+        ]
+    }
+}

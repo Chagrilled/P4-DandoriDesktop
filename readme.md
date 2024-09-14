@@ -21,6 +21,7 @@ Special thanks goes to Dodiou for making [DandoriDB](https://github.com/Dodiou/D
    * [🏗️ To Do List](#%EF%B8%8F-to-do-list)
    * [🐛 Bugs/known issues](#-bugsknown-issues)
 - [🎰 Randomiser](./docs/randomiser.md)
+- [❓ Randomiser](./docs/faqs.md)
 
 Currently supports:
 
