@@ -1,5 +1,12 @@
 # ❓ FAQs
 
+- [🐍 I can't install Cityhash](#🐍-i-cant-install-cityhash)
+- [🤔 I'm not seeing my mod's changes](#🤔-im-not-seeing-my-mods-changes)
+- [💥 I'm getting crashes](#💥-im-getting-crashes)
+- [Can I skip the tutorial](#can-i-skip-the-tutorial)
+- [I got an encoding error](#i-got-an-encoding-error)
+- [Can I re-randomise mid-game?](#can-i-re-randomise-mid-game)
+
 ## 🐍 I can't install CityHash
 
 First, ensure some basic things:
