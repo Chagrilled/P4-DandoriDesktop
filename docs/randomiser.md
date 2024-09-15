@@ -15,7 +15,7 @@ Currently known and unresolved crashes:
 - For some reason, me climbing the wall and approaching the blue onion in Serene Shores crashes. Maybe it's the vehicle box, but not sure what they do yet. Haven't looked into this much. Didn't apply to other people that I've seen.
 - Gunna reported Kanitama and Kogani being a bit unreliably crashy.
 
-If you've found a repeatable crash (sometimes the game _does_ just crash, but won't again 🤷‍♂️), message me on Discord with your randomised JSONs and I'll try look into it if it's done with sensical configuration.
+If you've found a **repeatable** crash (sometimes the game _does_ just crash, but won't again 🤷‍♂️), message me on Discord with your randomised JSONs and I'll try look into it if it's done with sensical configuration.
 
 The whackier you go with the settings, the less stable you should expect the game to be.
 

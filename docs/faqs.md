@@ -35,12 +35,12 @@ First, ensure some basic things:
   - Disable/remove other mods first before you dive into debugging randomiser
   - Here's how I debug loading crashes:
   - Assuming it's the first time you're entering an area, a gen save won't be created unless it loads and saves successfully, so we can keep deploying without clearing the saves.
-  - Remove one of the JSONs for the crashing map (teki, objects_day, or permanent objects)
+  - Remove one of the JSONs for the crashing map (teki, objects_day, or permanent objects). Caves only have teki and objects, no timed files.
   - Deploy, load in, see if it crashes. If it doesn't, repeat and remove another.
-  - Once the crash stops, you know the cause of the crash is in the file you just removed. From there, it's about deleting entities and redeploying until you find the one that crashes.
+  - Once the crash stops, you know the cause of the crash is in the file you just removed. From there, put the crashing file back, and it's about deleting entities from that file and redeploying until you find the one that crashes.
   - `bEnableFreezeBothDrop` may be a crash causer due to how it works. Some enemies seem to crash if the wrong value is used. The two files [freezeDrops](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/src/api/freezeDrops.json) and [freezeDrops-full](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/src/api/freezeDrops-full.json) can help determine if the entity ever has occurrences of true/false values for the parameter.
   - Another possibility is the entity it drops, but that usually crashes upon killing the dropper. To fix this you can remove the drop, but you'll need to delete the `gen` save to apply it in-game.
-  - If you identity a crashing entity and can't fix it, feel free to message on HH Discord with your findings and I'll try look into it.
+  - If you identity a crashing entity and can't fix it, feel free to message on [HH Discord](https://discord.gg/G7Pgkdh) with your findings and I'll try look into it.
 
 ## Can I skip the tutorial
 
