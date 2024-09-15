@@ -55,6 +55,6 @@ First, ensure some basic things:
 
 ## Can I re-randomise mid-game?
 
-Sort of - if you encounter a crashing map and don't want to debug, and haven't loaded into it yet, you can just re-randomise and deploy a new mod for a new seed. It'll only apply to future unloaded maps, and the parts of the game you've already loaded into.
+Sort of - if you encounter a crashing map and don't want to debug, and haven't loaded into it yet, you can just re-randomise and deploy a new mod for a new seed. It'll only apply to future unloaded maps, not the parts of the game you've already loaded into.
 
 This does mean the linking of caves may get messed up, depending on your settings.
