@@ -223,9 +223,8 @@ The bytes I construct are then spliced together with the base template for that 
 - ❌ Work out what the bytes are after the inventory so we don't set every default to some weird override
 - ❌ Draw radius around ActorSpawners/GDMs when highlighted - probably has to be done after refactoring the map props otherwise each click will re-render the map, making it worse than it already is.
 - ❗ Jellyfloats seem broken when spawned by ActorSpawners? They just don't attack anything - I think they may have more important ties to their Territory and EatArea params that are often provided by the blueprints overriding the AI variable. There are no examples of kurage ActorSpawners. Might have to find another enemy being given territory parameters via spawners and understand the final bytes. It doesn't seem limited to just them. GrubChucker also showed very little natural aggression. Maybe aggression is tied to territory, and if they're out of it, they don't care, and the territory is out near the actorspawner? Idk I lowered the AS to be nearer to the 'ground', and they still seem unbothered. Must investigate later. KingChappy is very happy to chase me around and try eat me. I've tried using bSetTerritory as an offset and absolute position, and Foolix just wants to slink off somewhere slightly northwest of the spawn platform way off in the abyss. Using 0/0/310 as the vector made him go in a totally different direction, so it definitely does SOMETHING. I also tried SubAI, which is used by Tateana - FModel shows the blueprint using `ComponentTag` or something to label each AI_Gen_Variable as AI vs SubAI for the `Tateana` vs the `Baby` - I thought I could use this with ActorSpawners to inject AI bytes to its children, but no.
-- ❌ Fix the CSS of the map buttons being killed by tailwind
+- ✅ Fix the CSS of the map buttons being killed by tailwind
 - Front page styling
-- ❌ Work out why BigFireTank doesn't get a model
 - ✅ Night maps
 - 🚧 Unit tests (lol)
 - ✅ GitHub issue template
@@ -236,7 +235,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ Extract JSONs button
 - ✅ Send a message if people's uasset isn't the decoded `Content` array
 - ✅ Fix icons for night enemies in caves
-- ❌ Dandori battle maps - where/what even are they?
+- ❌ Dandori battle maps - where/what even are they? [TKB Notes](https://pikmintkb.com/wiki/Dandori_Battles)
 - ✅ Support castaway drops (untested in game, but AI looks correct)
 - ✅ Better error reporting for the deploy process
 - ✅ Alphabetise the creature dropdown by the type of name we're displaying first (swapping internal names still makes them ordered by internal) 
@@ -300,7 +299,7 @@ These objects have (most) of their pertinent bytes parsed and displayed for mani
  - ✅ Tateana (those holes) - basically just pot inventories
  - ✅ NoraSpawners - diagram on TKB.
  - ✅ CrushJelly - They're just pots. There's a `searchCIDList` array which seems to be items that can be "in" the jelly (as in pre-spawned items, not drops on destroy), which isn't supported yet.
- - ✅ Portals - TriggerPortal is fully supported, so you can link portals to wherever you like. Results may vary. Some parameters are completely unknown in purpose/formula, like `PanzakuPriority` and `DisablePikminFlags`. I have no idea how to calculate the latter.
+ - ✅ Portals - TriggerPortal is fully supported, so you can link portals to wherever you like. Results may vary. Some parameters are completely unknown in purpose/formula, like `PanzakuPriority`.
  - ✅ Gates - Health is adjustable and they can be given drops. I don't know what `RareDropParameter` is, but I've exposed it for editing.
  - 🚧 Paper bags - you can adjust their weight requirement. I've not looked at their AI to see if they have an inventory to mutate.
  - 🚧 Bases - The genvar's fields are editable, but I've not tested new areas. The base text names isn't in the actor, so there's more to the base system I think.
