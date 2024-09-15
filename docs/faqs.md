@@ -9,7 +9,7 @@ First, ensure some basic things:
   - In Powershell, run `$env:PATH` to see if your folder containing Python is on the `PATH`.
 - You have the C++ redists installed - I have these two versions ([x64](https://aka.ms/vs/17/release/vc_redist.x64.exe) / [x86](https://aka.ms/vs/17/release/vc_redist.x86.exe))
 - People have reported issues with Python 3.12+, possibly due to `pip` changes. Try downgrading to 3.11 or below.
-- If you're getting an error like `SyntaxError: invalid syntax` you're running inside of a Python shell - quit of it with `exit()` and run your `pip install cityhash`.
+- If you're getting an error like `SyntaxError: invalid syntax` you're running inside of a Python shell - quit of it with `exit()` and run your `pip install cityhash` in a *regular shell*. **You do not need to ever be inside Python**.
 
 ## 🤔 I'm not seeing my mod's changes
 
@@ -45,3 +45,9 @@ First, ensure some basic things:
 ## I got an encoding error
 
 - `Help` -> `Open Log Folder` -> open `deploy-log.txt` for the full error outputs
+
+## Can I re-randomise mid-game?
+
+Sort of - if you encounter a crashing map and don't want to debug, and haven't loaded into it yet, you can just re-randomise and deploy a new mod for a new seed. It'll only apply to future unloaded maps, and the parts of the game you've already loaded into.
+
+This does mean the linking of caves may get messed up, depending on your settings.

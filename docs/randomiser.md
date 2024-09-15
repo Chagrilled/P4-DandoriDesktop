@@ -12,7 +12,8 @@ Randomised files can be opened and edited in DDT as usual - or pre-edited to add
 
 Currently known and unresolved crashes:
 
-- For some reason, me climbing the wall and approaching the blue onion in Serene Shores crashes. Maybe it's the vehicle box, but not sure what they do yet. Haven't looked into this much.
+- For some reason, me climbing the wall and approaching the blue onion in Serene Shores crashes. Maybe it's the vehicle box, but not sure what they do yet. Haven't looked into this much. Didn't apply to other people that I've seen.
+- Gunna reported Kanitama and Kogani being a bit unreliably crashy.
 
 If you've found a repeatable crash (sometimes the game _does_ just crash, but won't again 🤷‍♂️), message me on Discord with your randomised JSONs and I'll try look into it if it's done with sensical configuration.
 
@@ -69,14 +70,6 @@ The whackier you go with the settings, the less stable you should expect the gam
 
 All creatures will get randomised. With this disabled, creatures will not be touched at all.
 
-### Randomise Enemy Drops
-
-All enemies that have drops are randomised. 
-
-Drops will randomise into things of the same class - treasures for treasures, creatures for creatures etc.
-
-Honey, spicy spray, and raw material have a 25% chance of being overriden on eggs to a creature.
-
 The following enemies are removed from the randomise pool due to crashing/nonsense:
 
 - Moss
@@ -84,6 +77,14 @@ The following enemies are removed from the randomise pool due to crashing/nonsen
 - Empress Bulblax
 - Waterwraith
 - Ancient Sirehound
+
+### Randomise Enemy Drops
+
+All enemies that have drops are randomised. 
+
+Drops will randomise into things of the same class - treasures for treasures, creatures for creatures etc.
+
+Honey, spicy spray, and raw material have a 25% chance of being overriden on eggs to a creature.
 
 ### All Creatures Have Drops
 
@@ -271,6 +272,8 @@ Hazard-class actors will randomise into objects - i.e fire hazards won't become 
 ### Exclude Gates
 
 Gates won't get randomised. This helps keep progression sensical, as otherwise the electric gate in SST can become a crystal one, and unless you can get rocks from a random cave, good luck. Probably has more value if paired with [Retain Wild Pikmin](#retain-wild-pikmin) off and [Randomise Other Onions](#randomise-other-onions) on.
+
+Most gates can still be cleared with Oatchi immunities or bombs (I think).
 
 ### Randomise Object Drops
 
