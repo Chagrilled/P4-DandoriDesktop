@@ -69,7 +69,8 @@ export const Randomiser = () => {
         noOverworldSnowfake: true,
         retainExits: true, // add tests for these later V
         randomiseNight: true,
-        bossDropChance: 25
+        bossDropChance: 25,
+        gatesDrop: false
     });
 
     const [pikminState, setPikminState] = useState({
@@ -355,6 +356,13 @@ export const Randomiser = () => {
                 type: 'checkbox',
                 onChange: (e) => setState({ ...state, excludeGates: e.target.checked }),
                 id: 'excludeGates'
+            },
+            {
+                label: 'Gates Drop Things',
+                tooltip: <><span>Gates can drop things. Has been found to be crashy. YMMV.</span></>,
+                type: 'checkbox',
+                onChange: (e) => setState({ ...state, gatesDrop: e.target.checked }),
+                id: 'gatesDrop'
             },
             {
                 label: 'Randomise Object Drops',

@@ -176,7 +176,7 @@ export const mutateAIProperties = (creature, value) => {
         {
             infoTypes: [InfoType.Creature],
             AIProperties: defaultCreatureAI,
-            ents: ['Mush'],
+            ents: ['Mush', 'Komush'],
         },
         {
             ents: ['TriggerDoor', 'Switch', 'Conveyor265uu'],

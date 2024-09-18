@@ -51,6 +51,7 @@ The whackier you go with the settings, the less stable you should expect the gam
 - [Objects Like-For-Like](#objects-like-for-like)
 - [Hazards Like-For-Like](#hazards-like-for-like)
 - [Exclude Gates](#exclude-gates)
+- [Gates Drop](#gates-drop)
 - [Randomise Object Drops](#randomise-object-drops)
 - [All Objects Have Drops](#all-objects-have-drops)
 - [Keep Object GenerateNums](#keep-object-generatenums)
@@ -274,6 +275,10 @@ Hazard-class actors will randomise into objects - i.e fire hazards won't become 
 Gates won't get randomised. This helps keep progression sensical, as otherwise the electric gate in SST can become a crystal one, and unless you can get rocks from a random cave, good luck. Probably has more value if paired with [Retain Wild Pikmin](#retain-wild-pikmin) off and [Randomise Other Onions](#randomise-other-onions) on.
 
 Most gates can still be cleared with Oatchi immunities or bombs (I think).
+
+## Gates Drop
+
+Randomises the regular drops of gates if enabled. Mileage may vary as this has been found to be a crash-causer.
 
 ### Randomise Object Drops
 

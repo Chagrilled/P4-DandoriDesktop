@@ -9,6 +9,8 @@
 
 ## 🐍 I can't install CityHash
 
+❗ Deprecated as of DDT v2.0
+
 First, ensure some basic things:
 
 - You can run `python` from a Powershell

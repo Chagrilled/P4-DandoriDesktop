@@ -89,6 +89,7 @@ export const getReadAIStaticFunc = (creatureId, infoType) => {
     if (creatureId.includes('Switch')) return parseTriggerDoorAI; // Switches use the same AI, without TriggerDoorAIComponent on the end
     if (creatureId === 'Conveyor265uu') return parseTriggerDoorAI;
     if (creatureId.includes('Mush')) return parseTekiAI;
+    if (creatureId.includes('Komush')) return parseTekiAI;
     if (['Tunnel', 'WarpCarry', 'HappyDoor'].some(s => creatureId.includes(s))) return parseWarpAI;
     if (infoType === InfoType.Base) return parseBaseAI;
     if (creatureId === 'Sprinkler') return parseSprinklerAI;

@@ -262,7 +262,7 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                     const logStream = createWriteStream(join(LOG_PATH, 'deploy-log.txt'), { flags: 'w' });
 
                     // The bat scripts have `pause`s in them, and for the life of me I couldn't programmatically get through it
-                    let subprocess = spawn('python main.py encode', { shell: true, cwd: join(config.encoderDir, "P4UassetEditor") });
+                    let subprocess = spawn('main.exe encode', { shell: true, cwd: join(config.encoderDir, "P4UassetEditor") });
                     subprocess.on('error', e => { });
                     subprocess.stdout.on('data', data => defaultLogger(data, logStream));
                     subprocess.stderr.on('data', data => {
@@ -275,7 +275,7 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                         if (code !== 0) {
                             console.log(code);
                             // ENOENT in libuv is this
-                            if (code === -4058) return mainWindow.webContents.send(Messages.ERROR, 'Failed to run encoder. Make sure that P4UassetEditor/main.py exists in your encoder folder.');
+                            if (code === -4058) return mainWindow.webContents.send(Messages.ERROR, 'Failed to run encoder. Make sure that P4UassetEditor/main.exe exists in your encoder folder.');
                             return mainWindow.webContents.send(Messages.ERROR, 'Failed encoding - check the log file');
                         }
                         mainWindow.webContents.send(Messages.SUCCESS, 'Encoded JSONs');
@@ -393,7 +393,7 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                                 encoderDir: config.encoderDir,
                                 gameDir: config.gameDir
                             }, null, 4), { encoding: "utf-8" }, () => { });
-                            mainWindow.webContents.send(Messages.SUCCESS, 'Setup files. Read the encoder readme and make sure you have Python/cityhash. Set emulator output path and off you go.');
+                            mainWindow.webContents.send(Messages.SUCCESS, 'Setup files. Set emulator output path and off you go.');
                         }
                     });
                 }

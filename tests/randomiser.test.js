@@ -160,7 +160,6 @@ describe('Randomiser Tests', () => {
                 .mockReturnValueOnce(0.2)
                 .mockReturnValueOnce(0.2)
                 .mockReturnValueOnce(0.2)
-                .mockReturnValueOnce(0.2)
                 .mockReturnValueOnce(0.2);
 
             await randomiser({
@@ -226,6 +225,79 @@ describe('Randomiser Tests', () => {
                         }
                     })
                 ])
+            }));
+        });
+
+        test('ActorSpawners have drops normalised when randomising to creatures', async () => {
+            main.readMapData.mockResolvedValue({
+                // ...initMarkers,
+                [InfoType.Creature]: [{
+                    creatureId: 'ActorSpawner',
+                    generateNum: 1,
+                    transform: {
+                        translation: {
+                            X: 0.0,
+                            Y: 0.0
+                        }
+                    },
+                    drops: {
+                        parsed: [
+                            {
+                                ...DefaultActorSpawnerDrop,
+                                assetName: "/Game/Carrot4/Placeables/Teki/GAwadako.GAwadako_C",
+                            }
+                        ]
+                    }
+                }],
+                [InfoType.Object]: [],
+                [InfoType.Hazard]: [],
+                [InfoType.WorkObject]: [],
+            });
+
+            vi.spyOn(global.Math, 'floor')
+                .mockReturnValue(1)
+                .mockReturnValueOnce(1)
+                .mockReturnValueOnce(0)
+            vi.spyOn(global.Math, 'random')
+                .mockReturnValue(0.5);
+
+            await randomiser({
+                maps: ['Area001'],
+                randCreatures: true,
+                allCreaturesDrop: true,
+                retainSpawners: false,
+                rebirthInterval: 3,
+                dropLimitMax: 1,
+                randMaxDrops: 3,
+                randIntFunction: 'even'
+            });
+
+            expect(main.saveMaps).toHaveBeenCalledTimes(1);
+            expect(main.saveMaps).toHaveBeenCalledWith('Area001', expect.objectContaining({
+                [InfoType.Creature]: expect.arrayContaining([
+                    expect.objectContaining({
+                        creatureId: 'Amembo',
+                        rebirthType: RebirthTypes.RebirthLater,
+                        rebirthInterval: 3,
+                        drops: {
+                            parsed: [
+                                {
+                                    ...DefaultActorSpawnerDrop,
+                                    ...DefaultDrop,
+                                    assetName: '/Game/Carrot4/Placeables/Teki/GAwadako.GAwadako_C',
+                                    minDrops: 1,
+                                    maxDrops: 1
+                                }
+                            ]
+                        },
+                        transform: {
+                            translation: {
+                                X: 0,
+                                Y: 0,
+                            }
+                        }
+                    })
+                ]),
             }));
         });
 
@@ -507,7 +579,7 @@ describe('Randomiser Tests', () => {
             expect(main.saveMaps).toHaveBeenCalledWith('Area001', expect.objectContaining({
                 [InfoType.Treasure]: expect.arrayContaining([
                     expect.objectContaining({
-                        creatureId: 'OtaBankCardE',
+                        creatureId: 'OtaBankCardF',
                         drops: {
                             parsed: []
                         }
@@ -1093,7 +1165,7 @@ describe('Randomiser Tests', () => {
             }));
         });
 
-        test('Gates are given drops if allObjectsDrop is true', async () => {
+        test('Gates are given drops if gatesDrop is true', async () => {
             main.readMapData.mockResolvedValue({
                 [InfoType.Gimmick]: [],
                 [InfoType.WorkObject]: [
@@ -1117,6 +1189,7 @@ describe('Randomiser Tests', () => {
                 randObjects: true,
                 excludeGates: false,
                 allObjectsDrop: true,
+                gatesDrop: true,
                 randMaxDrops: 2,
                 dropLimitMax: 1,
                 randIntFunction: 'even'

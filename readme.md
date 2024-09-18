@@ -35,9 +35,9 @@ Currently supports:
 
 ## 🛠️ Setup/Workflow
 
-Make sure you have Python 3.7+ installed, and run `pip install cityhash` from a shell in order to run UassetEncoder.
-
 ❗Click `Tools` -> `Setup Files`, choose your directory, and everything will get unzipped and configured. Set your `Output Paks Folder` from `Settings` to the output folder in your emulator, and you're good to go.
+
+🔥 If you get a fast encoding error, make sure Windows/antivirus hasn't removed `main.exe` from `P4UassetEditor` from your `encoder folder`.
 
 The following folders are made:
 

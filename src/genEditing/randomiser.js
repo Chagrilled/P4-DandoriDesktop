@@ -205,7 +205,14 @@ const nonDropList = [
     // "Kanitama",
     // "Kogani"
 ];
-const fillTreasureArray = excludeShips => Object.keys(TreasureNames).filter(t => excludeShips ^ t.includes('OtaHeroParts'));
+
+// Prevent treasures randomising into these as their construction data will have wall pin bytes in
+const treasureBanList = [
+    "OtaPocketWatch",
+    "OtaBankCardC",
+    "OtaPinBadgeE"
+];
+const fillTreasureArray = excludeShips => Object.keys(TreasureNames).filter(t => excludeShips ^ t.includes('OtaHeroParts')).filter(t => !treasureBanList.includes(t));
 const remainingTreasures = fillTreasureArray(true);
 const remainingShipParts = fillTreasureArray(false);
 
@@ -665,7 +672,7 @@ export const randomiser = async (config) => {
 
                     if (workObject.creatureId.includes('Gate')) {
                         if (!config.excludeGates) workObject.creatureId = gates[randInt(gates.length)];
-                        randomiseRegularDrops(workObject, config, map);
+                        if (config.gatesDrop) randomiseRegularDrops(workObject, config, map);
                     }
                     randomMarkers[InfoType.WorkObject].push(workObject);
                 });
@@ -762,9 +769,13 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
     // If a pot randomises to a creature or something, we need to ensure the existing drops are given flags
     // Treasyres aren't a big deal because they won't randomise into non-treasures
     parsed.forEach(drop => {
-        if ((randCreature.infoType === InfoType.Creature || randCreature.creatureId.match(/Mush/i))) {
+        if ((randCreature.infoType === InfoType.Creature || randCreature.creatureId.match(/Mush|Komush/i))) {
             if (!drop.flags) drop.flags = [1, 8, 16, 64];
             if (typeof drop.dropCondition === 'undefined') drop.dropCondition = 0;
+        }
+        // Similarly, if an ActorSpawner becomes a regular mob, its drop needs converting to a regular drop.
+        if (drop.infiniteSpawn !== undefined && !["ActorSpawner", "Tateana", "TateanaBaby"].includes(randCreature.creatureId)) {
+            Object.entries(DefaultDrop).forEach(([k, v]) => drop[k] = drop[k] || v);
         }
     });
 
@@ -833,8 +844,10 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
 
             // Buff low drop chances so eggs do more.
             if (drop.dropChance <= 0.4) drop.dropChance += 0.3;
+
             // Prevent things like 5 material being randomised to 5-3 dumples.
             drop.minDrops = Math.min(drop.minDrops, drop.maxDrops);
+            // Somehow a null made it onto a kogane - idk, but prevent it
         };
 
         parsed.forEach(dropMutator);
@@ -844,6 +857,7 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
     if ((config.allCreaturesDrop && isCreature) || (objectDroppable && config.allObjectsDrop)) {
         const invSize = randFunctions[config.randIntFunction](1, config.dropLimitMax);
         logger.info(`Padding inventory size to ${invSize} for ${randCreature.creatureId}`);
+
         while (parsed.length < invSize) {
             parsed.push(generateCreatureDrop(config, lastDropId += 1, randCreature, map));
         }
