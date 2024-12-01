@@ -122,7 +122,8 @@ export const Randomiser = () => {
                 </>,
                 type: 'number',
                 onChange: (e) => setState({ ...state, randGenerateNumLimit: e.target.value }),
-                id: 'randGenerateNumLimit'
+                id: 'randGenerateNumLimit',
+                min: 0
             },
             {
                 label: 'Randomise Boss GenerateNums',
@@ -136,7 +137,8 @@ export const Randomiser = () => {
                 tooltip: <><span>Upper bound of how many bosses can spawn for each boss in the generator list</span></>,
                 type: 'number',
                 onChange: (e) => setState({ ...state, randBossGenerateNumLimit: e.target.value }),
-                id: 'randBossGenerateNumLimit'
+                id: 'randBossGenerateNumLimit',
+                min: 0
             },
             {
                 break: true,
@@ -205,7 +207,9 @@ export const Randomiser = () => {
                 </>,
                 type: 'number',
                 onChange: (e) => setState({ ...state, bossDropChance: e.target.value }),
-                id: 'bossDropChance'
+                id: 'bossDropChance',
+                min: 0,
+                max: 100
             },
             {
                 label: 'No Overworld Snowfake',
@@ -223,7 +227,9 @@ export const Randomiser = () => {
                 tooltip: <><span>0-100% chance an ActorSpawner will infinitely spawn its entity</span></>,
                 type: 'number',
                 onChange: (e) => setState({ ...state, asInfiniteChance: e.target.value }),
-                id: 'asInfiniteChance'
+                id: 'asInfiniteChance',
+                min: 0,
+                max: 100
             },
             {
                 label: 'ActorSpawner Limit:   ',
@@ -233,14 +239,16 @@ export const Randomiser = () => {
                 </>,
                 type: 'number',
                 onChange: (e) => setState({ ...state, asLimit: e.target.value }),
-                id: 'asLimit'
+                id: 'asLimit',
+                min: 0
             },
             {
                 label: 'ActorSpawner Interval Limit: ',
                 tooltip: <><span>Upper bound for number of seconds between each ActorSpawner spawn</span></>,
                 type: 'number',
                 onChange: (e) => setState({ ...state, asIntervalLimit: e.target.value }),
-                id: 'asIntervalLimit'
+                id: 'asIntervalLimit',
+                min: 0
             },
         ],
         treasures: [
@@ -411,7 +419,8 @@ export const Randomiser = () => {
                 tooltip: <><span>How many flarlics you want to spawn in the hub at the start</span></>,
                 type: 'number',
                 onChange: (e) => setState({ ...state, startingFlarlics: e.target.value }),
-                id: 'startingFlarlics'
+                id: 'startingFlarlics',
+                min: 0
             },
             // {
             //     label: 'Retain Material Piles',
@@ -427,7 +436,8 @@ export const Randomiser = () => {
                 tooltip: <><span> Upper bound of how many of each entity can be dropped per drop - 4 will mean 1-4 bulborbs could drop</span></>,
                 type: 'number',
                 onChange: (e) => setState({ ...state, randMaxDrops: e.target.value }),
-                id: 'randMaxDrops'
+                id: 'randMaxDrops',
+                min: 0
             },
             {
                 label: 'Drop Type Limit',
@@ -437,7 +447,8 @@ export const Randomiser = () => {
                 </>,
                 type: 'number',
                 onChange: (e) => setState({ ...state, dropLimitMax: e.target.value }),
-                id: 'dropLimitMax'
+                id: 'dropLimitMax',
+                min: 0
             },
             {
                 label: 'Randomise Night',
@@ -451,7 +462,8 @@ export const Randomiser = () => {
                 tooltip: <><span>Number of days before an enemy group will respawn</span></>,
                 type: 'number',
                 onChange: (e) => setState({ ...state, rebirthInterval: e.target.value }),
-                id: 'rebirthInterval'
+                id: 'rebirthInterval',
+                min: 0
             },
             {
                 label: 'Random Function',
@@ -489,6 +501,8 @@ export const Randomiser = () => {
                             id={o.id}
                             checked={state[o.id]}
                             defaultValue={state[o.id]}
+                            min={o.min ?? undefined}
+                            max={o.max ?? undefined}
                         />}
 
                 </label>

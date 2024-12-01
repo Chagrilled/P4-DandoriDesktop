@@ -46,7 +46,7 @@ First, ensure some basic things:
 
 ## Can I skip the tutorial
 
-- Yes, grab [my starter save file](https://cdn.discordapp.com/attachments/1123566265106173972/1272331138165379073/C-Area500Start.zip?ex=66e6c076&is=66e56ef6&hm=8f2f72a8e548df6ae77b1bce9a0a35615378ccab8154d9a18f779edd44ea559f&)
+- Yes, grab [my starter save file](https://github.com/Chagrilled/P4-Utils/raw/refs/heads/master/C-Area500Start.zip)
   - Right click your emulator to get to the saves location
   - Replace the `C` folder with mine (removing the suffix after `C`)
   - Start game.
