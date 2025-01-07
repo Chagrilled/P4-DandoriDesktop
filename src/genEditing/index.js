@@ -23,6 +23,7 @@ export const regenerateAGLEntity = (actor, aglData) => {
     };
     const asp = aglData.ActorSerializeParameter;
     let entData = entityData[actor.creatureId];
+
     if (!entData && actor.infoType === InfoType.Treasure) {
         // see constructing.js for why
         entData = entityData.OtaPaintsAQU;
@@ -41,6 +42,9 @@ export const regenerateAGLEntity = (actor, aglData) => {
     }
     if (!entData && actor.creatureId === "OnyonCarryRed") {
         entData = entityData.OnyonCarryYellow;
+    }
+    if (!entData && actor.infoType === InfoType.Item) {
+        entData = entityData.Bomb;
     }
 
 

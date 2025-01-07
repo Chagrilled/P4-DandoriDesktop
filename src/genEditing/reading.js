@@ -61,6 +61,7 @@ const readInventory = (drops, index, invSize) => {
 //#region Func Controllers
 export const getReadAIDynamicFunc = (creatureId, infoType) => {
     if (creatureId.includes('Valve')) return parseValveAI_Dynamic;
+    if (creatureId.includes('Tateana')) return parseTateanaAI_Dynamic;
     if (['HikariStation', 'BridgeStation', 'KinkaiStation'].some(e => creatureId === e)) return parsePileAI_Dynamic;
     if (creatureId.includes('Circulator')) return parseCirculatorAI_Dynamic;
     return () => ({});
@@ -142,6 +143,8 @@ const parseCirculatorAI_Dynamic = ai => ({ bRotateDefault: ai[12] });
 
 //#region Material Piles
 const parsePileAI_Dynamic = ai => ({ pieceNum: bytesToInt(ai.slice(36, 40)) });
+
+const parseTateanaAI_Dynamic = ai => ({ numDig: bytesToInt(ai.slice(12, 16)) });
 
 //#region Geyser
 const parseGeyserAI = ai => {

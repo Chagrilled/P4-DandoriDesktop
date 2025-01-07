@@ -86,6 +86,7 @@ export const getConstructAIStaticFunc = (creatureId, infoType) => {
 
 export const getConstructDynamicFunc = (creatureId) => {
     if (creatureId.includes('Valve')) return constructValveAI_Dynamic;
+    if (creatureId.includes('Tateana')) return constructTateanaAI_Dynamic;
     if (['HikariStation', 'BridgeStation', 'KinkaiStation'].some(e => creatureId === e)) return constructPileAI_Dynamic;
     if (creatureId.includes('Circulator')) return constructCirculatorAI_Dynamic;
     return (ai) => ai;
@@ -131,6 +132,12 @@ const constructCirculatorAI_Dynamic = (aiDynamic, { AIProperties }) => [
 const constructPileAI_Dynamic = (aiDynamic, { AIProperties }) => [
     ...Array(36).fill(0),
     ...intToByteArr(parseInt(AIProperties.pieceNum)),
+    255, 255, 255, 255
+];
+
+const constructTateanaAI_Dynamic = (aiDynamic, { AIProperties }) => [
+    ...Array(12).fill(0),
+    parseInt(AIProperties.numDig ?? 1), 0, 0, 0,
     255, 255, 255, 255
 ];
 
@@ -671,6 +678,9 @@ export const constructActor = (actor, mapId) => {
     }
     if (!entData && actor.creatureId === "OnyonCarryRed") {
         entData = entityData.OnyonCarryYellow;
+    }
+    if (!entData && actor.infoType === InfoType.Item) {
+        entData = entityData.Bomb;
     }
 
     const transforms = {

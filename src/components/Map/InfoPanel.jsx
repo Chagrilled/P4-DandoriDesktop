@@ -4,16 +4,16 @@ import { MarkerIcon } from "../Icon";
 import { ExpandPanel } from "./ExpandPanel";
 import { DropCard } from "./Card/DropCard";
 import { CardList } from "./Card/CardList";
-import { doesEntityHaveDrops, findMarkerById, getAngleRotation, getAssetPathFromId, getNameFromAsset, doesEntityHaveRareDrops, deepCopy } from "../../utils";
+import { doesEntityHaveDrops, findMarkerById, getInfoType, getAssetPathFromId, getNameFromAsset, doesEntityHaveRareDrops, deepCopy, getSubpathFromAsset } from "../../utils";
 import { CreatureInfo } from "./CreatureInfo";
 import { MapContext } from "./MapContext";
 
 //#region updateDrops
 const updateDrops = (value, mapMarkerData, setMapData, ddId, drop, key, dropDeleteStack, setDropDeleteStack, dropType) => {
     console.log("val", value);
-    // if (!value && key !== 'delete') return;
     console.log("UpdateDrops", ddId);
     const { type } = findMarkerById(ddId, mapMarkerData);
+
     const newMapData = mapMarkerData[type].map(creature => {
         if (creature.ddId == ddId) {
             creature.drops[dropType] = creature.drops[dropType].map(d => {
@@ -244,7 +244,10 @@ export const InfoPanel = ({ marker, setSelectedMarker }) => {
 
     let { infoType, creatureId: markerIconId } = creature;
 
-    if (isActorSpawner) markerIconId = getNameFromAsset(creature.drops.parsed[0].assetName);
+    if (isActorSpawner) {
+        markerIconId = getNameFromAsset(creature.drops.parsed[0].assetName);
+        infoType = getInfoType(getSubpathFromAsset(creature.drops.parsed[0].assetName));
+    }
     if (creature.creatureId === 'NoraSpawnerPongashiLock')
         markerIconId = `candypop-${creature.AIProperties.pikminType.substr(6)}`;
     else if (creature.creatureId.includes('NoraSpawner')) {

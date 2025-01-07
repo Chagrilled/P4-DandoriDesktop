@@ -1,12 +1,12 @@
-import { Style, Icon, Text, Fill, Stroke } from 'ol/style';
+import { Style, Icon } from 'ol/style';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Feature } from 'ol';
 import { Point } from 'ol/geom';
 import { Categories, isCreature, isTreasure, GimmickNames, InfoType, iconOverrides, invisibleEntities } from '../../api/types';
-import { getAngleRotation, getNameFromAsset, shouldIconRotate, isEntityOnNightMap } from '../../utils';
+import { getAngleRotation, getNameFromAsset, shouldIconRotate, isEntityOnNightMap, getSubpathFromAsset, getInfoType } from '../../utils';
 
-const { Gimmick, Hazard, Portal, Onion, Base, WorkObject, Pikmin } = InfoType;
+const { Gimmick, Hazard, Portal, Onion, Base, WorkObject, Pikmin, Item, Creature, Treasure, WaterWater, WaterSwamp } = InfoType;
 
 const ROOT_ICON_URL = '../images/icons/radar';
 const ROOT_GIMMICKS_URL = '../images/gimmicks';
@@ -82,7 +82,15 @@ const SCALE_OVERRIDES = {
     happy: 0.6,
     spacebus: 0.6,
     bikkurigikuplant: 0.4,
-    panmodokihidearea: 0.75
+    panmodokihidearea: 0.75,
+    photonball: 0.2,
+    shugoflag: 0.25,
+    searchbomb: 0.2,
+    yuudouesa: 0.2,
+    dogfood: 0.2,
+    homingbomb: 0.2,
+    bomb: 0.7,
+    icebomb: 0.7
 };
 
 export const getIconOptions = (type) => {
@@ -100,7 +108,7 @@ export const getFeatureLayers = (groupedData, config, mapId) => {
 
     for (let i = 0; i < LayerOrder.length; i++) {
         const markerType = LayerOrder[i];
-        if (!groupedData[markerType] || markerType === InfoType.WaterWater || markerType === InfoType.WaterSwamp) {
+        if (!groupedData[markerType] || markerType === WaterWater || markerType === WaterSwamp) {
             continue;
         }
 
@@ -167,16 +175,23 @@ const MarkerStyles = Object.fromEntries(
 const getFeatureStyle = (marker, globalMarkerStyle) => {
     if (isCreature(marker)) {
         const creatureId = marker.creatureId === 'ActorSpawner' ? getNameFromAsset(marker.drops.parsed[0].assetName) : marker.creatureId.toLowerCase().replace('night', '');
-        const scale = SCALE_OVERRIDES[creatureId] || 0.35;
+        let scale = SCALE_OVERRIDES[creatureId] || 0.35;
+        let src = `${ROOT_CREATURE_URL}/creature-${creatureId.toLowerCase()}.png`;
+
+        if (marker.creatureId === 'ActorSpawner') {
+            const dropInfotype = getInfoType(getSubpathFromAsset(marker.drops.parsed[0].assetName));
+            scale = SCALE_OVERRIDES[getNameFromAsset(marker.drops.parsed[0].assetName).toLowerCase()] || [Creature, Treasure].includes(dropInfotype) ? 0.35 : 0.9;
+            src = `../images/${dropInfotype}s/${dropInfotype}-${creatureId.toLowerCase()}.png`;
+        }
 
         globalMarkerStyle = new Style({
             image: new Icon({
-                src: `${ROOT_CREATURE_URL}/creature-${creatureId.toLowerCase()}.png`,
-                scale: scale
+                src,
+                scale
             }),
         });
     }
-    else if ([InfoType.Object, WorkObject, Gimmick, Portal, Onion, Hazard, Base, Pikmin].includes(marker.infoType)) {
+    else if ([InfoType.Object, WorkObject, Gimmick, Portal, Onion, Hazard, Base, Pikmin, Item].includes(marker.infoType)) {
         const creatureId = marker.creatureId.toLowerCase();
         let id = iconOverrides[marker.creatureId.toLowerCase()];
         const scale = SCALE_OVERRIDES[creatureId] || 0.9;
@@ -186,7 +201,7 @@ const getFeatureStyle = (marker, globalMarkerStyle) => {
         if (marker.creatureId === 'NoraSpawnerPongashiLock')
             id = `candypop-${marker.AIProperties.pikminType.substr(6).toLowerCase()}`;
         else if (marker.creatureId.includes('NoraSpawner')) {
-            infoType = InfoType.Pikmin;
+            infoType = Pikmin;
             id = `${marker.AIProperties.pikminType.toLowerCase()}`;
         }
         const rotationProps = shouldIconRotate(marker.creatureId) ? {
@@ -197,7 +212,7 @@ const getFeatureStyle = (marker, globalMarkerStyle) => {
         globalMarkerStyle = new Style({
             image: new Icon({
                 src: `../images/${infoType}s/${infoType}-${id || marker.creatureId.toLowerCase()}.png`,
-                scale: scale,
+                scale,
                 ...rotationProps
             }),
         });

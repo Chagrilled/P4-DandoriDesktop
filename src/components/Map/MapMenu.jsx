@@ -23,7 +23,8 @@ export const MapMenu = ({ }) => {
             [Portal]: 'MadoriRuins',
             [WorkObject]: 'PiecePick',
             [Pikmin]: 'PikminRed',
-            [Treasure]: 'OtaBanana'
+            [Treasure]: 'OtaBanana',
+            [InfoType.Item]: 'Bomb'
         }[id];
     };
 
@@ -121,6 +122,8 @@ export const MapMenu = ({ }) => {
                     <Item id={Hazard} onClick={handleItemClick}>Hazard</Item>
                     <Item id={Portal} onClick={handleItemClick}>Portal</Item>
                     <Item id={Treasure} onClick={handleItemClick}>Treasure</Item>
+                    <Item id={InfoType.Item} onClick={handleItemClick}>Item</Item>
+
                 </Submenu>
             </Menu>
         </div>

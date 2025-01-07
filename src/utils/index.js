@@ -1,7 +1,6 @@
-import { InfoType, Times, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, weirdAIEntities, ActorPlacementCondition } from "../api/types";
+import { InfoType, Times, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, weirdAIEntities, ActorPlacementCondition, DefaultActorSpawnerDrop } from "../api/types";
 import { internalAssetNames } from "../api/assetList";
 
-export const getPathType = assetName => assetName.match(/Placeables\/(.+)\/G/)[1];
 export const getNameFromAsset = assetName => {
     if (assetName === 'None') return assetName;
     return assetName.match(/\.G(.+)_C/)[1];
@@ -84,7 +83,7 @@ export const getSubpathFromAsset = asset => {
 
 export const capitalise = string => string.charAt(0).toUpperCase() + string.slice(1);
 
-export const getAssetPathFromId = id => internalAssetNames.find(asset => asset.includes(`G${id}_C`));
+export const getAssetPathFromId = id => id === 'None' ? "None" : internalAssetNames.find(asset => asset.includes(`G${id}_C`));
 
 export const getInfoTypeFromId = id => getInfoType(getSubpathFromAsset(getAssetPathFromId(id)));
 
@@ -173,6 +172,17 @@ export const mutateAIProperties = (creature, value) => {
     const aiEnts = ['Camp'];
 
     [
+        {
+            parsed: [],
+            parsedSubAI: [{
+                ...DefaultActorSpawnerDrop,
+                assetName: "None"
+            }],
+            AIProperties: {
+                numDig: 1
+            },
+            ents: ['Tateana', 'TateanaBaby'],
+        },
         {
             infoTypes: [InfoType.Creature],
             AIProperties: defaultCreatureAI,
@@ -273,6 +283,10 @@ export const mutateAIProperties = (creature, value) => {
             ["AIProperties", "ActorParameter", "NavMeshTrigger"].forEach(prop => {
                 if (o[prop]) creature[prop] = { ...deepCopy(o[prop]) };
                 else delete creature[prop];
+            });
+
+            ["parsed", "parsedSubAI"].forEach(prop => {
+                if (o[prop]) creature.drops[prop] = deepCopy(o[prop]);
             });
         }
     });

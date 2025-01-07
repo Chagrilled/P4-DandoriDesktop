@@ -173,6 +173,7 @@ export const editableNumberFields = [
     "mabikiNumFromFollow",
     "maxFallDownLength",
     "noSpawnRadius",
+    "numDig",
     "openTime",
     "panzakuPriority",
     "pieceNum",
@@ -388,6 +389,12 @@ export const Categories = [
         label: "Pikmin",
         markers: [
             InfoType.Pikmin
+        ]
+    },
+    {
+        label: "Items",
+        markers: [
+            InfoType.Item
         ]
     }
 ];
