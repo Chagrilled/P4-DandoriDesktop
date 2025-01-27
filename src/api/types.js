@@ -1794,5 +1794,5 @@ export const Messages = {
     NONBLOCKING: 'nonBlockingNotify'
 };
 
-export const ObjectAI_STRING_INDEX = 115; // Index + offset where the 3 strings start
+export const ObjectAI_STRING_INDEX = 115; // Index + offset where the 3 strings start in short generator
 export const ObjectAI_END_INDEX = 155; // Index + offset where the AI_GEN_VAR starts if all 3 ID strings are None

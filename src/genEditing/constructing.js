@@ -244,12 +244,10 @@ const constructTateanaAI_Dynamic = (aiDynamic, { AIProperties }) => [
 
 //#region Geyser
 const constructGeyserAI = (_, aiStatic, { AIProperties }, generatorVersion) => [
-    ...aiStatic.slice(0, 99),
-    // If on a long GeneratorVersion, stick in the 4 0s before here as this is roughly where they are
-    ...(getObjectAIOffset(generatorVersion) ? [0, 0, 0, 0] : []),
+    ...aiStatic.slice(0, 99 + getObjectAIOffset(generatorVersion)),
     AIProperties.bEnableCustomSoftEdge ? 1 : 0, 0, 0, 0,
     AIProperties.bDisableSoftEdge ? 1 : 0, 0, 0, 0,
-    ...aiStatic.slice(107, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion)),
+    ...aiStatic.slice(107 + getObjectAIOffset(generatorVersion), ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion)),
     AIProperties.bSetCrystal ? 1 : 0, 0, 0, 0,
     ...floatBytes(AIProperties.stopQueenDistXY),
     1, 0, 0, 0,
@@ -353,6 +351,7 @@ const constructBaseAI = (_, aiStatic, { AIProperties }) => {
 
 //#region Sprinkler
 const constructSprinklerAI = (_, aiStatic, { AIProperties, transform }) => {
+    // Sprinklers only use the short generator so this is ok
     let index = 133;
     let bytes = aiStatic.slice(0, index);
     writeAsciiString(bytes, AIProperties.navMeshTriggerID);
