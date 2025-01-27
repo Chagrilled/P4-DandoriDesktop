@@ -1,7 +1,7 @@
-import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs, ObjectAIParameter, weirdAIEntities } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs, ObjectAIParameter, weirdAIEntities, ObjectAI_STRING_INDEX, ObjectAI_END_INDEX } from '../api/types';
 import { default as entityData } from '../api/entityData.json';
 import { floatToByteArr, intToByteArr, disableFlagsToInt } from '../utils/bytes';
-import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue } from '../utils';
+import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue, getObjectAIOffset } from '../utils';
 import { parseGDMDrops, parseTekiAI, parsePotDrops } from './reading';
 import logger from '../utils/logger';
 
@@ -81,6 +81,11 @@ export const getConstructAIStaticFunc = (creatureId, infoType) => {
     if (creatureId.includes('StickyFloor')) return constructStickyFloorAI;
     if (creatureId.includes('Geyser')) return constructGeyserAI;
     if (creatureId.includes('Circulator')) return constructCirculatorAI;
+    if (creatureId.includes('WaterBox') && creatureId !== 'WaterBoxNav') return constructWaterBoxAI;
+    if (creatureId === 'WaterBoxNav') return constructWaterBoxNavAI;
+    if (creatureId.startsWith('SwampBox')) return constructWaterBoxAI;
+    if (creatureId.includes('Mizunuki')) return constructMizunukiAI;
+    if (creatureId.includes('HandleBoard')) return constructHandleBoardAI;
     return defaultAI;
 };
 
@@ -89,6 +94,8 @@ export const getConstructDynamicFunc = (creatureId) => {
     if (creatureId.includes('Tateana')) return constructTateanaAI_Dynamic;
     if (['HikariStation', 'BridgeStation', 'KinkaiStation'].some(e => creatureId === e)) return constructPileAI_Dynamic;
     if (creatureId.includes('Circulator')) return constructCirculatorAI_Dynamic;
+    if (creatureId.includes('WaterBox') && creatureId !== 'WaterBoxNav') return constructWaterBoxAI_Dynamic;
+    if (creatureId.startsWith('SwampBox')) return constructWaterBoxAI_Dynamic;
     return (ai) => ai;
 };
 
@@ -100,6 +107,8 @@ export const getConstructSubAIStaticFunc = (creatureId) => {
 export const getConstructActorParamFunc = (creatureId) => {
     if (creatureId.includes('Valve')) return constructValveActorParam;
     if (creatureId.includes('Sprinkler')) return constructValveActorParam;
+    if (creatureId.includes('WaterBox') && creatureId !== 'WaterBoxNav') return constructWaterBoxActorParam;
+    if (creatureId.startsWith('SwampBox')) return constructWaterBoxActorParam;
     return (ap) => ap;
 };
 
@@ -108,12 +117,104 @@ export const getConstructNavMeshTriggerFunc = (creatureId) => {
     return (nmt) => nmt;
 };
 
-//#region Circulators
-const constructCirculatorAI = (_, aiStatic, { AIProperties }) => {
-    // We just take the first 155 bytes here and pretend
-    // those mysterious 4 bytes don't exist and hope they aren't important
+export const getConstructWaterTriggerFunc = creatureId => {
+    if (creatureId.includes('WaterBox') && creatureId !== 'WaterBoxNav') return constructWaterBoxWaterTrigger;
+    if (creatureId.startsWith('SwampBox')) return constructSwampBoxWaterTrigger;
+    return (wt) => wt;
+};
+
+//#region WaterBoxes
+const constructWaterBoxNavAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
     const bytes = [
-        ...ObjectAIParameter.slice(0, 155)
+        ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion))
+    ];
+    bytes.push(AIProperties.bUseHappyOnly ? 1 : 0, 0, 0, 0);
+    bytes.push(...floatBytes(AIProperties.rightOffset.X));
+    bytes.push(...floatBytes(AIProperties.rightOffset.Y));
+    bytes.push(...floatBytes(AIProperties.rightOffset.Z));
+    return bytes;
+};
+
+const constructWaterBoxAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
+    const bytes = [
+        ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion))
+    ];
+    writeAsciiString(bytes, AIProperties.waterBoxSwitchId);
+    bytes.push(...floatBytes(AIProperties.waterLevelChangeDist));
+    bytes.push(...floatBytes(AIProperties.waterLevelChangeTime));
+    bytes.push(0, 0, 128, 191, 1, 0, 0, 0);
+    bytes.push(...(AIProperties.generatorIndex === -1 ? [255, 255, 255, 255] : [0, 0, 0, 0]));
+    bytes.push(AIProperties.bUseSunMeter ? 1 : 0, 0, 0, 0);
+    bytes.push(0, 0, 0, 63);
+    bytes.push(AIProperties.bPlayDemo ? 1 : 0, 0, 0, 0);
+    return bytes;
+};
+
+const constructWaterBoxAI_Dynamic = (aiDynamic, { AIProperties }) => [
+    ...Array(12).fill(0),
+    255, 255, 255, 255,
+    ...intToByteArr(AIProperties.afterMaxIcePikmins)
+];
+
+const constructWaterBoxActorParam = (apStatic, ap) => {
+    const bytes = apStatic.slice(0, 64);
+    const area = ap.radarMapWBTexture.match(/T_ui_Map_(.+?)_Water/);
+    const radarPath = ap.radarMapWBTexture === 'None' ? 'None' : `/Game/Carrot4/UI/InGame/RadarMap/UMG/Map/${area[1]}/${ap.radarMapWBTexture}.${ap.radarMapWBTexture}`;
+    writeAsciiString(bytes, radarPath);
+
+    const areaCD = ap.radarMapWBChangeDistTexture.match(/T_ui_Map_(.+?)_Water/);
+    const radarPathCD = ap.radarMapWBChangeDistTexture === 'None' ? 'None' : `/Game/Carrot4/UI/InGame/RadarMap/UMG/Map/${areaCD[1]}/${ap.radarMapWBChangeDistTexture}.${ap.radarMapWBChangeDistTexture}`;
+    writeAsciiString(bytes, radarPathCD);
+    bytes.push(205, 204, 76, 65);
+    return bytes;
+};
+
+const constructWaterBoxWaterTrigger = (wtStatic, wt) => {
+    const bytes = [
+        ...intToByteArr(wt.maxIcePikmins),
+        ...wtStatic.slice(4, 28)
+    ];
+    writeAsciiString(bytes, wt.ambientSoundId);
+    return bytes;
+};
+
+const constructSwampBoxWaterTrigger = (wtStatic, wt) => {
+    const bytes = constructWaterBoxWaterTrigger(wtStatic, wt);
+    bytes.push(wt.bDisableSink ? 1 : 0, 0, 0, 0);
+    return bytes;
+};
+constructSwampBoxWaterTrigger;
+
+const constructMizunukiAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
+    const bytes = [
+        ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion))
+    ];
+    writeAsciiString(bytes, AIProperties.waterBoxId);
+    return bytes;
+};
+
+//#region HandleBoard
+const constructHandleBoardAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
+    const bytes = [
+        ...aiStatic.slice(0, ObjectAI_STRING_INDEX + getObjectAIOffset(generatorVersion))
+    ];
+    writeAsciiString(bytes, AIProperties.linkNarrowSpaceBoxID);
+    writeAsciiString(bytes, AIProperties.linkWarpTriggerID);
+    writeAsciiString(bytes, AIProperties.navMeshTriggerID);
+    bytes.push(...Array(13).fill(0));
+    bytes.push(...intToByteArr(AIProperties.workNum));
+    bytes.push(1, 0, 0, 0);
+    bytes.push(
+        ...Object.values(AIProperties.pointLinks.left).map(f => floatBytes(f)).flat(),
+        ...Object.values(AIProperties.pointLinks.right).map(f => floatBytes(f)).flat()
+    );
+    return bytes;
+};
+
+//#region Circulators
+const constructCirculatorAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
+    const bytes = [
+        ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion))
     ];
     writeAsciiString(bytes, AIProperties.switchID);
     bytes.push(AIProperties.bWindLong ? 1 : 0, 0, 0, 0);
@@ -142,11 +243,13 @@ const constructTateanaAI_Dynamic = (aiDynamic, { AIProperties }) => [
 ];
 
 //#region Geyser
-const constructGeyserAI = (_, aiStatic, { AIProperties }) => [
-    ...ObjectAIParameter.slice(0, 99),
+const constructGeyserAI = (_, aiStatic, { AIProperties }, generatorVersion) => [
+    ...aiStatic.slice(0, 99),
+    // If on a long GeneratorVersion, stick in the 4 0s before here as this is roughly where they are
+    ...(getObjectAIOffset(generatorVersion) ? [0, 0, 0, 0] : []),
     AIProperties.bEnableCustomSoftEdge ? 1 : 0, 0, 0, 0,
     AIProperties.bDisableSoftEdge ? 1 : 0, 0, 0, 0,
-    ...ObjectAIParameter.slice(107, 155),
+    ...aiStatic.slice(107, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion)),
     AIProperties.bSetCrystal ? 1 : 0, 0, 0, 0,
     ...floatBytes(AIProperties.stopQueenDistXY),
     1, 0, 0, 0,
@@ -282,11 +385,11 @@ const constructGateAI = ({ parsed, rareDrops, spareBytes }, aiStatic) => {
 };
 
 //#region TriggerDoor
-const constructTriggerDoorAI = (_, aiStatic, { AIProperties }) => {
+const constructTriggerDoorAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
     // because aiStatic may or may not have the segment with the CIDList in, we need to determine if it exists first
     // entityData[0] for TriggerDoor has a Mar CIDList. Haven't checked the switch ones.
     // Grab the first chunk up to the switch ID
-    let index = 155;
+    let index = ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion);
     let bytes = aiStatic.slice(0, index);
 
     // Write the SwitchID in
@@ -295,7 +398,7 @@ const constructTriggerDoorAI = (_, aiStatic, { AIProperties }) => {
 
     // Determine if the original/default has the extra bytes
     if (aiStatic[index]) {
-        bytes.push(...aiStatic.slice(155 + aiStatic[155] + 4, index)); // this should take from after switchID up to the CIDList
+        bytes.push(...aiStatic.slice(ObjectAI_END_INDEX + aiStatic[ObjectAI_END_INDEX] + 4, index)); // this should take from after switchID up to the CIDList
     }
     else bytes.push(...TriggerDoorAIBytes); // if not, take what exists and splice the default in up to CIDList
 
@@ -306,8 +409,8 @@ const constructTriggerDoorAI = (_, aiStatic, { AIProperties }) => {
 };
 
 //#region Switch
-const constructSwitchAI = (_, aiStatic, { AIProperties }) => {
-    let bytes = aiStatic.slice(0, 155);
+const constructSwitchAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
+    let bytes = aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion));
 
     // Write the SwitchID in
     writeAsciiString(bytes, AIProperties.switchID);
@@ -316,8 +419,8 @@ const constructSwitchAI = (_, aiStatic, { AIProperties }) => {
 };
 
 //#region Conveyor
-const constructConveyorAI = (_, aiStatic, { AIProperties }) => {
-    let bytes = aiStatic.slice(0, 155);
+const constructConveyorAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
+    let bytes = aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion));
 
     // Write the SwitchID in
     writeAsciiString(bytes, AIProperties.switchID);
@@ -327,8 +430,8 @@ const constructConveyorAI = (_, aiStatic, { AIProperties }) => {
 };
 
 //#region Warp
-const constructWarpAI = (_, aiStatic, { AIProperties }) => {
-    let bytes = aiStatic.slice(0, 155);
+const constructWarpAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
+    let bytes = aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion));
 
     writeAsciiString(bytes, AIProperties.warpID);
 
@@ -696,8 +799,8 @@ export const constructActor = (actor, mapId) => {
     };
 
     return {
-        AssetVersion: 8626647386,
-        GeneratorVersion: 8626647386,
+        AssetVersion: entData.AssetVersion[0],
+        GeneratorVersion: entData.GeneratorVersion[0],
         GeneratorID: -1,
         SoftRefActorClass: {
             AssetPathName: getAssetPathFromId(actor.creatureId),
@@ -768,7 +871,7 @@ export const constructActor = (actor, mapId) => {
                     ignoreList: actor?.ignoreList,
                     AIProperties: actor?.AIProperties || defaultAIProperties,
                     transform: transforms.Translation
-                }),
+                }, actor.generatorVersion || entData.GeneratorVersion[0]),
                 Dynamic: getConstructDynamicFunc(actor.creatureId, actor.infoType)(entData.AI[0].Dynamic, {
                     AIProperties: actor?.AIProperties
                 })
@@ -795,6 +898,10 @@ export const constructActor = (actor, mapId) => {
             },
             SubAI: {
                 Static: getConstructSubAIStaticFunc(actor.creatureId)({ parsed: actor.drops.parsedSubAI }, entData.SubAI[0].Static),
+                Dynamic: []
+            },
+            WaterTrigger: {
+                Static: getConstructWaterTriggerFunc(actor.creatureId)(entData.WaterTrigger[0].Static, actor.WaterTrigger),
                 Dynamic: []
             }
         },

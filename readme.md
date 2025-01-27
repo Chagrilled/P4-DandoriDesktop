@@ -247,11 +247,16 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ Need a way to arbitrarily add parameters to objects, so swapping to things like gates, where `Life` is needed, but not anywhere else, is possible for newly created objects.
 - ❌ Marigumo net
 - ❌ CIDList for hydrojelly
-- ❌ How do handleboard weights work
+- ✅ How do handleboard weights work
 - 🚧 Base camp AI - some of the genvar bytes are editable, but I haven't been able to create a new, locked base.
 - 🚧 Missing icons - excavation, ojama blocks, bookends, bank - for now some are mapped to a default icon
 - ❌ Refactor `regenerateAGLEntity` and `constructActor` as they're getting very similar now
 - ❌ Implement some tracking during byte reading/writing to let the UI indicate at least _a little bit_ what went wrong, like what property we were trying to read when throwing.
+- ❌ Splines
+- ❌ Geyser/vector aiming on the map
+- ❌ Accurate waterbox scale on the map when selecting
+- ✅ Randomiser: Drop chance per enemy/object
+- ❌ Work out Excavation holes as they seem linked to Mizunukis
 
 </details>
 
@@ -313,7 +318,7 @@ These objects have (most) of their pertinent bytes parsed and displayed for mani
  - ❌ PanModoki/breadbug burrows
  - ❌ Hazards - I have no leads on how these bytes work 🥲
  - ❌ Cardboard boxes
- - ❌ Hangboards - WorkNum is at [155] too
+ - ✅ Hangboards - WorkNum is at [155] too
  - 🚧 Conveyors - switches reverse direction - I have no idea what conveyor navs do then 🤷‍♂️ but they have a lot of extra AI bytes
  - ❌ Fences - fences with switch IDs start on byte 155 as well, but there's lots of extra stuff, and the switch name isn't defaulted
  - ✅ Valves (can these link up to triggerdoors and conveyors? No they can't). Not sure if ValveVariable is meant to be able to turn multiple times or not.

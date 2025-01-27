@@ -72,6 +72,8 @@ export const MapMenu = ({ }) => {
                 rareDrops: [],
                 parsedSubAI: [],
             }
+            // Leave generatorVersion off here so we don't influence the offsets when constructing AI
+            // as the entData[0] might be a long or short OAIP so GeneratorVersion should also be derived from that
         };
 
         if (id === 'ActorSpawner') newMarker.drops.parsed[0] = deepCopy(DefaultActorSpawnerDrop);

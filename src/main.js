@@ -6,7 +6,7 @@ import swf from 'stringify-with-floats';
 import { spawn } from 'child_process';
 import { exposedGenVars, InfoType, Times, NightMaps, Messages } from './api/types';
 import { regenerateAGLEntity } from './genEditing';
-import { getReadAIStaticFunc, getReadPortalFunc, getReadAIDynamicFunc, getReadActorParameterFunc, getReadNavMeshTriggerFunc, getReadSubAIStaticFunc } from './genEditing/reading';
+import { getReadAIStaticFunc, getReadPortalFunc, getReadAIDynamicFunc, getReadActorParameterFunc, getReadNavMeshTriggerFunc, getReadSubAIStaticFunc, getReadWaterTriggerFunc } from './genEditing/reading';
 import { constructActor } from './genEditing/constructing';
 import { protectNumbers, unprotectNumbers, getInfoType, getAvailableTimes } from './utils';
 import { createMenu } from './utils/createMenu';
@@ -231,7 +231,13 @@ ipcMain.handle('getEntityData', async (event, entityId) => {
 
 //#region Save Maps
 ipcMain.handle('saveMaps', async (event, mapId, data) => {
-    saveMaps(mapId, data, event.sender);
+    try {
+        await saveMaps(mapId, data, event.sender);
+    } catch (e) {
+        logger.error(e.toString());
+        logger.error(e.stack);
+        return e;
+    }
 });
 
 export const saveMaps = async (mapId, data, webContents) => {
@@ -392,8 +398,8 @@ export const readMapData = async (mapId, webContents) => {
             // Return an AIProperties from this and spread it into the editor's object - NoraSpawners actual entity
             // is meaningfully affected by AI, like ActorSpawner, so we need it on hand, not as a drop
             logger.info(`Reading: ${creatureId}, ${infoType}`);
-            const { parsed, inventoryEnd, groupingRadius, ignoreList, AIProperties } = getReadAIStaticFunc(creatureId, infoType)(teki.ActorSerializeParameter.AI.Static);
-            const { parsed: parsedSubAI } = getReadSubAIStaticFunc(creatureId, infoType)(teki.ActorSerializeParameter.SubAI.Static);
+            const { parsed, inventoryEnd, groupingRadius, ignoreList, AIProperties } = getReadAIStaticFunc(creatureId, infoType)(teki.ActorSerializeParameter.AI.Static, teki.GeneratorVersion);
+            const { parsed: parsedSubAI } = getReadSubAIStaticFunc(creatureId, infoType)(teki.ActorSerializeParameter.SubAI.Static, teki.GeneratorVersion);
             logger.info(JSON.stringify(AIProperties));
             // Sadly, changing Life.Dynamic seems not to do anything to tekis
             // const Life = teki.ActorSerializeParameter.Life.Dynamic.length ? parseFloat(new Float32Array(new Uint8Array(teki.ActorSerializeParameter.Life.Dynamic.slice(0, 4)).buffer)[0]) : null;
@@ -425,6 +431,7 @@ export const readMapData = async (mapId, webContents) => {
                     inventoryEnd,
                     parsedSubAI
                 },
+                generatorVersion: teki.GeneratorVersion,
                 ddId
             };
         }).filter(i => !!i);
@@ -442,12 +449,13 @@ export const readMapData = async (mapId, webContents) => {
         const subPath = object.SoftRefActorClass?.AssetPathName?.match(/Placeables\/(.+)\/G/)[1];
 
         const infoType = getInfoType(subPath);
-        const { parsed, AIProperties: staticAI, rareDrops, spareBytes, groupingRadius, inventoryEnd, ignoreList } = getReadAIStaticFunc(entityId, infoType)(asp.AI.Static);
+        const { parsed, AIProperties: staticAI, rareDrops, spareBytes, groupingRadius, inventoryEnd, ignoreList } = getReadAIStaticFunc(entityId, infoType)(asp.AI.Static, object.GeneratorVersion);
 
         const dynamicAI = getReadAIDynamicFunc(entityId, infoType)(asp.AI.Dynamic);
         const { PortalTrigger } = getReadPortalFunc(infoType)(asp.PortalTrigger.Static);
         const ActorParameter = getReadActorParameterFunc(entityId)(asp.ActorParameter.Static);
         const NavMeshTrigger = getReadNavMeshTriggerFunc(entityId)(asp.NavMeshTrigger.Static);
+        const WaterTrigger = getReadWaterTriggerFunc(entityId)(asp.WaterTrigger.Static);
         const AIProperties = { ...staticAI, ...dynamicAI };
         const { parsed: parsedSubAI } = getReadSubAIStaticFunc(entityId, infoType)(asp.SubAI.Static);
         const Life = entityId.includes('Gate') ? parseFloat(new Float32Array(new Uint8Array(asp.Life.Dynamic.slice(0, 4)).buffer)[0]) : null;
@@ -463,6 +471,7 @@ export const readMapData = async (mapId, webContents) => {
             ...(weight && { weight }),
             ...(ActorParameter && { ActorParameter }),
             ...(NavMeshTrigger && { NavMeshTrigger }),
+            ...(WaterTrigger && { WaterTrigger }),
             ...(groupingRadius && { groupingRadius }),
             ...(ignoreList && { ignoreList }),
             transform: {
@@ -488,7 +497,8 @@ export const readMapData = async (mapId, webContents) => {
                 parsedSubAI
             },
             ddId,
-            time: fileType
+            time: fileType,
+            generatorVersion: object.GeneratorVersion
         });
     };
 
@@ -555,14 +565,14 @@ const readMaps = (force, window = mainWindow) => {
     if (!config.gameDir) return;
     if (config.gameDir == mapsCache.gameDir && !force) return window.send('getMaps', { maps: mapsCache.maps });
 
-    console.log("Reading maps");
+    logger.info("Reading maps");
     const AREA_PATH = join(`${config.gameDir}`, "Maps", "Main", "Area");
     const CAVE_PATH = join(`${config.gameDir}`, "Maps", "Madori", "Cave");
     const maps = [];
 
     readdir(AREA_PATH, (err, areaMaps) => {
         if (err) {
-            console.error(err);
+            logger.error(err);
             // TOOD: return error toast
             window.send(Messages.NONBLOCKING, `Failed to read main area maps from: ${AREA_PATH}`);
             // return mainWindow.webContents.send('getMaps', { maps: [] });
@@ -585,7 +595,7 @@ const readMaps = (force, window = mainWindow) => {
         readdir(CAVE_PATH, async (err, caveMaps) => {
             if (err) {
                 // TODO: return error toast and maps
-                console.error(err);
+                logger.error(err);
                 mapsCache = {
                     maps,
                     gameDir: config.gameDir

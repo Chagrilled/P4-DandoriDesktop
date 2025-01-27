@@ -806,14 +806,14 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
             // 50/50 creature or a new misc (which itself is 50/50 to include pikmin)
             else if (
                 ["Honey", "PiecePick", "HotExtract", "PiecePick"].includes(name)
-                && (randCreature.creatureId.includes("Egg") || [InfoType.Gimmick, InfoType.Hazard].includes(randCreature.infoType))
+                && (randCreature.creatureId.includes("Egg") || [InfoType.Gimmick, InfoType.Hazard, InfoType.Object].includes(randCreature.infoType))
             ) {
-                if (Math.random() <= 0.5) mutateCreatureDrop(drop, config, map);
+                if (Math.random() <= 0.4) mutateCreatureDrop(drop, config, map);
                 else mutateMiscDrop(drop, config);
             }
-            // Piecepick inflation, or 50% chance to override to a creature
+            // Piecepick inflation, or 40% chance to override to a creature
             else if (name === 'PiecePick') {
-                if (Math.random() < 0.5) {
+                if (Math.random() < 0.6) {
                     drop.maxDrops = randIntBounded(4, 9);
                 }
                 else {
@@ -830,7 +830,7 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
                 mutateCreatureDrop(drop, config, map);
             }
             else if (!map.includes('Night') && name === 'HikariStation') {
-                if (Math.random() <= 0.75) mutateCreatureDrop(drop, config, map);
+                if (Math.random() <= 0.65) mutateCreatureDrop(drop, config, map);
                 else mutateMiscDrop(drop, config);
             }
 
@@ -854,7 +854,10 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
         if (randCreature.creatureId.includes('Gate')) randCreature.drops.rareDrops.forEach(dropMutator);
 
     }
-    if ((config.allCreaturesDrop && isCreature) || (objectDroppable && config.allObjectsDrop)) {
+
+    if ((config.allCreaturesDrop && isCreature && Math.random() < config.creatureDropChance / 100)
+        || (objectDroppable && config.allObjectsDrop && Math.random() < config.objectDropChance / 100)) {
+
         const invSize = randFunctions[config.randIntFunction](1, config.dropLimitMax);
         logger.info(`Padding inventory size to ${invSize} for ${randCreature.creatureId}`);
 

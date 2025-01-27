@@ -1,5 +1,5 @@
 import { InfoType, PikminTypes, PikminPlayType, PortalTypes, ValveWorkType, weirdAIEntities } from '../api/types';
-import { findSequenceStartIndex } from '../utils';
+import { findSequenceStartIndex, getObjectAIOffset } from '../utils';
 import { bytesToInt, getDisableSettings } from '../utils/bytes';
 import { NONE_BYTES } from './constructing';
 
@@ -64,6 +64,8 @@ export const getReadAIDynamicFunc = (creatureId, infoType) => {
     if (creatureId.includes('Tateana')) return parseTateanaAI_Dynamic;
     if (['HikariStation', 'BridgeStation', 'KinkaiStation'].some(e => creatureId === e)) return parsePileAI_Dynamic;
     if (creatureId.includes('Circulator')) return parseCirculatorAI_Dynamic;
+    if (creatureId.includes('WaterBox') && creatureId !== 'WaterBoxNav') return parseWaterBoxAI_Dynamic;
+    if (creatureId.startsWith('SwampBox')) return parseWaterBoxAI_Dynamic;
     return () => ({});
 };
 
@@ -98,6 +100,11 @@ export const getReadAIStaticFunc = (creatureId, infoType) => {
     if (creatureId.includes('StickyFloor')) return parseStickyFloorAI;
     if (creatureId.includes('Geyser')) return parseGeyserAI;
     if (creatureId.includes('Circulator')) return parseCirculatorAI;
+    if (creatureId.includes('WaterBox') && creatureId !== 'WaterBoxNav') return parseWaterBoxAI;
+    if (creatureId === 'WaterBoxNav') return parseWaterBoxNavAI;
+    if (creatureId.includes('Mizunuki')) return parseMizunukiAI;
+    if (creatureId.startsWith('SwampBox')) return parseWaterBoxAI;
+    if (creatureId.includes('HandleBoard')) return parseHandleBoardAI;
     return () => ({ parsed: [] });
 };
 
@@ -109,6 +116,14 @@ export const getReadPortalFunc = infoType => {
 export const getReadActorParameterFunc = creatureId => {
     if (creatureId.startsWith('Valve')) return parseValveActorParam;
     if (creatureId.startsWith('Sprinkler')) return parseValveActorParam;
+    if (creatureId.includes('WaterBox') && creatureId !== 'WaterBoxNav') return parseWaterBoxActorParam;
+    if (creatureId.startsWith('SwampBox')) return parseWaterBoxActorParam;
+    return () => false;
+};
+
+export const getReadWaterTriggerFunc = creatureId => {
+    if (creatureId.includes('WaterBox') && creatureId !== 'WaterBoxNav') return parseWaterBoxWaterTrigger;
+    if (creatureId.startsWith('SwampBox')) return parseSwampBoxWaterTrigger;
     return () => false;
 };
 
@@ -117,9 +132,26 @@ export const getReadNavMeshTriggerFunc = creatureId => {
     return () => false;
 };
 
+// bytes between the 240 and none in long OAIP: 51 67
+// short: 47 63
+// const readObjectAIParameter = (ai, generatorVersion) => {
+//     let parsed = [];
+//     let index = 0;
+//     const invSize = ai[index];
+//     ({ parsed, index } = readInventory(ai, index, invSize));
+//     const someString = readAsciiString(ai, index);
+//     index += ai[index] + 4;
+//     index += 16; // bunch of 0s idk
+//     const float1 = readFloat(ai.slice(index, index += 4))
+//     const float2 = readFloat(ai.slice(index, index += 4))
+//     const float3 = readFloat(ai.slice(index, index += 4))
+//     const float4 = readFloat(ai.slice(index, index += 4))
+//     const float5 = readFloat(ai.slice(index, index += 4))
+// }
+
 //#region Circulators
-const parseCirculatorAI = ai => {
-    let index = 155;
+const parseCirculatorAI = (ai, generatorVersion) => {
+    let index = 155 + (generatorVersion == 8626647386 ? 0 : 4);
     if (!ai[index]) index += 4; // again, there's sometimes 4 extra bytes in the middle-ish of the array. Our switch ID is either 155 or 159
     const AIProperties = {
         switchID: readAsciiString(ai, index)
@@ -146,9 +178,128 @@ const parsePileAI_Dynamic = ai => ({ pieceNum: bytesToInt(ai.slice(36, 40)) });
 
 const parseTateanaAI_Dynamic = ai => ({ numDig: bytesToInt(ai.slice(12, 16)) });
 
+// 8626647418 long
+// 8626647626 long
+// 8626647386 short
+//#region WaterBoxes
+const parseWaterBoxAI = (ai, generatorVersion) => {
+    let index = 155 + getObjectAIOffset(generatorVersion); // this version 155 long vs 159 in the other two
+    const waterBoxSwitchId = readAsciiString(ai, index);
+    index += ai[index] + 4;
+    const waterLevelChangeDist = readFloat(ai.slice(index, index += 4));
+    const waterLevelChangeTime = readFloat(ai.slice(index, index += 4));
+    index += 8; // two unknown and constant values
+    const generatorIndex = readFloat(ai.slice(index, index += 4));
+    const bUseSunMeter = ai[index];
+    index += 4;
+    const idkFloat = readFloat(ai.slice(index, index += 4));
+    const bPlayDemo = ai[index];
+
+    return {
+        parsed: [],
+        AIProperties: {
+            waterBoxSwitchId,
+            waterLevelChangeDist,
+            waterLevelChangeTime,
+            generatorIndex: isNaN(generatorIndex) ? -1 : generatorIndex,
+            bUseSunMeter,
+            bPlayDemo
+        }
+    };
+};
+
+const parseWaterBoxAI_Dynamic = ai => ({ afterMaxIcePikmins: bytesToInt(ai.slice(16, 20)) });
+
+const parseSwampBoxWaterTrigger = waterTrigger => ({
+    maxIcePikmins: bytesToInt(waterTrigger.slice(0, 4)),
+    ambientSoundId: readAsciiString(waterTrigger, 28),
+    bDisableSink: waterTrigger[28 + waterTrigger[28] + 4]
+});
+
+const parseWaterBoxActorParam = actorParam => {
+    const radarMapWBTexture = readAsciiString(actorParam, 64).split('.').pop();
+
+    return {
+        unknownInt: bytesToInt(actorParam.slice(63, 64)),
+        radarMapWBTexture,
+        radarMapWBChangeDistTexture: readAsciiString(actorParam, 64 + actorParam[64] + 4).split('.').pop()
+    };
+};
+
+const parseWaterBoxWaterTrigger = waterTrigger => ({
+    maxIcePikmins: bytesToInt(waterTrigger.slice(0, 4)),
+    ambientSoundId: readAsciiString(waterTrigger, 28)
+});
+
+const parseWaterBoxNavAI = (ai, generatorVersion) => {
+    let index = 155 + getObjectAIOffset(generatorVersion);
+    const bUseHappyOnly = ai[index];
+    index += 4;
+    return {
+        parsed: [],
+        AIProperties: {
+            bUseHappyOnly,
+            rightOffset: {
+                X: readFloat(ai.slice(index, index += 4)),
+                Y: readFloat(ai.slice(index, index += 4)),
+                Z: readFloat(ai.slice(index, index += 4))
+            }
+        }
+    };
+};
+
+const parseMizunukiAI = (ai, generatorVersion) => {
+    let index = 155 + getObjectAIOffset(generatorVersion);
+    return {
+        parsed: [],
+        AIProperties: {
+            waterBoxId: readAsciiString(ai, index)
+        }
+    };
+};
+
+//#region HandleBoard
+const parseHandleBoardAI = (ai, generatorVersion) => {
+    const offset = getObjectAIOffset(generatorVersion);
+    let index = 115 + offset; // this places us at the start of the trigger strings
+    // HandleBoards can have LinkNarrow and NavMeshTrigger strings of varying length, so skip those
+    const linkNarrowSpaceBoxID = readAsciiString(ai, index);
+    index += ai[index] + 4;
+    const linkWarpTriggerID = readAsciiString(ai, index);
+    index += ai[index] + 4;
+    const navMeshTriggerID = readAsciiString(ai, index);
+    index += ai[index] + 4;
+    index += 13; // get past the 0s after the last string
+    // we should now be at WorkNum (155/159 if all None strings)
+    const workNum = bytesToInt(ai.slice(index, index += 4));
+    index += 4; // always true bool here?
+
+    return {
+        parsed: [],
+        AIProperties: {
+            linkNarrowSpaceBoxID,
+            linkWarpTriggerID,
+            navMeshTriggerID,
+            workNum,
+            pointLinks: {
+                left: {
+                    X: readFloat(ai.slice(index, index += 4)),
+                    Y: readFloat(ai.slice(index, index += 4)),
+                    Z: readFloat(ai.slice(index, index += 4))
+                },
+                right: {
+                    X: readFloat(ai.slice(index, index += 4)),
+                    Y: readFloat(ai.slice(index, index += 4)),
+                    Z: readFloat(ai.slice(index, index += 4))
+                }
+            }
+        }
+    };
+};
+
 //#region Geyser
-const parseGeyserAI = ai => {
-    const offset = ai.length === 214 ? 0 : 4; // in 1 geyser there are 4 more bytes of ObjectAIParameter, all 0. No idea.
+const parseGeyserAI = (ai, generatorVersion) => {
+    const offset = getObjectAIOffset(generatorVersion); // in 1 geyser there are 4 more bytes of ObjectAIParameter, all 0. No idea.
     let index = 155 + offset;
     const AIProperties = {
         bEnableCustomSoftEdge: ai[99 + offset],
@@ -493,8 +644,9 @@ const parseActorSpawnerDrops = drops => {
 };
 
 //#region TriggerDoor
-const parseTriggerDoorAI = ai => {
-    let index = 155; // we only care about CIDList for now, which is the very last thing in the array
+const parseTriggerDoorAI = (ai, generatorVersion) => {
+    let index = 155 + (generatorVersion == 8626647386 ? 0 : 4); // this version 155 long vs 159 in the other two
+    // we only care about CIDList for now, which is the very last thing in the array
     // it also might not even exist. 156 lands us on the switch string, usually 9chars of switch00, but variable
     const parsedAI = { parsed: [], AIProperties: {} };
 

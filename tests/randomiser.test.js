@@ -1192,7 +1192,8 @@ describe('Randomiser Tests', () => {
                 gatesDrop: true,
                 randMaxDrops: 2,
                 dropLimitMax: 1,
-                randIntFunction: 'even'
+                randIntFunction: 'even',
+                objectDropChance: 100
             });
 
             expect(main.saveMaps).toHaveBeenCalledTimes(1);

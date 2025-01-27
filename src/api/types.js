@@ -149,8 +149,158 @@ export const ExploreRateTargetType = {
     TekiDay: "EExploreRateTargetType::TekiDay"
 };
 
+export const AmbientSoundIDs = [
+    "PondBig01",
+    "PongBig02",
+    "Swamp01",
+    "Swamp02",
+    "Swamp03",
+    "Swamp04",
+    "Swamp05",
+    "Swamp06",
+    "Water01",
+    "Water02",
+    "Water03",
+    "Water04",
+    "Water05",
+    "Water06",
+    "Water07",
+    "Water1",
+    "Water2",
+    "Water3",
+    "WaterDay01",
+    "WaterDay02",
+    "WaterDay03",
+    "WaterDay04",
+    "WaterDay05",
+    "WaterDay06",
+    "WaterOut01",
+    "WaterOut02",
+    "WaterBoxOut"
+];
+
+export const WaterBoxTextures = [
+    "None",
+    "T_ui_Map_Area001_WaterBox00_D",
+    "T_ui_Map_Area001_WaterBox01_D",
+    "T_ui_Map_HeroStory001_WaterBox00_Hero_D",
+    "T_ui_Map_Area002_WaterBox00_D",
+    "T_ui_Map_Area003_WaterBox00_D",
+    "T_ui_Map_Area003_WaterBox00_ChangeDist_D",
+    "T_ui_Map_Area003_WaterBox01_D",
+    "T_ui_Map_Area003_WaterBox02_D",
+    "T_ui_Map_Area003_WaterBox03_D",
+    "T_ui_Map_Area003_WaterBox04_D",
+    "T_ui_Map_Area003_WaterBox01_ChangeDist_D",
+    "T_ui_Map_Area003_WaterBox05_D",
+    "T_ui_Map_Area003_WaterBox05_ChangeDist_D",
+    "T_ui_Map_Area003_WaterBox06_D",
+    "T_ui_Map_Area003_WaterBox06_ChangeDist_D",
+    "T_ui_Map_Area003_WaterBox07_D",
+    "T_ui_Map_Area003_WaterBox07_ChangeDist_D",
+    "T_ui_Map_Area003_WaterBox08_D",
+    "T_ui_Map_Area003_WaterBox08_ChangeDist_D",
+    "T_ui_Map_Area003_WaterBox09_D",
+    "T_ui_Map_Area003_WaterBox09_ChangeDist_D",
+    "T_ui_Map_Area004_WaterBox00_D",
+    "T_ui_Map_Area004_WaterBox01_D",
+    "T_ui_Map_Area004_WaterBox02_D",
+    "T_ui_Map_Area004_WaterBox03_D",
+    "T_ui_Map_Area004_WaterBox04_D",
+    "T_ui_Map_Area004_WaterBox05_D",
+    "T_ui_Map_Area004_WaterBox06_D",
+    "T_ui_Map_Area006_WaterBox00_D",
+    "T_ui_Map_Area006_WaterBox01_D",
+    "T_ui_Map_Area006_WaterBox02_D",
+    "T_ui_Map_Area006_WaterBox03_D",
+    "T_ui_Map_Area006_WaterBox04_D",
+    "T_ui_Map_Area006_WaterBox05_D",
+    "T_ui_Map_Area010_WaterBox00_D",
+    "T_ui_Map_Area011_WaterBox00_D",
+    "T_ui_Map_HeroStory002_WaterBox00_Hero_D",
+    "T_ui_Map_HeroStory002_WaterBox00_Hero_ChangeDist_D",
+    "T_ui_Map_HeroStory003_WaterBox01_Hero_D",
+    "T_ui_Map_HeroStory003_Hero_WaterBox01_ChangeDist_D",
+    "T_ui_Map_HeroStory003_WaterBox02_Hero_D",
+    "T_ui_Map_HeroStory003_Hero_WaterBox02_ChangeDist_D",
+    "T_ui_Map_HeroStory003_WaterBox03_Hero_D",
+    "T_ui_Map_HeroStory003_Hero_WaterBox03_ChangeDist_D",
+    "T_ui_Map_HeroStory003_WaterBox00_Hero_D",
+    "T_ui_Map_HeroStory003_WaterBox04_Hero_D",
+    "T_ui_Map_HeroStory003_Hero_WaterBox04_ChangeDist_D",
+    "T_ui_Map_HeroStory003_WaterBox05_Hero_D",
+    "T_ui_Map_HeroStory003_Hero_WaterBox05_ChangeDist_D",
+    "T_ui_Map_HeroStory003_WaterBox07_Hero_D",
+    "T_ui_Map_HeroStory003_WaterBox06_Hero_D",
+    "T_ui_Map_HeroStory003_Hero_WaterBox06_ChangeDist_D",
+    "T_ui_Map_HeroStory003_WaterBox08_Hero_D",
+    "T_ui_Map_HeroStory003_Hero_WaterBox08_ChangeDist_D",
+    "T_ui_Map_Cave004_F00_WaterBox00_D",
+    "T_ui_Map_Cave007_F00_WaterBox01_D",
+    "T_ui_Map_Cave007_F00_WaterBox00_D",
+    "T_ui_Map_Cave007_F01_WaterBox00_D",
+    "T_ui_Map_Cave010_F01_WaterBox00_D",
+    "T_ui_Map_Cave010_F03_WaterBox00_D",
+    "T_ui_Map_Cave010_F05_WaterBox00_D",
+    "T_ui_Map_Cave011_F00_WaterBox00_D",
+    "T_ui_Map_Cave011_F01_WaterBox00_D",
+    "T_ui_Map_Cave011_F02_WaterBox00_D",
+    "T_ui_Map_Cave011_F03_WaterBox00_D",
+    "T_ui_Map_Cave012_F01_WaterBox01_D",
+    "T_ui_Map_Cave012_F01_WaterBox00_D",
+    "T_ui_Map_Cave012_F01_WaterBox02_D",
+    "T_ui_Map_Cave014_F00_WaterBox01_D",
+    "T_ui_Map_Cave014_F00_WaterBox02_D",
+    "T_ui_Map_Cave014_F00_WaterBox03_D",
+    "T_ui_Map_Cave014_F00_WaterBox04_D",
+    "T_ui_Map_Cave014_F00_WaterBox00_D",
+    "T_ui_Map_Cave014_F01_WaterBox00_D",
+    "T_ui_Map_Cave014_F01_WaterBox01_D",
+    "T_ui_Map_Cave014_F02_WaterBox01_D",
+    "T_ui_Map_Cave014_F02_WaterBox00_D",
+    "T_ui_Map_Cave014_F03_WaterBox00_D",
+    "T_ui_Map_Cave014_F03_WaterBox01_D",
+    "T_ui_Map_Cave014_F03_WaterBox02_D",
+    "T_ui_Map_Cave015_F00_WaterBox00_D",
+    "T_ui_Map_Cave015_F00_WaterBox01_D",
+    "T_ui_Map_Cave015_F00_WaterBox02_D",
+    "T_ui_Map_Cave015_F00_WaterBox03_D",
+    "T_ui_Map_Cave016_F07_WaterBox00_D",
+    "T_ui_Map_Cave016_F08_WaterBox00_D",
+    "T_ui_Map_Cave016_F09_WaterBox00_D",
+    "T_ui_Map_Cave016_F10_WaterBox01_D",
+    "T_ui_Map_Cave016_F10_WaterBox00_D",
+    "T_ui_Map_Cave016_F14_WaterBox00_D",
+    "T_ui_Map_Cave016_F14_WaterBox01_D",
+    "T_ui_Map_Cave016_F18_WaterBox00_D",
+    "T_ui_Map_Cave018_F00_WaterBox00_D",
+    "T_ui_Map_Cave018_F01_WaterBox00_D",
+    "T_ui_Map_Cave018_F02_WaterBox00_D",
+    "T_ui_Map_Cave021_F00_WaterBox01_D",
+    "T_ui_Map_Cave021_F00_WaterBox00_D",
+    "T_ui_Map_Cave021_F01_WaterBox00_D",
+    "T_ui_Map_Cave021_F02_WaterBox01_D",
+    "T_ui_Map_Cave021_F02_WaterBox00_D",
+    "T_ui_Map_Cave022_F02_WaterBox00_D",
+    "T_ui_Map_Cave022_F02_WaterBox00_ChangeDist_D",
+    "T_ui_Map_Cave030_F00_WaterBox00_D",
+    "T_ui_Map_Cave031_F00_WaterBox01_D",
+    "T_ui_Map_Cave031_F00_WaterBox00_D",
+    "T_ui_Map_Cave032_F00_WaterBox01_D",
+    "T_ui_Map_Cave032_F00_WaterBox00_D",
+    "T_ui_Map_Cave033_F00_WaterBox00_D",
+    "T_ui_Map_Cave034_F00_WaterBox01_D",
+    "T_ui_Map_Cave034_F00_WaterBox02_D",
+    "T_ui_Map_Cave034_F00_WaterBox03_D",
+    "T_ui_Map_Cave034_F00_WaterBox00_D",
+    "T_ui_Map_Cave035_F02_WaterBox00_D",
+    "T_ui_Map_Cave035_F02_WaterBox01_D",
+    "T_ui_Map_Cave035_F03_WaterBox00_D"
+];
+
 //#region UI element controllers
 export const editableNumberFields = [
+    "afterMaxIcePikmins",
     "CondInt",
     "Life",
     "W",
@@ -166,12 +316,14 @@ export const editableNumberFields = [
     "flatEffectOffsetZ",
     "generateNum",
     "generateRadius",
+    "generatorIndex",
     "groupingRadius",
     "halfHeight",
     "invasionStartTimeRatio",
     "leftProjectHeight",
     "mabikiNumFromFollow",
     "maxFallDownLength",
+    "maxIcePikmins",
     "noSpawnRadius",
     "numDig",
     "openTime",
@@ -192,7 +344,10 @@ export const editableNumberFields = [
     "toPortalId",
     "unknownInt",
     "waterRange",
-    "weight"
+    "weight",
+    "waterLevelChangeDist",
+    "waterLevelChangeTime",
+    "workNum"
 ];
 
 export const editableBools = [
@@ -200,6 +355,7 @@ export const editableBools = [
     "bDeactivateByExit",
     "bDisableIsFlareGuard",
     "bDisableSoftEdge",
+    "bDisableSink",
     "bEnableFreezeBothDrop",
     "bEnableCustomSoftEdge",
     "bEnableOptionalPoint",
@@ -210,7 +366,9 @@ export const editableBools = [
     "bSetCrystal",
     "bSprinklerOnly",
     "bUseSnapHeight",
-    "bWindLong"
+    "bUseSunMeter",
+    "bWindLong",
+    "bPlayDemo",
 ];
 
 export const ignoreFields = [
@@ -219,7 +377,8 @@ export const ignoreFields = [
     "infoType",
     "ddId",
     "outlineFolderPath",
-    "spareBytes"
+    "spareBytes",
+    "generatorVersion"
 ];
 
 export const editableStrings = [
@@ -229,12 +388,16 @@ export const editableStrings = [
     "boneName",
     "demoBindName",
     "ignoreList",
+    "linkNarrowSpaceBoxID",
+    "linkWarpTriggerID",
     "navMeshTriggerID",
     "switchID",
     "toLevelName",
     "toSubLevelName",
     "valveID",
-    "warpID"
+    "warpID",
+    "waterBoxId",
+    "waterBoxSwitchId",
 ];
 
 export const arrayStrings = [
@@ -253,7 +416,10 @@ export const selectFields = {
     workType: Object.values(ValveWorkType),
     activityTime: Object.values(ActivityTimes),
     Condition: Object.values(ActorPlacementCondition),
-    exploreRateType: Object.values(ExploreRateTargetType)
+    exploreRateType: Object.values(ExploreRateTargetType),
+    radarMapWBTexture: WaterBoxTextures,
+    radarMapWBChangeDistTexture: WaterBoxTextures,
+    ambientSoundId: AmbientSoundIDs
 };
 
 export const NightMaps = {
@@ -1079,6 +1245,8 @@ export const GimmickNames = {
     NoraSpawnerPongashiLock: "Candypop Bud",
     OoAshibaKinoko: "Chargeshroom",
     OoAshibaKinokoNarrow: "Chargeshroom (Narrow)",
+    SwampBox: "SwampBox",
+    SwampBoxDark: "SwampBoxDark",
     SwitchOff: "Switch (Off Only)",
     SwitchOnOff: "Switch",
     SwitchOnOffGreen: "Switch (Green)",
@@ -1094,8 +1262,16 @@ export const GimmickNames = {
     TriggerDoorSwitchRed: "Trigger Gate (Red)",
     WallFlexible: "Climbable Wall",
     WarpTrigger: "WarpTrigger",
+    WaterBox: 'WaterBox',
+    WaterBoxCircle: 'WaterBoxCircle',
+    WaterBoxDeep: 'WaterBoxDeep',
+    WaterBoxFluctuation: 'WaterBoxFluctuation',
+    WaterBoxFluctuationDeep: 'WaterBoxFluctuationDeep',
+    WaterBoxNav: 'WaterBoxNav',
+    WaterBoxReduction: 'WaterBoxReduction',
+    WaterBoxVS: 'WaterBoxVS',
     ZiplineAnother: "Zipline 2",
-    ZiplineSplineMesh: "Zipline",
+    ZiplineSplineMesh: "Zipline Spline Mesh",
 };
 
 export const HazardNames = {
@@ -1150,10 +1326,10 @@ export const OnionNames = {
 //#region Object Names
 export const ObjectNames = {
     OjamaBlockAir: "OjamaBlock (Air)",
-    OjamaBlock: "OjamaBlock",
-    OjamaBlockRoom: "OjamaBlock (Room)",
-    OjamaBlockRoom02: "OjamaBlock (Room02)",
-    OjamaBlockRoomDuo: "OjamaBlock (?)",
+    OjamaBlock: "Square Brick",
+    OjamaBlockRoom: "Book",
+    OjamaBlockRoom02: "Red Book",
+    OjamaBlockRoomDuo: "2 Books",
     OjamaBlockWoodParts: "OjamaBlock (?)",
     OjamaBlockWoodPartsB: "OjamaBlock (?)",
     MoveFloorSlowTrigger: "MoveFloor Trigger",
@@ -1430,7 +1606,21 @@ export const iconOverrides = {
     dolphinarea500before: "dolphinarea500",
     dolphinarea500after: "dolphinarea500",
     kinkaipick: "kinkaistation",
-    panmodokihidearea: 'default'
+    panmodokihidearea: 'default',
+    ojamablockroom: 'book',
+    ojamablockroom02: 'book',
+    ojamablockroomduo: 'book',
+    ojamablock: 'brick',
+    waterbox: 'waterbox',
+    waterboxcircle: 'waterbox',
+    waterboxdeep: 'waterbox',
+    waterboxfluctuation: 'waterbox',
+    waterboxfluctuationdeep: 'waterbox',
+    waterboxnav: 'waterbox',
+    waterboxreduction: 'waterbox',
+    waterboxvs: 'waterbox',
+    swampbox: 'waterbox',
+    swampboxdark: 'waterbox',
 };
 
 // A 207 byte slice from an AreaBaseCamp_GEN_VARIABLE
@@ -1501,7 +1691,7 @@ export const PortalDestinations = [
     'Cave010_F02', 'Cave010_F03', 'Cave010_F04', 'Cave010_F05', 'Cave011_F00',
     'Cave011_F01', 'Cave011_F02', 'Cave011_F03', 'Cave012_F00', 'Cave012_F01',
     'Cave012_F02', 'Cave013_F00', 'Cave013_F01', 'Cave013_F02', 'Cave013_F04',
-    'Cave014_F00', 'Cave014_F01', 'Cave014_F02', 'Cave014_F03', 'Cave014_F04',,
+    'Cave014_F00', 'Cave014_F01', 'Cave014_F02', 'Cave014_F03', 'Cave014_F04', ,
     'Cave018_F00', 'Cave018_F01', 'Cave018_F02', 'Cave019_F00', 'Cave019_F01',
     'Cave019_F02', 'Cave019_F03', 'Cave019_F04', 'Cave021_F00', 'Cave021_F01',
     'Cave021_F02', 'Cave021_F03', 'Cave022_F00', 'Cave022_F01', 'Cave022_F02',
@@ -1602,4 +1792,7 @@ export const Messages = {
     ERROR: 'errorNotify',
     SUCCESS: 'successNotify',
     NONBLOCKING: 'nonBlockingNotify'
-}
+};
+
+export const ObjectAI_STRING_INDEX = 115; // Index + offset where the 3 strings start
+export const ObjectAI_END_INDEX = 155; // Index + offset where the AI_GEN_VAR starts if all 3 ID strings are None

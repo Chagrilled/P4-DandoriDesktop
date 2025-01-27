@@ -132,7 +132,7 @@ export const HackingTools = () => {
 
     return <div className="HackingTools__container">
         <label>
-            <div className="font-bold">Float to Number:</div>
+            <div className="font-bold">Float to Bytes:</div>
             <input className="text-black" type='number' value={floatString} onChange={(evt) => setFloatString(evt.target.value)} />
         </label>
         <div>Bytes (Little Endian): {floatByteString}</div>

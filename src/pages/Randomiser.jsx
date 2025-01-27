@@ -31,6 +31,7 @@ export const Randomiser = () => {
         allCreaturesDrop: true, // ✅
         randMaxDrops: 3, // ✅
         dropLimitMax: 2, // ✅
+        creatureDropChance: 100,
         randGenerateNumLimit: 4, // ✅
         randBossGenerateNumLimit: 2, // ✅
         randGenerateNums: true, // ✅
@@ -55,6 +56,7 @@ export const Randomiser = () => {
         // gatesLfL: false,
         excludeGates: true,
         allObjectsDrop: true, // ✅
+        objectDropChance: 100,
         randStartingOnion: true, // ✅
         randAllOnions: true, // ✅
         retainMaterials: true,
@@ -103,6 +105,16 @@ export const Randomiser = () => {
                 type: 'checkbox',
                 onChange: (e) => setState({ ...state, allCreaturesDrop: e.target.checked }),
                 id: 'allCreaturesDrop'
+            },
+            {
+                label: 'Creature Drop Chance',
+                tooltip: <>
+                    <span>0-100% chance for creatures to be given drops</span>
+                    <span>when paired with All Creatures Have Drops</span>
+                </>,
+                type: 'number',
+                onChange: (e) => setState({ ...state, creatureDropChance: e.target.value }),
+                id: 'creatureDropChance'
             },
             {
                 break: true,
@@ -385,6 +397,16 @@ export const Randomiser = () => {
                 type: 'checkbox',
                 onChange: (e) => setState({ ...state, allObjectsDrop: e.target.checked }),
                 id: 'allObjectsDrop'
+            },
+            {
+                label: 'Object Drop Chance',
+                tooltip: <>
+                    <span>0-100% chance for objects to be given drops</span>
+                    <span>when paired with All Objects Have Drops</span>
+                </>,
+                type: 'number',
+                onChange: (e) => setState({ ...state, objectDropChance: e.target.value }),
+                id: 'objectDropChance'
             },
             {
                 label: 'Keep Object GenerateNums',

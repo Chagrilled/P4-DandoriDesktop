@@ -2,7 +2,7 @@
 import { setFloats, getAssetPathFromId } from '../utils';
 import deepEqual from 'deep-equal';
 import { getReadAIDynamicFunc, getReadAIStaticFunc, getReadPortalFunc } from './reading';
-import { getConstructAIStaticFunc, getConstructPortalTriggerFunc, writeLifeDynamic, writeAffordanceWeight, getConstructDynamicFunc, getConstructActorParamFunc, ASP_FIELDS, getConstructNavMeshTriggerFunc, getConstructSubAIStaticFunc } from './constructing';
+import { getConstructAIStaticFunc, getConstructPortalTriggerFunc, writeLifeDynamic, writeAffordanceWeight, getConstructDynamicFunc, getConstructActorParamFunc, ASP_FIELDS, getConstructNavMeshTriggerFunc, getConstructSubAIStaticFunc, getConstructWaterTriggerFunc } from './constructing';
 import { default as entityData } from '../api/entityData.json';
 import { TeamIDs, InfoType } from '../api/types';
 import logger from '../utils/logger';
@@ -47,7 +47,6 @@ export const regenerateAGLEntity = (actor, aglData) => {
         entData = entityData.Bomb;
     }
 
-
     const assetPathName = getAssetPathFromId(actor.creatureId) || `/Game/Carrot4/Placeables/${getSubpath(actor.creatureId)}/G${actor.creatureId}.G${actor.creatureId}_C`;
     const newAsset = assetPathName !== aglData.SoftRefActorClass.AssetPathName;
     console.log("is it different?", newAsset);
@@ -61,9 +60,9 @@ export const regenerateAGLEntity = (actor, aglData) => {
     const aiDynamic = newAsset ? entData.AI[0].Dynamic : originalAI_Dynamic;
 
     // If the asset has changed, don't use the existing AGL ASP as it will likely be wrong
-    const { parsed, inventoryEnd, AIProperties: staticAI, rareDrops } = getReadAIStaticFunc(actor.creatureId, actor.infoType)(aiStatic);
+    const { parsed, inventoryEnd, AIProperties: existingAIP, rareDrops } = getReadAIStaticFunc(actor.creatureId, actor.infoType)(aiStatic, actor.generatorVersion);
     const dynamicAI = getReadAIDynamicFunc(actor.creatureId, actor.infoType)(aiDynamic);
-    const AIProperties = { ...staticAI, ...dynamicAI };
+    const AIProperties = { ...existingAIP, ...dynamicAI };
 
     logger.info(`Generating new actor ${actor.creatureId}from the following properties:`);
     logger.info(JSON.stringify(AIProperties));
@@ -94,7 +93,7 @@ export const regenerateAGLEntity = (actor, aglData) => {
                     ignoreList: actor.ignoreList,
                     AIProperties: actor.AIProperties,
                     transform: transforms.Translation
-                }),
+                }, generatorVersion),
                 Dynamic: getConstructDynamicFunc(actor.creatureId, actor.infoType)(aiDynamic, {
                     AIProperties: actor.AIProperties
                 })
@@ -130,6 +129,13 @@ export const regenerateAGLEntity = (actor, aglData) => {
         }
     };
 
+    const newWT = {
+        WaterTrigger: {
+            Static: newAsset ? entData.WaterTrigger[0].Static : asp.WaterTrigger.Static,
+            Dynamic: newAsset ? entData.WaterTrigger[0].Dynamic : asp.WaterTrigger.Dynamic
+        }
+    };
+
     // Only tateanas seem to use SubAI for an AS gen var, so jank the func to work with that.
     let subAI = {};
     if (actor.creatureId.includes('Tateana')) subAI = {
@@ -141,6 +147,10 @@ export const regenerateAGLEntity = (actor, aglData) => {
 
     if (actor.ActorParameter) {
         newAP.ActorParameter.Static = getConstructActorParamFunc(actor.creatureId)(newAP.ActorParameter.Static, actor.ActorParameter);
+    }
+
+    if (actor.WaterTrigger) {
+        newWT.WaterTrigger.Static = getConstructWaterTriggerFunc(actor.creatureId)(newWT.WaterTrigger.Static, actor.WaterTrigger);
     }
 
     const newASP = {
@@ -191,6 +201,7 @@ export const regenerateAGLEntity = (actor, aglData) => {
             ...newAI,
             ...newPT,
             ...newAP,
+            ...newWT,
             Life: {
                 Static: asp.Life.Static,
                 Dynamic: actor.Life ? writeLifeDynamic(actor.Life) : newAsset ? asp.Life.Dynamic : asp.Life.Dynamic

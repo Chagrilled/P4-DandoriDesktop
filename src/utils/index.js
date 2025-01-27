@@ -1,4 +1,4 @@
-import { InfoType, Times, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, weirdAIEntities, ActorPlacementCondition, DefaultActorSpawnerDrop } from "../api/types";
+import { InfoType, Times, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, weirdAIEntities, ActorPlacementCondition, DefaultActorSpawnerDrop, WaterBoxTextures, AmbientSoundIDs } from "../api/types";
 import { internalAssetNames } from "../api/assetList";
 
 export const getNameFromAsset = assetName => {
@@ -120,6 +120,8 @@ export const doesEntityHaveDrops = entity => {
 export const doesEntityHaveRareDrops = entity => {
     return ["Gate"].some(asset => entity.creatureId.includes(asset));
 };
+
+export const getObjectAIOffset = generatorVersion => generatorVersion === 8626647386 ? 0 : 4;
 
 export const shouldIconRotate = creatureId => {
     if (creatureId.includes('Gate')) return true;
@@ -276,11 +278,90 @@ export const mutateAIProperties = (creature, value) => {
                     Z: 100.0
                 }
             }
+        },
+        {
+            ents: ['WaterBox'],
+            AIProperties: {
+                waterBoxSwitchId: "null",
+                waterLevelChangeDist: 0.0,
+                waterLevelChangeTime: -1,
+                generatorIndex: -1,
+                bUseSunMeter: false,
+                bPlayDemo: false,
+                afterMaxIcePikmins: 20
+            },
+            WaterTrigger: {
+                maxIcePikmins: 20,
+                ambientSoundId: AmbientSoundIDs[0]
+            },
+            ActorParameter: {
+                radarMapWBTexture: WaterBoxTextures[0],
+                radarMapWBChangeDistTexture: "None"
+            }
+        },
+        {
+            ents: ['SwampBox'],
+            AIProperties: {
+                waterBoxSwitchId: "null",
+                waterLevelChangeDist: 0.0,
+                waterLevelChangeTime: -1,
+                generatorIndex: -1,
+                bUseSunMeter: false,
+                bPlayDemo: false,
+                afterMaxIcePikmins: 20,
+                bDisableSink: false
+            },
+            WaterTrigger: {
+                maxIcePikmins: 20,
+                ambientSoundId: AmbientSoundIDs[0]
+            },
+            ActorParameter: {
+                radarMapWBTexture: WaterBoxTextures[0],
+                radarMapWBChangeDistTexture: "None"
+            }
+        },
+        {
+            // WaterBoxNav will get caught by the above object
+            // So we have to overwrite it here to avoid either writing a "Not" filter
+            // or being explicit for every ent by removing the .includes(), which I don't want to do
+            ents: ['WaterBoxNav'],
+            AIProperties: {
+                bUseHappyOnly: false,
+                rightOffset: {
+                    X: 0.0,
+                    Y: 0.0,
+                    Z: 0.0
+                }
+            }
+        },
+        {
+            ents: ['Mizunuki'],
+            AIProperties: {
+                waterBoxId: 'Water00'
+            }
+        },
+        {
+            ents: ['HandleBoard'],
+            AIProperties: {
+                workNum: 10,
+                pointLinks: {
+                    left: {
+                        X: 0.0,
+                        Y: 0.0,
+                        Z: 0.0
+                    },
+                    right: {
+                        X: 0.0,
+                        Y: 0.0,
+                        Z: 0.0
+                    }
+                }
+            }
         }
     ].forEach(o => {
         aiEnts.push(...o.ents);
         if (o.ents.some(e => value.includes(e)) || o.infoTypes?.some(e => value.includes(e))) { // There was an && !creature.AIProperties here, I forget why
-            ["AIProperties", "ActorParameter", "NavMeshTrigger"].forEach(prop => {
+            ["AIProperties", "ActorParameter", "NavMeshTrigger", "WaterTrigger"].forEach(prop => {
                 if (o[prop]) creature[prop] = { ...deepCopy(o[prop]) };
                 else delete creature[prop];
             });
@@ -295,6 +376,7 @@ export const mutateAIProperties = (creature, value) => {
         delete creature.AIProperties;
         delete creature.NavMeshTrigger;
         delete creature.ActorParameter;
+        delete creature.WaterTrigger;
     }
 };
 

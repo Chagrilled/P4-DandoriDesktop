@@ -1,5 +1,4 @@
 import { vi } from 'vitest';
-import { readMapData } from '../src/main';
 
 // Mock fs
 vi.mock('fs', () => {
