@@ -166,6 +166,20 @@ const randCreatures = Object.keys(CreatureNames).filter(k => ![
     "GroupDropManager",
     "Queen", // Crashes if game can't place her in spaces - GenerateRadius doens't seem to help
     "AmeBozu", // Probably crashes without his spline,
+    "SplineFutakuchiRock",
+    "SplineKumaChappy",
+    "SplinePatroller",
+    "SplineHageDamagumo",
+    "SplineDamagumoCanStep",
+    "SplineChaser_Kitchen",
+    "SplineChaser_LivingRoom",
+    "SplineBaby",
+    "SplineAmeBozu",
+    "SplineNightKochappy",
+    "SplineDokuNameko",
+    "SplineFutakuchiAdultRock",
+    "SplinePanModoki",
+    "SplineBigUjinko",
 ].includes(k));
 
 const bosses = [
@@ -201,6 +215,20 @@ const nonDropList = [
     'KinoKajiokoshi', // the slugs seem crashy for some reason, on some drops
     "MarigumoNet",
     "MarigumoNet_Low",
+    "SplineFutakuchiRock",
+    "SplineKumaChappy",
+    "SplinePatroller",
+    "SplineHageDamagumo",
+    "SplineDamagumoCanStep",
+    "SplineChaser_Kitchen",
+    "SplineChaser_LivingRoom",
+    "SplineBaby",
+    "SplineAmeBozu",
+    "SplineNightKochappy",
+    "SplineDokuNameko",
+    "SplineFutakuchiAdultRock",
+    "SplinePanModoki",
+    "SplineBigUjinko",
     // These two are possibly crashy - haven't replicated though
     // "Kanitama",
     // "Kogani"
@@ -280,7 +308,21 @@ const ignoreList = [
     "Queen",
     "OtaPocketWatch",
     "OtaBankCardC",
-    "OtaPinBadgeE"
+    "OtaPinBadgeE",
+    "SplineFutakuchiRock",
+    "SplineKumaChappy",
+    "SplinePatroller",
+    "SplineHageDamagumo",
+    "SplineDamagumoCanStep",
+    "SplineChaser_Kitchen",
+    "SplineChaser_LivingRoom",
+    "SplineBaby",
+    "SplineAmeBozu",
+    "SplineNightKochappy",
+    "SplineDokuNameko",
+    "SplineFutakuchiAdultRock",
+    "SplinePanModoki",
+    "SplineBigUjinko"
     // All splines are added in this list already
 ];
 
@@ -369,12 +411,315 @@ const nightCreatureList = [
     "UjinkoB"
 ];
 
+//#region Skiplist
+// The skipList defines specific entities in maps that should keep their asset
+// Usually for reasons like not breaking pathing when they block gaps or have cutscene triggers
+const skipList = [
+    // Cutscene Gildemander in OST HH
+    {
+        maps: ['HeroStory010'],
+        ent: 'NiseBoss',
+        translation: {
+            X: 3090,
+            Y: 2465,
+            Z: 95.35748291015625
+        }
+    },
+    // Pots in the way of the first base spawn in HH
+    {
+        maps: ['HeroStory010', 'Area011'],
+        ent: 'CrackPlanter',
+        translation: {
+            X: -1131.7291259765625,
+            Y: 2002.4454345703125,
+            Z: 295.2608337402344
+
+        }
+    },
+    {
+        maps: ['HeroStory010', 'Area011'],
+        ent: 'CrackPlanter',
+        translation: {
+            X: -1207.708251953125,
+            Y: 2055.14794921875,
+            Z: 295.2609558105469
+
+        }
+    },
+    {
+        maps: ['HeroStory010', 'Area011'],
+        ent: 'CrackPlanter',
+        translation: {
+            X: -1211.8116455078125,
+            Y: 1960.6292724609375,
+            Z: 295.2604675292969
+        }
+    },
+    // Mushroom corridoor on left side near base
+    {
+        maps: ['Area006'],
+        ent: 'StickyMush',
+        translation: {
+            X: 1428.4908447265625,
+            Y: -3215.465087890625,
+            Z: 368.1402282714844
+        },
+    },
+    {
+        maps: ['Area006'],
+        ent: 'StickyMushB',
+        translation: {
+            X: 1370,
+            Y: -3221,
+            Z: 363.582763671875
+        }
+    },
+    {
+        maps: ['Area006'],
+        ent: 'StickyMushB',
+        translation: {
+            X: 1226,
+            Y: -3103,
+            Z: 363.58282470703125
+        },
+    },
+    {
+        maps: ['Area006'],
+        ent: 'StickyMush',
+        translation: {
+            X: 1198.1014404296875,
+            Y: -3138.60205078125,
+            Z: 368.1053161621094
+        },
+    },
+    {
+        maps: ['Area006'],
+        ent: 'StickyMush',
+        translation: {
+            X: 1180.701904296875,
+            Y: -3327.71875,
+            Z: 368.10540771484375
+        },
+    },
+    {
+        maps: ['Area006'],
+        ent: 'StickyFloorFew',
+        translation: {
+            X: 1292,
+            Y: -3242,
+            Z: 366.0152893066406
+        },
+    },
+    {
+        maps: ['HeroStory001'],
+        ent: 'CrackPotS',
+        translation: {
+            X: -3494.632080078125,
+            Y: 1677.114013671875,
+            Z: 200.2529296875
+        },
+    },
+    {
+        maps: ['HeroStory001'],
+        ent: 'CrackPotL',
+        translation: {
+            X: -3555.2041015625,
+            Y: 1630.074951171875,
+            Z: 200.0006866455078
+        },
+    },
+    {
+        maps: ['HeroStory001'],
+        ent: 'CrackPotS',
+        translation: {
+            X: -3614.8330078125,
+            Y: 1682.1302490234375,
+            Z: 200.00010681152344
+        },
+    },
+    {
+        maps: ['HeroStory001'],
+        ent: 'CrackPotLAnother',
+        translation: {
+            X: -2122,
+            Y: 914,
+            Z: 201.52127075195312
+        },
+    },
+    {
+        maps: ['HeroStory001'],
+        ent: 'CrackPotL',
+        translation: {
+            X: -2170,
+            Y: 984,
+            Z: 201.53976440429688
+        }
+    },
+    {
+        maps: ['HeroStory002'],
+        ent: 'CrackPotL',
+        translation: {
+            X: -1557,
+            Y: -17,
+            Z: 50.0175666809082
+        }
+    },
+    {
+        maps: ['HeroStory001'],
+        ent: 'CrackPotL',
+        translation: {
+            X: -1500,
+            Y: -50,
+            Z: 50.000099182128906
+        }
+    },
+    {
+        maps: ['Area006'],
+        ent: 'StickyMushPoison',
+        translation: {
+            X: 1999,
+            Y: 620,
+            Z: 226.0795135498047
+        }
+    },
+    {
+        maps: ['Area006'],
+        ent: 'StickyMushPoison',
+        translation: {
+            X: 2025,
+            Y: 584,
+            Z: 226.0795135498047
+        }
+    },
+    {
+        maps: ['Area006'],
+        ent: 'StickyMushPoison',
+        translation: {
+            X: 2079,
+            Y: 418,
+            Z: 226.0795135498047
+        }
+    },
+    {
+        maps: ['Area006'],
+        ent: 'StickyMushPoison',
+        translation: {
+            X: 2162,
+            Y: 558,
+            Z: 226.0795135498047
+        }
+    },
+    {
+        maps: ['Area006'],
+        ent: 'StickyMushPoison',
+        translation: {
+            X: 2272,
+            Y: 643,
+            Z: 226.0795135498047
+        }
+    },
+    {
+        maps: ['Area006'],
+        ent: 'StickyFloorPoison',
+        translation: {
+            X: 2143,
+            Y: 539,
+            Z: 225.999755859375
+        }
+    },
+    {
+        maps: ['Cave035_F08'],
+        ent: 'Hari'
+    },
+    {
+        maps: ['Cave035_F08'],
+        ent: 'BigUjinko'
+    },
+    {
+        maps: ['Cave035_F08'],
+        ent: 'MitsuMochi'
+    },
+    {
+        maps: ['Cave035_F08'],
+        ent: 'SnakeCrow'
+    },
+    {
+        maps: ['Cave035_F08'],
+        ent: 'KingChappy'
+    },
+    {
+        maps: ['Cave035_F00'],
+        ent: 'KingChappy'
+    },
+    {
+        maps: ['Cave035_F00'],
+        ent: 'KumaChappy'
+    },
+    {
+        maps: ['Cave035_F00'],
+        ent: 'KumaKochappy'
+    },
+    {
+        maps: ['Cave035_F00'],
+        ent: 'Kochappy'
+    },
+    {
+        maps: ['Cave035_F00'],
+        ent: 'Chappy'
+    },
+    {
+        maps: ['Cave035_F00'],
+        ent: 'FireChappy'
+    },
+    {
+        maps: ['Cave035_F00'],
+        ent: 'Arikui'
+    },
+    {
+        maps: ['Cave035_F00'],
+        ent: 'IceChappy'
+    },
+    {
+        maps: ['Cave035_F00'],
+        ent: 'TentenChappy'
+    },
+    {
+        maps: ['Cave035_F00'],
+        ent: 'TenKochappy'
+    },
+    {
+        maps: ['Cave035_F04'],
+        ent: 'OnyonCarryWhite'
+    },
+    {
+        maps: ['Cave035_F09'],
+        ent: 'OnyonCarryPurple'
+    },
+    {
+        maps: ['Cave035_F06'],
+        ent: 'Nomi'
+    }
+];
+
 export const randomiser = async (config) => {
     logger.info(`randomiser config: ${JSON.stringify(config)}`);
     appendCreatures = config.allBosses ? bosses
         : config.retainNonBosses ? nonBosses : randCreatures;
     objectRandFullList.push(...appendCreatures);
     hubFlarlic.generateNum = parseInt(config.startingFlarlics);
+    config.maps.sort(sortMaps);
+    if (config.retainOSTOnions) {
+        skipList.push(
+            {
+                maps: ['HeroStory001'],
+                ent: 'OnyonCarryYellow'
+            },
+            {
+                maps: ['HeroStory003'],
+                ent: 'OnyonCarryBlue'
+            }
+        );
+    }
 
     for (let i = 0; i < config.maps.length; i++) {
         let map = config.maps[i];
@@ -463,7 +808,9 @@ export const randomiser = async (config) => {
                 // }
                 else {
                     const creatureList = getCreatureList(creature.creatureId, config, false, map);
-                    const creatureId = creatureList[randInt(creatureList.length)];
+                    let creatureId = creatureList[randInt(creatureList.length)];
+                    if (entityInSkipList(creature, map)) creatureId = creature.creatureId;
+
                     logger.info(`Creature ${creature.creatureId} has been randomised to: ${creatureId}`);
                     const infoType = getInfoTypeFromId(creatureId);
 
@@ -474,14 +821,17 @@ export const randomiser = async (config) => {
                         creatureId,
                         infoType
                     };
-                    randCreature.generateNum = getGenerateNum(randCreature, config, InfoType.Creature);
+
+                    // Keep the bulborb larva floor as the same generateNums
+                    if (map === 'Cave035_F06') randCreature.generateNum = creature.generateNum;
+                    else randCreature.generateNum = getGenerateNum(randCreature, config, InfoType.Creature);
 
                     // DodoroEgg's spawn centre is half inside the egg, so it usually spawns in the floor and clips through
                     // So we can boost him up so he drops on the actual floor
                     if ('DodoroEgg' === creatureId) randCreature.transform.translation.Z += 150;
                     if ('Yamashinju' === creatureId) randCreature.transform.translation.Z += 25;
 
-                    mutateAIProperties(randCreature, infoType === InfoType.Creature ? infoType : creatureId);
+                    mutateAIProperties(randCreature, creatureId, infoType);
                     // TODO: if things randomise into breadbugs/demejako/shako, spawn their burrows alongside so they function?
                     // GDMs retain their drops as a different entity
                     // if (randCreature.creatureId !== 'GroupDropManager') {
@@ -629,7 +979,9 @@ export const randomiser = async (config) => {
                             return randomMarkers[InfoType.Object].push(object);
 
                         const newObject = objectList[randInt(objectList.length)];
-                        const newEnt = (map.includes('Cave') && config.forceCaves) || map.match(/Area|Hero/) ? newObject : object.creatureId;
+                        let newEnt = (map.includes('Cave') && config.forceCaves) || map.match(/Area|Hero/) ? newObject : object.creatureId;
+
+                        if (entityInSkipList(object, map)) newEnt = object.creatureId;
 
                         const infoType = morphObject(object, config, newEnt, map);
                         randomMarkers[infoType].push(object);
@@ -644,10 +996,12 @@ export const randomiser = async (config) => {
 
                     if (gimmicksToRand.includes(gimmick.creatureId)) {
                         const newObject = objectList[randInt(objectList.length)];
-                        const newEnt = (map.includes('Cave') && config.forceCaves)
+                        let newEnt = (map.includes('Cave') && config.forceCaves)
                             || !gimmick.creatureId.includes('CrushJelly')
                             && map.match(/Area|Hero/)
                             ? newObject : gimmick.creatureId;
+
+                        if (entityInSkipList(gimmick, map)) newEnt = gimmick.creatureId;
 
                         const infoType = morphObject(gimmick, config, newEnt, map);
                         randomMarkers[infoType].push(gimmick);
@@ -687,7 +1041,8 @@ export const randomiser = async (config) => {
                         newHazard = hazards[randInt(hazards.length)];
                     }
                     else newHazard = objectList[randInt(objectList.length)];
-                    const newEnt = (map.includes('Cave') && config.forceCaves) || map.match(/Area|Hero/) ? newHazard : hazard.creatureId;
+                    let newEnt = (map.includes('Cave') && config.forceCaves) || map.match(/Area|Hero/) ? newHazard : hazard.creatureId;
+                    if (entityInSkipList(hazard, map)) newEnt = hazard.creatureId;
 
                     const infoType = morphObject(hazard, config, newEnt, map);
                     randomMarkers[infoType].push(hazard);
@@ -705,7 +1060,10 @@ export const randomiser = async (config) => {
                 markerData[InfoType.Onion].forEach(onion => {
                     if (['Onyon', 'OnyonCarryBoost'].includes(onion.creatureId)) return randomMarkers[InfoType.Onion].push(onion);
 
-                    const creatureId = randOnions.splice(randInt(randOnions.length), 1)[0];
+                    let creatureId;
+                    if (entityInSkipList(onion, map)) creatureId = onion.creatureId;
+                    else creatureId = randOnions.splice(randInt(randOnions.length), 1)[0];
+
                     logger.info(`${onion.creatureId} has been randomised to: ${creatureId}`);
                     onion.creatureId = creatureId;
                     if (!randOnions.length) randOnions.push(...Object.keys(OnionNames).filter(o => !["Onyon", "OnyonCarryBoost", "OnyonBootUpRed"].includes(o)));
@@ -855,8 +1213,9 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
 
     }
 
-    if ((config.allCreaturesDrop && isCreature && Math.random() < config.creatureDropChance / 100)
-        || (objectDroppable && config.allObjectsDrop && Math.random() < config.objectDropChance / 100)) {
+    if (((config.allCreaturesDrop && isCreature && Math.random() < config.creatureDropChance / 100)
+        || (objectDroppable && config.allObjectsDrop && Math.random() < config.objectDropChance / 100))
+        && (map !== 'Cave035_F06' || randCreature.creatureId.includes('Egg'))) {
 
         const invSize = randFunctions[config.randIntFunction](1, config.dropLimitMax);
         logger.info(`Padding inventory size to ${invSize} for ${randCreature.creatureId}`);
@@ -968,6 +1327,7 @@ const getCreatureList = (creature, config, isDrop, map) => {
     // 15% for non-night enemies to be chucked into the mix
     if (map.startsWith('Night') && Math.random() <= 0.85) list = nightCreatureList;
     else if (config.allBosses) list = bosses;
+    else if (map === 'Cave035_F06') list = nonBosses;
     else if (isDrop && !config.bossesCanDrop) list = nonBosses;
     else if (isDrop && config.bossesCanDrop && Math.random() < (parseFloat(config.bossDropChance) / 100)) list = randCreatures;
     else if (isBoss) {
@@ -1006,11 +1366,11 @@ const morphObject = (object, config, newObject, map) => {
     if ('DodoroEgg' === newObject) object.transform.translation.Z += 150;
     if ('Yamashinju' === newObject) object.transform.translation.Z += 25;
 
-    // Allday bjects that morph into enemies on the overworld should stay on daytime only
+    // Allday objects that morph into enemies on the overworld should stay on daytime only
     if (map.includes('Area') && infoType === InfoType.Creature && object.activityTime == ActivityTimes.Allday)
         object.activityTime = ActivityTimes.Daytime;
 
-    mutateAIProperties(object, infoType === InfoType.Creature ? infoType : newObject);
+    mutateAIProperties(object, newObject, infoType);
     randomiseObjectDrop(object, newObject, config, map);
     assignRebirth(object, config, previousInfoType);
     return infoType;
@@ -1031,3 +1391,36 @@ const getGenerateNum = (ent, config, previousInfoType) => {
 // we're going to need to keep an array of every important item and splice from it
 // upon placing things so we place everything at least once
 // do we place some rules about progression like onions stay onions?
+
+
+const prefixOrder = ["Area", "Cave", "Night", "HeroStory"];
+const sortMaps = ((a, b) => {
+    const prefixA = a.match(/^[A-Za-z]+/)[0];
+    const prefixB = b.match(/^[A-Za-z]+/)[0];
+
+    const indexA = prefixOrder.indexOf(prefixA);
+    const indexB = prefixOrder.indexOf(prefixB);
+
+    if (indexA !== indexB) {
+        return indexA - indexB;
+    }
+
+    const numA = a.match(/\d+(-\d+)?/)[0];
+    const numB = b.match(/\d+(-\d+)?/)[0];
+
+    return numA.localeCompare(numB, undefined, { numeric: true });
+});
+
+// If entity is found in skipList, return false
+const entityInSkipList = (ent, map) => {
+    return skipList.find(skipEntry => {
+        if (skipEntry.maps.includes(map) && ent.creatureId === skipEntry.ent) {
+            if (skipEntry.translation) {
+                if (JSON.stringify(ent.transform.translation) === JSON.stringify(skipEntry.translation))
+                    return true;
+                return false;
+            }
+            return true;
+        }
+    });
+};

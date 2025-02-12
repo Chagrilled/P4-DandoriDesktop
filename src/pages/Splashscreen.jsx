@@ -32,6 +32,15 @@ export const SplashScreen = () => {
                     </button>
                     <p className='text-2xl font-[Pikmin] text-center mt-4'>Object Editor</p>
                 </div>
+                <div className='absolute p-2 bottom-0 left-0 flex items-end space-x-2 items-center'>
+                    <p className='text-2xl font-[Pikmin] text-center mt-4'>by Noodl</p>
+                    <a href='https://ko-fi.com/noodl32' target="_blank" rel="noreferrer">
+                        <img className='w-16 h16' src="../images/me-icon.png"></img>
+                    </a>
+                    <a href='https://github.com/Chagrilled/P4-DandoriDesktop' target="_blank" rel="noreferrer">
+                        <img className='w-16 h16' src="../images/github-icon.png"></img>
+                    </a>
+                </div>
             </div>
         </div>
     );

@@ -1,4 +1,4 @@
-import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs, ObjectAIParameter, weirdAIEntities, ObjectAI_STRING_INDEX, ObjectAI_END_INDEX } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs, ObjectAIParameter, weirdAIEntities, ObjectAI_STRING_INDEX, ObjectAI_END_INDEX, InterpModes, RockModes } from '../api/types';
 import { default as entityData } from '../api/entityData.json';
 import { floatToByteArr, intToByteArr, disableFlagsToInt } from '../utils/bytes';
 import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue, getObjectAIOffset } from '../utils';
@@ -57,7 +57,7 @@ const writeAsciiString = (bytes, string) => {
 };
 
 //#region Func Controllers
-// The contract for these functions is (drops, aiStatic, { variousProperties })
+// The contract for these functions is (drops, aiStatic, { variousProperties }, generatorVersion, creatureId)
 export const getConstructAIStaticFunc = (creatureId, infoType) => {
     if (creatureId.startsWith('Spline')) return defaultAI;
     if (creatureId === 'GroupDropManager') return constructGDMAI;
@@ -86,6 +86,7 @@ export const getConstructAIStaticFunc = (creatureId, infoType) => {
     if (creatureId.startsWith('SwampBox')) return constructWaterBoxAI;
     if (creatureId.includes('Mizunuki')) return constructMizunukiAI;
     if (creatureId.includes('HandleBoard')) return constructHandleBoardAI;
+    if (creatureId.includes('MoveFloor') && creatureId !== 'MoveFloorSlowTrigger') return constructMoveFloorAI;
     return defaultAI;
 };
 
@@ -96,6 +97,7 @@ export const getConstructDynamicFunc = (creatureId) => {
     if (creatureId.includes('Circulator')) return constructCirculatorAI_Dynamic;
     if (creatureId.includes('WaterBox') && creatureId !== 'WaterBoxNav') return constructWaterBoxAI_Dynamic;
     if (creatureId.startsWith('SwampBox')) return constructWaterBoxAI_Dynamic;
+    if (creatureId === 'AmeBozu') return constructAmeBozuAI_Dynamic;
     return (ai) => ai;
 };
 
@@ -109,6 +111,7 @@ export const getConstructActorParamFunc = (creatureId) => {
     if (creatureId.includes('Sprinkler')) return constructValveActorParam;
     if (creatureId.includes('WaterBox') && creatureId !== 'WaterBoxNav') return constructWaterBoxActorParam;
     if (creatureId.startsWith('SwampBox')) return constructWaterBoxActorParam;
+    if (creatureId.startsWith('Spline')) return constructSplineActorParameter;
     return (ap) => ap;
 };
 
@@ -121,6 +124,18 @@ export const getConstructWaterTriggerFunc = creatureId => {
     if (creatureId.includes('WaterBox') && creatureId !== 'WaterBoxNav') return constructWaterBoxWaterTrigger;
     if (creatureId.startsWith('SwampBox')) return constructSwampBoxWaterTrigger;
     return (wt) => wt;
+};
+
+export const getConstructCreatureAIFunc = creatureId => {
+    if (['KumaChappy', 'Patroller'].includes(creatureId)) return constructKumaChappyAI;
+    if (creatureId === 'HageDamagumo') return constructHageDamagumoAI;
+    if (creatureId.includes('PanModoki')) return constructPanModokiAI;
+    if (creatureId === 'AmeBozu') return constructAmeBozuAI;
+    if (['Futakuchi', 'YukiFutakuchi'].includes(creatureId)) return constructFutakuchiAI;
+    if (['FutakuchiAdult', 'YukiFutakuchiAdult'].includes(creatureId)) return constructFutakuchiAdultAI;
+    if (creatureId === 'Baby') return constructBabyAI;
+    if (creatureId === 'BigUjinko') return constructBigUjinkoAI;
+    return () => [];
 };
 
 //#region WaterBoxes
@@ -190,6 +205,81 @@ const constructMizunukiAI = (_, aiStatic, { AIProperties }, generatorVersion) =>
         ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion))
     ];
     writeAsciiString(bytes, AIProperties.waterBoxId);
+    return bytes;
+};
+
+//#region MoveFloor
+const constructMoveFloorAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
+    const bytes = [
+        ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion))
+    ];
+    bytes.push(
+        ...floatBytes(AIProperties.waitTime),
+        ...floatBytes(AIProperties.moveSpeed),
+        AIProperties.bEnableWarpActor ? 1 : 0, 0, 0, 0,
+        ...floatBytes(AIProperties.warpOffset.X),
+        ...floatBytes(AIProperties.warpOffset.Y),
+        ...floatBytes(AIProperties.warpOffset.Z),
+        AIProperties.splinePoints.length, 0, 0, 0,
+        ...constructSplinePoints(AIProperties.splinePoints)
+    );
+
+    bytes.push(...Array(12).fill(0));
+    return bytes;
+};
+
+//#region Splines
+const constructSplinePoints = splinePoints => {
+    const bytes = [
+        splinePoints.length, 0, 0, 0
+    ];
+    for (const point of splinePoints) {
+        bytes.push(
+            ...floatBytes(point.inVal),
+            ...floatBytes(point.outVal.X),
+            ...floatBytes(point.outVal.Y),
+            ...floatBytes(point.outVal.Z),
+            ...floatBytes(point.arriveTangent.X),
+            ...floatBytes(point.arriveTangent.Y),
+            ...floatBytes(point.arriveTangent.Z),
+            ...floatBytes(point.leaveTangent.X),
+            ...floatBytes(point.leaveTangent.Y),
+            ...floatBytes(point.leaveTangent.Z),
+            ...floatBytes(point.rotation.pitch),
+            ...floatBytes(point.rotation.yaw),
+            ...floatBytes(point.rotation.roll),
+            ...floatBytes(point.scale.X),
+            ...floatBytes(point.scale.Y),
+            ...floatBytes(point.scale.Z),
+            parseInt(findObjectKeyByValue(InterpModes, point.interpMode))
+        );
+    };
+    return bytes;
+};
+
+const constructSplineActorParameter = (apStatic, actorParam) => {
+    const bytes = [];
+    bytes.push(
+        ...NONE_BYTES,
+        0, 0, 0, 0,
+        1, 0, 0, 0,
+        1, 0, 0, 0,
+        ...NONE_BYTES,
+        ...NONE_BYTES,
+        0, 0, 0, 0,
+        0, 0, 128, 191,
+        0, 0, 128, 191,
+        1, 0, 0, 0,
+        1, 0, 0, 0,
+        0, 0, 128, 191
+    );
+    bytes.push(...constructSplinePoints(actorParam.splinePoints));
+    bytes.push(
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        1, 0, 0, 0
+    );
+    writeAsciiString(bytes, actorParam.searchTagName);
     return bytes;
 };
 
@@ -650,7 +740,7 @@ const constructActorSpawnerAI = ({ parsed: [drop] }, aiStatic) => {
 };
 
 //#region Teki
-const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd, AIProperties }) => {
+const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd, AIProperties }, generatorVersion, creatureId) => {
     // The -1 at the end of an inventory could be at [24] for 0 inventories
     const inventoryBytes = [
         ...floatBytes(parseFloat(AIProperties.territory.X)),
@@ -719,7 +809,8 @@ const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd, AIProperties 
         inventoryBytes.push(...intToByteArr(parseInt(drop.id)));
         inventoryBytes.push(...drop.flags);
     });
-    inventoryBytes.push(1, 0, 0, 0); // no idea what this bool is, but it's usually 1?
+    const offset = getObjectAIOffset(generatorVersion);
+    if (offset) inventoryBytes.push(1, 0, 0, 0); // no idea what this bool is, but it's usually 1?
     AIProperties.bEnableFreezeBothDrop ? inventoryBytes.push(1, 0, 0, 0) : '';
     inventoryBytes.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // 3 somethings
     inventoryBytes.push(0, 0, 72, 66);
@@ -742,17 +833,188 @@ const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd, AIProperties 
     else inventoryBytes.push(0, 0, 0, 0);
     inventoryBytes.push(0, 0, 0, 0); // possible OptionalPointPriorityInfo
 
+    console.log(AIProperties);
+    const creatureAIBytes = getConstructCreatureAIFunc(creatureId)(AIProperties);
+
     if (!inventoryEnd) {
         // Because we won't have an aiStatic to "edit into", we take the first in the scraped list
         // Find its end of inventory byte, and splice the rest into our AI to form a complete one.
         // This may cause some enemies to have some odd overrides if the scraped one has something special done to it
-        ({ inventoryEnd } = parseTekiAI(aiStatic));
+        ({ inventoryEnd } = parseTekiAI(aiStatic, generatorVersion, creatureId));
     }
 
+    // if we construct our own creature AI we don't need to slice it out of the default
+    if (creatureAIBytes.length) {
+        inventoryBytes.push(...creatureAIBytes);
+        inventoryEnd += creatureAIBytes.length;
+    }
     // console.log("AI:", [...aiStatic.slice(0, 20), ...inventoryBytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)]);
     // Splice our new inventory into a regular functioning AI
     return [...inventoryBytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)];
 };
+
+//#region Creature-Specific
+const constructKumaChappyAI = (AIProperties) => {
+    const bytes = [];
+    writeAsciiString(bytes, AIProperties.searchTagName);
+    bytes.push(...floatBytes(AIProperties.giveUpDistance));
+    return bytes;
+};
+
+const constructAmeBozuAI = (AIProperties) => {
+    const bytes = [
+        AIProperties.bAppearSearch ? 1 : 0, 0, 0, 0,
+    ];
+    writeAsciiString(bytes, AIProperties.searchTagName);
+    bytes.push(
+        ...floatBytes(AIProperties.hideTimeMin),
+        ...floatBytes(AIProperties.hideTimeMax),
+        AIProperties.bAppearFixedLocation ? 1 : 0, 0, 0, 0,
+        ...floatBytes(AIProperties["searchDistance?"]),
+        1
+    );
+    writeAsciiString(bytes, AIProperties.canAttackLevelFaceMessageName);
+    return bytes;
+};
+
+const constructPanModokiAI = AIProperties => {
+    const bytes = [];
+    writeAsciiString(bytes, AIProperties.routeTag);
+    writeAsciiString(bytes, AIProperties.hideAreaTag);
+    return bytes;
+};
+
+const constructBabyAI = AIProperties => {
+    const bytes = [
+        AIProperties.bPatrolType ? 1 : 0, 0, 0, 0
+    ];
+    writeAsciiString(bytes, AIProperties.searchAreaTag);
+    return bytes;
+};
+
+const constructBigUjinkoAI = AIProperties => {
+    const bytes = [
+        AIProperties.bPatrolType ? 1 : 0, 0, 0, 0,
+        AIProperties.bNoBurrowType ? 1 : 0, 0, 0, 0,
+    ];
+    writeAsciiString(bytes, AIProperties.searchAreaTag);
+    bytes.push(
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 72, 66,
+        0, 0, 150, 67,
+        0, 0, 52, 67,
+        0, 0, 240, 65
+    );
+    return bytes;
+};
+
+const constructHageDamagumoAI = AIProperties => {
+    const bytes = [];
+    writeAsciiString(bytes, AIProperties.searchTagName);
+    bytes.push(
+        AIProperties.bStartSplineWalk ? 1 : 0, 0, 0, 0,
+        ...floatBytes(AIProperties.searchAreaRest.center.X),
+        ...floatBytes(AIProperties.searchAreaRest.center.Y),
+        ...floatBytes(AIProperties.searchAreaRest.center.Z),
+        ...floatBytes(AIProperties.searchAreaRest.halfHeight),
+        ...floatBytes(AIProperties.searchAreaRest.radius),
+        ...floatBytes(AIProperties.searchAreaRest.angle),
+        ...floatBytes(AIProperties.searchAreaRest.sphereRadius),
+        AIProperties.bStraddle ? 1 : 0, 0, 0, 0,
+        AIProperties.bUniqueLife ? 1 : 0, 0, 0, 0,
+        ...floatBytes(AIProperties.uniqueLife),
+        AIProperties.bAlreadyAppear ? 1 : 0, 0, 0, 0,
+        ...floatBytes(AIProperties.fightCameraChangeDistanceXY),
+    );
+    return bytes;
+};
+
+const constructFutakuchiAI = AIProperties => {
+    const bytes = [
+        parseInt(findObjectKeyByValue(RockModes, AIProperties.rockMode))
+    ];
+    writeAsciiString(bytes, AIProperties.searchTagName);
+    bytes.push(
+        ...floatBytes(AIProperties.splineSearchArea.center.X),
+        ...floatBytes(AIProperties.splineSearchArea.center.Y),
+        ...floatBytes(AIProperties.splineSearchArea.center.Z),
+        ...floatBytes(AIProperties.splineSearchArea.halfHeight),
+        ...floatBytes(AIProperties.splineSearchArea.radius),
+        ...floatBytes(AIProperties.splineSearchArea.angle),
+        ...floatBytes(AIProperties.splineSearchArea.sphereRadius),
+
+        ...floatBytes(AIProperties.searchAreaAttack.center.X),
+        ...floatBytes(AIProperties.searchAreaAttack.center.Y),
+        ...floatBytes(AIProperties.searchAreaAttack.center.Z),
+        ...floatBytes(AIProperties.searchAreaAttack.halfHeight),
+        ...floatBytes(AIProperties.searchAreaAttack.radius),
+        ...floatBytes(AIProperties.searchAreaAttack.angle),
+
+        AIProperties.bFixCautionAreaCenter ? 1 : 0, 0, 0, 0,
+        AIProperties.bDissapearVisibleOff ? 1 : 0, 0, 0, 0,
+
+        ...floatBytes(AIProperties.searchAreaCaution.center.X),
+        ...floatBytes(AIProperties.searchAreaCaution.center.Y),
+        ...floatBytes(AIProperties.searchAreaCaution.center.Z),
+        ...floatBytes(AIProperties.searchAreaCaution.halfHeight),
+        ...floatBytes(AIProperties.searchAreaCaution.radius),
+        ...floatBytes(AIProperties.searchAreaCaution.angle),
+        ...floatBytes(AIProperties.searchAreaCaution.sphereRadius),
+    );
+    return bytes;
+};
+
+const constructFutakuchiAdultAI = AIProperties => {
+    const bytes = [
+        ...floatBytes(AIProperties.attackArea.center.X),
+        ...floatBytes(AIProperties.attackArea.center.Y),
+        ...floatBytes(AIProperties.attackArea.center.Z),
+        ...floatBytes(AIProperties.attackArea.halfHeight),
+        ...floatBytes(AIProperties.attackArea.radius),
+        ...floatBytes(AIProperties.attackArea.angle),
+        ...floatBytes(AIProperties.attackArea.sphereRadius),
+
+        AIProperties.bSplineType ? 1 : 0, 0, 0, 0,
+
+        ...floatBytes(AIProperties.splineAttackParam.attackLoopWaitSecMin),
+        ...floatBytes(AIProperties.splineAttackParam.attackLoopWaitSecMax),
+        ...floatBytes(AIProperties.splineAttackParam.attackSignSecMin),
+        ...floatBytes(AIProperties.splineAttackParam.attackSignSecMax),
+        ...floatBytes(AIProperties.splineAttackParam.attackInterval),
+        ...floatBytes(AIProperties.splineAttackParam.attackIntervalSuccess),
+    ];
+
+    writeAsciiString(bytes, AIProperties.searchTagName);
+
+    bytes.push(
+        ...floatBytes(AIProperties.attackParam.attackLoopWaitSecMin),
+        ...floatBytes(AIProperties.attackParam.attackLoopWaitSecMax),
+        ...floatBytes(AIProperties.attackParam.attackSignSecMin),
+        ...floatBytes(AIProperties.attackParam.attackSignSecMax),
+        ...floatBytes(AIProperties.attackParam.attackInterval),
+        ...floatBytes(AIProperties.attackParam.attackIntervalSuccess),
+
+        AIProperties.bCreateIcicle ? 1 : 0, 0, 0, 0,
+        ...floatBytes(AIProperties.escapeSecMin),
+        ...floatBytes(AIProperties.escapeSecMax),
+
+        ...floatBytes(AIProperties.searchAreaCaution.center.X),
+        ...floatBytes(AIProperties.searchAreaCaution.center.Y),
+        ...floatBytes(AIProperties.searchAreaCaution.center.Z),
+        ...floatBytes(AIProperties.searchAreaCaution.halfHeight),
+        ...floatBytes(AIProperties.searchAreaCaution.radius),
+        ...floatBytes(AIProperties.searchAreaCaution.angle),
+        ...floatBytes(AIProperties.searchAreaCaution.sphereRadius),
+    );
+    return bytes;
+};
+
+const constructAmeBozuAI_Dynamic = (AIProperties) => [
+    ...Array(20).fill(0),
+    AIProperties.lifeTire ? 1 : 0, 0, 0, 0
+];
 
 //#region Actor
 export const constructActor = (actor, mapId) => {
@@ -870,7 +1132,7 @@ export const constructActor = (actor, mapId) => {
                     ignoreList: actor?.ignoreList,
                     AIProperties: actor?.AIProperties || defaultAIProperties,
                     transform: transforms.Translation
-                }, actor.generatorVersion || entData.GeneratorVersion[0]),
+                }, actor.generatorVersion || entData.GeneratorVersion[0], actor.creatureId),
                 Dynamic: getConstructDynamicFunc(actor.creatureId, actor.infoType)(entData.AI[0].Dynamic, {
                     AIProperties: actor?.AIProperties
                 })

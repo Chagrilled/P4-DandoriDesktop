@@ -1,4 +1,4 @@
-import { InfoType, PikminTypes, PikminPlayType, PortalTypes, ValveWorkType, weirdAIEntities } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, PortalTypes, ValveWorkType, weirdAIEntities, InterpModes, RockModes } from '../api/types';
 import { findSequenceStartIndex, getObjectAIOffset } from '../utils';
 import { bytesToInt, getDisableSettings } from '../utils/bytes';
 import { NONE_BYTES } from './constructing';
@@ -66,6 +66,7 @@ export const getReadAIDynamicFunc = (creatureId, infoType) => {
     if (creatureId.includes('Circulator')) return parseCirculatorAI_Dynamic;
     if (creatureId.includes('WaterBox') && creatureId !== 'WaterBoxNav') return parseWaterBoxAI_Dynamic;
     if (creatureId.startsWith('SwampBox')) return parseWaterBoxAI_Dynamic;
+    if (creatureId === 'AmeBozu') return parseAmeBozuAI_Dynamic;
     return () => ({});
 };
 
@@ -105,6 +106,7 @@ export const getReadAIStaticFunc = (creatureId, infoType) => {
     if (creatureId.includes('Mizunuki')) return parseMizunukiAI;
     if (creatureId.startsWith('SwampBox')) return parseWaterBoxAI;
     if (creatureId.includes('HandleBoard')) return parseHandleBoardAI;
+    if (creatureId.includes('MoveFloor') && creatureId !== 'MoveFloorSlowTrigger') return parseMoveFloorAI;
     return () => ({ parsed: [] });
 };
 
@@ -118,6 +120,7 @@ export const getReadActorParameterFunc = creatureId => {
     if (creatureId.startsWith('Sprinkler')) return parseValveActorParam;
     if (creatureId.includes('WaterBox') && creatureId !== 'WaterBoxNav') return parseWaterBoxActorParam;
     if (creatureId.startsWith('SwampBox')) return parseWaterBoxActorParam;
+    if (creatureId.startsWith('Spline')) return parseSplineActorParameter;
     return () => false;
 };
 
@@ -130,6 +133,18 @@ export const getReadWaterTriggerFunc = creatureId => {
 export const getReadNavMeshTriggerFunc = creatureId => {
     if (creatureId.startsWith('NavMeshTrigger')) return parseNavMeshTrigger;
     return () => false;
+};
+
+export const getReadCreatureAIFunc = creatureId => {
+    if (['KumaChappy', 'Patroller'].includes(creatureId)) return parseKumaChappyAI;
+    if (creatureId === 'HageDamagumo') return parseHageDamagumoAI;
+    if (creatureId.includes('PanModoki')) return parsePanModokiAI;
+    if (['Futakuchi', 'YukiFutakuchi'].includes(creatureId)) return parseFutakuchiAI;
+    if (['FutakuchiAdult', 'YukiFutakuchiAdult'].includes(creatureId)) return parseFutakuchiAdultAI;
+    if (creatureId.startsWith('AmeBozu')) return parseAmeBozuAI;
+    if (creatureId === 'Baby') return parseBabyAI;
+    if (creatureId === 'BigUjinko') return parseBigUjinkoAI;
+    return () => { };
 };
 
 // bytes between the 240 and none in long OAIP: 51 67
@@ -255,6 +270,89 @@ const parseMizunukiAI = (ai, generatorVersion) => {
         AIProperties: {
             waterBoxId: readAsciiString(ai, index)
         }
+    };
+};
+
+//#region MoveFloors
+const parseMoveFloorAI = (ai, generatorVersion) => {
+    const offset = getObjectAIOffset(generatorVersion);
+    let index = 155 + offset;
+    const AIProperties = {
+        waitTime: readFloat(ai.slice(index, index += 4)),
+        moveSpeed: readFloat(ai.slice(index, index += 4)),
+        bEnableWarpActor: ai[index]
+    };
+    index += 4;
+    AIProperties.warpOffset = {
+        X: readFloat(ai.slice(index, index += 4)),
+        Y: readFloat(ai.slice(index, index += 4)),
+        Z: readFloat(ai.slice(index, index += 4))
+    };
+    AIProperties.splinePoints = readSpline(ai.slice(index, ai.length)).splinePoints;
+    return {
+        parsed: [],
+        AIProperties
+    };
+};
+
+//#region Splines
+const readSpline = (bytes) => {
+    let index = 4;
+    const splineLength = bytes[0];
+
+    const splinePoints = [];
+
+    for (let i = 0; i < splineLength; i++) {
+        splinePoints.push({
+            inVal: readFloat(bytes.slice(index, index += 4)),
+            outVal: {
+                X: readFloat(bytes.slice(index, index += 4)),
+                Y: readFloat(bytes.slice(index, index += 4)),
+                Z: readFloat(bytes.slice(index, index += 4)),
+            },
+            arriveTangent: {
+                X: readFloat(bytes.slice(index, index += 4)),
+                Y: readFloat(bytes.slice(index, index += 4)),
+                Z: readFloat(bytes.slice(index, index += 4)),
+            },
+            leaveTangent: {
+                X: readFloat(bytes.slice(index, index += 4)),
+                Y: readFloat(bytes.slice(index, index += 4)),
+                Z: readFloat(bytes.slice(index, index += 4)),
+            },
+            rotation: {
+                pitch: readFloat(bytes.slice(index, index += 4)),
+                yaw: readFloat(bytes.slice(index, index += 4)),
+                roll: readFloat(bytes.slice(index, index += 4))
+            },
+            scale: {
+                X: readFloat(bytes.slice(index, index += 4)),
+                Y: readFloat(bytes.slice(index, index += 4)),
+                Z: readFloat(bytes.slice(index, index += 4)),
+            },
+            interpMode: InterpModes[bytes[index]]
+        });
+        console.log(index, bytes[index], InterpModes[bytes[index]]);
+        index += 1; // to advance past the interpMode
+    };
+    return { splinePoints, index };
+};
+
+const parseSplineActorParameter = actorParam => {
+    let index = 0;
+    index += actorParam[index] + 4;
+    index += 12;
+    index += actorParam[index] + 4;
+    index += actorParam[index] + 4;
+    index += 24;
+
+    const splineData = readSpline(actorParam.slice(index, actorParam.length));
+    index += splineData.index;
+    index += 12;
+
+    return {
+        splinePoints: splineData.splinePoints,
+        searchTagName: readAsciiString(actorParam, index)
     };
 };
 
@@ -717,7 +815,7 @@ const parseBaseAI = ai => {
 };
 
 //#region Teki
-export const parseTekiAI = ai => {
+export const parseTekiAI = (ai, generatorVersion, creatureId) => {
     // find the inventory size byte
     // if 0, return empty list
     let index = 0; // start of the first item
@@ -808,7 +906,13 @@ export const parseTekiAI = ai => {
         Z: readFloat(ai.slice(index, index += 4))
     };
     index += 4 + invSize * 8; // skip the inventory flag loop
-    index += 4; // this is always 1 - maybe bEnableZukanDrop
+
+    // Short gen version is missing 4 bytes here. Not 100% sure which
+    // bool is freezeBothDrop vs something else. It might be bEnableZukanDrop
+    const offset = getObjectAIOffset(generatorVersion);
+    index += offset;
+    // index += 4; // this is always 1 - maybe bEnableZukanDrop
+
     AIProperties.bEnableFreezeBothDrop = ai[index];
     index += AIProperties.bEnableFreezeBothDrop ? 16 : 12; // this bool is ADDITIONAL bytes if present
     index += 4; //unknown float
@@ -834,8 +938,218 @@ export const parseTekiAI = ai => {
     //     console.log("Iterating in creature to find end of inventory?");
     //     index += 1; // Just iterate till we find the 255 byte? Shouldn't run, I think
     // }
-    return { parsed, AIProperties, inventoryEnd: index };
+
+    const creatureAIProperties = getReadCreatureAIFunc(creatureId)(ai.slice(index, ai.length));
+
+    return {
+        parsed,
+        AIProperties: {
+            ...AIProperties,
+            ...creatureAIProperties
+        },
+        inventoryEnd: index
+    };
 };
+
+//#region Creature-Specific
+const parseKumaChappyAI = ai => {
+    let index = 0;
+    const AIProperties = {
+        searchTagName: readAsciiString(ai, index)
+    };
+    index += ai[index] + 4;
+    AIProperties.giveUpDistance = readFloat(ai.slice(index, index += 4));
+    // Where's MaxChildNum??
+
+    return AIProperties;
+};
+
+const parseHageDamagumoAI = ai => {
+    let index = 0;
+    const AIProperties = {
+        searchTagName: readAsciiString(ai, index)
+    };
+    index += ai[index] + 4;
+    AIProperties.bSplineWalkStart = ai[index];
+    index += 4;
+    AIProperties.searchAreaRest = {
+        center: {
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        },
+        halfHeight: readFloat(ai.slice(index, index += 4)),
+        radius: readFloat(ai.slice(index, index += 4)),
+        angle: readFloat(ai.slice(index, index += 4)),
+        sphereRadius: readFloat(ai.slice(index, index += 4))
+    };
+    AIProperties.bStraddle = ai[index];
+    index += 4;
+    AIProperties.bUniqueLife = ai[index];
+    index += 4;
+    AIProperties.uniqueLife = readFloat(ai.slice(index, index += 4));
+    AIProperties.bAlreadyAppear = ai[index];
+    index += 4;
+    AIProperties.fightCameraChangeDistanceXY = readFloat(ai.slice(index, index += 4));
+    return AIProperties;
+};
+
+const parseFutakuchiAI = ai => {
+    let index = 1;
+    const AIProperties = {
+        rockMode: RockModes[ai[0]],
+        searchTagName: readAsciiString(ai, index)
+    };
+    index += ai[index] + 4;
+    AIProperties.splineSearchArea = {
+        center: {
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        },
+        halfHeight: readFloat(ai.slice(index, index += 4)),
+        radius: readFloat(ai.slice(index, index += 4)),
+        angle: readFloat(ai.slice(index, index += 4)),
+        sphereRadius: readFloat(ai.slice(index, index += 4))
+    };
+    AIProperties.searchAreaAttack = {
+        center: {
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        },
+        halfHeight: readFloat(ai.slice(index, index += 4)),
+        radius: readFloat(ai.slice(index, index += 4)),
+        angle: readFloat(ai.slice(index, index += 4)),
+    };
+    AIProperties.bFixCautionAreaCenter = ai[index];
+    index += 4;
+    AIProperties.bDissapearVisibleOff = ai[index];
+    index += 4;
+    AIProperties.searchAreaCaution = {
+        center: {
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        },
+        halfHeight: readFloat(ai.slice(index, index += 4)),
+        radius: readFloat(ai.slice(index, index += 4)),
+        angle: readFloat(ai.slice(index, index += 4)),
+        sphereRadius: readFloat(ai.slice(index, index += 4))
+    };
+
+    return AIProperties;
+};
+
+const parsePanModokiAI = ai => {
+    let index = 0;
+    const AIProperties = {
+        routeTag: readAsciiString(ai, index)
+    };
+    index += ai[index] + 4;
+    AIProperties.hideAreaTag = readAsciiString(ai, index);
+    return AIProperties;
+};
+
+const parseBabyAI = ai => {
+    let index = 0;
+    const AIProperties = {
+        bPatrolType: ai[index]
+    };
+    index += 4;
+    AIProperties.hideAreaTag = readAsciiString(ai, index);
+    return AIProperties;
+};
+
+const parseBigUjinkoAI = ai => {
+    let index = 0;
+    const AIProperties = {
+        bPatrolType: ai[index]
+    };
+    index += 4;
+    AIProperties.bNoBurrowType = ai[index];
+    index += 4;
+    AIProperties.searchAreaTag = readAsciiString(ai, index);
+    return AIProperties;
+};
+
+const parseFutakuchiAdultAI = ai => {
+    let index = 0;
+    const AIProperties = {
+        attackArea: {
+            center: {
+                X: readFloat(ai.slice(index, index += 4)),
+                Y: readFloat(ai.slice(index, index += 4)),
+                Z: readFloat(ai.slice(index, index += 4)),
+            },
+            halfHeight: readFloat(ai.slice(index, index += 4)),
+            radius: readFloat(ai.slice(index, index += 4)),
+            angle: readFloat(ai.slice(index, index += 4)),
+            sphereRadius: readFloat(ai.slice(index, index += 4)),
+        },
+        bSplineType: ai[index]
+    };
+    index += 4;
+    AIProperties.splineAttackParam = {
+        attackLoopWaitSecMin: readFloat(ai.slice(index, index += 4)),
+        attackLoopWaitSecMax: readFloat(ai.slice(index, index += 4)),
+        attackSignSecMin: readFloat(ai.slice(index, index += 4)),
+        attackSignSecMax: readFloat(ai.slice(index, index += 4)),
+        attackInterval: readFloat(ai.slice(index, index += 4)),
+        attackIntervalSuccess: readFloat(ai.slice(index, index += 4))
+    };
+    AIProperties.searchTagName = readAsciiString(ai, index);
+    index += ai[index] + 4;
+    AIProperties.attackParam = {
+        attackLoopWaitSecMin: readFloat(ai.slice(index, index += 4)),
+        attackLoopWaitSecMax: readFloat(ai.slice(index, index += 4)),
+        attackSignSecMin: readFloat(ai.slice(index, index += 4)),
+        attackSignSecMax: readFloat(ai.slice(index, index += 4)),
+        attackInterval: readFloat(ai.slice(index, index += 4)),
+        attackIntervalSuccess: readFloat(ai.slice(index, index += 4))
+    };
+    AIProperties.bCreateIcicle = true;
+    index += 4;
+    AIProperties.escapeSecMin = readFloat(ai.slice(index, index += 4));
+    AIProperties.escapeSecMax = readFloat(ai.slice(index, index += 4));
+    AIProperties.searchAreaCaution = {
+        center: {
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        },
+        halfHeight: readFloat(ai.slice(index, index += 4)),
+        radius: readFloat(ai.slice(index, index += 4)),
+        angle: readFloat(ai.slice(index, index += 4)),
+        sphereRadius: readFloat(ai.slice(index, index += 4)),
+    };
+    return AIProperties;
+};
+
+const parseAmeBozuAI = ai => {
+    let index = 0;
+    const AIProperties = {
+        bAppearSearch: ai[index]
+    };
+    index += 4;
+
+    AIProperties.searchTagName = readAsciiString(ai, index);
+    index += ai[index] + 4;
+
+    AIProperties.hideTimeMin = readFloat(ai.slice(index, index += 4));
+    AIProperties.hideTimeMax = readFloat(ai.slice(index, index += 4));
+
+    AIProperties.bAppearFixedLocation = ai[index];
+    index += 4;
+
+    AIProperties["searchDistance?"] = readFloat(ai.slice(index, index += 4));
+    index += 1; // random 1 here
+
+    AIProperties.canAttackLevelFaceMessageName = readAsciiString(ai, index);
+    return AIProperties;
+};
+
+const parseAmeBozuAI_Dynamic = ai => ({ lifeTire: readFloat(ai.slice(20, 24)) });
 
 //#region PortalTrigger
 const parsePortalTrigger = portalTrigger => {

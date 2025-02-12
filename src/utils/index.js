@@ -1,4 +1,4 @@
-import { InfoType, Times, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, weirdAIEntities, ActorPlacementCondition, DefaultActorSpawnerDrop, WaterBoxTextures, AmbientSoundIDs } from "../api/types";
+import { InfoType, Times, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, weirdAIEntities, ActorPlacementCondition, DefaultActorSpawnerDrop, WaterBoxTextures, AmbientSoundIDs, defaultVector, defaultSplinePoint, RockModes } from "../api/types";
 import { internalAssetNames } from "../api/assetList";
 
 export const getNameFromAsset = assetName => {
@@ -70,9 +70,11 @@ export const getInfoType = subPath => {
     if (subPath.includes('/Charcoal')) infoType = InfoType.Hazard;
     if (subPath === 'Teki') infoType = InfoType.Creature;
     if (subPath === 'Items') infoType = InfoType.Item;
+    if (subPath === 'Items/RockBall') infoType = InfoType.Item;
     if (subPath === 'Gimmicks/WarpCarry') infoType = InfoType.WorkObject;
     if (subPath === 'Gimmicks/ActorSpawner') infoType = InfoType.Creature;
     if (subPath === 'Objects/Egg') infoType = InfoType.Creature;
+    if (subPath.includes('Spline')) infoType = InfoType.Creature;
     return infoType;
 };
 
@@ -170,7 +172,9 @@ export const deepCopy = obj => {
     }
 };
 
-export const mutateAIProperties = (creature, value) => {
+// This function has become huge and warrants its own file now
+// Takes in the entity object and fetches defaults for a creature/infoType passed in
+export const mutateAIProperties = (creature, newCreatureId, newInfoType = '') => {
     const aiEnts = ['Camp'];
 
     [
@@ -184,6 +188,15 @@ export const mutateAIProperties = (creature, value) => {
                 numDig: 1
             },
             ents: ['Tateana', 'TateanaBaby'],
+        },
+        {
+            parsed: [{
+                ...DefaultActorSpawnerDrop,
+            }],
+            AIProperties: {
+                numDig: 1
+            },
+            ents: ['ActorSpawner'],
         },
         {
             infoTypes: [InfoType.Creature],
@@ -357,10 +370,31 @@ export const mutateAIProperties = (creature, value) => {
                     }
                 }
             }
+        },
+        {
+            ents: ['MoveFloor'],
+            AIProperties: {
+                waitTime: 1.5,
+                moveSpeed: 100.0,
+                bEnableWarpActor: false,
+                warpOffset: defaultVector,
+                splinePoints: [defaultSplinePoint]
+            }
+        },
+        {
+            ents: ['Spline'],
+            ActorParameter: {
+                splinePoints: [defaultSplinePoint],
+                searchTagName: "SplineRootPoint"
+            }
+        },
+        {
+            // Object for overrides to stay as empty
+            ents: ['MoveFloorSlowTrigger']
         }
     ].forEach(o => {
         aiEnts.push(...o.ents);
-        if (o.ents.some(e => value.includes(e)) || o.infoTypes?.some(e => value.includes(e))) { // There was an && !creature.AIProperties here, I forget why
+        if (o.ents.some(e => newCreatureId.includes(e)) || o.infoTypes?.some(e => newInfoType.includes(e))) { // There was an && !creature.AIProperties here, I forget why
             ["AIProperties", "ActorParameter", "NavMeshTrigger", "WaterTrigger"].forEach(prop => {
                 if (o[prop]) creature[prop] = { ...deepCopy(o[prop]) };
                 else delete creature[prop];
@@ -372,7 +406,158 @@ export const mutateAIProperties = (creature, value) => {
         }
     });
 
-    if (!aiEnts.some(e => value.includes(e)) && creature.AIProperties && creature.infoType != InfoType.Creature) {
+    // Layer creature-specific AIProps over the top
+    if (creature.infoType === InfoType.Creature)
+        [
+            {
+                ents: ["KumaChappy"],
+                AIProperties: {
+                    searchTagName: 'KumaChappyRootPoint',
+                    giveUpDistance: 300
+                }
+            },
+            {
+                ents: ["Patroller"],
+                AIProperties: {
+                    searchTagName: 'PatrollerRootPoint',
+                    giveUpDistance: 300
+                }
+            },
+            {
+                ents: ['AmeBozu'],
+                AIProperties: {
+                    bAppearSearch: false,
+                    searchTagName: 'AmeBozuRootPoint',
+                    hideTimeMin: 300,
+                    hideTimeMax: 300,
+                    bAppearFixedLocation: false,
+                    "searchDistance?": 300,
+                    canAttackLevelFaceMessageName: "Teki_Announce_AmeBozu_01"
+                }
+            },
+            {
+                ents: ["Futakuchi", "YukiFutakuchi"],
+                AIProperties: {
+                    rockMode: RockModes[0],
+                    searchTagName: 'FutakuchiRock',
+                    splineSearchArea: {
+                        center: defaultVector,
+                        halfHeight: 50,
+                        radius: 100,
+                        angle: 90,
+                        sphereRadius: 100
+                    },
+                    searchAreaAttack: {
+                        center: defaultVector,
+                        halfHeight: 100,
+                        radius: 700,
+                        angle: 6,
+                    },
+                    bFixCautionAreaCenter: false,
+                    bDissapearVisibleOff: false,
+                    searchAreaCaution: {
+                        center: defaultVector,
+                        halfHeight: 100,
+                        radius: 700,
+                        angle: 180,
+                        sphereRadius: 0
+                    }
+                }
+            },
+            {
+                ents: ["FutakuchiAdult", "YukiFutakuchiAdult"],
+                AIProperties: {
+                    searchTagName: 'FutakuchiAdultRock',
+                    bSplineType: false,
+                    escapeSecMin: 0.0,
+                    escapeSecMax: 1.0,
+                    bCreateIcicle: true,
+                    attackArea: {
+                        center: defaultVector,
+                        halfHeight: 50,
+                        radius: 100,
+                        angle: 90,
+                        sphereRadius: 100
+                    },
+                    splineAttackParam: {
+                        attackLoopWaitSecMin: 1.0,
+                        attackLoopWaitSecMax: 1.5,
+                        attackSignSecMin: 1.0,
+                        attackSignSecMax: 3.0,
+                        attackInterval: 2.0,
+                        attackIntervalSuccess: 1.5
+                    },
+                    attackParam: {
+                        attackLoopWaitSecMin: 1.0,
+                        attackLoopWaitSecMax: 1.5,
+                        attackSignSecMin: 1.0,
+                        attackSignSecMax: 3.0,
+                        attackInterval: 2.0,
+                        attackIntervalSuccess: 1.5
+                    },
+                    searchAreaCaution: {
+                        center: defaultVector,
+                        halfHeight: 100,
+                        radius: 700,
+                        angle: 180,
+                        sphereRadius: 0.69
+                    }
+                }
+            },
+            {
+                ents: ["HageDamagumo"],
+                AIProperties: {
+                    searchTagName: 'HageDamagumoRootPoint',
+                    bSplineWalkStart: false,
+                    searchAreaRest: {
+                        center: {
+                            ...defaultVector,
+                            Z: 153
+                        },
+                        halfHeight: 300,
+                        radius: 600,
+                        angle: 180,
+                        sphereRadius: 100
+                    },
+                    bStraddle: false,
+                    bUniqueLife: false,
+                    uniqueLife: 5000,
+                    bAlreadyAppear: false,
+                    fightCameraChangeDistanceXY: 600
+                }
+            },
+            {
+                ents: ["PanModoki", "OoPanModoki"],
+                AIProperties: {
+                    routeTag: "PanModokiRoute1",
+                    hideAreaTag: "PanModokiHideArea1"
+                }
+            },
+            {
+                ents: ["Baby"],
+                AIProperties: {
+                    bPatrolType: false,
+                    searchAreaTag: "BabyRoutePoint"
+                }
+            },
+            {
+                ents: ["BigUjinko"],
+                AIProperties: {
+                    bPatrolType: false,
+                    bNoBurrowType: false,
+                    searchAreaTag: "BigUjinkoRootPoint"
+                }
+            },
+        ].forEach(o => {
+            if (o.ents.some(e => newCreatureId === e)) {
+                creature.AIProperties = {
+                    ...creature.AIProperties,
+                    ...o.AIProperties
+                };
+            }
+        });
+
+    if (!aiEnts.some(e => newCreatureId.includes(e)) && creature.AIProperties && creature.infoType != InfoType.Creature) {
         delete creature.AIProperties;
         delete creature.NavMeshTrigger;
         delete creature.ActorParameter;

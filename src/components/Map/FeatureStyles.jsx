@@ -101,6 +101,9 @@ const SCALE_OVERRIDES = {
     waterboxvs: 0.4,
     swampbox: 0.4,
     swampboxdark: 0.4,
+    neji: 0.2,
+    spline: 0.5,
+    rockball: 0.2
 };
 
 export const getIconOptions = (type) => {
@@ -166,7 +169,7 @@ const getFeatures = (markerType, markers, config, mapId) => {
 
         feature.setStyle(styles);
         return feature;
-    }).filter(f => !!f);
+    }).flat().filter(f => !!f);
 };
 
 const MarkerStyles = Object.fromEntries(
@@ -185,8 +188,9 @@ const MarkerStyles = Object.fromEntries(
 const getFeatureStyle = (marker, globalMarkerStyle) => {
     if (isCreature(marker)) {
         const creatureId = marker.creatureId === 'ActorSpawner' ? getNameFromAsset(marker.drops.parsed[0].assetName) : marker.creatureId.toLowerCase().replace('night', '');
-        let scale = SCALE_OVERRIDES[creatureId] || 0.35;
-        let src = `${ROOT_CREATURE_URL}/creature-${creatureId.toLowerCase()}.png`;
+        let id = iconOverrides[marker.creatureId.toLowerCase()] || creatureId.toLowerCase();
+        let scale = SCALE_OVERRIDES[id] || 0.35;
+        let src = `${ROOT_CREATURE_URL}/creature-${id}.png`;
 
         if (marker.creatureId === 'ActorSpawner') {
             const dropInfotype = getInfoType(getSubpathFromAsset(marker.drops.parsed[0].assetName));

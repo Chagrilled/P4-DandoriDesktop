@@ -298,9 +298,27 @@ export const WaterBoxTextures = [
     "T_ui_Map_Cave035_F03_WaterBox00_D"
 ];
 
-//#region UI element controllers
+export const InterpModes = {
+    0: "CIM_CurveAuto",
+    1: "CIM_Linear",
+    2: "CIM_Constant",
+    4: "CIM_CurveUser",
+};
+
+export const RockModes = {
+    0: "Normal",
+    1: "ERockMode::Spline",
+};
+
+//#region UI Numbers
 export const editableNumberFields = [
     "afterMaxIcePikmins",
+    "attackLoopWaitSecMin",
+    "attackLoopWaitSecMax",
+    "attackSignSecMin",
+    "attackSignSecMax",
+    "attackInterval",
+    "attackIntervalSuccess",
     "CondInt",
     "Life",
     "W",
@@ -313,58 +331,86 @@ export const editableNumberFields = [
     "deadDay",
     "demoID",
     "dropOption",
+    "escapeSecMin",
+    "escapeSecMax",
     "flatEffectOffsetZ",
+    "fightCameraChangeDistanceXY",
     "generateNum",
     "generateRadius",
     "generatorIndex",
+    "giveUpDistance",
     "groupingRadius",
     "halfHeight",
+    "hideTimeMin",
+    "hideTimeMax",
+    "inVal",
     "invasionStartTimeRatio",
     "leftProjectHeight",
+    "lifeTire",
     "mabikiNumFromFollow",
     "maxFallDownLength",
     "maxIcePikmins",
+    "moveSpeed",
     "noSpawnRadius",
     "numDig",
     "openTime",
     "panzakuPriority",
     "pieceNum",
     "piecePutNum",
+    "pitch",
     "playAnimDist",
     "pongashiChangeColorFollowNum",
     "portalNumber",
     "radius",
     "rebirthInterval",
+    "roll",
     "searchAreaOtakaraCarryRadius",
     "snapHeight",
     "snapRadius",
     "spawnNum",
     "spawnRadius",
+    "sphereRadius",
     "stopQueenDistXY",
     "toPortalId",
     "unknownInt",
+    "uniqueLife",
+    "waitTime",
     "waterRange",
-    "weight",
     "waterLevelChangeDist",
     "waterLevelChangeTime",
-    "workNum"
+    "weight",
+    "workNum",
+    "yaw"
 ];
 
+//#region UI Bools
 export const editableBools = [
+    "bAppearFixedLocation",
+    "bAppearSearch",
+    "bAlreadyAppear",
     "bAutoSpawnMush",
+    "bCreateIcicle",
     "bDeactivateByExit",
     "bDisableIsFlareGuard",
     "bDisableSoftEdge",
     "bDisableSink",
+    "bDissapearVisibleOff",
     "bEnableFreezeBothDrop",
     "bEnableCustomSoftEdge",
     "bEnableOptionalPoint",
+    "bFixCautionAreaCenter",
     "bInitialPortalMove",
     "bMabikiPongashi",
+    "bNoBurrowType",
     "bOverrideInitLocation",
+    "bPatrolType",
     "bRotateDefault",
     "bSetCrystal",
+    "bSplineWalkStart",
+    "bSplineType",
     "bSprinklerOnly",
+    "bStraddle",
+    "bUniqueLife",
     "bUseSnapHeight",
     "bUseSunMeter",
     "bWindLong",
@@ -381,16 +427,22 @@ export const ignoreFields = [
     "generatorVersion"
 ];
 
+//#region UI Strings
 export const editableStrings = [
+    "canAttackLevelFaceMessageName",
     "CIDList",
     "CondName",
     "CondPikminColor",
     "boneName",
     "demoBindName",
+    "hideAreaTag",
     "ignoreList",
     "linkNarrowSpaceBoxID",
     "linkWarpTriggerID",
     "navMeshTriggerID",
+    "routeTag",
+    "searchDistance?",
+    "searchTagName",
     "switchID",
     "toLevelName",
     "toSubLevelName",
@@ -419,7 +471,9 @@ export const selectFields = {
     exploreRateType: Object.values(ExploreRateTargetType),
     radarMapWBTexture: WaterBoxTextures,
     radarMapWBChangeDistTexture: WaterBoxTextures,
-    ambientSoundId: AmbientSoundIDs
+    ambientSoundId: AmbientSoundIDs,
+    interpMode: Object.values(InterpModes),
+    rockMode: Object.values(RockModes)
 };
 
 export const NightMaps = {
@@ -742,6 +796,36 @@ export const defaultPlacementCond = {
     CondPikminColor: "EPikminColor::Undef"
 };
 
+export const defaultSplinePoint = {
+    inVal: 0.0,
+    outVal: {
+        X: 0.0,
+        Y: 0.0,
+        Z: 0.0
+    },
+    arriveTangent: {
+        X: 0.0,
+        Y: 0.0,
+        Z: 0.0
+    },
+    leaveTangent: {
+        X: 0.0,
+        Y: 0.0,
+        Z: 0.0
+    },
+    rotation: {
+        roll: 0.0,
+        pitch: 0.0,
+        yaw: 0.0
+    },
+    scale: {
+        X: 1.0,
+        Y: 1.0,
+        Z: 1.0
+    },
+    interpMode: 1
+};
+
 export const GateMiddleBytes = [5, 0, 0, 0, 78, 111, 110, 101, 0, 205, 204, 204, 61, 0, 0, 32, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 200, 66, 0, 0, 122, 67, 0, 0, 200, 66, 0, 0, 150, 66, 0, 0, 150, 66, 34, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 export const TriggerDoorAIBytes = [13, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 87, 195, 0, 128, 110, 68, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 122, 68, 0, 0, 122, 68, 0, 0, 72, 67];
 export const ValveAPBytes = [0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 191, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 128, 191];
@@ -847,6 +931,7 @@ export const CreatureNames = {
     OoPanModoki: "Giant Breadbug",
     Otama: "Wolpole",
     PanModoki: "Breadbug",
+    PanModokiHideArea: "Breadbug Nest",
     Patroller: "Bloomcap Bloyster",
     PikminYellow: "Yellow Pikmin",
     PikminRed: "Red Pikmin",
@@ -866,6 +951,20 @@ export const CreatureNames = {
     Shippo: "Mammoth Snootwhacker",
     ShippoZako: "Miniature Snootwhacker",
     SnakeCrow: "Burrowing Snagret",
+    SplineFutakuchiRock: 'Cannon Beetle Larva Rock Spline',
+    SplineKumaChappy: 'Bulbear Spline',
+    SplinePatroller: 'Bloomcap Bloyster Spline',
+    SplineHageDamagumo: 'Baldy Long Legs Spline',
+    SplineDamagumoCanStep: 'Long Legs Spline?',
+    SplineChaser_Kitchen: 'Moss Kitchen Spline',
+    SplineChaser_LivingRoom: 'Moss Living Room Spline',
+    SplineBaby: 'Bulborb Larva Spline',
+    SplineAmeBozu: 'Waterwraith Spline',
+    SplineNightKochappy: 'Dwarf Bulborb Spline (Night)',
+    SplineDokuNameko: 'Toxstool Spline',
+    SplineFutakuchiAdultRock: 'Cannon Beetle Rock Spline',
+    SplinePanModoki: 'Breadbug Spline',
+    SplineBigUjinko: 'Mama Sheargrub Spline',
     Suitori: "Waddlequaff",
     TamagoMushi: "Mitite",
     TenKochappy: "Orange Dwarf Bulborb",
@@ -1169,7 +1268,8 @@ export const ItemNames = {
     DogFood: "Scrummy Bone",
     PhotonBall: "Glow Seed",
     ShugoFlag: "Idler's Alert",
-    HotExtract: "Ultra-Spicy Spray"
+    HotExtract: "Ultra-Spicy Spray",
+    RockBall: "Rock"
 };
 
 export const BaseNames = {
@@ -1239,6 +1339,7 @@ export const GimmickNames = {
     NavMeshTrigger: "NavMeshTrigger",
     NavMeshTriggerClear: "NavMeshTriggerClear",
     NavMeshTriggerLinkForSplash: "NavMesh Sprinkler Trigger",
+    Neji: 'Screw',
     NoraSpawnerHeadLock: "Pikmin Spawn",
     NoraSpawnerPikminLock: "Pikmin Spawn",
     NoraSpawnerPrologue: "Pikmin Spawn (Prologue)",
@@ -1360,7 +1461,6 @@ export const ObjectNames = {
     MultiBlockArea500_03A: "MultiBlockArea500_03A",
     MultiBlockArea500_03B: "MultiBlockArea500_03B",
     MultiBlockArea500_Cave: "MultiBlockArea500_Cave",
-    PanModokiHideArea: "Breadbug Nest",
     Pellet1: "1 Pellet",
     Pellet5: "5 Pellet",
     Pelplant1: "1 Pellet Posy",
@@ -1428,6 +1528,7 @@ export const WorkObjectNames = {
     TanebiStationRelay: "Fire Stand (Unlit)",
     Tunnel: "Tunnel",
     WarpCarryFloor: "Floor Tunnel",
+    WarpCarryFloorCave: "Floor tunnel cave?",
     WarpCarryWall: "Wall Tunnel",
     ValveOnce: "Valve (One Time)",
     ValveVariable: "Valve (Multi)",
@@ -1621,6 +1722,23 @@ export const iconOverrides = {
     waterboxvs: 'waterbox',
     swampbox: 'waterbox',
     swampboxdark: 'waterbox',
+    warpcarryfloor: 'default',
+    warpcarryfloorcave: 'default',
+    warpcarrywall: 'default',
+    splinefutakuchirock: 'spline',
+    splinekumachappy: 'spline',
+    splinepatroller: 'spline',
+    splinehagedamagumo: 'spline',
+    splinedamagumocanstep: 'spline',
+    splinechaser_kitchen: 'spline',
+    splinechaser_livingroom: 'spline',
+    splinebaby: 'spline',
+    splineamebozu: 'spline',
+    splinenightkochappy: 'spline',
+    splinedokunameko: 'spline',
+    splinefutakuchiadultrock: 'spline',
+    splinepanmodoki: 'spline',
+    splinebigujinko: 'spline'
 };
 
 // A 207 byte slice from an AreaBaseCamp_GEN_VARIABLE

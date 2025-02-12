@@ -44,7 +44,7 @@ export const Randomiser = () => {
         allBosses: false, // ✅
         asInfiniteChance: 40, // ✅
         asLimit: 5, // ✅
-        asIntervalLimit: 60, // ✅
+        asIntervalLimit: 30, // ✅
         randTreasures: true, // ✅
         treasuresLfL: true,
         randPortals: true, // ✅
@@ -72,7 +72,8 @@ export const Randomiser = () => {
         retainExits: true, // add tests for these later V
         randomiseNight: true,
         bossDropChance: 25,
-        gatesDrop: false
+        gatesDrop: false,
+        retainOSTOnions: true
     });
 
     const [pikminState, setPikminState] = useState({
@@ -81,6 +82,7 @@ export const Randomiser = () => {
     });
 
     const settings = {
+        //#region Creature Options
         creatures: [
             {
                 label: 'Randomise Enemies',
@@ -263,6 +265,7 @@ export const Randomiser = () => {
                 min: 0
             },
         ],
+        //#region Treasure Options
         treasures: [
             {
                 label: 'Randomise Treasures',
@@ -270,6 +273,16 @@ export const Randomiser = () => {
                 type: 'checkbox',
                 onChange: (e) => setState({ ...state, randTreasures: e.target.checked }),
                 id: 'randTreasures'
+            },
+            {
+                label: 'Retain OST Onions',
+                tooltip: <>
+                    <span>Ensures the first yellow/blue onions in OST stay as they are if Randomise Onions is on.</span>
+                    <span>OST CAN sometimes be completed without, depending on the pikmin combos you get or with some good running throws</span>
+                </>,
+                type: 'checkbox',
+                onChange: (e) => setState({ ...state, retainOSTOnions: e.target.checked }),
+                id: 'retainOSTOnions'
             },
             // {
             //     label: 'Treasures Like-For-Like',
@@ -279,6 +292,7 @@ export const Randomiser = () => {
             //     id: 'treasuresLfL'
             // },
         ],
+        //#region Object Options
         objects: [
             {
                 label: 'Randomise Portals',
@@ -489,7 +503,7 @@ export const Randomiser = () => {
             },
             {
                 label: 'Random Function',
-                tooltip: <><span>Function used to generate integers for GenerateNums. Refer to documentation for details</span></>,
+                tooltip: <><span>Function used to generate integers for GenerateNums. Refer to Help -&#62; Randomiser Docs for details</span></>,
                 type: 'select',
                 onChange: (e) => setState({ ...state, randIntFunction: e.target.value }),
                 id: 'randIntFunction'

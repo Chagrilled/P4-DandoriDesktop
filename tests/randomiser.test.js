@@ -513,7 +513,7 @@ describe('Randomiser Tests', () => {
             });
             vi.spyOn(global.Math, 'floor').mockReturnValue(1)
                 .mockReturnValueOnce(0)
-                .mockReturnValueOnce(15);
+                .mockReturnValueOnce(12);
             vi.spyOn(global.Math, 'random').mockReturnValue(0.5);
 
             await randomiser({

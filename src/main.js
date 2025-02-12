@@ -74,6 +74,10 @@ const createWindow = (id, options = {}) => {
             nodeIntegration: true
         },
     });
+    mainWindow.webContents.setWindowOpenHandler((edata) => {
+        shell.openExternal(edata.url);
+        return { action: "deny" };
+    });
 
     // and load the index.html of the app.
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
@@ -385,6 +389,7 @@ export const readMapData = async (mapId, webContents) => {
             // return features;
         }
 
+        //#region Teki Parsing
         else features.creature = rawData.teki.Content[0].ActorGeneratorList.map(teki => {
             // Unify our ID and the raw ID, so we can ensure we save back to the right one
             // In case array orders change (they shouldn't?)
@@ -398,23 +403,26 @@ export const readMapData = async (mapId, webContents) => {
             // Return an AIProperties from this and spread it into the editor's object - NoraSpawners actual entity
             // is meaningfully affected by AI, like ActorSpawner, so we need it on hand, not as a drop
             logger.info(`Reading: ${creatureId}, ${infoType}`);
-            const { parsed, inventoryEnd, groupingRadius, ignoreList, AIProperties } = getReadAIStaticFunc(creatureId, infoType)(teki.ActorSerializeParameter.AI.Static, teki.GeneratorVersion);
+            const { parsed, inventoryEnd, groupingRadius, ignoreList, AIProperties } = getReadAIStaticFunc(creatureId, infoType)(teki.ActorSerializeParameter.AI.Static, teki.GeneratorVersion, creatureId);
             const { parsed: parsedSubAI } = getReadSubAIStaticFunc(creatureId, infoType)(teki.ActorSerializeParameter.SubAI.Static, teki.GeneratorVersion);
+            const ActorParameter = getReadActorParameterFunc(creatureId)(teki.ActorSerializeParameter.ActorParameter.Static);
+
             logger.info(JSON.stringify(AIProperties));
             // Sadly, changing Life.Dynamic seems not to do anything to tekis
             // const Life = teki.ActorSerializeParameter.Life.Dynamic.length ? parseFloat(new Float32Array(new Uint8Array(teki.ActorSerializeParameter.Life.Dynamic.slice(0, 4)).buffer)[0]) : null;
             return {
                 infoType,
                 creatureId,
-                ...(groupingRadius && { groupingRadius }),
-                ...(ignoreList && { ignoreList }),
-                ...(AIProperties && { AIProperties }),
-                // ...(Life && { Life }),
                 transform: {
                     rotation: teki.InitTransform.Rotation,
                     translation: teki.InitTransform.Translation,
                     scale3D: teki.InitTransform.Scale3D,
                 },
+                ...(groupingRadius && { groupingRadius }),
+                ...(ignoreList && { ignoreList }),
+                ...(AIProperties && { AIProperties }),
+                ...(ActorParameter && { ActorParameter }),
+                // ...(Life && { Life }),
                 activityTime: teki.RebirthInfo.ActivityTime,
                 exploreRateType: teki.ExploreRateType,
                 birthDay: teki.RebirthInfo.BirthDay,
@@ -440,6 +448,7 @@ export const readMapData = async (mapId, webContents) => {
         if (webContents && !["Cave004_F00", "Cave013_F02", "Area500"].some(m => mapId === m)) webContents.send(Messages.ERROR, `Failed reading teki data from: ${mapPath}`, e.stack);
     }
 
+    //#region Object Reading
     const objectProcessor = (object, fileType) => {
         const ddId = randomBytes(16).toString('hex');
         object.ddId = ddId;
@@ -449,7 +458,8 @@ export const readMapData = async (mapId, webContents) => {
         const subPath = object.SoftRefActorClass?.AssetPathName?.match(/Placeables\/(.+)\/G/)[1];
 
         const infoType = getInfoType(subPath);
-        const { parsed, AIProperties: staticAI, rareDrops, spareBytes, groupingRadius, inventoryEnd, ignoreList } = getReadAIStaticFunc(entityId, infoType)(asp.AI.Static, object.GeneratorVersion);
+        console.log(`About to read a ${entityId} at X position ${object.InitTransform.Translation.X}`);
+        const { parsed, AIProperties: staticAI, rareDrops, spareBytes, groupingRadius, inventoryEnd, ignoreList } = getReadAIStaticFunc(entityId, infoType)(asp.AI.Static, object.GeneratorVersion, entityId);
 
         const dynamicAI = getReadAIDynamicFunc(entityId, infoType)(asp.AI.Dynamic);
         const { PortalTrigger } = getReadPortalFunc(infoType)(asp.PortalTrigger.Static);
@@ -465,6 +475,11 @@ export const readMapData = async (mapId, webContents) => {
         features[infoType].push({
             infoType,
             creatureId: entityId, // rename later
+            transform: {
+                rotation: object.InitTransform.Rotation,
+                translation: object.InitTransform.Translation,
+                scale3D: object.InitTransform.Scale3D
+            },
             ...(Object.keys(AIProperties).length !== 0 && { AIProperties }),
             ...(PortalTrigger && { PortalTrigger }),
             ...(Life && { Life }),
@@ -474,11 +489,6 @@ export const readMapData = async (mapId, webContents) => {
             ...(WaterTrigger && { WaterTrigger }),
             ...(groupingRadius && { groupingRadius }),
             ...(ignoreList && { ignoreList }),
-            transform: {
-                rotation: object.InitTransform.Rotation,
-                translation: object.InitTransform.Translation,
-                scale3D: object.InitTransform.Scale3D
-            },
             activityTime: object.RebirthInfo.ActivityTime,
             exploreRateType: object.ExploreRateType,
             birthDay: object.RebirthInfo.BirthDay,

@@ -34,10 +34,6 @@ export const MapMenu = ({ }) => {
         const newMarker = {
             infoType,
             creatureId: getDefaultId(id),
-            ...(id === 'GroupDropManager' && {
-                groupingRadius: 300.0,
-                ignoreList: []
-            }),
             transform: {
                 rotation: {
                     X: 0.0,
@@ -56,6 +52,10 @@ export const MapMenu = ({ }) => {
                     Z: 1.0
                 }
             },
+            ...(id === 'GroupDropManager' && {
+                groupingRadius: 300.0,
+                ignoreList: []
+            }),
             activityTime: ActivityTimes.Allday,
             exploreRateType: ExploreRateTargetType.None,
             generateNum: 1,

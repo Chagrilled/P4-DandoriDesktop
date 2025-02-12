@@ -257,6 +257,13 @@ The bytes I construct are then spliced together with the base template for that 
 - ❌ Accurate waterbox scale on the map when selecting
 - ✅ Randomiser: Drop chance per enemy/object
 - ❌ Work out Excavation holes as they seem linked to Mizunukis
+- ❌ Group move/rotate
+- ❌ Rotate interaction on map
+- ❌ Entities segment in left sidebar to click highlight everything in a list
+- ✅ Consider a specific banlist of objects for randomiser that cause overworld pathing issues
+- ✅ OST force blue/yellow onion option
+- ❌ Randomiser: random enemy stats from presets of weirdness
+- ❌ Randomiser: Fix cards being stuck sometimes
 
 </details>
 

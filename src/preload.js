@@ -5,6 +5,7 @@ const { contextBridge, ipcRenderer } = require("electron");
 contextBridge.exposeInMainWorld("electron", {
     ipcRenderer: {
         ...ipcRenderer,
+        once: ipcRenderer.once.bind(ipcRenderer),
         on: ipcRenderer.on.bind(ipcRenderer),
         removeListener: ipcRenderer.removeListener.bind(ipcRenderer),
         removeAllListeners: ipcRenderer.removeAllListeners.bind(ipcRenderer),

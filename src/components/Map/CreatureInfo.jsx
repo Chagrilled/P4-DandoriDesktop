@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
-import { NameMap, editableNumberFields, editableBools, ignoreFields, editableStrings, arrayStrings, selectFields, defaultPlacementCond, defaultVector, PikminTypes } from "../../api/types";
-import { useConfig } from '../../hooks/useConfig';
+import { NameMap, editableNumberFields, editableBools, ignoreFields, editableStrings, arrayStrings, selectFields, defaultPlacementCond, defaultVector, PikminTypes, defaultSplinePoint } from "../../api/types";
 import { findMarkerById, getAvailableTimes, mutateAIProperties, deepCopy } from '../../utils';
 import { DebouncedInput } from './DebouncedInput';
 import { MapContext } from './MapContext';
@@ -35,7 +34,10 @@ const deleteArrayItem = (mapMarkerData, setMapData, obj, path, ddId, index) => {
     }
     const newMapData = mapMarkerData[type].map(creature => {
         if (creature.ddId == ddId) {
-            creature[path].splice(index, 1);
+            if (creature[path])
+                creature[path].splice(index, 1);
+            else if (creature.AIProperties[path]) //shit hack for splines being nested in AIP
+                creature.AIProperties[path].splice(index, 1);
         }
         return { ...creature };
     });
@@ -55,6 +57,9 @@ const deepUpdate = (obj, path, value, index) => {
     }
     else if (path.length == 0)
         return obj;
+    if (Array.isArray(obj) && index !== undefined) {
+        return deepUpdate(obj[index], path, value, index);
+    }
     else
         return deepUpdate(obj[path[0]], path.slice(1), value, index);
 };
@@ -64,8 +69,7 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
     if (!obj) {
         return null;
     }
-    const { mapMarkerData, setMapData, mapId } = useContext(MapContext);
-    const config = useConfig();
+    const { mapMarkerData, setMapData, mapId, config } = useContext(MapContext);
 
     return Object.entries(obj).map(([key, value]) => {
         if (value == null) {
@@ -173,8 +177,14 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
             </li>;
         }
 
-        if (["birthCond", "eraseCond", "optionalPointOffsets"].includes(key)) {
-            const objectType = key === "optionalPointOffsets" ? defaultVector : defaultPlacementCond;
+        if (["birthCond", "eraseCond", "optionalPointOffsets", "splinePoints"].includes(key)) {
+            const objectToAdd = {
+                optionalPointOffsets: defaultVector,
+                birthCond: defaultPlacementCond,
+                eraseCond: defaultPlacementCond,
+                splinePoints: defaultSplinePoint
+            }[key];
+
             return <li key={key}>
                 <b className="font-bold inline-flex">
                     {key}:
@@ -185,7 +195,7 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        onClick={(e) => updateCreature([...value, { ...deepCopy(objectType) }], mapMarkerData, setMapData, obj, fullKey, ddId, index)}
+                        onClick={(e) => updateCreature([...value, { ...deepCopy(objectToAdd) }], mapMarkerData, setMapData, obj, fullKey, ddId, index)}
                     >
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
