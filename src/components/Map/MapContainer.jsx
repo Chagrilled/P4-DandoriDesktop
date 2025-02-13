@@ -266,9 +266,8 @@ export const MapContainer = ({
 
     //#region Spline Layer
     const getSplinePointLayer = (ent) => {
-        const points = ent?.AIProperties?.splinePoints || ent?.ActorParameter?.splinePoints;
-
-        if (!points) return [];
+        const points = ent?.AIProperties?.splinePoints || ent?.ActorParameter?.splinePoints || [ent?.AIProperties?.navLinkRight].filter(i => !!i);
+        if (!points?.length) return [];
         const pointFeatures = [];
 
         const { translation, rotation } = ent.transform;
@@ -278,8 +277,8 @@ export const MapContainer = ({
         const parentQuat = quat.fromValues(rotation.X, rotation.Y, rotation.Z, rotation.W);
 
         for (let i = 0; i < points.length; i++) {
-            const point = points[i];
-            const child = vec3.fromValues(point.outVal.X, point.outVal.Y, point.outVal.Z);
+            const point = points[i]?.outVal || points[i];
+            const child = vec3.fromValues(point.X, point.Y, point.Z);
             const relativeCoords = getGlobalPosition(previous, child, parentQuat);
             // AI splines like in MoveFloors are relative, but spline entities like SplineKumaChappy are absolute
             let absoluteCoords = rotateChildAroundParent(child, parentVec, parentQuat);
@@ -305,7 +304,7 @@ export const MapContainer = ({
                 new Style({
                     image: new Icon({
                         src: '../images/icons/spline-point.png',
-                        scale: 0.3
+                        scale: points[i]?.outVal ? 0.3 : 0.4
                     })
                 })
             ]);

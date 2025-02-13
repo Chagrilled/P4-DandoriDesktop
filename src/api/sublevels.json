@@ -4128,7 +4128,7 @@
             "SplineSearchInTerritoryIntervalMax": [
                 0.8
             ],
-            "bDissapearVisibleOff": [
+            "bDisappearVisibleOff": [
                 true
             ]
         },

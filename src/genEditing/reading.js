@@ -1024,7 +1024,7 @@ const parseFutakuchiAI = ai => {
     };
     AIProperties.bFixCautionAreaCenter = ai[index];
     index += 4;
-    AIProperties.bDissapearVisibleOff = ai[index];
+    AIProperties.bDisappearVisibleOff = ai[index];
     index += 4;
     AIProperties.searchAreaCaution = {
         center: {

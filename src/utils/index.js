@@ -454,7 +454,7 @@ export const mutateAIProperties = (creature, newCreatureId, newInfoType = '') =>
                         angle: 6,
                     },
                     bFixCautionAreaCenter: false,
-                    bDissapearVisibleOff: false,
+                    bDisappearVisibleOff: false,
                     searchAreaCaution: {
                         center: defaultVector,
                         halfHeight: 100,

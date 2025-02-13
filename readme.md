@@ -252,8 +252,8 @@ The bytes I construct are then spliced together with the base template for that 
 - 🚧 Missing icons - excavation, ojama blocks, bookends, bank - for now some are mapped to a default icon
 - ❌ Refactor `regenerateAGLEntity` and `constructActor` as they're getting very similar now
 - ❌ Implement some tracking during byte reading/writing to let the UI indicate at least _a little bit_ what went wrong, like what property we were trying to read when throwing.
-- ❌ Splines
-- ❌ Geyser/vector aiming on the map
+- ✅ Splines
+- ✅ Geyser/vector aiming on the map
 - ❌ Accurate waterbox scale on the map when selecting
 - ✅ Randomiser: Drop chance per enemy/object
 - ❌ Work out Excavation holes as they seem linked to Mizunukis
@@ -264,6 +264,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ OST force blue/yellow onion option
 - ❌ Randomiser: random enemy stats from presets of weirdness
 - ❌ Randomiser: Fix cards being stuck sometimes
+- ❌ Randomiser: Random scales
 
 </details>
 

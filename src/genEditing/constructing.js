@@ -810,8 +810,8 @@ const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd, AIProperties 
         inventoryBytes.push(...drop.flags);
     });
     const offset = getObjectAIOffset(generatorVersion);
-    if (offset) inventoryBytes.push(1, 0, 0, 0); // no idea what this bool is, but it's usually 1?
-    AIProperties.bEnableFreezeBothDrop ? inventoryBytes.push(1, 0, 0, 0) : '';
+    if (offset) inventoryBytes.push(AIProperties.bEnableFreezeBothDrop ? 1 : 0, 0, 0, 0);
+    inventoryBytes.push(1, 0, 0, 0); // no idea what this bool is, but it's usually 1?
     inventoryBytes.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // 3 somethings
     inventoryBytes.push(0, 0, 72, 66);
     inventoryBytes.push(...floatBytes(AIProperties.searchAreaOtakaraCarryRadius));
@@ -953,7 +953,7 @@ const constructFutakuchiAI = AIProperties => {
         ...floatBytes(AIProperties.searchAreaAttack.angle),
 
         AIProperties.bFixCautionAreaCenter ? 1 : 0, 0, 0, 0,
-        AIProperties.bDissapearVisibleOff ? 1 : 0, 0, 0, 0,
+        AIProperties.bDisappearVisibleOff ? 1 : 0, 0, 0, 0,
 
         ...floatBytes(AIProperties.searchAreaCaution.center.X),
         ...floatBytes(AIProperties.searchAreaCaution.center.Y),

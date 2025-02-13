@@ -394,7 +394,7 @@ export const editableBools = [
     "bDisableIsFlareGuard",
     "bDisableSoftEdge",
     "bDisableSink",
-    "bDissapearVisibleOff",
+    "bDisappearVisibleOff",
     "bEnableFreezeBothDrop",
     "bEnableCustomSoftEdge",
     "bEnableOptionalPoint",
