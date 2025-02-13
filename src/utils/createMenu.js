@@ -213,14 +213,14 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                 }
             },
             {
-                label: 'Show Z Direction',
+                label: 'Show Rotation',
                 type: 'checkbox',
-                checked: config.showZDirection,
+                checked: config.showRotation,
                 click: () => {
-                    config.showZDirection = !config.showZDirection;
+                    config.showRotation = !config.showRotation;
                     writeFile(CONFIG_PATH, JSON.stringify({
                         ...config,
-                        showZDirection: config.showZDirection
+                        showRotation: config.showRotation
                     }, null, 4), { encoding: "utf-8" }, () => { });
                     mainWindow.webContents.send('getConfig', config);
                 }

@@ -26,7 +26,7 @@ const DEFAULT_CONFIG = {
     outputDir: '',
     internalNames: false,
     hideInvisEntities: false,
-    showZDirection: true,
+    showRotation: true,
     disableAutoUpdate: false
 };
 let config = {};

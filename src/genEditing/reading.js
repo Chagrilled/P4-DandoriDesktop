@@ -321,9 +321,9 @@ const readSpline = (bytes) => {
                 Z: readFloat(bytes.slice(index, index += 4)),
             },
             rotation: {
+                roll: readFloat(bytes.slice(index, index += 4)),
                 pitch: readFloat(bytes.slice(index, index += 4)),
-                yaw: readFloat(bytes.slice(index, index += 4)),
-                roll: readFloat(bytes.slice(index, index += 4))
+                yaw: readFloat(bytes.slice(index, index += 4))
             },
             scale: {
                 X: readFloat(bytes.slice(index, index += 4)),

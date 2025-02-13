@@ -157,7 +157,7 @@ const getFeatures = (markerType, markers, config, mapId) => {
         const styles = [
             getFeatureStyle(marker, globalMarkerStyle),
         ];
-        if (config.showZDirection) styles.push(new Style({
+        if (config.showRotation) styles.push(new Style({
             image: new Icon({
                 src: '../images/icons/arrow.png',
                 anchor: [0.5, 0.5],

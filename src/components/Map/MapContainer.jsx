@@ -271,43 +271,53 @@ export const MapContainer = ({
         const pointFeatures = [];
 
         const { translation, rotation } = ent.transform;
-        console.log(translation);
-        let previous = vec3.fromValues(translation.X, translation.Y, translation.Z);
         let parentVec = vec3.fromValues(translation.X, translation.Y, translation.Z);
         const parentQuat = quat.fromValues(rotation.X, rotation.Y, rotation.Z, rotation.W);
 
         for (let i = 0; i < points.length; i++) {
             const point = points[i]?.outVal || points[i];
             const child = vec3.fromValues(point.X, point.Y, point.Z);
-            const relativeCoords = getGlobalPosition(previous, child, parentQuat);
             // AI splines like in MoveFloors are relative, but spline entities like SplineKumaChappy are absolute
             let absoluteCoords = rotateChildAroundParent(child, parentVec, parentQuat);
 
-            const [x, y, z] = relativeCoords;
-            const [x2, y2] = absoluteCoords;
-            // Current belief is that AIProperties splines are relative to each other
-            // This is based off MoveFloors who generally only have 2 points. Might be wrong.
-            const pointCoords = ent.AIProperties?.splinePoints ? [y, x] : [y2, x2];
+            const [x, y] = absoluteCoords;
+            const splineObject = ent.creatureId.includes('Spline') ? "ActorParameter" : "AIProperties";
+            const splineKey = ent.creatureId === 'Geyser' ? "navLinkRight" : "splinePoints";
 
-            previous = vec3.fromValues(x, y, z);
             const feature = new Feature({
-                geometry: new Point(pointCoords),
+                geometry: new Point([y, x]),
                 data: {
                     ddId: ent.ddId,
-                    // infoType: ent.infoType,
-                    point,
+                    infoType: ent.infoType,
                     index: i,
-                    // splineType
+                    parentVec,
+                    parentQuat,
+                    splineKey,
+                    splineObject
                 }
             });
-            feature.setStyle([
+
+            const styles = [
                 new Style({
                     image: new Icon({
                         src: '../images/icons/spline-point.png',
-                        scale: points[i]?.outVal ? 0.3 : 0.4
+                        scale: 0.4
                     })
                 })
-            ]);
+            ];
+
+            // This does work (at least for the bulbear in Kingdom of Beasts) but is hilariously
+            // unhelpful everywhere else. It seems like some arrows are just backwards?
+            // if (config.showRotation && splineKey === 'splinePoints') styles.push(new Style({
+            //     image: new Icon({
+            //         src: '../images/icons/arrow.png',
+            //         rotateWithView: true,
+            //         scale: 0.03,
+            //         rotation: (points[i].rotation.roll),
+            //     })
+            // }));
+            feature.setStyle(styles);
+
             pointFeatures.push(feature);
         }
 
@@ -318,46 +328,64 @@ export const MapContainer = ({
             zIndex: 1001
         });
 
-        // Tried adding modifiers to spline points - problematic because
-        // the place you drag a spline point to on the map is not its coords
-        // its position is a mix of rotation + parent so idk if OL can modify that with a drag 
-        // const modifyFeature = new Modify({
-        //     features: new Collection(layer.getSource().getFeatures())
-        // });
-        // modifyFeature.on('modifyend', evt => {
-        //     const data = evt.features.array_[0].values_.data;
-        //     const parentEntity = mapMarkerData[data.infoType].find(e => e.ddId === data.ddId);
 
-        //     setMapData({
-        //         ...mapMarkerData,
-        //         [data.infoType]: mapMarkerData[data.infoType].map(marker => marker.ddId !== data.ddId ? marker : {
-        //             ...parentEntity,
-        //             [splineType]: {
-        //                 ...parentEntity[splineType],
-        //                 splinePoints: 
-        //             }
-        //             transform: {
-        //                 ...data.transform,
-        //                 translation: {
-        //                     X: evt.mapBrowserEvent.coordinate[1],
-        //                     Y: evt.mapBrowserEvent.coordinate[0],
-        //                     Z: data.transform.translation.Z
-        //                 }
-        //             }
-        //         }),
-        //     });
-        // });
-        // map.addInteraction(modifyFeature);
+        const modifyFeature = new Modify({
+            features: new Collection(layer.getSource().getFeatures())
+        });
+        modifyFeature.on('modifyend', evt => {
+            const data = evt.features.array_[0].values_.data;
+            const parentEntity = mapMarkerData[data.infoType].find(e => e.ddId === data.ddId);
+            let splineOrVector = parentEntity[data.splineObject][data.splineKey];
+            const globalVec = vec3.fromValues(evt.mapBrowserEvent.coordinate[1], evt.mapBrowserEvent.coordinate[0], parentEntity.transform.translation.Z);
+
+            if (Array.isArray(splineOrVector)) {
+                // We've got splinePoints, not the geyser
+                const point = splineOrVector[data.index];
+                const localVec = globalToLocalPosition(globalVec, data.parentVec, data.parentQuat);
+                point.outVal = {
+                    X: localVec[0],
+                    Y: localVec[1],
+                    Z: point.outVal.Z
+                };
+            } else {
+                const localVec = globalToLocalPosition(globalVec, data.parentVec, data.parentQuat);
+                // Modify the object reference we've got - don't reassign the var to a new one
+                splineOrVector = {
+                    X: localVec[0],
+                    Y: localVec[1],
+                    Z: splineOrVector.Z
+                };
+            };
+
+            const newEnt = {
+                ...parentEntity,
+                [data.splineObject]: {
+                    ...parentEntity[data.splineObject],
+                    [data.splineKey]: splineOrVector
+                }
+            };
+            // Makes sure the next layer rebuild passes the updated marker into the spline func again
+            markerRef.current = newEnt;
+            setMapData({
+                ...mapMarkerData,
+                [data.infoType]: mapMarkerData[data.infoType].map(marker => marker.ddId !== data.ddId ? marker : newEnt)
+            });
+        });
+
+        map.addInteraction(modifyFeature);
         return [layer];
     };
 
-    const getGlobalPosition = (parentPosition, childLocalPosition, parentQuaternion) => {
-        let localVec = vec3.fromValues(...childLocalPosition);
-        let rotatedVec = vec3.create();
+    const globalToLocalPosition = (globalVec, parentVec, parentQuat) => {
+        const translatedVec = vec3.create();
+        vec3.subtract(translatedVec, globalVec, parentVec);
 
-        vec3.transformQuat(rotatedVec, localVec, parentQuaternion);
+        const inverseRotation = quat.create();
+        quat.invert(inverseRotation, parentQuat);
 
-        return vec3.add(vec3.create(), parentPosition, rotatedVec);
+        const localVec = vec3.create();
+        vec3.transformQuat(localVec, translatedVec, inverseRotation);
+        return localVec;
     };
 
     const rotateChildAroundParent = (childPos, parentPos, parentRotation) => {
