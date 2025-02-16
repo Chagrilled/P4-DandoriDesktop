@@ -67,6 +67,7 @@ export const getReadAIDynamicFunc = (creatureId, infoType) => {
     if (creatureId.includes('WaterBox') && creatureId !== 'WaterBoxNav') return parseWaterBoxAI_Dynamic;
     if (creatureId.startsWith('SwampBox')) return parseWaterBoxAI_Dynamic;
     if (creatureId === 'AmeBozu') return parseAmeBozuAI_Dynamic;
+    if (creatureId === 'String') return parseStringAI_Dynamic;
     return () => ({});
 };
 
@@ -107,6 +108,9 @@ export const getReadAIStaticFunc = (creatureId, infoType) => {
     if (creatureId.startsWith('SwampBox')) return parseWaterBoxAI;
     if (creatureId.includes('HandleBoard')) return parseHandleBoardAI;
     if (creatureId.includes('MoveFloor') && creatureId !== 'MoveFloorSlowTrigger') return parseMoveFloorAI;
+    if (creatureId === 'Branch_Long') return parseBranchAI;
+    if (creatureId.startsWith('DownWall')) return parseDownWallAI;
+    if (creatureId === 'String') return parseStringAI;
     return () => ({ parsed: [] });
 };
 
@@ -394,6 +398,47 @@ const parseHandleBoardAI = (ai, generatorVersion) => {
         }
     };
 };
+
+const parseBranchAI = (ai, generatorVersion) => {
+    const offset = getObjectAIOffset(generatorVersion); // in 1 geyser there are 4 more bytes of ObjectAIParameter, all 0. No idea.
+    let index = 155 + offset;
+    return {
+        parsed: [],
+        AIProperties: {
+            jumpHeight: readFloat(ai.slice(index, index += 4)),
+            // This is technically named NavLinkRightOffset but that would made the point aiming annoying
+            navLinkRight: {
+                X: readFloat(ai.slice(index, index += 4)),
+                Y: readFloat(ai.slice(index, index += 4)),
+                Z: readFloat(ai.slice(index, index += 4))
+            }
+        }
+    };
+};
+
+const parseDownWallAI = (ai, generatorVersion) => {
+    const offset = getObjectAIOffset(generatorVersion); // in 1 geyser there are 4 more bytes of ObjectAIParameter, all 0. No idea.
+    let index = 155 + offset;
+    return {
+        parsed: [],
+        AIProperties: {
+            bDisableAirWall: ai[index]
+        }
+    };
+};
+
+const parseStringAI = (ai, generatorVersion) => {
+    const offset = getObjectAIOffset(generatorVersion); // in 1 geyser there are 4 more bytes of ObjectAIParameter, all 0. No idea.
+    let index = 155 + offset;
+    return {
+        parsed: [],
+        AIProperties: {
+            fallHeight: readFloat(ai.slice(index, index += 4))
+        }
+    };
+};
+
+const parseStringAI_Dynamic = (ai) => ({ bFalled: ai[12] });
 
 //#region Geyser
 const parseGeyserAI = (ai, generatorVersion) => {

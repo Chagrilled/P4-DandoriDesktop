@@ -103,12 +103,16 @@ const SCALE_OVERRIDES = {
     swampboxdark: 0.4,
     neji: 0.2,
     spline: 0.5,
-    rockball: 0.2
+    rockball: 0.2,
+    lucky: 0.6,
+    fuurosoua: 0.15,
+    fuurosoub: 0.15,
+    ooinu: 0.4
 };
 
 export const getIconOptions = (type) => {
     const imgUrl = iconOverrides[type] || (ROOT_ICON_URL + '/' + type + '.png');
-    const scale = SCALE_OVERRIDES[type] || 0.9;
+    const scale = imgUrl.includes('default') ? 0.5 : SCALE_OVERRIDES[type] || 0.9;
     return {
         src: imgUrl,
         scale
@@ -116,7 +120,7 @@ export const getIconOptions = (type) => {
 };
 
 const MAX_MARKER_Z_INDEX = 1000;
-export const getFeatureLayers = (groupedData, config, mapId) => {
+export const getFeatureLayers = async (groupedData, config, mapId) => {
     const featureLayers = {};
 
     for (let i = 0; i < LayerOrder.length; i++) {
@@ -124,13 +128,12 @@ export const getFeatureLayers = (groupedData, config, mapId) => {
         if (!groupedData[markerType] || markerType === WaterWater || markerType === WaterSwamp) {
             continue;
         }
-
+        const features = await getFeatures(markerType, groupedData[markerType], config, mapId);
         // Categories are sorted by layer importance.
         const layerZIndex = MAX_MARKER_Z_INDEX - i;
-        const features = getFeatures(markerType, groupedData[markerType], config, mapId);
         const layer = new VectorLayer({
             source: new VectorSource({
-                features
+                features: features.flat().filter(f => !!f)
             }),
             zIndex: layerZIndex
         });
@@ -140,10 +143,10 @@ export const getFeatureLayers = (groupedData, config, mapId) => {
     return featureLayers;
 };
 
-const getFeatures = (markerType, markers, config, mapId) => {
+const getFeatures = async (markerType, markers, config, mapId) => {
     const globalMarkerStyle = MarkerStyles[markerType];
 
-    return markers.map(marker => {
+    return Promise.all(markers.map(async marker => {
         if (config.hideInvisEntities && invisibleEntities.some(e => marker.creatureId.includes(e))) return;
         if (mapId.includes('Night') && !isEntityOnNightMap(marker, mapId)) return;
 
@@ -155,7 +158,7 @@ const getFeatures = (markerType, markers, config, mapId) => {
         });
 
         const styles = [
-            getFeatureStyle(marker, globalMarkerStyle),
+            await getFeatureStyle(marker, globalMarkerStyle),
         ];
         if (config.showRotation) styles.push(new Style({
             image: new Icon({
@@ -169,7 +172,7 @@ const getFeatures = (markerType, markers, config, mapId) => {
 
         feature.setStyle(styles);
         return feature;
-    }).flat().filter(f => !!f);
+    }));
 };
 
 const MarkerStyles = Object.fromEntries(
@@ -185,22 +188,23 @@ const MarkerStyles = Object.fromEntries(
 
 //#region Styles
 // TODO: Refactor this duplication - it's been through a lot 😪
-const getFeatureStyle = (marker, globalMarkerStyle) => {
+const getFeatureStyle = async (marker, globalMarkerStyle) => {
     if (isCreature(marker)) {
-        const creatureId = marker.creatureId === 'ActorSpawner' ? getNameFromAsset(marker.drops.parsed[0].assetName) : marker.creatureId.toLowerCase().replace('night', '');
+        const [drop] = marker.drops.parsed;
+        const creatureId = marker.creatureId === 'ActorSpawner' ? getNameFromAsset(drop.assetName) : marker.creatureId.toLowerCase().replace('night', '');
         let id = iconOverrides[marker.creatureId.toLowerCase()] || creatureId.toLowerCase();
         let scale = SCALE_OVERRIDES[id] || 0.35;
         let src = `${ROOT_CREATURE_URL}/creature-${id}.png`;
 
+        let infoType = Creature;
         if (marker.creatureId === 'ActorSpawner') {
-            const dropInfotype = getInfoType(getSubpathFromAsset(marker.drops.parsed[0].assetName));
-            scale = SCALE_OVERRIDES[getNameFromAsset(marker.drops.parsed[0].assetName).toLowerCase()] || [Creature, Treasure].includes(dropInfotype) ? 0.35 : 0.9;
-            src = `../images/${dropInfotype}s/${dropInfotype}-${creatureId.toLowerCase()}.png`;
+            infoType = getInfoType(getSubpathFromAsset(drop.assetName));
+            scale = SCALE_OVERRIDES[getNameFromAsset(drop.assetName).toLowerCase()] || [Creature, Treasure].includes(infoType) ? 0.35 : 0.9;
+            src = `../images/${infoType}s/${infoType}-${creatureId.toLowerCase()}.png`;
         }
-
         globalMarkerStyle = new Style({
             image: new Icon({
-                src,
+                src: await getIcon(src, infoType),
                 scale
             }),
         });
@@ -208,7 +212,7 @@ const getFeatureStyle = (marker, globalMarkerStyle) => {
     else if ([InfoType.Object, WorkObject, Gimmick, Portal, Onion, Hazard, Base, Pikmin, Item].includes(marker.infoType)) {
         const creatureId = marker.creatureId.toLowerCase();
         let id = iconOverrides[marker.creatureId.toLowerCase()];
-        const scale = SCALE_OVERRIDES[creatureId] || 0.9;
+        const scale = id === 'default' ? 0.5 : SCALE_OVERRIDES[creatureId] || 0.9;
         let infoType = marker.infoType;
 
         // NoraSpawner icons are drawn from the PikminColor enum within their AI
@@ -225,7 +229,7 @@ const getFeatureStyle = (marker, globalMarkerStyle) => {
 
         globalMarkerStyle = new Style({
             image: new Icon({
-                src: `../images/${infoType}s/${infoType}-${id || marker.creatureId.toLowerCase()}.png`,
+                src: await getIcon(`../images/${infoType}s/${infoType}-${id || marker.creatureId.toLowerCase()}.png`, infoType),
                 scale,
                 ...rotationProps
             }),
@@ -235,28 +239,22 @@ const getFeatureStyle = (marker, globalMarkerStyle) => {
     else if (GimmickNames[marker.creatureId]) {
         const creatureId = marker.creatureId.toLowerCase();
         const scale = SCALE_OVERRIDES[creatureId] || 0.35;
+
         globalMarkerStyle = new Style({
             image: new Icon({
-                src: `${ROOT_GIMMICKS_URL}/gimmick-${creatureId.toLowerCase()}.png`,
+                src: await getIcon(`${ROOT_GIMMICKS_URL}/gimmick-${creatureId.toLowerCase()}.png`, Gimmick),
                 scale: scale
             }),
         });
     }
     else if (isTreasure(marker)) {
-        // include Gold Nugget amount as total weight
-        const totalWeight = marker.weight * (marker.amount || 1);
-        const totalValue = marker.value * (marker.amount || 1);
-        // total value can be 0 for OST ship parts
-        // TODO: remove value for challenge caves somehow
-        const label = totalValue ? `${totalWeight} / ${totalValue}` : totalWeight + "";
 
         // TODO: Read treasure weights from the core/DT_OtakaraParemeter file
         // const textStyle = TREASURE_TEXT_STYLE.clone();
         // textStyle.setText(label);
-
         return new Style({
             image: new Icon({
-                src: `${ROOT_TREASURE_URL}/treasure-${marker.creatureId.toLowerCase()}.png`,
+                src: await getIcon(`${ROOT_TREASURE_URL}/treasure-${marker.creatureId.toLowerCase()}.png`, Treasure),
                 scale: 0.35
             }),
             // text: textStyle,
@@ -269,6 +267,16 @@ const getFeatureStyle = (marker, globalMarkerStyle) => {
 
     // must copy any icons that need to be edited.
     return globalMarkerStyle.clone();
+};
+
+const getIcon = (icon, dropInfotype) => {
+    const img = new Image();
+    img.src = icon;
+
+    return new Promise((resolve) => {
+        img.onload = () => resolve(icon);
+        img.onerror = () => resolve(`../images/${dropInfotype}s/${dropInfotype}-default.png`);
+    });
 };
 
 const LayerOrder = Categories.reduce((markerTypes, category) => [...markerTypes, ...category.markers], []);

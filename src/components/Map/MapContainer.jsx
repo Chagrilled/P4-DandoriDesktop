@@ -282,7 +282,7 @@ export const MapContainer = ({
 
             const [x, y] = absoluteCoords;
             const splineObject = ent.creatureId.includes('Spline') ? "ActorParameter" : "AIProperties";
-            const splineKey = ent.creatureId === 'Geyser' ? "navLinkRight" : "splinePoints";
+            const splineKey = ['Geyser', 'Branch_Long'].includes(ent.creatureId) ? "navLinkRight" : "splinePoints";
 
             const feature = new Feature({
                 geometry: new Point([y, x]),

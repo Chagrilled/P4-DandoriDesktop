@@ -87,6 +87,9 @@ export const getConstructAIStaticFunc = (creatureId, infoType) => {
     if (creatureId.includes('Mizunuki')) return constructMizunukiAI;
     if (creatureId.includes('HandleBoard')) return constructHandleBoardAI;
     if (creatureId.includes('MoveFloor') && creatureId !== 'MoveFloorSlowTrigger') return constructMoveFloorAI;
+    if (creatureId === 'Branch_Long') return constructBranchAI;
+    if (creatureId.startsWith('DownWall')) return constructDownWallAI;
+    if (creatureId === 'String') return constructStringAI;
     return defaultAI;
 };
 
@@ -98,6 +101,7 @@ export const getConstructDynamicFunc = (creatureId) => {
     if (creatureId.includes('WaterBox') && creatureId !== 'WaterBoxNav') return constructWaterBoxAI_Dynamic;
     if (creatureId.startsWith('SwampBox')) return constructWaterBoxAI_Dynamic;
     if (creatureId === 'AmeBozu') return constructAmeBozuAI_Dynamic;
+    if (creatureId === 'String') return constructStringAI_Dynamic;
     return (ai) => ai;
 };
 
@@ -300,6 +304,29 @@ const constructHandleBoardAI = (_, aiStatic, { AIProperties }, generatorVersion)
     );
     return bytes;
 };
+
+const constructBranchAI = (_, aiStatic, { AIProperties }, generatorVersion) => [
+    ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion)),
+    ...floatBytes(AIProperties.jumpHeight),
+    ...floatBytes(AIProperties.navLinkRight.X),
+    ...floatBytes(AIProperties.navLinkRight.Y),
+    ...floatBytes(AIProperties.navLinkRight.Z)
+];
+
+const constructDownWallAI = (_, aiStatic, { AIProperties }, generatorVersion) => [
+    ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion)),
+    ...floatBytes(AIProperties.bDisableAirWall ? 1 : 0, 0, 0, 0)
+];
+
+const constructStringAI = (_, aiStatic, { AIProperties }, generatorVersion) => [
+    ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion)),
+    ...floatBytes(AIProperties.fallHeight)
+];
+
+const constructStringAI_Dynamic = (aiStatic, { AIProperties }) => [
+    ...Array(12).fill(0),
+    AIProperties.bFalled ? 1 : 0, 0, 0, 0
+];
 
 //#region Circulators
 const constructCirculatorAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
