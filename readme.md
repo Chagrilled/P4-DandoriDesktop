@@ -220,7 +220,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ GDM drops
 - ✅ Egg tekis and their drops 
 - ❌ Rename all creature/creatureId references to entityId
-- ❌ Work out what the bytes are after the inventory so we don't set every default to some weird override
+- ✅ Work out what the bytes are after the inventory so we don't set every default to some weird override
 - ❌ Draw radius around ActorSpawners/GDMs when highlighted - probably has to be done after refactoring the map props otherwise each click will re-render the map, making it worse than it already is.
 - ❗ Jellyfloats seem broken when spawned by ActorSpawners? They just don't attack anything - I think they may have more important ties to their Territory and EatArea params that are often provided by the blueprints overriding the AI variable. There are no examples of kurage ActorSpawners. Might have to find another enemy being given territory parameters via spawners and understand the final bytes. It doesn't seem limited to just them. GrubChucker also showed very little natural aggression. Maybe aggression is tied to territory, and if they're out of it, they don't care, and the territory is out near the actorspawner? Idk I lowered the AS to be nearer to the 'ground', and they still seem unbothered. Must investigate later. KingChappy is very happy to chase me around and try eat me. I've tried using bSetTerritory as an offset and absolute position, and Foolix just wants to slink off somewhere slightly northwest of the spawn platform way off in the abyss. Using 0/0/310 as the vector made him go in a totally different direction, so it definitely does SOMETHING. I also tried SubAI, which is used by Tateana - FModel shows the blueprint using `ComponentTag` or something to label each AI_Gen_Variable as AI vs SubAI for the `Tateana` vs the `Baby` - I thought I could use this with ActorSpawners to inject AI bytes to its children, but no.
 - ✅ Fix the CSS of the map buttons being killed by tailwind
@@ -334,5 +334,8 @@ These objects have (most) of their pertinent bytes parsed and displayed for mani
    - To have a valve that is permanently on - enable `bSprinklerOnly` and set `valveID` to `None`. 
    - To connect a valve, match the `valveID` to the valve object's ID. The only valve config I've found works is to use the `Build` workType. This setup will have a sprinkler turn on once for `OpenTime` number of seconds upon valve activation, then turn off - this is how Cave013 douses fire. 
    - To have a sprinkler always on, make a `NavMeshTriggerLinkForSplash` object on top of the sprinkler, and make the `NavMeshTriggerID`s for both match. The sprinkler and valve cannot have the same `demoBindName`. I've not played much with these, but I believe they _may_ be to do with saving the state of the sprinkler after the cutscene has played. In my working example, I used `GSprinkler05` and `GValveOnce06` for my `demoBindName`s, and `demoId` of `0`.
-  - ✅ Geysers - the vector is ADDED to the player's translation upon use
+  - ✅ Geysers - the vector is position from the geyser's position
   - ✅ Material piles (number per pile)
+  - ✅ String
+  - ✅ Sticks
+  - ✅ Bags
