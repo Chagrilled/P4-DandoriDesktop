@@ -77,6 +77,18 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                 <DebouncedInput value={drop.spawnVelY} type="number" changeFunc={(v) => updateDrops(v, drop, "spawnVelY")} ddId={ddId} />
             </div>
             <div className="flex">
+                <b>spawnLocationX</b>:&nbsp;
+                <DebouncedInput value={drop.spawnLocationX} type="number" changeFunc={(v) => updateDrops(v, drop, "spawnLocationX")} ddId={ddId} />
+            </div>
+            <div className="flex">
+                <b>spawnLocationY</b>:&nbsp;
+                <DebouncedInput value={drop.spawnLocationY} type="number" changeFunc={(v) => updateDrops(v, drop, "spawnLocationY")} ddId={ddId} />
+            </div>
+            <div className="flex">
+                <b>spawnLocationZ</b>:&nbsp;
+                <DebouncedInput value={drop.spawnLocationZ} type="number" changeFunc={(v) => updateDrops(v, drop, "spawnLocationZ")} ddId={ddId} />
+            </div>
+            <div className="flex">
                 <b>bSpawnAngRand</b>:&nbsp;
                 <input
                     type="checkbox"

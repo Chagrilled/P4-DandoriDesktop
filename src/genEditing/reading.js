@@ -754,8 +754,7 @@ const parseActorSpawnerDrops = drops => {
     bytes.infiniteSpawn = drops[index];
     index += 4;
     bytes.spawnInterval = readFloat(drops.slice(index, index += 4));
-    bytes.spawnLimit = drops[index];
-    index += 4;
+    bytes.spawnLimit = bytesToInt(drops.slice(index, index += 4));;
     index += 4; // Mystery bool here
     bytes.randomRotation = drops[index];
     index += 4;
