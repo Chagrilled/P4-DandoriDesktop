@@ -698,6 +698,14 @@ const skipList = [
     {
         maps: ['Cave035_F06'],
         ent: 'Nomi'
+    },
+    {
+        maps: ['Cave035_F05'],
+        ent: 'ActorSpawner'
+    },
+    {
+        maps: ['Cave009_F00'],
+        ent: 'Kajiokoshi'
     }
 ];
 
@@ -780,6 +788,8 @@ export const randomiser = async (config) => {
             //#region Randomise Creatures
             if (config.randCreatures) markerData[InfoType.Creature].forEach(creature => {
                 if (map.startsWith('Night') && (!config.randomiseNight || creature.activityTime !== ActivityTimes.Nighttime))
+                    return randomMarkers[InfoType.Creature].push(creature);
+                if (creature.creatureId === 'ActorSpawner' && entityInSkipList(creature, map))
                     return randomMarkers[InfoType.Creature].push(creature);
 
                 logger.info(`Randomise creature: ${creature.creatureId}`);

@@ -89,7 +89,16 @@ export const GameRulePermissionFlags = [
     269,
     271
 ];
-export const ActorSpawnerCustomParameter = ["None", "BasedOnSpawner", "ShoulderBomb", "UseSpawnerTerritory", "Bomb", "SVSleep000", "LFSleep003"];
+export const ActorSpawnerCustomParameter = [
+    "None",
+    "BasedOnSpawner",
+    "ShoulderBomb",
+    "ShoulderIceBomb",
+    "UseSpawnerTerritory",
+    "Bomb",
+    "SVSleep000",
+    "LFSleep003",
+];
 
 export const PikminColor = {
     Red: "red",
