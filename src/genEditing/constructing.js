@@ -224,7 +224,6 @@ const constructMoveFloorAI = (_, aiStatic, { AIProperties }, generatorVersion) =
         ...floatBytes(AIProperties.warpOffset.X),
         ...floatBytes(AIProperties.warpOffset.Y),
         ...floatBytes(AIProperties.warpOffset.Z),
-        AIProperties.splinePoints.length, 0, 0, 0,
         ...constructSplinePoints(AIProperties.splinePoints)
     );
 
