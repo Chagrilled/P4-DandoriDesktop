@@ -68,6 +68,8 @@ export const getReadAIDynamicFunc = (creatureId, infoType) => {
     if (creatureId.startsWith('SwampBox')) return parseWaterBoxAI_Dynamic;
     if (creatureId === 'AmeBozu') return parseAmeBozuAI_Dynamic;
     if (creatureId === 'String') return parseStringAI_Dynamic;
+    if (infoType === InfoType.Treasure) return parseOtakaraAI_Dynamic;
+    if (creatureId.includes('Survivor')) return parseSurvivorAI_Dynamic;
     return () => ({});
 };
 
@@ -111,6 +113,7 @@ export const getReadAIStaticFunc = (creatureId, infoType) => {
     if (creatureId === 'Branch_Long') return parseBranchAI;
     if (creatureId.startsWith('DownWall')) return parseDownWallAI;
     if (creatureId === 'String') return parseStringAI;
+    if (infoType === InfoType.Treasure || creatureId.includes('Survivor')) return parseOtakaraAI;
     return () => ({ parsed: [] });
 };
 
@@ -787,7 +790,7 @@ const parseActorSpawnerDrops = drops => {
 
 //#region TriggerDoor
 const parseTriggerDoorAI = (ai, generatorVersion) => {
-    let index = 155 + (generatorVersion == 8626647386 ? 0 : 4); // this version 155 long vs 159 in the other two
+    let index = 155 + getObjectAIOffset(generatorVersion); // this version 155 long vs 159 in the other two
     // we only care about CIDList for now, which is the very last thing in the array
     // it also might not even exist. 156 lands us on the switch string, usually 9chars of switch00, but variable
     const parsedAI = { parsed: [], AIProperties: {} };
@@ -818,18 +821,21 @@ const parseWarpAI = ai => {
 };
 
 //#region Base
-const parseBaseAI = ai => {
-    let lastNoneIndex = 0;
-    let loopIndex = 0;
-    while (loopIndex != -1) {
-        // We want to find the last None string in the bytes, because it's AFTER the 4 bytes
-        // that _sometimes_ exists, thus change length and placement of things
-        // we could parse the array and see if we get a None early, or we can just seek to the last None,
-        // and +14 to get to BaseCampId and the parameters we actually want. The rest is fairly static (and unknown)
-        loopIndex = findSequenceStartIndex(ai, loopIndex + NONE_BYTES.length, NONE_BYTES);
-        if (loopIndex != -1) lastNoneIndex = loopIndex;
-    }
-    let index = lastNoneIndex + NONE_BYTES.length + 13; // Should place us at the start of BaseCampId - makes no sense bc what data types make up 13 bytes?? There must be a u8
+const parseBaseAI = (ai, generatorVersion) => {
+    // let lastNoneIndex = 0;
+    // let loopIndex = 0;
+    // while (loopIndex != -1) {
+    //     // We want to find the last None string in the bytes, because it's AFTER the 4 bytes
+    //     // that _sometimes_ exists, thus change length and placement of things
+    //     // we could parse the array and see if we get a None early, or we can just seek to the last None,
+    //     // and +14 to get to BaseCampId and the parameters we actually want. The rest is fairly static (and unknown)
+    //     loopIndex = findSequenceStartIndex(ai, loopIndex + NONE_BYTES.length, NONE_BYTES);
+    //     if (loopIndex != -1) lastNoneIndex = loopIndex;
+    // }
+    // let index = lastNoneIndex + NONE_BYTES.length + 13; // Should place us at the start of BaseCampId - makes no sense bc what data types make up 13 bytes?? There must be a u8
+    const offset = getObjectAIOffset(generatorVersion);
+    let index = 155 + offset;
+
     const AIProperties = {
         baseCampId: ai[index]
     };
@@ -857,6 +863,69 @@ const parseBaseAI = ai => {
 
     return { AIProperties, parsed: [] };
 };
+
+//#region Otakara
+const parseOtakaraAI = (ai) => {
+    let index = 4;
+    const AIProperties = {
+        bChangeCrushImpactMoveDir: ai[index]
+    };
+    index += 4;
+    AIProperties.bReceiveCrushImpactEvent = ai[index];
+    index += 4;
+    AIProperties.bSendCrushImpactEvent = ai[index];
+    index += 4;
+    AIProperties.crushImpactMoveRot = {
+        X: readFloat(ai.slice(index, index += 4)),
+        Y: readFloat(ai.slice(index, index += 4)),
+        Z: readFloat(ai.slice(index, index += 4))
+    };
+    index += 5; // skip unknown, yes there is 5 0s here it seems
+    AIProperties.bDDBSurvivorLeaf = ai[index];
+    index += 4;
+    AIProperties.bEnableOptionalPoint = ai[index];
+    index += 4;
+
+    let arrayLength = ai[index];
+    index += 4;
+    AIProperties.optionalPointOffsets = [];
+    for (let i = 0; i < arrayLength; i++) {
+        AIProperties.optionalPointOffsets.push({
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        });
+    }
+    AIProperties.optionalPointPriorityInfoSize = ai[index];
+    return { AIProperties, parsed: [] };
+};
+
+const parseOtakaraAI_Dynamic = (ai) => {
+    let index = 0;
+    const AIProperties = {
+        bCanFall: ai[index]
+    };
+    index += 4;
+    AIProperties.bEnableChangeInitTransformAfterFalling = ai[index];
+    index += 4;
+    AIProperties.rotation = {
+        X: readFloat(ai.slice(index, index += 4)),
+        Y: readFloat(ai.slice(index, index += 4)),
+        Z: readFloat(ai.slice(index, index += 4)),
+        W: readFloat(ai.slice(index, index += 4))
+    };
+    AIProperties.translation = {
+        X: readFloat(ai.slice(index, index += 4)),
+        Y: readFloat(ai.slice(index, index += 4)),
+        Z: readFloat(ai.slice(index, index += 4))
+    };
+    return AIProperties;
+};
+
+const parseSurvivorAI_Dynamic = (ai) => ({
+    npcInfoKey: readAsciiString(ai, 0),
+    ...parseOtakaraAI_Dynamic(ai.slice(ai[0] + 4, ai.length))
+});
 
 //#region Teki
 export const parseTekiAI = (ai, generatorVersion, creatureId) => {

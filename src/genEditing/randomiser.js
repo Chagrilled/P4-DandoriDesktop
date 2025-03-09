@@ -180,6 +180,8 @@ const randCreatures = Object.keys(CreatureNames).filter(k => ![
     "SplineFutakuchiAdultRock",
     "SplinePanModoki",
     "SplineBigUjinko",
+    "SplineDodoro",
+    "PanModokiHideArea"
 ].includes(k));
 
 const bosses = [
@@ -841,7 +843,7 @@ export const randomiser = async (config) => {
                     if ('DodoroEgg' === creatureId) randCreature.transform.translation.Z += 150;
                     if ('Yamashinju' === creatureId) randCreature.transform.translation.Z += 25;
 
-                    mutateAIProperties(randCreature, creatureId, infoType);
+                    mutateAIProperties(randCreature, creatureId, infoType, creature.creatureId);
                     // TODO: if things randomise into breadbugs/demejako/shako, spawn their burrows alongside so they function?
                     // GDMs retain their drops as a different entity
                     // if (randCreature.creatureId !== 'GroupDropManager') {
@@ -1380,7 +1382,7 @@ const morphObject = (object, config, newObject, map) => {
     if (map.includes('Area') && infoType === InfoType.Creature && object.activityTime == ActivityTimes.Allday)
         object.activityTime = ActivityTimes.Daytime;
 
-    mutateAIProperties(object, newObject, infoType);
+    mutateAIProperties(object, newObject, infoType, object.creatureId);
     randomiseObjectDrop(object, newObject, config, map);
     assignRebirth(object, config, previousInfoType);
     return infoType;

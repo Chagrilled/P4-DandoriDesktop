@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { Menu, Item, Separator, Submenu } from 'react-contexify';
-import { RebirthTypes, DefaultActorSpawnerDrop, InfoType, DefaultPortalTrigger, GateMiddleBytes, defaultBaseAIProperties, defaultCreatureAI, ActivityTimes, ActorPlacementCondition, ExploreRateTargetType } from '../../api/types';
+import { RebirthTypes, DefaultActorSpawnerDrop, InfoType, DefaultPortalTrigger, GateMiddleBytes, defaultBaseAIProperties, defaultCreatureAI, ActivityTimes, ActorPlacementCondition, ExploreRateTargetType, defaultTreasureAI } from '../../api/types';
 import { deepCopy, getAvailableTimes } from '../../utils';
 import { MapContext } from './MapContext';
 
@@ -97,6 +97,7 @@ export const MapMenu = ({ }) => {
             newMarker.rebirthType = RebirthTypes.RebirthLater;
             newMarker.rebirthInterval = 4;
         }
+        if (id === Treasure) newMarker.AIProperties = deepCopy(defaultTreasureAI);
 
         setMapData({
             ...mapMarkerData,

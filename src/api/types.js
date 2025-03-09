@@ -376,6 +376,11 @@ export const editableNumberFields = [
     "rebirthInterval",
     "roll",
     "searchAreaOtakaraCarryRadius",
+    "searchBoundX",
+    "searchBoundY",
+    "searchBoundZ",
+    "stateChangeDelayTime",
+    "guruguruDist",
     "snapHeight",
     "snapRadius",
     "spawnNum",
@@ -400,15 +405,19 @@ export const editableBools = [
     "bAppearSearch",
     "bAlreadyAppear",
     "bAutoSpawnMush",
+    "bCanFall",
+    "bChangeCrushImpactMoveDir",
     "bCreateIcicle",
+    "bDDBSurvivorLeaf",
     "bDeactivateByExit",
     "bDisableAirWall",
     "bDisableIsFlareGuard",
     "bDisableSoftEdge",
     "bDisableSink",
     "bDisappearVisibleOff",
-    "bEnableFreezeBothDrop",
+    "bEnableChangeInitTransformAfterFalling",
     "bEnableCustomSoftEdge",
+    "bEnableFreezeBothDrop",
     "bEnableOptionalPoint",
     "bFalled",
     "bFixCautionAreaCenter",
@@ -418,6 +427,8 @@ export const editableBools = [
     "bOverrideInitLocation",
     "bPatrolType",
     "bRotateDefault",
+    "bReceiveCrushImpactEvent",
+    "bSendCrushImpactEvent",
     "bSetCrystal",
     "bSplineWalkStart",
     "bSplineType",
@@ -453,6 +464,7 @@ export const editableStrings = [
     "linkNarrowSpaceBoxID",
     "linkWarpTriggerID",
     "navMeshTriggerID",
+    "npcInfoKey",
     "routeTag",
     "searchDistance?",
     "searchTagName",
@@ -582,16 +594,16 @@ export const Categories = [
         ]
     },
     {
-        label: "Gimmicks",
-        markers: [
-            InfoType.Gimmick
-        ]
-    },
-    {
         label: "Objects",
         markers: [
             InfoType.Object,
             InfoType.WorkObject
+        ]
+    },
+    {
+        label: "Gimmicks",
+        markers: [
+            InfoType.Gimmick
         ]
     },
     {
@@ -724,6 +736,24 @@ export const defaultAIProperties = {
         Y: 0.0,
         Z: 0.0
     }
+};
+
+export const defaultTreasureAI = {
+    bChangeCrushImpactMoveDir: false,
+    bReceiveCrushImpactEvent: false,
+    bSendCrushImpactEvent: false,
+    crushImpactMoveRot: defaultVector,
+    bDDBSurvivorLeaf: false,
+    bEnableOptionalPoint: false,
+    optionalPointOffsets: [],
+    optionalPointPriorityInfoSize: 0,
+    bCanFall: false,
+    bEnableChangeInitTransformAfterFalling: false,
+    rotation: {
+        ...defaultVector,
+        W: 1
+    },
+    translation: defaultVector
 };
 
 export const defaultCreatureAI = {
@@ -2057,3 +2087,11 @@ export const Messages = {
 
 export const ObjectAI_STRING_INDEX = 115; // Index + offset where the 3 strings start in short generator
 export const ObjectAI_END_INDEX = 155; // Index + offset where the AI_GEN_VAR starts if all 3 ID strings are None
+
+export const nonRepeatingSplines = [
+    "SplineFutakuchiRock",
+    "SplineFutakuchiAdultRock",
+    "SplineHageDamagumo",
+    "SplineDamagumoCanStep",
+    "SplineDodoro"
+];

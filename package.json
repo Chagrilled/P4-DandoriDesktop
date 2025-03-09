@@ -1,7 +1,7 @@
 {
     "name": "p4-dandoridesktop",
     "productName": "p4-dandoridesktop",
-    "version": "1.5.6",
+    "version": "1.5.7",
     "description": "A Pikmin 4 Editor",
     "main": ".webpack/main",
     "icon": "src/images/icon/icon.ico",

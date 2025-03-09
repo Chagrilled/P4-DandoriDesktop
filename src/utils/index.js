@@ -175,12 +175,13 @@ export const deepCopy = obj => {
 
 // This function has become huge and warrants its own file now
 // Takes in the entity object and fetches defaults for a creature/infoType passed in
-export const mutateAIProperties = (creature, newCreatureId, newInfoType = '') => {
+export const mutateAIProperties = (creature, newCreatureId, newInfoType = '', oldCreatureId) => {
     const aiEnts = ['Camp'];
 
     entityDefaults.forEach(o => {
         aiEnts.push(...o.ents);
-        if (o.ents.some(e => newCreatureId.includes(e)) || o.infoTypes?.some(e => newInfoType.includes(e))) { // There was an && !creature.AIProperties here, I forget why
+
+        if (o.ents.some(e => newCreatureId.includes(e) && !oldCreatureId.includes(e)) || o.infoTypes?.some(e => newInfoType.includes(e))) { // There was an && !creature.AIProperties here, I forget why
             ["AIProperties", "ActorParameter", "NavMeshTrigger", "WaterTrigger"].forEach(prop => {
                 if (o[prop]) creature[prop] = { ...deepCopy(o[prop]) };
                 else delete creature[prop];
@@ -198,7 +199,7 @@ export const mutateAIProperties = (creature, newCreatureId, newInfoType = '') =>
             if (o.ents.some(e => newCreatureId === e)) {
                 creature.AIProperties = {
                     ...creature.AIProperties,
-                    ...o.AIProperties
+                    ...deepCopy(o.AIProperties)
                 };
             }
         });

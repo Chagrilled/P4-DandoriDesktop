@@ -90,10 +90,11 @@ export const getConstructAIStaticFunc = (creatureId, infoType) => {
     if (creatureId === 'Branch_Long') return constructBranchAI;
     if (creatureId.startsWith('DownWall')) return constructDownWallAI;
     if (creatureId === 'String') return constructStringAI;
+    if (infoType === InfoType.Treasure || creatureId.includes('Survivor')) return constructOtakaraAI;
     return defaultAI;
 };
 
-export const getConstructDynamicFunc = (creatureId) => {
+export const getConstructDynamicFunc = (creatureId, infoType) => {
     if (creatureId.includes('Valve')) return constructValveAI_Dynamic;
     if (creatureId.includes('Tateana')) return constructTateanaAI_Dynamic;
     if (['HikariStation', 'BridgeStation', 'KinkaiStation'].some(e => creatureId === e)) return constructPileAI_Dynamic;
@@ -102,6 +103,8 @@ export const getConstructDynamicFunc = (creatureId) => {
     if (creatureId.startsWith('SwampBox')) return constructWaterBoxAI_Dynamic;
     if (creatureId === 'AmeBozu') return constructAmeBozuAI_Dynamic;
     if (creatureId === 'String') return constructStringAI_Dynamic;
+    if (infoType === InfoType.Treasure) return constructOtakaraAI_Dynamic;
+    if (creatureId.includes('Survivor')) return constructSurvivorAI_Dynamic;
     return (ai) => ai;
 };
 
@@ -427,7 +430,7 @@ const constructValveAI_Dynamic = (aiDynamic, { AIProperties }) => {
     ];
 };
 
-const constructValveAI = (_, aiStatic, { AIProperties, transform }) => {
+const constructValveAI = (_, aiStatic, { AIProperties }) => {
     let index = 163;
     let bytes = aiStatic.slice(0, index);
     writeAsciiString(bytes, AIProperties.valveID);
@@ -443,9 +446,10 @@ const constructValveActorParam = (_, { demoBindName }) => {
 };
 
 //#region Base
-const constructBaseAI = (_, aiStatic, { AIProperties }) => {
+const constructBaseAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
     // push the unknown chunk on
-    const bytes = [...areaBaseGenVarBytes];
+    let index = ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion);
+    let bytes = aiStatic.slice(0, index);
 
     bytes.push(parseInt(AIProperties.baseCampId), 0, 0, 0);
     bytes.push(AIProperties.bDeactivateByExit ? 1 : 0, 0, 0, 0);
@@ -691,6 +695,66 @@ const constructPotAI = ({ parsed }, aiStatic, { inventoryEnd }) => {
         ({ inventoryEnd } = parsePotDrops(aiStatic));
     }
     return [...bytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)];
+};
+
+//#region Otakara 
+const constructOtakaraAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
+    const bytes = [
+        aiStatic[0], 0, 0, 0,
+        AIProperties.bChangeCrushImpactMoveDir ? 1 : 0, 0, 0, 0,
+        AIProperties.bReceiveCrushImpactEvent ? 1 : 0, 0, 0, 0,
+        AIProperties.bSendCrushImpactEvent ? 1 : 0, 0, 0, 0,
+        ...floatBytes(parseFloat(AIProperties.crushImpactMoveRot.X)),
+        ...floatBytes(parseFloat(AIProperties.crushImpactMoveRot.Y)),
+        ...floatBytes(parseFloat(AIProperties.crushImpactMoveRot.Z)),
+        0, 0, 0, 0, 0, // there are 5 here
+        AIProperties.bDDBSurvivorLeaf ? 1 : 0, 0, 0, 0,
+        AIProperties.bEnableOptionalPoint ? 1 : 0, 0, 0, 0,
+    ];
+
+    if (AIProperties.bEnableOptionalPoint) {
+        bytes.push(AIProperties.optionalPointOffsets.length, 0, 0, 0);
+        AIProperties.optionalPointOffsets.forEach(offset => {
+            bytes.push(...floatBytes(offset.X));
+            bytes.push(...floatBytes(offset.Y));
+            bytes.push(...floatBytes(offset.Z));
+        });
+    }
+    else bytes.push(0, 0, 0, 0);
+
+    bytes.push(
+        AIProperties.optionalPointPriorityInfoSize, 0, 0, 0,
+        ...Array(AIProperties.optionalPointPriorityInfoSize * 4).fill(0),
+    );
+
+    return bytes;
+};
+
+const constructSurvivorAI_Dynamic = (aiDynamic, { AIProperties }) => {
+    const bytes = [];
+    console.log(AIProperties);
+    writeAsciiString(bytes, AIProperties.npcInfoKey);
+    bytes.push(...constructOtakaraAI_Dynamic(aiDynamic.slice(aiDynamic[0] + 4, aiDynamic.length), { AIProperties }));
+    return bytes;
+};
+
+const constructOtakaraAI_Dynamic = (aiDynamic, { AIProperties }) => {
+    console.log(AIProperties);
+    console.log(AIProperties.rotation);
+    console.log(AIProperties.rotation.X);
+    console.log("Otakara dynamic");
+    return [
+        AIProperties.bCanFall ? 1 : 0, 0, 0, 0,
+        AIProperties.bEnableChangeInitTransformAfterFalling ? 1 : 0, 0, 0, 0,
+        ...floatBytes(parseFloat(AIProperties.rotation.X)),
+        ...floatBytes(parseFloat(AIProperties.rotation.Y)),
+        ...floatBytes(parseFloat(AIProperties.rotation.Z)),
+        ...floatBytes(parseFloat(AIProperties.rotation.W)),
+        ...floatBytes(parseFloat(AIProperties.translation.X)),
+        ...floatBytes(parseFloat(AIProperties.translation.Y)),
+        ...floatBytes(parseFloat(AIProperties.translation.Z)),
+        ...aiDynamic.slice(9 * 4, aiDynamic.length) // get everything after what we know
+    ];
 };
 
 //#region ActorSpawner
@@ -1037,7 +1101,7 @@ const constructFutakuchiAdultAI = AIProperties => {
     return bytes;
 };
 
-const constructAmeBozuAI_Dynamic = (AIProperties) => [
+const constructAmeBozuAI_Dynamic = (aiDynamic, { AIProperties }) => [
     ...Array(20).fill(0),
     AIProperties.lifeTire ? 1 : 0, 0, 0, 0
 ];

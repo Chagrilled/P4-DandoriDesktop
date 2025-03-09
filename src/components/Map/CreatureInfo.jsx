@@ -9,6 +9,7 @@ import { MarkerIcon } from '../Icon';
 const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId, index) => {
     console.log("updateObj", obj);
     let type = obj.infoType;
+    const oldCreatureId = obj.creatureId
     if (!type) {
         ({ type } = findMarkerById(ddId, mapMarkerData));
     }
@@ -18,7 +19,7 @@ const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId, index
             deepUpdate(creature, path, value, index);
 
             if (path === 'creatureId') {
-                mutateAIProperties(creature, value);
+                mutateAIProperties(creature, value, '', oldCreatureId);
             }
         }
         return { ...creature };
@@ -46,6 +47,9 @@ const deleteArrayItem = (mapMarkerData, setMapData, obj, path, ddId, index) => {
 
 const deepUpdate = (obj, path, value, index) => {
     console.log(obj, path, value, index);
+    // Keep numbers as numbers, for some reason they get stringified
+    if (!isNaN(parseFloat(value))) value = parseFloat(value);
+
     if (typeof path == 'string')
         return deepUpdate(obj, path.split('.'), value, index);
     else if (path.length == 1 && value !== undefined) {

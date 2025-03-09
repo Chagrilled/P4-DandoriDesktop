@@ -39,7 +39,7 @@ export const Maps = () => {
                     icon: '❌',
                     style: {
                         color: '#bd2626',
-                        'max-width': 'fit-content'
+                        maxWidth: 'fit-content'
                     }
                 });
             }

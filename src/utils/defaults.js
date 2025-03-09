@@ -1,4 +1,4 @@
-import { InfoType, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, DefaultActorSpawnerDrop, WaterBoxTextures, AmbientSoundIDs, defaultVector, defaultSplinePoint, RockModes } from "../api/types";
+import { InfoType, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, DefaultActorSpawnerDrop, WaterBoxTextures, AmbientSoundIDs, defaultVector, defaultSplinePoint, RockModes, defaultTreasureAI } from "../api/types";
 
 export const entityDefaults = [
     {
@@ -233,6 +233,18 @@ export const entityDefaults = [
         AIProperties: {
             bFalled: false,
             fallHeight: 20
+        }
+    },
+    {
+        infoTypes: [InfoType.Treasure],
+        ents: [],
+        AIProperties: defaultTreasureAI
+    },
+    {
+        ents: ["Survivor"],
+        AIProperties: {
+            npcInfoKey: "SVSleep00",
+            ...defaultTreasureAI
         }
     }
 ];

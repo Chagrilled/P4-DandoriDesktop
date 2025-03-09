@@ -4,20 +4,19 @@ import { defaults as defaultControls } from 'ol/control';
 import { getCenter } from 'ol/extent';
 import PointerInteraction from 'ol/interaction/Pointer';
 import { Select, defaults as defaultInteractions, Modify } from 'ol/interaction';
-import { Style, Icon } from 'ol/style';
+import { Style, Icon, Stroke, Fill } from 'ol/style';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import { Point } from 'ol/geom';
+import { fromCircle } from 'ol/geom/Polygon';
+import { Point, LineString, Circle as geomCircle } from 'ol/geom';
 import { getMapData } from "../../api/MapAPI";
 import { getImageLayersForMap, getProjectionForMap } from '../../api/getImageLayers';
 import { useContextMenu } from 'react-contexify';
 import { MapMenu } from './MapMenu';
 import { getFeatureLayers } from './FeatureStyles';
-// import { Style, Stroke, Fill, Circle } from 'ol/style';
-// import VectorLayer from 'ol/layer/Vector';
-// import VectorSource from 'ol/source/Vector';
 import { MapContext } from './MapContext';
 import { quat, vec3 } from 'gl-matrix';
+import { nonRepeatingSplines } from '../../api/types';
 
 export const MapContainer = ({
     onSelect,
@@ -103,7 +102,8 @@ export const MapContainer = ({
         map.setLayers([
             ...imageLayers,
             ...visibleLayers,
-            ...getSplinePointLayer(markerRef.current)
+            ...getSplinePointLayer(markerRef.current),
+            ...getRadiusLayer(markerRef.current)
         ]);
         setMarkerLayers(markerLayers);
         setMapLayers([
@@ -182,49 +182,11 @@ export const MapContainer = ({
 
         map.setLayers([
             ...mapLayers,
-            ...getSplinePointLayer(data)
+            ...getSplinePointLayer(data),
+            ...getRadiusLayer(data)
         ]);
 
-        // Tried to add a circle to GDM/ASs and it just didn't show
-        // console.log(data);
-        // if (!data) return;
-        // if (['GroupDropManager', "ActorSpawner"].includes(data.creatureId)) {
-        //     const radius = data.groupingRadius || data.drops.parsed[0].sphereRadius;
-        //     console.log(firstFeature.getGeometry().getCoordinates())
-        //     const layer = new VectorLayer({
-        //         source: new VectorSource({
-        //             features: [
-        //                 new Feature({
-        //                     // geometry: new Circle(firstFeature.getGeometry().getCoordinates(), radius)
-        //                 })
-        //             ]
-        //         }),
-        //         style: [
-        //             new Style({
-        //                 image: new Circle({
-        //                     radius,
-        //                     fill: null,
-        //                     stroke: new Stroke({
-        //                         color: 'rgba(255,0,0,0.9)',
-        //                         width: 2
-        //                     })
-        //                 }),
-        //                 stroke: new Stroke({
-        //                     color: 'blue',
-        //                     width: 3
-        //                 }),
-        //                 fill: new Fill({
-        //                     color: 'rgba(0, 0, 255, 0.1)'
-        //                 })
-        //             })
-        //         ],
-        //         zIndex: 10000
-        //     });
-
-        //     map.addLayer(layer);
-        //     console.log("added layer")
-        //     console.log(map.getLayers())
-        // }
+        console.log(data);
     }, [onSelect, mapLayers]);
 
     const handleAddEntity = useCallback((evt) => {
@@ -277,7 +239,7 @@ export const MapContainer = ({
         for (let i = 0; i < points.length; i++) {
             const point = points[i]?.outVal || points[i];
             const child = vec3.fromValues(point.X, point.Y, point.Z);
-            // AI splines like in MoveFloors are relative, but spline entities like SplineKumaChappy are absolute
+
             let absoluteCoords = rotateChildAroundParent(child, parentVec, parentQuat);
 
             const [x, y] = absoluteCoords;
@@ -327,53 +289,35 @@ export const MapContainer = ({
             }),
             zIndex: 1001
         });
+        const layers = [layer];
 
+        if (!['Geyser', 'Branch_Long'].includes(ent.creatureId)) {
+            // Draw the actual curve
+            const curveStyle = new Style({
+                stroke: new Stroke({
+                    color: 'yellow',
+                    width: 3
+                })
+            });
+            const curveFeature = new Feature(bezierToLineString(points, parentVec, parentQuat, ent.creatureId));
+            curveFeature.setStyle(curveStyle);
+            const vectorLayer = new VectorLayer({
+                source: new VectorSource({
+                    features: [curveFeature]
+                }),
+                zIndex: 1002
+            });
+            layers.push(vectorLayer);
+        }
 
+        // Make each spline control point draggable
         const modifyFeature = new Modify({
             features: new Collection(layer.getSource().getFeatures())
         });
-        modifyFeature.on('modifyend', evt => {
-            const data = evt.features.array_[0].values_.data;
-            const parentEntity = mapMarkerData[data.infoType].find(e => e.ddId === data.ddId);
-            let splineOrVector = parentEntity[data.splineObject][data.splineKey];
-            const globalVec = vec3.fromValues(evt.mapBrowserEvent.coordinate[1], evt.mapBrowserEvent.coordinate[0], parentEntity.transform.translation.Z);
-
-            if (Array.isArray(splineOrVector)) {
-                // We've got splinePoints, not the geyser
-                const point = splineOrVector[data.index];
-                const localVec = globalToLocalPosition(globalVec, data.parentVec, data.parentQuat);
-                point.outVal = {
-                    X: localVec[0],
-                    Y: localVec[1],
-                    Z: point.outVal.Z
-                };
-            } else {
-                const localVec = globalToLocalPosition(globalVec, data.parentVec, data.parentQuat);
-                // Modify the object reference we've got - don't reassign the var to a new one
-                splineOrVector = {
-                    X: localVec[0],
-                    Y: localVec[1],
-                    Z: splineOrVector.Z
-                };
-            };
-
-            const newEnt = {
-                ...parentEntity,
-                [data.splineObject]: {
-                    ...parentEntity[data.splineObject],
-                    [data.splineKey]: splineOrVector
-                }
-            };
-            // Makes sure the next layer rebuild passes the updated marker into the spline func again
-            markerRef.current = newEnt;
-            setMapData({
-                ...mapMarkerData,
-                [data.infoType]: mapMarkerData[data.infoType].map(marker => marker.ddId !== data.ddId ? marker : newEnt)
-            });
-        });
+        modifyFeature.on('modifyend', splineModifyCallback);
 
         map.addInteraction(modifyFeature);
-        return [layer];
+        return layers;
     };
 
     const globalToLocalPosition = (globalVec, parentVec, parentQuat) => {
@@ -396,6 +340,119 @@ export const MapContainer = ({
         vec3.add(finalPos, rotatedLocalPos, parentPos);
 
         return finalPos;
+    };
+
+    const bezierPoint = (t, p0, p1, p2, p3) => ({
+        X: (1 - t) ** 3 * p0.X + 3 * (1 - t) ** 2 * t * p1.X + 3 * (1 - t) * t ** 2 * p2.X + t ** 3 * p3.X,
+        Y: (1 - t) ** 3 * p0.Y + 3 * (1 - t) ** 2 * t * p1.Y + 3 * (1 - t) * t ** 2 * p2.Y + t ** 3 * p3.Y,
+        Z: (1 - t) ** 3 * p0.Z + 3 * (1 - t) ** 2 * t * p1.Z + 3 * (1 - t) * t ** 2 * p2.Z + t ** 3 * p3.Z
+    });
+
+    const bezierToLineString = (points, parentVec, parentQuat, creatureId) => {
+        const allPoints = [];
+        for (let i = 0; i < points.length; i++) {
+            // We don't want to wrap around on some splines
+            if (nonRepeatingSplines.includes(creatureId) && i == points.length - 1) continue;
+
+            const p = points[i].outVal;
+            const nextP = points[(i + 1) % points.length].outVal;
+
+            const child = vec3.fromValues(p.X, p.Y, p.Z);
+            const nextChild = vec3.fromValues(nextP.X, nextP.Y, nextP.Z);
+            const [x, y, z] = rotateChildAroundParent(child, parentVec, parentQuat);
+            const [x2, y2, z2] = rotateChildAroundParent(nextChild, parentVec, parentQuat);
+
+            const p0 = { X: x, Y: y, Z: z };
+            const p3 = { X: x2, Y: y2, Z: z2 };
+            const p1 = {
+                X: p0.X + points[i].leaveTangent.X,
+                Y: p0.Y + points[i].leaveTangent.Y,
+                Z: p0.Z + points[i].leaveTangent.Z
+            };
+            const p2 = {
+                X: p3.X - points[(i + 1) % points.length].arriveTangent.X,
+                Y: p3.Y - points[(i + 1) % points.length].arriveTangent.Y,
+                Z: p3.Z - points[(i + 1) % points.length].arriveTangent.Z
+            };
+
+            for (let t = 0; t <= 1; t += 0.02) {
+                allPoints.push(bezierPoint(t, p0, p1, p2, p3));
+            }
+        }
+        return new LineString(allPoints.map(p => [p.Y, p.X]));
+    };
+
+    const splineModifyCallback = (evt) => {
+        const data = evt.features.array_[0].values_.data;
+        const parentEntity = mapMarkerData[data.infoType].find(e => e.ddId === data.ddId);
+        let splineOrVector = parentEntity[data.splineObject][data.splineKey];
+        const globalVec = vec3.fromValues(evt.mapBrowserEvent.coordinate[1], evt.mapBrowserEvent.coordinate[0], parentEntity.transform.translation.Z);
+
+        if (Array.isArray(splineOrVector)) {
+            // We've got splinePoints, not the geyser
+            const point = splineOrVector[data.index];
+            const localVec = globalToLocalPosition(globalVec, data.parentVec, data.parentQuat);
+            point.outVal = {
+                X: localVec[0],
+                Y: localVec[1],
+                Z: point.outVal.Z
+            };
+        } else {
+            const localVec = globalToLocalPosition(globalVec, data.parentVec, data.parentQuat);
+            // Modify the object reference we've got - don't reassign the var to a new one
+            splineOrVector = {
+                X: localVec[0],
+                Y: localVec[1],
+                Z: splineOrVector.Z
+            };
+        };
+
+        const newEnt = {
+            ...parentEntity,
+            [data.splineObject]: {
+                ...parentEntity[data.splineObject],
+                [data.splineKey]: splineOrVector
+            }
+        };
+        // Makes sure the next layer rebuild passes the updated marker into the spline func again
+        markerRef.current = newEnt;
+        setMapData({
+            ...mapMarkerData,
+            [data.infoType]: mapMarkerData[data.infoType].map(marker => marker.ddId !== data.ddId ? marker : newEnt)
+        });
+    };
+
+    const getRadiusLayer = data => {
+        if (!['GroupDropManager', "ActorSpawner"].includes(data?.creatureId)) return [];
+
+        const radius = data.groupingRadius || data.drops.parsed[0].sphereRadius;
+        const yx = [data.transform.translation.Y, data.transform.translation.X];
+
+        const circleGeom = fromCircle(new geomCircle(yx, radius));
+        const feature = new Feature({
+            geometry: circleGeom
+        });
+        const style = new Style({
+            stroke: new Stroke({
+                color: 'yellow',
+                width: 3
+            }),
+            fill: new Fill({
+                color: 'rgba(200, 200, 0, 0.2)'
+            })
+        });
+        feature.setStyle(style);
+
+        const layer = new VectorLayer({
+            source: new VectorSource({
+                features: [
+                    feature
+                ]
+            }),
+            zIndex: 10005
+        });
+
+        return [layer];
     };
 
     return <div className='w-full h-full MapContainer__container'>
