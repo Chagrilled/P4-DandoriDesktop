@@ -137,7 +137,7 @@ export const shouldIconRotate = creatureId => {
     if (creatureId.includes('Switch')) return true;
     if (creatureId.includes('Slope')) return true;
     if (creatureId.includes('PullNekko')) return true;
-    if (['DownWall', 'Conveyor265uu', 'SpaceBus'].some(asset => asset === creatureId)) return true;
+    if (['DownWall', 'Conveyor265uu', 'SpaceBus', 'ZiplineSplineMesh', 'ZiplineAnother'].some(asset => asset === creatureId)) return true;
 };
 
 export const findSequenceStartIndex = (array, offset, sequence) => {

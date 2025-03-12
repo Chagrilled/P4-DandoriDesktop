@@ -158,6 +158,12 @@ export const ExploreRateTargetType = {
     TekiDay: "EExploreRateTargetType::TekiDay"
 };
 
+export const QueenAIType = {
+    0: "None",
+    1: "Born",
+    3: "FallBaby"
+};
+
 export const AmbientSoundIDs = [
     "PondBig01",
     "PongBig02",
@@ -321,6 +327,7 @@ export const RockModes = {
 
 //#region UI Numbers
 export const editableNumberFields = [
+    "acceleration",
     "afterMaxIcePikmins",
     "attackLoopWaitSecMin",
     "attackLoopWaitSecMax",
@@ -361,6 +368,8 @@ export const editableNumberFields = [
     "mabikiNumFromFollow",
     "maxFallDownLength",
     "maxIcePikmins",
+    "minMoveSpeed",
+    "maxMoveSpeed",
     "moveSpeed",
     "noSpawnRadius",
     "numDig",
@@ -374,6 +383,7 @@ export const editableNumberFields = [
     "portalNumber",
     "radius",
     "rebirthInterval",
+    "refObstacleGenID",
     "roll",
     "searchAreaOtakaraCarryRadius",
     "searchBoundX",
@@ -386,6 +396,9 @@ export const editableNumberFields = [
     "spawnNum",
     "spawnRadius",
     "sphereRadius",
+    "spawnTimer",
+    "spawnTimerAfterDemo",
+    "startTargetSpeed",
     "stopQueenDistXY",
     "toPortalId",
     "unknownInt",
@@ -396,7 +409,23 @@ export const editableNumberFields = [
     "waterLevelChangeTime",
     "weight",
     "workNum",
-    "yaw"
+    "yaw",
+    "jumpForceXY",
+    "jumpForceZ",
+    "manualWorkNum",
+    "ropeAng",
+    "rockBallHeightMin",
+    "rockBallHeightMax",
+    "rockBallSpawnRadius",
+    "rockBallSpawnOffsetY",
+    "rockBallHeightMinInOppositeSide",
+    "rockBallHeightMaxInOppositeSide",
+    "rockBallSpawnRadiusInOppositeSide",
+    "bornSpeed",
+    "childSearchRadius",
+    "fallBabySpawnRadius",
+    "fallBabySpawnNum",
+    "flickDistXY"
 ];
 
 //#region UI Bools
@@ -424,6 +453,7 @@ export const editableBools = [
     "bInitialPortalMove",
     "bMabikiPongashi",
     "bNoBurrowType",
+    "bOnceDodoroAppearDemo",
     "bOverrideInitLocation",
     "bPatrolType",
     "bRotateDefault",
@@ -435,6 +465,7 @@ export const editableBools = [
     "bSprinklerOnly",
     "bStraddle",
     "bUniqueLife",
+    "bUseParentDropInfo",
     "bUseSnapHeight",
     "bUseSunMeter",
     "bWindLong",
@@ -468,6 +499,8 @@ export const editableStrings = [
     "routeTag",
     "searchDistance?",
     "searchTagName",
+    "splineRoutePathTag",
+    "subSplineRoutePathTag",
     "switchID",
     "toLevelName",
     "toSubLevelName",
@@ -485,6 +518,7 @@ export const arrayStrings = [
 export const selectFields = {
     pongashiChangeColorFromFollow: Object.values(PikminTypes),
     pikminType: Object.values(PikminTypes),
+    colour: Object.values(PikminTypes),
     groupIdlingType: Object.values(PikminPlayType),
     rebirthType: Object.values(RebirthTypes),
     portalType: Object.values(PortalTypes),
@@ -498,7 +532,8 @@ export const selectFields = {
     radarMapWBChangeDistTexture: WaterBoxTextures,
     ambientSoundId: AmbientSoundIDs,
     interpMode: Object.values(InterpModes),
-    rockMode: Object.values(RockModes)
+    rockMode: Object.values(RockModes),
+    queenAIType: Object.values(QueenAIType)
 };
 
 export const NightMaps = {
@@ -895,8 +930,7 @@ export const CreatureNames = {
     BikkuriKinoko: "Startle Spore",
     Billy: "Bearded Amprat",
     BokeNameko: "Puffstool",
-    BossInu: "Ancient Sirehound",
-    BossInu2: "Ancient Sirehound", // idk why this is
+    BossInu2: "Ancient Sirehound",
     Chappy: "Red Bulborb",
     Chaser: "Moss",
     DamagumoCannon: "Man-At-Legs",
@@ -1027,7 +1061,9 @@ export const CreatureNames = {
     YellowShijimi: "Yellow Spectralids",
     YukiFutakuchi: "Arctic Cannon Larva",
     YukiFutakuchiAdult: "Arctic Cannon Beetle",
-    Yukimushi: "Snowfake Fluttertail"
+    Yukimushi: "Snowfake Fluttertail",
+    BossInuPoisonArea: "(ActorSpawner drop) funny gloom pool",
+    IceFrogIce: "(ActorSpawner drop) IceFrog pool",
 };
 
 //#region Treasure Names
@@ -2085,13 +2121,15 @@ export const Messages = {
     NONBLOCKING: 'nonBlockingNotify'
 };
 
-export const ObjectAI_STRING_INDEX = 115; // Index + offset where the 3 strings start in short generator
-export const ObjectAI_END_INDEX = 155; // Index + offset where the AI_GEN_VAR starts if all 3 ID strings are None
+export const ObjectAI_STRING_INDEX = 115; // Index without offset where the 3 strings start in short generator
+export const ObjectAI_END_INDEX = 155; // Index without offset where the AI_GEN_VAR starts if all 3 ID strings are None
 
 export const nonRepeatingSplines = [
     "SplineFutakuchiRock",
     "SplineFutakuchiAdultRock",
     "SplineHageDamagumo",
     "SplineDamagumoCanStep",
-    "SplineDodoro"
+    "SplineDodoro",
+    "ZiplineSplineMesh",
+    "ZiplineAnother"
 ];

@@ -41,6 +41,7 @@ The whackier you go with the settings, the less stable you should expect the gam
 
 ### 🪙 Treasures
 - [Randomise Treasures](#randomise-treasures)
+- [Retain OST Onions](#retain-ost-onions)
 
 ### 🏺 Objects
 - [Randomise Portals](#randomise-portals)
@@ -229,6 +230,10 @@ ActorSpawners that are infinite-enabled have a delay between each spawn. This is
 ### Randomise Treasures
 
 Treasures will randomise into other treasures. Duplicate vanilla treasures are not preserved - each treasure randomised is removed from the pool until it is empty, at which point it will reset.
+
+### Retain OST Onions
+
+Ensures the first yellow/blue onions in OST stay as they are if [Randomise Onions](#randomise-other-onions) is on. OST CAN sometimes be completed without, depending on the pikmin combos you get or with some good running throws to get around boxes/things on ledges.
 
 ## Objects
 

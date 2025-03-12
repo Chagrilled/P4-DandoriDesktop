@@ -1,4 +1,4 @@
-import { InfoType, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, DefaultActorSpawnerDrop, WaterBoxTextures, AmbientSoundIDs, defaultVector, defaultSplinePoint, RockModes, defaultTreasureAI } from "../api/types";
+import { InfoType, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, DefaultActorSpawnerDrop, WaterBoxTextures, AmbientSoundIDs, defaultVector, defaultSplinePoint, RockModes, defaultTreasureAI, PikminTypes, QueenAIType } from "../api/types";
 
 export const entityDefaults = [
     {
@@ -246,6 +246,40 @@ export const entityDefaults = [
             npcInfoKey: "SVSleep00",
             ...defaultTreasureAI
         }
+    },
+    {
+        ents: ["Pellet"],
+        AIProperties: {
+            colour: PikminTypes[0]
+        }
+    },
+    {
+        ents: ["RopeFishing"],
+        AIProperties: {
+            jumpForceXY: 300,
+            jumpForceZ: 300,
+            ropeAng: -30,
+            manualWorkNum: 10
+        }
+    },
+    {
+        ents: ["ZiplineSplineMesh", 'ZiplineAnother'],
+        AIProperties: {
+            goalOffset: defaultVector,
+            startTargetSpeed: 150,
+            maxMoveSpeed: 200,
+            minMoveSpeed: 100,
+            acceleration: 600,
+            splinePoints: [defaultSplinePoint]
+        }
+    },
+    {
+        ents: ["PressFloor"],
+        AIProperties: {
+            waterBoxId: "press000",
+            createNavBoxRange: defaultVector,
+            createNavBoxOffset: defaultVector
+        }
     }
 ];
 
@@ -388,6 +422,35 @@ export const creatureDefaults = [
             bPatrolType: false,
             bNoBurrowType: false,
             searchAreaTag: "BigUjinkoRootPoint"
+        }
+    },
+    {
+        ents: ["DodoroEgg"],
+        AIProperties: {
+            splineRoutePathTag: "DodoroRoutePoint010",
+            subSplineRoutePathTag: "GsplineDodoro_test",
+            spawnTimer: 60,
+            bUseParentDropInfo: true,
+            bOnceDodoroAppearDemo: false,
+            spawnTimerAfterDemo: 0.1,
+            refObstacleGenID: -1
+        }
+    },
+    {
+        ents: ["Queen"],
+        AIProperties: {
+            queenAIType: QueenAIType[0],
+            rockBallHeightMin: 800,
+            rockBallHeightMax: 1100,
+            rockBallSpawnRadius: 150,
+            rockBallSpawnOffsetY: 200,
+            rockBallHeightMinInOppositeSide: 800,
+            rockBallSpawnRadiusInOppositeSide: 1100,
+            bornSpeed: 500,
+            childSearchRadius: 400,
+            fallBabySpawnRadius: 100,
+            fallBabySpawnNum: 10,
+            flickDistXY: 500
         }
     },
 ];

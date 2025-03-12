@@ -99,6 +99,13 @@ export const MapContainer = ({
             map.addInteraction(modifyFeature);
         });
 
+        // update generateRadius on the selected marker when layers rebuild
+        // this keeps the radius layer working if you modify it multiple times
+        if (markerRef.current?.ddId) {
+            const ent = mapMarkerData[markerRef.current?.infoType].find(e => e.ddId === markerRef.current?.ddId);
+            if (ent) markerRef.current.generateRadius = ent.generateRadius;
+        }
+
         map.setLayers([
             ...imageLayers,
             ...visibleLayers,
@@ -243,7 +250,7 @@ export const MapContainer = ({
             let absoluteCoords = rotateChildAroundParent(child, parentVec, parentQuat);
 
             const [x, y] = absoluteCoords;
-            const splineObject = ent.creatureId.includes('Spline') ? "ActorParameter" : "AIProperties";
+            const splineObject = ent.creatureId.startsWith('Spline') ? "ActorParameter" : "AIProperties";
             const splineKey = ['Geyser', 'Branch_Long'].includes(ent.creatureId) ? "navLinkRight" : "splinePoints";
 
             const feature = new Feature({
@@ -357,10 +364,8 @@ export const MapContainer = ({
             const p = points[i].outVal;
             const nextP = points[(i + 1) % points.length].outVal;
 
-            const child = vec3.fromValues(p.X, p.Y, p.Z);
-            const nextChild = vec3.fromValues(nextP.X, nextP.Y, nextP.Z);
-            const [x, y, z] = rotateChildAroundParent(child, parentVec, parentQuat);
-            const [x2, y2, z2] = rotateChildAroundParent(nextChild, parentVec, parentQuat);
+            const [x, y, z] = [p.X, p.Y, p.Z];
+            const [x2, y2, z2] = [nextP.X, nextP.Y, nextP.Z];
 
             const p0 = { X: x, Y: y, Z: z };
             const p3 = { X: x2, Y: y2, Z: z2 };
@@ -379,7 +384,11 @@ export const MapContainer = ({
                 allPoints.push(bezierPoint(t, p0, p1, p2, p3));
             }
         }
-        return new LineString(allPoints.map(p => [p.Y, p.X]));
+        return new LineString(allPoints.map(p => {
+            const child = vec3.fromValues(p.X, p.Y, p.Z);
+            const [x2, y2] = rotateChildAroundParent(child, parentVec, parentQuat);
+            return [y2, x2];
+        }));
     };
 
     const splineModifyCallback = (evt) => {
@@ -423,9 +432,10 @@ export const MapContainer = ({
     };
 
     const getRadiusLayer = data => {
-        if (!['GroupDropManager', "ActorSpawner"].includes(data?.creatureId)) return [];
+        if (!data || (!['GroupDropManager', "ActorSpawner"].includes(data?.creatureId) && data?.generateNum < 2)) return [];
 
-        const radius = data.groupingRadius || data.drops.parsed[0].sphereRadius;
+        const isGenerateRadius = !['GroupDropManager', "ActorSpawner"].includes(data?.creatureId);
+        let radius = isGenerateRadius ? data.generateRadius : data.groupingRadius || data.drops.parsed[0].sphereRadius;
         const yx = [data.transform.translation.Y, data.transform.translation.X];
 
         const circleGeom = fromCircle(new geomCircle(yx, radius));
@@ -434,7 +444,7 @@ export const MapContainer = ({
         });
         const style = new Style({
             stroke: new Stroke({
-                color: 'yellow',
+                color: isGenerateRadius ? 'white' : 'yellow',
                 width: 3
             }),
             fill: new Fill({

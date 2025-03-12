@@ -1,7 +1,6 @@
-import { InfoType, PikminTypes, PikminPlayType, PortalTypes, ValveWorkType, weirdAIEntities, InterpModes, RockModes } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, PortalTypes, ValveWorkType, weirdAIEntities, InterpModes, RockModes, ObjectAI_END_INDEX, QueenAIType } from '../api/types';
 import { findSequenceStartIndex, getObjectAIOffset } from '../utils';
 import { bytesToInt, getDisableSettings } from '../utils/bytes';
-import { NONE_BYTES } from './constructing';
 
 //#region Stocks
 const readAsciiString = (bytes, index) => {
@@ -70,6 +69,8 @@ export const getReadAIDynamicFunc = (creatureId, infoType) => {
     if (creatureId === 'String') return parseStringAI_Dynamic;
     if (infoType === InfoType.Treasure) return parseOtakaraAI_Dynamic;
     if (creatureId.includes('Survivor')) return parseSurvivorAI_Dynamic;
+    if (creatureId.startsWith('Pellet')) return parsePelletAI_Dynamic;
+
     return () => ({});
 };
 
@@ -114,6 +115,9 @@ export const getReadAIStaticFunc = (creatureId, infoType) => {
     if (creatureId.startsWith('DownWall')) return parseDownWallAI;
     if (creatureId === 'String') return parseStringAI;
     if (infoType === InfoType.Treasure || creatureId.includes('Survivor')) return parseOtakaraAI;
+    if (creatureId === 'RopeFishing') return parseRopeFishingAI;
+    if (['ZiplineSplineMesh', 'ZiplineAnother'].includes(creatureId)) return parseZiplineAI;
+    if (creatureId === 'PressFloor') return parsePressFloorAI;
     return () => ({ parsed: [] });
 };
 
@@ -151,6 +155,8 @@ export const getReadCreatureAIFunc = creatureId => {
     if (creatureId.startsWith('AmeBozu')) return parseAmeBozuAI;
     if (creatureId === 'Baby') return parseBabyAI;
     if (creatureId === 'BigUjinko') return parseBigUjinkoAI;
+    if (creatureId === 'DodoroEgg') return parseDodoroEggAI;
+    if (creatureId === 'Queen') return parseQueenAI;
     return () => { };
 };
 
@@ -443,9 +449,49 @@ const parseStringAI = (ai, generatorVersion) => {
 
 const parseStringAI_Dynamic = (ai) => ({ bFalled: ai[12] });
 
+//#region RopeFishing
+const parseRopeFishingAI = (ai, generatorVersion) => {
+    const offset = getObjectAIOffset(generatorVersion);
+    let index = ObjectAI_END_INDEX + offset;
+    return {
+        parsed: [],
+        AIProperties: {
+            jumpForceXY: readFloat(ai.slice(index, index += 4)),
+            jumpForceZ: readFloat(ai.slice(index, index += 4)),
+            ropeAng: readFloat(ai.slice(index, index += 4)),
+            manualWorkNum: bytesToInt(ai.slice(index, index + 4))
+        }
+    };
+};
+
+const parsePressFloorAI = (ai, generatorVersion) => {
+    const offset = getObjectAIOffset(generatorVersion);
+    let index = ObjectAI_END_INDEX + offset + 16;
+    const waterBoxId = readAsciiString(ai, index);
+    index += ai[index] + 4;
+
+    return {
+        parsed: [],
+        AIProperties: {
+            waterBoxId,
+            createNavBoxRange: {
+                X: readFloat(ai.slice(index, index += 4)),
+                Y: readFloat(ai.slice(index, index += 4)),
+                Z: readFloat(ai.slice(index, index += 4))
+            },
+            createNavBoxOffset: {
+                X: readFloat(ai.slice(index, index += 4)),
+                Y: readFloat(ai.slice(index, index += 4)),
+                Z: readFloat(ai.slice(index, index += 4))
+            }
+        }
+    };
+};
+
+
 //#region Geyser
 const parseGeyserAI = (ai, generatorVersion) => {
-    const offset = getObjectAIOffset(generatorVersion); // in 1 geyser there are 4 more bytes of ObjectAIParameter, all 0. No idea.
+    const offset = getObjectAIOffset(generatorVersion);
     let index = 155 + offset;
     const AIProperties = {
         bEnableCustomSoftEdge: ai[99 + offset],
@@ -554,6 +600,29 @@ const parseValveAI_Dynamic = ai => ({ piecePutNum: ai[12] });
 export const parseValveActorParam = actorParam => ({
     demoBindName: readAsciiString(actorParam, 0)
 });
+
+//#region Zipline
+const parseZiplineAI = (ai, generatorVersion) => {
+    let index = 155 + getObjectAIOffset(generatorVersion);
+    const AIProperties = {
+        goalOffset: {
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        },
+        startTargetSpeed: readFloat(ai.slice(index, index += 4)),
+        maxMoveSpeed: readFloat(ai.slice(index, index += 4)),
+        minMoveSpeed: readFloat(ai.slice(index, index += 4)),
+        acceleration: readFloat(ai.slice(index, index += 4))
+    };
+    index += 4; // 70.0 always here?
+    AIProperties.splinePoints = readSpline(ai.slice(index, ai.length)).splinePoints;
+
+    return {
+        parsed: [],
+        AIProperties
+    };
+};
 
 //#region Sprinkler
 const parseSprinklerAI = ai => {
@@ -822,17 +891,6 @@ const parseWarpAI = ai => {
 
 //#region Base
 const parseBaseAI = (ai, generatorVersion) => {
-    // let lastNoneIndex = 0;
-    // let loopIndex = 0;
-    // while (loopIndex != -1) {
-    //     // We want to find the last None string in the bytes, because it's AFTER the 4 bytes
-    //     // that _sometimes_ exists, thus change length and placement of things
-    //     // we could parse the array and see if we get a None early, or we can just seek to the last None,
-    //     // and +14 to get to BaseCampId and the parameters we actually want. The rest is fairly static (and unknown)
-    //     loopIndex = findSequenceStartIndex(ai, loopIndex + NONE_BYTES.length, NONE_BYTES);
-    //     if (loopIndex != -1) lastNoneIndex = loopIndex;
-    // }
-    // let index = lastNoneIndex + NONE_BYTES.length + 13; // Should place us at the start of BaseCampId - makes no sense bc what data types make up 13 bytes?? There must be a u8
     const offset = getObjectAIOffset(generatorVersion);
     let index = 155 + offset;
 
@@ -927,6 +985,8 @@ const parseSurvivorAI_Dynamic = (ai) => ({
     ...parseOtakaraAI_Dynamic(ai.slice(ai[0] + 4, ai.length))
 });
 
+const parsePelletAI_Dynamic = (ai) => ({ colour: PikminTypes[ai[0]] });
+
 //#region Teki
 export const parseTekiAI = (ai, generatorVersion, creatureId) => {
     // find the inventory size byte
@@ -1001,7 +1061,6 @@ export const parseTekiAI = (ai, generatorVersion, creatureId) => {
         Y: readFloat(ai.slice(index, index += 4)),
         Z: readFloat(ai.slice(index, index += 4))
     };
-
     AIProperties.randVel = {
         X: readFloat(ai.slice(index, index += 4)),
         Y: readFloat(ai.slice(index, index += 4)),
@@ -1027,7 +1086,7 @@ export const parseTekiAI = (ai, generatorVersion, creatureId) => {
     // index += 4; // this is always 1 - maybe bEnableZukanDrop
 
     AIProperties.bEnableFreezeBothDrop = ai[index];
-    index += AIProperties.bEnableFreezeBothDrop ? 16 : 12; // this bool is ADDITIONAL bytes if present
+    index += 16;
     index += 4; //unknown float
     AIProperties.searchAreaOtakaraCarryRadius = readFloat(ai.slice(index, index += 4));
     index += 8; // unknown floats
@@ -1047,10 +1106,6 @@ export const parseTekiAI = (ai, generatorVersion, creatureId) => {
         });
     }
     index += 4; // something else to end SniffPointParameter
-    // while (ai[index] != 255 && index < ai.length) {
-    //     console.log("Iterating in creature to find end of inventory?");
-    //     index += 1; // Just iterate till we find the 255 byte? Shouldn't run, I think
-    // }
 
     const creatureAIProperties = getReadCreatureAIFunc(creatureId)(ai.slice(index, ai.length));
 
@@ -1185,6 +1240,56 @@ const parseBigUjinkoAI = ai => {
     AIProperties.searchAreaTag = readAsciiString(ai, index);
     return AIProperties;
 };
+
+const parseDodoroEggAI = ai => {
+    let index = 0;
+    const AIProperties = {
+        splineRoutePathTag: readAsciiString(ai, index)
+    };
+    index += ai[index] + 4;
+    AIProperties.spawnTimer = readFloat(ai.slice(index, index += 4));
+    AIProperties.bUseParentDropInfo = ai[index]; // bUseParentDropInfo?
+    index += 4;
+    AIProperties.bOnceDodoroAppearDemo = ai[index]; // maybe?
+    index += 4;
+    AIProperties.spawnTimerAfterDemo = readFloat(ai.slice(index, index += 4));
+    AIProperties.subSplineRoutePathTag = readAsciiString(ai, index);
+    index += ai[index] + 4;
+    AIProperties.refObstacleGenID = bytesToInt(ai.slice(index, index += 4));
+    return AIProperties;
+};
+
+const parseQueenAI = ai => {
+    let index = 1;
+    return {
+        queenAIType: QueenAIType[ai[0]], // EQueenAIType::FallBaby = 3, ::Born == 1, 0 == no larva
+        rockBallHeightMin: readFloat(ai.slice(index, index += 4)),
+        rockBallHeightMax: readFloat(ai.slice(index, index += 4)),
+        rockBallSpawnRadius: readFloat(ai.slice(index, index += 4)),
+        rockBallSpawnOffsetY: readFloat(ai.slice(index, index += 4)),
+        rockBallHeightMinInOppositeSide: readFloat(ai.slice(index, index += 4)),
+        rockBallHeightMaxInOppositeSide: readFloat(ai.slice(index, index += 4)),
+        rockBallSpawnRadiusInOppositeSide: readFloat(ai.slice(index, index += 4)),
+        bornSpeed: readFloat(ai.slice(index, index += 4)),
+        childSearchRadius: readFloat(ai.slice(index, index += 4)),
+        fallBabySpawnRadius: readFloat(ai.slice(index, index += 4)),
+        fallBabySpawnNum: bytesToInt(ai.slice(index, index += 4)),
+        flickDistXY: readFloat(ai.slice(index, index += 4))
+    };
+};
+
+// he needs charting properly I think
+// const parseBigKingChappyAI = ai => {
+//     let index = 0;
+//     // seems to be a vector first
+//     // then bWithFallRock?
+//     // bTriggerByAppear?
+//     // bTangueCollisionOnlyWall?
+//     // then bigjJumpSinkFloor
+//     // fallRock bSinkFloor
+//     // appearParameter bSinkFloor
+//     // pressParameter bSinkFloor
+// };
 
 const parseFutakuchiAdultAI = ai => {
     let index = 0;

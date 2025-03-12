@@ -1,6 +1,6 @@
-import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs, ObjectAIParameter, weirdAIEntities, ObjectAI_STRING_INDEX, ObjectAI_END_INDEX, InterpModes, RockModes } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs, ObjectAIParameter, weirdAIEntities, ObjectAI_STRING_INDEX, ObjectAI_END_INDEX, InterpModes, RockModes, QueenAIType } from '../api/types';
 import { default as entityData } from '../api/entityData.json';
-import { floatToByteArr, intToByteArr, disableFlagsToInt } from '../utils/bytes';
+import { floatToByteArr, intToByteArr, disableFlagsToInt, byteArrToInt } from '../utils/bytes';
 import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue, getObjectAIOffset } from '../utils';
 import { parseGDMDrops, parseTekiAI, parsePotDrops } from './reading';
 import logger from '../utils/logger';
@@ -91,6 +91,9 @@ export const getConstructAIStaticFunc = (creatureId, infoType) => {
     if (creatureId.startsWith('DownWall')) return constructDownWallAI;
     if (creatureId === 'String') return constructStringAI;
     if (infoType === InfoType.Treasure || creatureId.includes('Survivor')) return constructOtakaraAI;
+    if (creatureId === 'RopeFishing') return constructRopeFishingAI;
+    if (['ZiplineSplineMesh', 'ZiplineAnother'].includes(creatureId)) return constructZiplineAI;
+    if (creatureId === 'PressFloor') return constructPressFloorAI;
     return defaultAI;
 };
 
@@ -105,7 +108,22 @@ export const getConstructDynamicFunc = (creatureId, infoType) => {
     if (creatureId === 'String') return constructStringAI_Dynamic;
     if (infoType === InfoType.Treasure) return constructOtakaraAI_Dynamic;
     if (creatureId.includes('Survivor')) return constructSurvivorAI_Dynamic;
+    if (creatureId.startsWith('Pellet')) return constructPelletAI_Dynamic;
     return (ai) => ai;
+};
+
+export const getConstructCreatureAIFunc = creatureId => {
+    if (['KumaChappy', 'Patroller'].includes(creatureId)) return constructKumaChappyAI;
+    if (creatureId === 'HageDamagumo') return constructHageDamagumoAI;
+    if (creatureId.includes('PanModoki')) return constructPanModokiAI;
+    if (creatureId === 'AmeBozu') return constructAmeBozuAI;
+    if (['Futakuchi', 'YukiFutakuchi'].includes(creatureId)) return constructFutakuchiAI;
+    if (['FutakuchiAdult', 'YukiFutakuchiAdult'].includes(creatureId)) return constructFutakuchiAdultAI;
+    if (creatureId === 'Baby') return constructBabyAI;
+    if (creatureId === 'BigUjinko') return constructBigUjinkoAI;
+    if (creatureId === ('DodoroEgg')) return constructDodoroEggAI;
+    if (creatureId === ('Queen')) return constructQueenAI;
+    return () => [];
 };
 
 export const getConstructSubAIStaticFunc = (creatureId) => {
@@ -113,6 +131,7 @@ export const getConstructSubAIStaticFunc = (creatureId) => {
     return defaultAI;
 };
 
+//#region ActorParameter
 export const getConstructActorParamFunc = (creatureId) => {
     if (creatureId.includes('Valve')) return constructValveActorParam;
     if (creatureId.includes('Sprinkler')) return constructValveActorParam;
@@ -133,17 +152,6 @@ export const getConstructWaterTriggerFunc = creatureId => {
     return (wt) => wt;
 };
 
-export const getConstructCreatureAIFunc = creatureId => {
-    if (['KumaChappy', 'Patroller'].includes(creatureId)) return constructKumaChappyAI;
-    if (creatureId === 'HageDamagumo') return constructHageDamagumoAI;
-    if (creatureId.includes('PanModoki')) return constructPanModokiAI;
-    if (creatureId === 'AmeBozu') return constructAmeBozuAI;
-    if (['Futakuchi', 'YukiFutakuchi'].includes(creatureId)) return constructFutakuchiAI;
-    if (['FutakuchiAdult', 'YukiFutakuchiAdult'].includes(creatureId)) return constructFutakuchiAdultAI;
-    if (creatureId === 'Baby') return constructBabyAI;
-    if (creatureId === 'BigUjinko') return constructBigUjinkoAI;
-    return () => [];
-};
 
 //#region WaterBoxes
 const constructWaterBoxNavAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
@@ -732,30 +740,68 @@ const constructOtakaraAI = (_, aiStatic, { AIProperties }, generatorVersion) => 
 
 const constructSurvivorAI_Dynamic = (aiDynamic, { AIProperties }) => {
     const bytes = [];
-    console.log(AIProperties);
     writeAsciiString(bytes, AIProperties.npcInfoKey);
     bytes.push(...constructOtakaraAI_Dynamic(aiDynamic.slice(aiDynamic[0] + 4, aiDynamic.length), { AIProperties }));
     return bytes;
 };
 
-const constructOtakaraAI_Dynamic = (aiDynamic, { AIProperties }) => {
-    console.log(AIProperties);
-    console.log(AIProperties.rotation);
-    console.log(AIProperties.rotation.X);
-    console.log("Otakara dynamic");
-    return [
-        AIProperties.bCanFall ? 1 : 0, 0, 0, 0,
-        AIProperties.bEnableChangeInitTransformAfterFalling ? 1 : 0, 0, 0, 0,
-        ...floatBytes(parseFloat(AIProperties.rotation.X)),
-        ...floatBytes(parseFloat(AIProperties.rotation.Y)),
-        ...floatBytes(parseFloat(AIProperties.rotation.Z)),
-        ...floatBytes(parseFloat(AIProperties.rotation.W)),
-        ...floatBytes(parseFloat(AIProperties.translation.X)),
-        ...floatBytes(parseFloat(AIProperties.translation.Y)),
-        ...floatBytes(parseFloat(AIProperties.translation.Z)),
-        ...aiDynamic.slice(9 * 4, aiDynamic.length) // get everything after what we know
+const constructOtakaraAI_Dynamic = (aiDynamic, { AIProperties }) => [
+    AIProperties.bCanFall ? 1 : 0, 0, 0, 0,
+    AIProperties.bEnableChangeInitTransformAfterFalling ? 1 : 0, 0, 0, 0,
+    ...floatBytes(parseFloat(AIProperties.rotation.X)),
+    ...floatBytes(parseFloat(AIProperties.rotation.Y)),
+    ...floatBytes(parseFloat(AIProperties.rotation.Z)),
+    ...floatBytes(parseFloat(AIProperties.rotation.W)),
+    ...floatBytes(parseFloat(AIProperties.translation.X)),
+    ...floatBytes(parseFloat(AIProperties.translation.Y)),
+    ...floatBytes(parseFloat(AIProperties.translation.Z)),
+    ...aiDynamic.slice(9 * 4, aiDynamic.length) // get everything after what we know
+];
+
+const constructPelletAI_Dynamic = (aiDynamic, { AIProperties }) => [parseInt(findObjectKeyByValue(PikminTypes, AIProperties.colour))];
+
+//#region RopeFishing
+const constructRopeFishingAI = (_, aiStatic, { AIProperties }, generatorVersion) => [
+    ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion)),
+    ...floatBytes(parseFloat(AIProperties.jumpForceXY)),
+    ...floatBytes(parseFloat(AIProperties.jumpForceZ)),
+    ...floatBytes(parseFloat(AIProperties.ropeAng)),
+    ...intToByteArr(parseInt(AIProperties.manualWorkNum))
+];
+
+const constructZiplineAI = (_, aiStatic, { AIProperties }, generatorVersion) => [
+    ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion)),
+    ...floatBytes(parseFloat(AIProperties.goalOffset.X)),
+    ...floatBytes(parseFloat(AIProperties.goalOffset.Y)),
+    ...floatBytes(parseFloat(AIProperties.goalOffset.Z)),
+    ...floatBytes(parseFloat(AIProperties.startTargetSpeed)),
+    ...floatBytes(parseFloat(AIProperties.maxMoveSpeed)),
+    ...floatBytes(parseFloat(AIProperties.minMoveSpeed)),
+    ...floatBytes(parseFloat(AIProperties.acceleration)),
+    0, 0, 140, 66,
+    ...constructSplinePoints(AIProperties.splinePoints)
+];
+
+const constructPressFloorAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
+    const bytes = [
+        ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion)),
+        0, 0, 32, 194,
+        0, 0, 200, 66,
+        0, 0, 72, 67, // idk the only two examples use these floats and there's nothing in the
+        0, 0, 160, 65 // blueprint to indicate what they are
     ];
+    writeAsciiString(bytes, AIProperties.waterBoxId);
+    bytes.push(
+        ...floatBytes(parseFloat(AIProperties.createNavBoxRange.X)),
+        ...floatBytes(parseFloat(AIProperties.createNavBoxRange.Y)),
+        ...floatBytes(parseFloat(AIProperties.createNavBoxRange.Z)),
+        ...floatBytes(parseFloat(AIProperties.createNavBoxOffset.X)),
+        ...floatBytes(parseFloat(AIProperties.createNavBoxOffset.Y)),
+        ...floatBytes(parseFloat(AIProperties.createNavBoxOffset.Z)),
+    );
+    return bytes;
 };
+
 
 //#region ActorSpawner
 const constructActorSpawnerAI = ({ parsed: [drop] }, aiStatic) => {
@@ -999,6 +1045,36 @@ const constructBigUjinkoAI = AIProperties => {
     );
     return bytes;
 };
+
+const constructDodoroEggAI = AIProperties => {
+    const bytes = [];
+    writeAsciiString(bytes, AIProperties.splineRoutePathTag);
+    bytes.push(
+        ...floatBytes(AIProperties.spawnTimer),
+        AIProperties.bUseParentDropInfo ? 1 : 0, 0, 0, 0,
+        AIProperties.bOnceDodoroAppearDemo ? 1 : 0, 0, 0, 0,
+        ...floatBytes(AIProperties.spawnTimerAfterDemo)
+    );
+    writeAsciiString(bytes, AIProperties.subSplineRoutePathTag);
+    bytes.push(...intToByteArr(AIProperties.refObstacleGenID));
+    return;
+};
+
+const constructQueenAI = AIProperties => [
+    parseInt(findObjectKeyByValue(QueenAIType, AIProperties.queenAIType)),
+    ...floatBytes(AIProperties.rockBallHeightMin),
+    ...floatBytes(AIProperties.rockBallHeightMax),
+    ...floatBytes(AIProperties.rockBallSpawnRadius),
+    ...floatBytes(AIProperties.rockBallSpawnOffsetY),
+    ...floatBytes(AIProperties.rockBallHeightMinInOppositeSide),
+    ...floatBytes(AIProperties.rockBallHeightMaxInOppositeSide),
+    ...floatBytes(AIProperties.rockBallSpawnRadiusInOppositeSide),
+    ...floatBytes(AIProperties.bornSpeed),
+    ...floatBytes(AIProperties.childSearchRadius),
+    ...floatBytes(AIProperties.fallBabySpawnRadius),
+    ...byteArrToInt(AIProperties.fallBabySpawnNum),
+    ...floatBytes(AIProperties.flickDistXY)
+];
 
 const constructHageDamagumoAI = AIProperties => {
     const bytes = [];

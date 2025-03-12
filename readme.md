@@ -166,9 +166,9 @@ Most entities can be supported just via reading and constructing their AI arrays
 - Add a condition to the function resolver for your new entity/(ies) for [reading](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/src/genEditing/reading.js#L61-L98) and [constructing](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/src/genEditing/constructing.js#L60-L88)
 - Write the relevant functions for parsing/constructing the bytes
   - For reading, the function should return an object containing `parsed`, an array of objects representing the entities this entity drops on death. Properties of the ent's AI go in an object to be returned as `AIProperties`
-  - For constructing, the function is called with `func(drops: [{}], AI: [number], { AIProperties, ...extras })` and must return an array.
-  - `NavMeshTrigger` and `Dynamic` AI is also supported
-- Add your entity to the [mutator array](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/src/utils/index.js#L158-L236) which is what sets up the entity to a default state when using the dropdowns to change entity types. `ents` determines each _substring_ to apply the mutation to, and each gen variable name will overwrite the entity's.
+  - For constructing, the function is called with `func(drops: [{}], AI: [number], { AIProperties, ...extras }, generatorVersion)` and must return an array.
+  - `NavMeshTrigger`, `Dynamic` AI and `ActorParameter` are also supported
+- Add your entity to the [defaults array](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/src/utils/defaults.js#L3) which is what sets up the entity to a default state when using the dropdowns to change entity types. `ents` determines each _substring_ to apply the mutation to, and each gen variable name will overwrite the entity's. Creature-specific AI has a separate [defaults array](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/src/utils/defaults.js#L253) to layer on top of the other one.
 - If your entity drops stuff, add it to the [drop controller](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/src/utils/index.js#L86-L103) to have the UI enable the drop panel to display each object in your `parsed` array.
 - If new editable properties have been added, add the names to the corresponding [type arrays](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/src/api/types.js#L107-L195)
 

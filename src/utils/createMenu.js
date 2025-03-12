@@ -385,7 +385,6 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                             config.gameDir = join(dest, 'P4UassetEditor', '_EDIT', 'Carrot4');
 
                             shell.openPath(join(dest));
-                            shell.openPath(join(config.encoderDir, 'README.txt'));
 
                             writeFile(CONFIG_PATH, JSON.stringify({
                                 ...config,
