@@ -121,7 +121,7 @@ export const getConstructCreatureAIFunc = creatureId => {
     if (['FutakuchiAdult', 'YukiFutakuchiAdult'].includes(creatureId)) return constructFutakuchiAdultAI;
     if (creatureId === 'Baby') return constructBabyAI;
     if (creatureId === 'BigUjinko') return constructBigUjinkoAI;
-    if (creatureId === ('DodoroEgg')) return constructDodoroEggAI;
+    if (creatureId === 'DodoroEgg') return constructDodoroEggAI;
     if (creatureId === ('Queen')) return constructQueenAI;
     return () => [];
 };
@@ -1057,7 +1057,7 @@ const constructDodoroEggAI = AIProperties => {
     );
     writeAsciiString(bytes, AIProperties.subSplineRoutePathTag);
     bytes.push(...intToByteArr(AIProperties.refObstacleGenID));
-    return;
+    return bytes;
 };
 
 const constructQueenAI = AIProperties => [
@@ -1072,7 +1072,7 @@ const constructQueenAI = AIProperties => [
     ...floatBytes(AIProperties.bornSpeed),
     ...floatBytes(AIProperties.childSearchRadius),
     ...floatBytes(AIProperties.fallBabySpawnRadius),
-    ...byteArrToInt(AIProperties.fallBabySpawnNum),
+    ...intToByteArr(AIProperties.fallBabySpawnNum),
     ...floatBytes(AIProperties.flickDistXY)
 ];
 

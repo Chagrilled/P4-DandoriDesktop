@@ -1041,8 +1041,6 @@ export const parseTekiAI = (ai, generatorVersion, creatureId) => {
             slot.halfHeight = readFloat(ai.slice(index, index += 4));
             slot.radius = readFloat(ai.slice(index, index += 4));
         }
-        // const params = ai.slice(index, index + 10);
-        // index += 10;
         parsed.push(slot);
     }
     index += 4; // Advance past 255s
@@ -1106,7 +1104,7 @@ export const parseTekiAI = (ai, generatorVersion, creatureId) => {
         });
     }
     index += 4; // something else to end SniffPointParameter
-
+    console.log(generatorVersion,)
     const creatureAIProperties = getReadCreatureAIFunc(creatureId)(ai.slice(index, ai.length));
 
     return {
@@ -1133,6 +1131,7 @@ const parseKumaChappyAI = ai => {
 };
 
 const parseHageDamagumoAI = ai => {
+    console.log(ai);
     let index = 0;
     const AIProperties = {
         searchTagName: readAsciiString(ai, index)

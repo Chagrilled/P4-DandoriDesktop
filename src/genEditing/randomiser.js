@@ -181,7 +181,9 @@ const randCreatures = Object.keys(CreatureNames).filter(k => ![
     "SplinePanModoki",
     "SplineBigUjinko",
     "SplineDodoro",
-    "PanModokiHideArea"
+    "PanModokiHideArea",
+    "IceFrogIce",
+    "BossInuPoisonArea"
 ].includes(k));
 
 const bosses = [
@@ -208,7 +210,7 @@ const bosses = [
     'Shippo',
     'SnakeCrow',
     'YukiFutakuchiAdult',
-    'Yukimushi'
+    'Yukimushi',
 ];
 const nonBosses = randCreatures.filter(c => !bosses.includes(c));
 const nonDropList = [
