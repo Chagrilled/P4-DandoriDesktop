@@ -752,7 +752,7 @@ export const randomiser = async (config) => {
             //For Area500 we just need to replace and randomise the start onion and place the required number of piks to collect it
             const onionIndex = randomMarkers[InfoType.Onion].findIndex(actor => actor.creatureId === "OnyonBootUpRed");
             const [startingOnion] = randOnions.splice([randInt(randOnions.length)], 1);
-            if (!randOnions.length) randOnions.push(...Object.keys(OnionNames).filter(o => ["Onyon", "OnyonCarryBoost", "OnyonBootUpRed"].includes(o)));
+            if (!randOnions.length) randOnions.push(...Object.keys(OnionNames).filter(o => !["Onyon", "OnyonCarryBoost", "OnyonBootUpRed"].includes(o)));
             logger.info(`The starting onion has randomised to: ${startingOnion}`);
 
             randomMarkers[InfoType.Onion].splice(onionIndex, 1);
@@ -1041,6 +1041,9 @@ export const randomiser = async (config) => {
                     if (workObject.creatureId.includes('Gate')) {
                         if (!config.excludeGates) workObject.creatureId = gates[randInt(gates.length)];
                         if (config.gatesDrop) randomiseRegularDrops(workObject, config, map);
+                    }
+                    if (workObject.creatureId === 'BridgeStation' && config.randMaterialPiles) {
+                        workObject.AIProperties.pieceNum = randIntBounded(workObject.AIProperties.pieceNum, workObject.AIProperties.pieceNum + parseInt(config.randMaterialPiles))
                     }
                     randomMarkers[InfoType.WorkObject].push(workObject);
                 });

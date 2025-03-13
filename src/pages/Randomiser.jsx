@@ -73,7 +73,8 @@ export const Randomiser = () => {
         randomiseNight: true,
         bossDropChance: 25,
         gatesDrop: false,
-        retainOSTOnions: true
+        retainOSTOnions: true,
+        randMaterialPiles: 0
     });
 
     const [pikminState, setPikminState] = useState({
@@ -283,6 +284,16 @@ export const Randomiser = () => {
                 type: 'checkbox',
                 onChange: (e) => setState({ ...state, retainOSTOnions: e.target.checked }),
                 id: 'retainOSTOnions'
+            },
+            {
+                label: 'Raw Material Ceiling',
+                tooltip: <>
+                    <span>Maximum amount of extra raw material that can be added to a pile's existing amount</span>
+                    <span>Negative numbers do work but the range excludes -0 and -YourNumber</span>
+                </>,
+                type: 'number',
+                onChange: (e) => setState({ ...state, randMaterialPiles: e.target.value }),
+                id: 'randMaterialPiles'
             },
             // {
             //     label: 'Treasures Like-For-Like',
