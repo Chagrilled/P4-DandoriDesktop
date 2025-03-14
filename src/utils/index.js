@@ -204,7 +204,7 @@ export const mutateAIProperties = (creature, newCreatureId, newInfoType = '', ol
             }
         });
 
-    if (!aiEnts.some(e => newCreatureId.includes(e)) && creature.AIProperties && creature.infoType != InfoType.Creature) {
+    if (!aiEnts.some(e => newCreatureId.includes(e)) && creature.AIProperties && ![InfoType.Creature, InfoType.Treasure].includes(creature.infoType)) {
         delete creature.AIProperties;
         delete creature.NavMeshTrigger;
         delete creature.ActorParameter;
