@@ -13,7 +13,7 @@ const updateDrops = (value, mapMarkerData, setMapData, ddId, drop, key, dropDele
     console.log("val", value);
     console.log("UpdateDrops", ddId);
     const { type } = findMarkerById(ddId, mapMarkerData);
-    if (!isNaN(parseFloat(value))) value = parseFloat(value);
+    if (!isNaN(parseFloat(value)) && !["amount", "dropChance"].includes(key)) value = parseFloat(value);
 
     const newMapData = mapMarkerData[type].map(creature => {
         if (creature.ddId == ddId) {
