@@ -544,7 +544,18 @@ export const Randomiser = () => {
                         : <input
                             type={o.type}
                             className={o.type === 'checkbox' ? css : textCss}
-                            onChange={o.onChange}
+                            onChange={(e) => {
+                                const inputValue = e.target.value;
+                                const newValue = parseFloat(inputValue);
+                                const min = o.min ?? -Infinity;
+                                const max = o.max ?? Infinity;
+                    
+                                if (!Number.isNaN(newValue) && (newValue >= min && newValue <= max)) {
+                                    o.onChange(e);
+                                } else {
+                                    e.target.value = state[o.id];
+                                }
+                            }}
                             id={o.id}
                             checked={state[o.id]}
                             defaultValue={state[o.id]}
