@@ -923,6 +923,12 @@ export const randomiser = async (config) => {
                         cave: toLevelName.split('_')[0]
                     });
 
+                    // Keep Submerged Castle restricted to blues wherever it is
+                    if (toLevelName === 'Cave014_F00') {
+                        portal.PortalTrigger.disablePikminFlags = Object.fromEntries(Array.from({ length: 16 }, (_, i) => [i, true]));
+                        portal.PortalTrigger.disablePikminFlags[1] = false;
+                    }
+
                     randomMarkers[InfoType.Portal].push({
                         ...portal,
                         PortalTrigger: {
@@ -1043,7 +1049,7 @@ export const randomiser = async (config) => {
                         if (config.gatesDrop) randomiseRegularDrops(workObject, config, map);
                     }
                     if (workObject.creatureId === 'BridgeStation' && config.randMaterialPiles) {
-                        workObject.AIProperties.pieceNum = randIntBounded(workObject.AIProperties.pieceNum, workObject.AIProperties.pieceNum + parseInt(config.randMaterialPiles))
+                        workObject.AIProperties.pieceNum = randIntBounded(workObject.AIProperties.pieceNum, workObject.AIProperties.pieceNum + parseInt(config.randMaterialPiles));
                     }
                     randomMarkers[InfoType.WorkObject].push(workObject);
                 });

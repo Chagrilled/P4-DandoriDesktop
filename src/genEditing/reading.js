@@ -12,7 +12,7 @@ const readAsciiString = (bytes, index) => {
 
 const readFloat = (bytes) => parseFloat(new Float32Array(new Uint8Array(bytes).buffer)[0].toFixed(3));
 
-const readInventory = (drops, index, invSize) => {
+export const readInventory = (drops, index, invSize) => {
     const parsed = [];
     // if (invSize == 0) index += 4; // I decided I didn't need this because idk - I think with or without an inv you end up at the same place
     for (let i = 0; i < invSize; i++) {
@@ -70,6 +70,7 @@ export const getReadAIDynamicFunc = (creatureId, infoType) => {
     if (infoType === InfoType.Treasure) return parseOtakaraAI_Dynamic;
     if (creatureId.includes('Survivor')) return parseSurvivorAI_Dynamic;
     if (creatureId.startsWith('Pellet')) return parsePelletAI_Dynamic;
+    if (creatureId.includes('Gate')) return parseGateAI_Dynamic;
 
     return () => ({});
 };
@@ -663,6 +664,10 @@ const parseGateAI = ai => {
     ({ parsed, index } = readInventory(ai, dropItemIndex, invSize));
     return { parsed, rareDrops, spareBytes };
 };
+
+const parseGateAI_Dynamic = ai => ({
+    startValidWallIndex: bytesToInt(ai.slice(16, 20))
+});
 
 //#region NoraSpawner
 const parseNoraSpawnerAI = ai => {

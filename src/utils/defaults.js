@@ -280,6 +280,12 @@ export const entityDefaults = [
             createNavBoxRange: defaultVector,
             createNavBoxOffset: defaultVector
         }
+    },
+    {
+        ents: ["Gate"],
+        AIProperties: {
+            startValidWallIndex: -1
+        }
     }
 ];
 

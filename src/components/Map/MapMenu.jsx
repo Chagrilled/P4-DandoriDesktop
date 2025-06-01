@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { Menu, Item, Separator, Submenu } from 'react-contexify';
-import { RebirthTypes, DefaultActorSpawnerDrop, InfoType, DefaultPortalTrigger, GateMiddleBytes, defaultBaseAIProperties, defaultCreatureAI, ActivityTimes, ActorPlacementCondition, ExploreRateTargetType, defaultTreasureAI } from '../../api/types';
+import { RebirthTypes, DefaultActorSpawnerDrop, InfoType, DefaultPortalTrigger, defaultBaseAIProperties, defaultCreatureAI, ActivityTimes, ActorPlacementCondition, ExploreRateTargetType, defaultTreasureAI, PikminTypes } from '../../api/types';
 import { deepCopy, getAvailableTimes } from '../../utils';
 import { MapContext } from './MapContext';
 
@@ -84,7 +84,6 @@ export const MapMenu = ({ }) => {
         }
         if (id === Portal) newMarker.PortalTrigger = deepCopy(DefaultPortalTrigger);
         if (id !== Creature) newMarker.time = getAvailableTimes(mapId)[0];
-        if (id === WorkObject) newMarker.drops.spareBytes = GateMiddleBytes;
         if (id === Base) newMarker.AIProperties = deepCopy(defaultBaseAIProperties);
         if (id === Creature) {
             newMarker.AIProperties = deepCopy(defaultCreatureAI);
@@ -98,6 +97,7 @@ export const MapMenu = ({ }) => {
             newMarker.rebirthInterval = 4;
         }
         if (id === Treasure) newMarker.AIProperties = deepCopy(defaultTreasureAI);
+        if (id === Object) newMarker.AIProperties = { colour: PikminTypes[0] };
 
         setMapData({
             ...mapMarkerData,

@@ -1,8 +1,8 @@
-import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs, ObjectAIParameter, weirdAIEntities, ObjectAI_STRING_INDEX, ObjectAI_END_INDEX, InterpModes, RockModes, QueenAIType } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs, weirdAIEntities, ObjectAI_STRING_INDEX, ObjectAI_END_INDEX, InterpModes, RockModes, QueenAIType } from '../api/types';
 import { default as entityData } from '../api/entityData.json';
-import { floatToByteArr, intToByteArr, disableFlagsToInt, byteArrToInt } from '../utils/bytes';
+import { floatToByteArr, intToByteArr, disableFlagsToInt } from '../utils/bytes';
 import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue, getObjectAIOffset } from '../utils';
-import { parseGDMDrops, parseTekiAI, parsePotDrops } from './reading';
+import { parseGDMDrops, parseTekiAI, parsePotDrops, readInventory } from './reading';
 import logger from '../utils/logger';
 
 const defaultAI = (_, ai) => ai;
@@ -109,6 +109,7 @@ export const getConstructDynamicFunc = (creatureId, infoType) => {
     if (infoType === InfoType.Treasure) return constructOtakaraAI_Dynamic;
     if (creatureId.includes('Survivor')) return constructSurvivorAI_Dynamic;
     if (creatureId.startsWith('Pellet')) return constructPelletAI_Dynamic;
+    if (creatureId.includes('Gate')) return constructGateAI_Dynamic;
     return (ai) => ai;
 };
 
@@ -498,18 +499,31 @@ const constructSprinklerAI = (_, aiStatic, { AIProperties, transform }) => {
 };
 
 //#region Gate
-const constructGateAI = ({ parsed, rareDrops, spareBytes }, aiStatic) => {
+const constructGateAI = ({ parsed, rareDrops, spareBytes }, aiStatic, _, generatorVersion) => {
     const bytes = [];
     bytes.push(rareDrops.length, 0, 0, 0);
     constructInventory(rareDrops, bytes);
     bytes.push(255, 255, 255, 255);
 
-    bytes.push(...spareBytes);
+    // Grab inventory end index - readInventory will just return 4 if invSize is 0 
+    let index = 4;
+    if (aiStatic[0] === 0) index = 8; // skip to OAIP if no inv
+    else index = readInventory(aiStatic, 4, aiStatic[0]).index + 4; // +4 for the inventory end marker
+    // slice the middle 147 (+4) bytes of OAIP so they're unchanged AND GV-correct 
+    bytes.push(...aiStatic.slice(index, index + 147 + getObjectAIOffset(generatorVersion)));
 
+    // then tack on the second inventory
     bytes.push(parsed.length, 0, 0, 0);
     constructInventory(parsed, bytes);
     return bytes;
 };
+
+const constructGateAI_Dynamic = (aiDynamic, { AIProperties }) => [
+    ...Array(12).fill(0),
+    255, 255, 255, 255,
+    ...(AIProperties.startValidWallIndex == -1 ? [255, 255, 255, 255] : intToByteArr(AIProperties.startValidWallIndex)),
+    0, 0, 0, 0
+];
 
 //#region TriggerDoor
 const constructTriggerDoorAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
@@ -1298,7 +1312,7 @@ export const constructActor = (actor, mapId) => {
                     ignoreList: actor?.ignoreList,
                     AIProperties: actor?.AIProperties || defaultAIProperties,
                     transform: transforms.Translation
-                }, actor.generatorVersion || entData.GeneratorVersion[0], actor.creatureId),
+                }, entData.GeneratorVersion[0], actor.creatureId),
                 Dynamic: getConstructDynamicFunc(actor.creatureId, actor.infoType)(entData.AI[0].Dynamic, {
                     AIProperties: actor?.AIProperties
                 })
