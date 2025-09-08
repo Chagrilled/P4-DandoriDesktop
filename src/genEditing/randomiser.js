@@ -326,7 +326,8 @@ const ignoreList = [
     "SplineDokuNameko",
     "SplineFutakuchiAdultRock",
     "SplinePanModoki",
-    "SplineBigUjinko"
+    "SplineBigUjinko",
+    "OtaHeroPartsP"
     // All splines are added in this list already
 ];
 
@@ -427,6 +428,16 @@ const skipList = [
             X: 3090,
             Y: 2465,
             Z: 95.35748291015625
+        }
+    },
+    // Porquillion used for quest clear
+    {
+        maps: ['HeroStory010'],
+        ent: 'Hari',
+        translation: {
+            X: 561,
+            Y: 2229,
+            Z: 305.35137939453125
         }
     },
     // Pots in the way of the first base spawn in HH
