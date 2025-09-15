@@ -3,6 +3,7 @@ import { NavigationPanel } from '../components/Editor/NavigationPanel';
 import { PanelLayout } from '../components/Map/PanelLayout';
 import { toast } from 'react-hot-toast';
 import { ParameterDisplay } from '../components/Editor/ParameterDisplay';
+import { Home } from '../components/Home';
 
 export const Editor = () => {
     const [entityId, setEntityId] = useState();
@@ -38,7 +39,7 @@ export const Editor = () => {
                     icon: '❌',
                     style: {
                         color: '#bd2626',
-                        'max-width': 'fit-content'
+                        'maxWidth': 'fit-content'
                     }
                 });
             }
@@ -64,6 +65,7 @@ export const Editor = () => {
             <PanelLayout leftPanel={navPanel} width={"30%"}>
                 <ParameterDisplay entityData={entityData} setEntityData={setEntityData} entityId={entityId} />
             </PanelLayout>
+            <Home />
         </div>
     );
 };

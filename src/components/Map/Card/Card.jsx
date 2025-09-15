@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { MarkerIcon } from "../../Icon";
+import { MarkerIcon } from "../../MarkerIcon";
 import { EntityNames, NameMap } from "../../../api/types";
 import { MapContext } from '../MapContext';
 import { capitalise, findObjectKey } from "../../../utils";

@@ -13,7 +13,9 @@ module.exports = {
                 'tab': '4px inset rgb(136, 67, 168)'
             },
             colors: {
-                'sky-1000': '#273645'
+                'sky-1000': '#273645',
+                'sky-1100': '#243240',
+                'sky-1200': '#1e2b38'
             }
         },
         colors

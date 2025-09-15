@@ -13,6 +13,22 @@ export const PikminTypes = {
     16: "Not set (PongashiColor only)"
 };
 
+export const PikminColorEnum = {
+    Red: "EPikminColor::Red",
+    Yellow: "EPikminColor::Yellow",
+    Blue: "EPikminColor::Blue",
+    Purple: "EPikminColor::Purple",
+    White: "EPikminColor::White",
+    Rock: "EPikminColor::Rock",
+    Wing: "EPikminColor::Wing",
+    Ice: "EPikminColor::Ice",
+    Bean: "EPikminColor::Bean",
+    Photon: "EPikminColor::Photon",
+    Undef: "EPikminColor::Undef",
+    Ninjin: "EPikminColor::Ninjin",
+    DrkMinion: "EPikminColor::DrkMinion"
+};
+
 export const OnionToPikminMap = {
     "OnyonCarryRed": PikminTypes[0],
     "OnyonCarryBlue": PikminTypes[1],
@@ -124,6 +140,15 @@ export const RebirthTypes = {
     RebirthFullExplore: "ERebirthType::RebirthFullExplore",
     RebirthLater: "ERebirthType::RebirthLater"
 };
+
+export const FreezeDropTypes = {
+    TekiS: "EFreezeDropType::TekiS",
+    TekiM: "EFreezeDropType::TekiM",
+    TekiL: "EFreezeDropType::TekiL",
+    Boss: "EFreezeDropType::Boss",
+    BigBoss: "EFreezeDropType::BigBoss",
+    NoDrop: "EFreezeDropType::NoDrop",
+}
 
 export const ActivityTimes = {
     Allday: "EActivityTime::Allday",
@@ -454,7 +479,9 @@ export const editableBools = [
     "bInitialPortalMove",
     "bMabikiPongashi",
     "bNoBurrowType",
+    "bNoChkCondWhenDead",
     "bOnceDodoroAppearDemo",
+    "bOnceWakeCond",
     "bOverrideInitLocation",
     "bPatrolType",
     "bRotateDefault",
@@ -1591,6 +1618,7 @@ export const ObjectNames = {
     Perch: "Perch",
     Pellet1: "1 Pellet",
     Pellet5: "5 Pellet",
+    Pellet10: "10 Pellet",
     Pelplant1: "1 Pellet Posy",
     Pelplant1Revive: "1 Pellet Posy (Reviving)",
     Pelplant1ReviveForHero: "1 Pellet Posy (Reviving) (Hero)",
@@ -1728,6 +1756,7 @@ export const NameMap = {
 
 //#region Icon Overrides
 export const iconOverrides = {
+    bossinu: "bossinu2",
     circulatorlean: "circulator",
     circulatorleanforheroarea010: "circulator",
     circulatorleanforworkingonlyday: "circulator",

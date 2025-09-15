@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState, useContext } from "react";
 import { DefaultDrop, EntityNames, InfoType } from "../../api/types";
-import { MarkerIcon } from "../Icon";
+import { MarkerIcon } from "../MarkerIcon";
 import { ExpandPanel } from "./ExpandPanel";
 import { DropCard } from "./Card/DropCard";
 import { CardList } from "./Card/CardList";

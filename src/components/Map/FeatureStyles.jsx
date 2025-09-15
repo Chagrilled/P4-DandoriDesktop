@@ -32,6 +32,7 @@ const SCALE_OVERRIDES = {
     pelplant10: 0.3,
     pellet1: 0.35,
     pellet5: 0.35,
+    pellet10: 0.35,
     kinkaistation: 0.25,
     tsuyukusa: 0.3,
     hikarikinoko: 0.4,

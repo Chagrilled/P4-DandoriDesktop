@@ -41,7 +41,7 @@ export const MapSelect = ({ }) => {
         return <div key={mapId}>
             <button className={currentMap == mapId ? "font-bold" : ""} onClick={() => { onMapChange(mapId); return false; }}>{mapName} <i>{` (${mapId})`}</i></button>
         </div>;
-    }, [onMapChange]);
+    });
 
     return <div className="MapSelect__container">
         {mapLinks}

@@ -32,6 +32,7 @@ Currently supports:
 - Primitive editing of some enemy parameters
 - A little bit of devops to make modding faster
 - Some tools to help with manual modding
+- Some config file editing
 
 ## 🛠️ Setup/Workflow
 
@@ -109,7 +110,7 @@ Because you only really want to package files you need into your mod, I've made 
 
 Entities that populate the map are read from each area's `AP_...Teki/Objects.json`'s `ActorGeneratorList`. All changes will be written back to these files. 
 
-Once you want to commit your map changes back, click `Tools > Save Entities to JSON`, to write back to the files.
+Once you want to commit your map changes back, click `Tools > Save to JSON`, to write back to the files.
 
 Once you want to output these to your emulator, use `Tools > Deploy to Emulator` to run the toolchain for you. This consists of encoding the JSONs, copying the output to `castoc`, packing, and copying _that_ output to your destination folder.
 
@@ -265,6 +266,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ❌ Randomiser: random enemy stats from presets of weirdness
 - ❌ Randomiser: Fix cards being stuck sometimes
 - ❌ Randomiser: Random scales
+- 🚧 Support DT_ file editing
 
 </details>
 

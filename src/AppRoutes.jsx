@@ -8,6 +8,8 @@ import { toast } from 'react-hot-toast';
 import { MapProvider } from './components/Map/MapContext';
 import { Randomiser } from './pages/Randomiser';
 import { Messages } from './api/types';
+import { Config } from './pages/Config';
+import { ConfigProvider } from './components/Config/ConfigContext';
 
 export const AppRoutes = () => {
     useEffect(() => {
@@ -72,6 +74,11 @@ export const AppRoutes = () => {
                 } />
                 <Route path="/randomiser" element={<Randomiser />} />
                 <Route path="/editor" element={<Editor />} />
+                <Route path="/config" element={
+                    <ConfigProvider>
+                        <Config />
+                    </ConfigProvider>
+                } />
             </Routes>
         </HashRouter>
     );

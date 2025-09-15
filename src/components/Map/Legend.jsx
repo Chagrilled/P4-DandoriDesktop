@@ -1,7 +1,7 @@
 import React, { useCallback, useContext } from 'react';
 import { Legends, InfoType } from '../../api/types';
 import { capitalise } from '../../utils';
-import { MarkerIcon } from '../Icon';
+import { MarkerIcon } from '../MarkerIcon';
 import { MapContext } from './MapContext';
 
 const FilterCategory = ({ category }) => {

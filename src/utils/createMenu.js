@@ -3,7 +3,7 @@
 
 const { app, Menu, dialog, shell } = require('electron');
 import { BrowserWindow } from 'electron';
-import { readdir, promises, writeFile, accessSync, createWriteStream, existsSync, rmSync } from 'fs';
+import { readdir, promises, writeFile, accessSync, createWriteStream, existsSync, rmSync, cpSync } from 'fs';
 import { join } from 'path';
 import { spawn } from 'child_process';
 import { version } from '../../package.json';
@@ -19,6 +19,7 @@ const defaultLogger = (data, logStream) => {
     logStream.write(data.toString('utf8'));
 };
 
+//#region Extract Files
 const extractFiles = async (filePath, mainWindow, destination, resetMessage) => {
     const AREA_PATH = join(`${filePath}`, "Main", "Area");
     const CAVE_PATH = join(`${filePath}`, "Madori", "Cave");
@@ -106,6 +107,7 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
             ]
         }]
         : []),
+    //#region Settings
     {
         label: 'Settings',
         submenu: [
@@ -239,11 +241,12 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
             }
         ]
     },
+    //#region Tools
     {
         label: 'Tools',
         submenu: [
             {
-                label: 'Save Entities to JSON',
+                label: 'Save to JSON',
                 click: () => {
                     mainWindow.webContents.send('saveRequest');
                 }
@@ -251,8 +254,14 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
             {
                 label: 'Deploy to Emulator',
                 click: () => {
-                    if (!config.castocDir || !config.encoderDir || !config.outputDir)
-                        return mainWindow.webContents.send(Messages.ERROR, 'Set encoder/castoc/output folder first');
+                    if (!config.encoderDir)
+                        return mainWindow.webContents.send(Messages.ERROR, 'Set encoder folder first');
+
+                    if (!config.castocDir)
+                        return mainWindow.webContents.send(Messages.ERROR, 'Set castoc folder first');
+
+                    if (!config.outputDir)
+                        return mainWindow.webContents.send(Messages.ERROR, 'Set output paks folder first');
 
                     rmSync(join(config.encoderDir, "_OUTPUT", "Carrot4"), { recursive: true, force: true });
                     rmSync(join(config.castocDir, "_EDIT", "Carrot4"), { recursive: true, force: true });
@@ -357,6 +366,7 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                     });
                 }
             },
+            //#region Setup Files
             {
                 label: 'Setup Files',
                 click: () => {
@@ -368,21 +378,29 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                     }).then(async result => {
                         if (result.filePaths && !result.canceled) {
                             mainWindow.webContents.send(Messages.PROGRESS, 'Downloading contents, hold tight');
-                            const [maps, castoc, uasseteditor] = await Promise.all([
+                            const [maps, castoc, uasseteditor, dtFiles] = await Promise.all([
                                 axios.get('https://github.com/Chagrilled/P4-Utils/raw/master/Maps.zip', { responseType: 'arraybuffer' }),
                                 axios.get('https://github.com/Chagrilled/P4-Utils/raw/master/tooling/castoc.zip', { responseType: 'arraybuffer' }),
-                                axios.get('https://github.com/Chagrilled/P4-Utils/raw/master/tooling/P4UassetEditor.zip', { responseType: 'arraybuffer' })
+                                axios.get('https://github.com/Chagrilled/P4-Utils/raw/master/tooling/P4UassetEditor.zip', { responseType: 'arraybuffer' }),
+                                axios.get('https://github.com/Chagrilled/P4-Utils/raw/master/DT.zip', { responseType: 'arraybuffer' })
                             ]);
                             const dest = result.filePaths[0];
 
                             new AdmZip(Buffer.from(uasseteditor.data, 'binary')).extractAllTo(dest);
                             new AdmZip(Buffer.from(castoc.data, 'binary')).extractAllTo(dest);
                             new AdmZip(Buffer.from(maps.data, 'binary')).extractAllTo(join(dest, 'MapArchive'));
-                            await extractFiles(join(dest, 'MapArchive', 'Maps'), mainWindow, join(dest, 'P4UassetEditor', '_EDIT', 'Carrot4'));
+                            new AdmZip(Buffer.from(dtFiles.data, 'binary')).extractAllTo(dest);
+
+                            const carrot4Folder = join(dest, 'P4UassetEditor', '_EDIT', 'Carrot4');
+                            await extractFiles(join(dest, 'MapArchive', 'Maps'), mainWindow, carrot4Folder);
+                            // Should really refactor this map/file copying as it's very map centric right now
+                            cpSync(join(dest, "Core"), join(carrot4Folder, "Core"), {
+                                recursive: true
+                            });
 
                             config.castocDir = join(dest, 'castoc');
                             config.encoderDir = join(dest, 'P4UassetEditor');
-                            config.gameDir = join(dest, 'P4UassetEditor', '_EDIT', 'Carrot4');
+                            config.gameDir = carrot4Folder;
 
                             shell.openPath(join(dest));
 
@@ -439,15 +457,16 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
         submenu: [
             {
                 label: 'Repo',
-                click: () => {
-                    shell.openExternal('https://github.com/Chagrilled/P4-DandoriDesktop');
-                }
+                click: () => shell.openExternal('https://github.com/Chagrilled/P4-DandoriDesktop')
+
             },
             {
                 label: 'Randomiser Docs',
-                click: () => {
-                    shell.openExternal('https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/docs/randomiser.md');
-                }
+                click: () => shell.openExternal('https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/docs/randomiser.md')
+            },
+            {
+                label: 'Support Dandori Desktop',
+                click: () => shell.openExternal('https://ko-fi.com/noodl32')
             },
             {
                 label: 'Open Devtools',

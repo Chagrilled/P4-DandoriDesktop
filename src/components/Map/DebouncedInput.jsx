@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDebounce } from "../../hooks/useDebounce";
 import deepEqual from "deep-equal";
 
-export const DebouncedInput = ({ changeFunc, value, type, className = "max-w-[7em] bg-sky-1000", ddId, marker }) => {
+export const DebouncedInput = ({ changeFunc, value, type, className = "max-w-[7em] bg-sky-1000 rounded-md px-3 py-0.5 text-[#e0e6ed] border border-[#3a4a5a] focus:ring-2 focus:ring-[#4da6ff] transition", ddId, marker }) => {
     const [changeValue, setValue] = useState(value);
     const [stateDDId, setId] = useState(ddId);
     const [stateMarker, setStateMarker] = useState(marker);

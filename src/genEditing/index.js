@@ -176,6 +176,18 @@ export const regenerateAGLEntity = (actor, aglData) => {
             ...aglData.GenerateInfo,
             GenerateNum: parseInt(actor.generateNum),
             GenerateRadius: parseFloat(actor.generateRadius),
+            bOnceWakeCond: actor.bOnceWakeCond,
+            bNoChkCondWhenDead: actor.bNoChkCondWhenDead,
+            SleepCond: actor.sleepCond.map(cond => ({
+                ...cond,
+                Condition: cond.Condition,
+                CondInt: parseInt(cond.CondInt),
+            })),
+            WakeCond: actor.wakeCond.map(cond => ({
+                ...cond,
+                Condition: cond.Condition,
+                CondInt: parseInt(cond.CondInt),
+            }))
         },
         ExploreRateType: actor.exploreRateType,
         RebirthInfo: {

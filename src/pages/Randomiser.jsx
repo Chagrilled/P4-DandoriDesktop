@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Tooltip } from 'react-tooltip';
-import { MarkerIcon } from '../components/Icon';
+import { MarkerIcon } from '../components/MarkerIcon';
 import { PikminNames } from '../api/types';
 import '../Randomiser.css';
 

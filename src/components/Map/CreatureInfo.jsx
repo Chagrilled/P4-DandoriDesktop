@@ -3,7 +3,7 @@ import { NameMap, editableNumberFields, editableBools, ignoreFields, editableStr
 import { findMarkerById, getAvailableTimes, mutateAIProperties, deepCopy } from '../../utils';
 import { DebouncedInput } from './DebouncedInput';
 import { MapContext } from './MapContext';
-import { MarkerIcon } from '../Icon';
+import { MarkerIcon } from '../MarkerIcon';
 
 //#region updateCreature
 const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId, index) => {
@@ -181,11 +181,13 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
             </li>;
         }
 
-        if (["birthCond", "eraseCond", "optionalPointOffsets", "splinePoints"].includes(key)) {
+        if (["birthCond", "eraseCond", "optionalPointOffsets", "splinePoints", "sleepCond", "wakeCond"].includes(key)) {
             const objectToAdd = {
                 optionalPointOffsets: defaultVector,
                 birthCond: defaultPlacementCond,
                 eraseCond: defaultPlacementCond,
+                sleepCond: defaultPlacementCond,
+                wakeCond: defaultPlacementCond,
                 splinePoints: defaultSplinePoint
             }[key];
 

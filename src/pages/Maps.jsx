@@ -6,6 +6,7 @@ import { getMarkerData } from '../api/MapAPI';
 import { MapContainer } from '../components/Map/MapContainer';
 import { toast } from 'react-hot-toast';
 import { MapContext } from '../components/Map/MapContext';
+import { Home } from '../components/Home';
 
 export const Maps = () => {
     const [selectedMarker, setSelectedMarker] = useState();
@@ -73,6 +74,7 @@ export const Maps = () => {
                     onSelect={setSelectedMarker}
                 />
             </PanelLayout>
+            <Home />
         </div>
     );
 };

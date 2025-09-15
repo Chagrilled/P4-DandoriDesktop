@@ -17,6 +17,9 @@ contextBridge.exposeInMainWorld("electron", {
         getTekis: () => ipcRenderer.send('getTekis'),
         getEntityData: (entity) => ipcRenderer.invoke('getEntityData', entity),
         sendFileName: (fileName) => ipcRenderer.send('fileNameRequest', fileName),
-        randomise: (state) => ipcRenderer.send('randomise', state)
+        randomise: (state) => ipcRenderer.send('randomise', state),
+        getConfigData: (config) => ipcRenderer.invoke('getConfigData', config),
+        getConfigs: () => ipcRenderer.send('getConfigs'),
+        saveConfig: (config, configData) => ipcRenderer.invoke('saveConfig', config, configData),
     }
 });

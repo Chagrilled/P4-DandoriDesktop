@@ -1,5 +1,5 @@
 const { app, BrowserWindow, ipcMain, Menu, dialog, shell } = require('electron');
-import { readdir, promises, constants, readFileSync, accessSync, writeFileSync, readdirSync } from 'fs';
+import { readdir, promises, constants, readFileSync, accessSync, writeFileSync, readdirSync, renameSync } from 'fs';
 import { join, sep } from 'path';
 import { randomBytes } from 'crypto';
 import swf from 'stringify-with-floats';
@@ -13,7 +13,8 @@ import { createMenu } from './utils/createMenu';
 import { byteArrToInt } from './utils/bytes';
 import { updateElectronApp } from 'update-electron-app';
 import logger from './utils/logger';
-logger.info("Main started up");
+import axios from 'axios';
+import AdmZip from "adm-zip";
 
 const CONFIG_PATH = join(`${app.getPath('userData')}`, "config.json");
 const TEKI = 'Teki';
@@ -167,12 +168,18 @@ ipcMain.on('saveEntities', (event, entityData) => {
     return mainWindow.webContents.send(Messages.SUCCESS, 'Saved all entities');
 });
 
+// This is for "Open in IDE" callbacks. The request comes from the menu bar which is a main process thing
+// which sends a message to the owning window to send the react state's filename through to open
 ipcMain.on('fileNameRequest', (event, fileName) => {
     let filePath = '';
     if (fileName.startsWith('G')) {
         // Teki
         filePath = join(config.gameDir, 'Placeables', 'Teki', `${fileName}.json`);
-    } else {
+    } if (fileName.includes('DT_')) {
+        // Teki
+        filePath = join(config.gameDir, `${fileName}.json`);
+    }
+    else {
         const path = getFilePath(fileName, TEKI);
         filePath = path.split(sep).slice(0, -1).join(sep);
     }
@@ -207,6 +214,56 @@ ipcMain.on('readMaps', (event) => {
     readMaps(false, event.sender);
 });
 
+ipcMain.on('getConfigs', event => {
+    console.log("detected getConfigs IPC");
+    getConfigs();
+});
+
+//#region Get DT_s
+ipcMain.handle('getConfigData', async (event, configFile) => {
+    const filePath = join(config.gameDir, configFile.folder, `${configFile.name}.json`);
+    let contents;
+
+    try {
+        contents = await promises.readFile(filePath, { encoding: 'utf-8' });
+    } catch (err) {
+        logger.error(`Error reading config file ${filePath}: ${e.stack}`);
+        return mainWindow.webContents.send(Messages.ERROR, `Failed to read from ${filePath}`, err.stack);
+    }
+
+    rawData[configFile.name] = JSON.parse(protectNumbers(contents));
+    return rawData[configFile.name].Content[1].Rows;
+});
+
+const getConfigs = async () => {
+    const configs = [];
+    try {
+        const actorConfigs = readdirSync(`${join(config.gameDir, 'Core', 'GActor')}`);
+        actorConfigs.forEach((fileName) => {
+            if (fileName.includes(".json")) {
+                const name = fileName.split('.')[0];
+                if ([
+                    "DT_TekiParameter",
+                    "DT_OtakaraParameter",
+                    "DT_OrimaEquipParameter",
+                    "DT_HappyEquipParameter",
+                    "DT_PikminProperty",
+                    // "DT_MoveSpeedRate",
+                    // "DT_NpcInfo"
+                ].includes(name))
+                    configs.push({
+                        name,
+                        folder: "Core/GActor"
+                    });
+            }
+        });
+        mainWindow.webContents.send('getConfigs', configs);
+    } catch (error) {
+        logger.error(err.stack);
+        return mainWindow.webContents.send(Messages.ERROR, `Failed to read from config folders: ${err}`, err.stack);
+    }
+};
+
 //#region Get Placeable Data
 ipcMain.handle('getEntityData', async (event, entityId) => {
     const filePath = join(config.gameDir, 'Placeables', 'Teki', `G${entityId}.json`);
@@ -233,12 +290,46 @@ ipcMain.handle('getEntityData', async (event, entityId) => {
     return params;
 });
 
+//#region Save Configs/DTs
+ipcMain.handle('saveConfig', async (event, configFile, data) => {
+    try {
+        if (!data || !configFile) return;
+        const floats = {};
+        // see saveMaps for reason
+        ["FlashBangRate", "FreezeDamageRatio", "CrushStopTime", "ThunderStopTime"].forEach(k => floats[k] = 'float');
+
+        const newJson = {
+            Content: [
+                rawData[configFile.name].Content[0],
+                {
+                    Rows: data
+                }
+            ],
+            Extra: rawData[configFile.name].Extra
+        };
+
+        const filePath = join(config.gameDir, configFile.folder, `${configFile.name}.json`);
+        const stringData = unprotectNumbers(swf(floats)(newJson, null, 2));
+
+        try {
+            await promises.writeFile(filePath, stringData);
+            return 0; //idk return status codes or something
+        } catch (e) {
+            logger.error(`Error saving ${configFile.name}: ${e.stack}`);
+            event.sender.send(Messages.ERROR, `Couldn't write to file: ${e}`, e.stack);
+            return e; // ??
+        }
+    } catch (e) {
+        logger.error(e.stack);
+        return e;
+    }
+});
+
 //#region Save Maps
 ipcMain.handle('saveMaps', async (event, mapId, data) => {
     try {
         await saveMaps(mapId, data, event.sender);
     } catch (e) {
-        logger.error(e.toString());
         logger.error(e.stack);
         return e;
     }
@@ -434,6 +525,10 @@ export const readMapData = async (mapId, webContents) => {
                 outlineFolderPath: teki.OutlineFolderPath, // Handle these better than including them then excluding them
                 birthCond: teki.RebirthInfo.BirthCond,
                 eraseCond: teki.RebirthInfo.EraseCond,
+                sleepCond: teki.GenerateInfo.SleepCond,
+                wakeCond: teki.GenerateInfo.WakeCond,
+                bOnceWakeCond: teki.GenerateInfo.bOnceWakeCond,
+                bNoChkCondWhenDead: teki.GenerateInfo.bNoChkCondWhenDead,
                 drops: {
                     parsed,
                     inventoryEnd,
@@ -500,6 +595,10 @@ export const readMapData = async (mapId, webContents) => {
             outlineFolderPath: object.OutlineFolderPath, // Handle these better than including them then excluding them
             birthCond: object.RebirthInfo.BirthCond,
             eraseCond: object.RebirthInfo.EraseCond,
+            sleepCond: object.GenerateInfo.SleepCond,
+            wakeCond: object.GenerateInfo.WakeCond,
+            bOnceWakeCond: object.GenerateInfo.bOnceWakeCond,
+            bNoChkCondWhenDead: object.GenerateInfo.bNoChkCondWhenDead,
             drops: {
                 parsed,
                 rareDrops,
@@ -638,7 +737,7 @@ try {
     // if (err) mainWindow.webContents.send(Messages.ERROR, `Could not read from config: ${e}`);
     config = JSON.parse(data);
 } catch (err) {
-    console.error(`${CONFIG_PATH} does not exist, generating`);
+    logger.warn(`${CONFIG_PATH} does not exist, generating`);
     writeFileSync(CONFIG_PATH, JSON.stringify(DEFAULT_CONFIG, null, 4), { encoding: "utf-8" });
     config = DEFAULT_CONFIG;
 }
@@ -660,9 +759,31 @@ ipcMain.on('randomise', async (event, config) => {
         logger.info("All done randomising!");
         return event.sender.send(Messages.SUCCESS, "Randomised all maps! Don't forget to deploy.");
     } catch (e) {
-        logger.error(`Error randomising: ${e.message}`);
-        logger.error(e.stack);
+        logger.error(`Error randomising: ${e.stack}`);
         event.sender.send(Messages.ERROR, `Failed to randomise - review the log file in the app's install folder`, e.stack);
         throw e;
     }
 });
+
+//#region Force Encoder Update
+try {
+    if (config.encoderDir) {
+        const namePath = join(config.encoderDir, "P4UassetEditor", "name_classes.json");
+        const nameContents = readFileSync(namePath, { encoding: 'utf-8' });
+
+        // They have an old version of name_classes, force upgrade
+        if (!nameContents.includes("DT_ActorTexture")) {
+            logger.info("Force upgrading name_classes.json");
+            const toolingZip = await axios.get('https://github.com/Chagrilled/P4-Utils/raw/master/tooling/P4UassetEditor.zip', { responseType: 'arraybuffer' });
+            // renameSync(namePath, join(config.encoderDir, "P4UassetEditor", "name_classes_old.json"));
+            new AdmZip(Buffer.from(toolingZip.data, 'binary')).extractEntryTo("P4UassetEditor/P4UassetEditor/name_classes.json", join(config.encoderDir, "P4UassetEditor"), false, true,);
+            logger.info("Force upgraded name_classes.json");
+            setTimeout(() => {
+                if (mainWindow?.webContents) mainWindow.webContents.send(Messages.SUCCESS, "Force upgraded the encoder to fix DT_ files");
+            }, 3000);
+        }
+    }
+} catch (err) {
+    logger.error(`Error upgrading encoder file: ${e.stack}`);
+    console.error(err);
+}

@@ -1,4 +1,4 @@
-import { MarkerIcon } from '../Icon';
+import { MarkerIcon } from '../MarkerIcon';
 import React, { useEffect, useState } from 'react';
 import { CreatureNames } from '../../api/types';
 import { InfoType } from '../../api/types';
@@ -20,10 +20,8 @@ export const TekiSelect = ({ onEntChange, currentEnt }) => {
         return () => {
             window.electron.ipcRenderer.removeAllListeners('getTekis');
         };
-    }, [
-    ]);
+    }, []);
 
-    // Fetch maps if there are none - make this performant if it keeps asking for more maps each render
     if (!tekis.length && !loaded) {
         window.electron.ipcRenderer.getTekis();
     }

@@ -257,7 +257,7 @@ describe('Randomiser Tests', () => {
             vi.spyOn(global.Math, 'floor')
                 .mockReturnValue(1)
                 .mockReturnValueOnce(1)
-                .mockReturnValueOnce(0)
+                .mockReturnValueOnce(0);
             vi.spyOn(global.Math, 'random')
                 .mockReturnValue(0.5);
 
@@ -637,13 +637,12 @@ describe('Randomiser Tests', () => {
                     PortalTrigger: {
                         ...DefaultPortalTrigger,
                         toLevelName: 'Cave003_F01',
-                        disablePikminFlags: 0,
                     }
                 }],
                 [InfoType.Object]: [],
             });
 
-            vi.spyOn(global.Math, 'floor').mockReturnValueOnce(11);
+            vi.spyOn(global.Math, 'floor').mockReturnValueOnce(12);
 
             await randomiser({
                 maps: ['Area001'],
@@ -657,8 +656,50 @@ describe('Randomiser Tests', () => {
                         creatureId: 'MadoriRuins',
                         PortalTrigger: {
                             ...DefaultPortalTrigger,
+                            toLevelName: 'Cave018_F00',
+                        }
+                    })
+                ]),
+            }));
+        });
+
+        test('Submerged castle retains its disabled blues', async () => {
+            main.readMapData.mockResolvedValue({
+                [InfoType.Portal]: [{
+                    creatureId: 'MadoriRuins',
+                    transform: {
+                        translation: {
+                            X: 0.0,
+                            Y: 0.0
+                        }
+                    },
+                    PortalTrigger: {
+                        ...DefaultPortalTrigger,
+                        toLevelName: 'Cave003_F01',
+                    }
+                }],
+                [InfoType.Object]: [],
+            });
+
+            vi.spyOn(global.Math, 'floor').mockReturnValueOnce(11);
+
+            await randomiser({
+                maps: ['Area001'],
+                randPortals: true
+            });
+
+            const flags = Object.fromEntries(Array.from({ length: 16 }, (_, i) => [i, true]));
+            flags[1] = false;
+
+            expect(main.saveMaps).toHaveBeenCalledTimes(1);
+            expect(main.saveMaps).toHaveBeenCalledWith('Area001', expect.objectContaining({
+                [InfoType.Portal]: expect.arrayContaining([
+                    expect.objectContaining({
+                        creatureId: 'MadoriRuins',
+                        PortalTrigger: {
+                            ...DefaultPortalTrigger,
                             toLevelName: 'Cave014_F00',
-                            disablePikminFlags: 0,
+                            disablePikminFlags: flags
                         }
                     })
                 ]),
