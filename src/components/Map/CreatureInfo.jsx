@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { NameMap, editableNumberFields, editableBools, ignoreFields, editableStrings, arrayStrings, selectFields, defaultPlacementCond, defaultVector, PikminTypes, defaultSplinePoint } from "../../api/types";
+import { NameMap, editableNumberFields, editableBools, ignoreFields, editableStrings, arrayStrings, selectFields, defaultPlacementCond, defaultVector, PikminTypes, defaultSplinePoint, defaultAppearanceCond, ActorPlacementAppearanceCondition } from "../../api/types";
 import { findMarkerById, getAvailableTimes, mutateAIProperties, deepCopy } from '../../utils';
 import { DebouncedInput } from './DebouncedInput';
 import { MapContext } from './MapContext';
@@ -9,7 +9,7 @@ import { MarkerIcon } from '../MarkerIcon';
 const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId, index) => {
     console.log("updateObj", obj);
     let type = obj.infoType;
-    const oldCreatureId = obj.creatureId
+    const oldCreatureId = obj.creatureId;
     if (!type) {
         ({ type } = findMarkerById(ddId, mapMarkerData));
     }
@@ -132,7 +132,17 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
         if (selectFields[key]) {
             // value = value.replace("EActorPlacementCondition::", "");
 
-            return <li key={fullKey}>
+            // Needs a separate block because it has the same `Condition` as the one below
+            // and I don't have a good way to map between the two so ugly solution it is
+            if (parent === 'wakeCond' || parent === 'sleepCond') {
+                return <li key={fullKey}>
+                    <b>{key}</b>:
+                    <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, fullKey, ddId, index)}>
+                        {Object.values(ActorPlacementAppearanceCondition).map(value => <option key={value} value={value}>{value.replace("EActorPlacementAppearanceCondition::", "")}</option>)}
+                    </select>
+                </li>;
+            }
+            else return <li key={fullKey}>
                 <b>{key}</b>:
                 <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, fullKey, ddId, index)}>
                     {selectFields[key].map(value => <option key={value} value={value}>{value.replace("EActorPlacementCondition::", "")}</option>)}
@@ -186,8 +196,8 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
                 optionalPointOffsets: defaultVector,
                 birthCond: defaultPlacementCond,
                 eraseCond: defaultPlacementCond,
-                sleepCond: defaultPlacementCond,
-                wakeCond: defaultPlacementCond,
+                sleepCond: defaultAppearanceCond,
+                wakeCond: defaultAppearanceCond,
                 splinePoints: defaultSplinePoint
             }[key];
 

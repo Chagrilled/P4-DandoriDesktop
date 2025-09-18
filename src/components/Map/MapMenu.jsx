@@ -67,6 +67,8 @@ export const MapMenu = ({ }) => {
             ddId: window.crypto.randomUUID(),
             birthCond: [],
             eraseCond: [],
+            sleepCond: [],
+            wakeCond: [],
             drops: {
                 parsed: [],
                 rareDrops: [],

@@ -171,6 +171,13 @@ export const ActorPlacementCondition = {
     UnionPikmin: "EActorPlacementCondition::UnionPikmin",
 };
 
+//EActorPlacementAppearanceCondition
+export const ActorPlacementAppearanceCondition = {
+    QuestEvent: "EActorPlacementAppearanceCondition::QuestEvent",
+    TimeCourse: "EActorPlacementAppearanceCondition::TimeCourse",
+    WaterBoxFluctuation: "EActorPlacementAppearanceCondition::WaterBoxFluctuation"
+};
+
 export const ExploreRateTargetType = {
     Kinkai: "EExploreRateTargetType::Kinkai",
     None: "EExploreRateTargetType::None",
@@ -901,6 +908,12 @@ export const defaultPlacementCond = {
     CondName: "None",
     CondPikminColor: "EPikminColor::Undef"
 };
+
+export const defaultAppearanceCond = {
+    Condition: ActorPlacementAppearanceCondition.QuestEvent,
+    CondInt: 0,
+    CondName: "None",
+}
 
 export const defaultSplinePoint = {
     inVal: 0.0,
