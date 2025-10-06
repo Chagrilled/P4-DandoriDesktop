@@ -16,7 +16,7 @@ export const ConfigPropertyList = () => {
         ...Object.fromEntries(Object.entries(ObjectNames).map(([k, v]) => [k.toUpperCase(), v])),
         ...Object.fromEntries(Object.entries(WorkObjectNames).map(([k, v]) => [k.toUpperCase(), v]))
     };
-    
+
     // These could probably be individual components like the parameter ones are
     // but oh well
     const rowChildren = {
@@ -134,6 +134,46 @@ export const ConfigPropertyList = () => {
             return <>
                 <MarkerIcon type={"object"} id={"happy"} />
                 0
+            </>;
+        },
+        DT_NpcInfo: (key, value) => {
+            const overrides = {
+                SVSleep000: "survivora",
+                LFSleep020: "survivora",
+                TEST: "survivora"
+            }
+            return <>
+                <MarkerIcon type={"object"} id={overrides[key] || key} />
+                {key}
+            </>;
+        },
+        DT_NpcRole: (key, value) => {
+            const overrides = {
+                CaptainOlimar: "olimar"
+            }
+
+            return <>
+                <MarkerIcon type={"object"} id={overrides[key] || value.NpcInfoKey} />
+                {key}
+            </>;
+        },
+        CaveOtakaraCollectRankTable: (key, value) => {
+            return <>
+                <MarkerIcon type={"portal"} id="madoriruins" />
+                {key}
+            </>;
+        },
+        DT_DDBHandicapTable: (key, value) => {
+            return <>
+                <MarkerIcon type={"object"} id="default" />
+                {key}
+            </>;
+        },
+        DT_Shop: (key, value) => {
+
+            return <>
+                <MarkerIcon type={"item"} id={key} />
+                {key}
             </>;
         }
     };

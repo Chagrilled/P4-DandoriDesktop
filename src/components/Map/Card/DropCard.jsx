@@ -3,7 +3,10 @@ import { ActorSpawnerCustomParameter, DropConditions, DropConditions_Named, Game
 import { getInfoType, getNameFromAsset, getSubpathFromAsset } from "../../../utils";
 import { Card } from "./Card";
 import { DebouncedInput } from "../DebouncedInput";
+import tooltips from "../../../api/tooltips";
+import { Tooltip } from "react-tooltip";
 
+// This is actually such a terrible component and could probably be a third of the size
 export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
     console.log("DropCard", drop);
 
@@ -294,7 +297,12 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                     onChange={(e) => updateDrops(e.target.checked, drop, "bSetTerritory")}
                 />
             </div>
-            <div>
+            <div data-tooltip-id="bRegistGenerator">
+                <Tooltip id="bRegistGenerator" place={"top"}>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        {tooltips.bRegistGenerator}
+                    </div>
+                </Tooltip>
                 <b>bRegistGenerator</b>:&nbsp;
                 <input
                     type="checkbox"

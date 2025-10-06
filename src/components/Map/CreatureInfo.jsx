@@ -4,6 +4,8 @@ import { findMarkerById, getAvailableTimes, mutateAIProperties, deepCopy } from 
 import { DebouncedInput } from './DebouncedInput';
 import { MapContext } from './MapContext';
 import { MarkerIcon } from '../MarkerIcon';
+import tooltips from '../../api/tooltips';
+import { Tooltip } from 'react-tooltip';
 
 //#region updateCreature
 const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId, index) => {
@@ -82,16 +84,24 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
         if (ignoreFields.includes(key)) return;
         const fullKey = `${parent || ''}${parent ? '.' : ''}${key}`;
 
+        const tooltip = tooltips[key] ? <Tooltip id={key} place={"top"}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {tooltips[key]}
+            </div>
+        </Tooltip> : null;
+        
         if (editableNumberFields.includes(key)) {
             // console.log(fullKey)
-            return <li key={fullKey}>
+            return <li key={fullKey} data-tooltip-id={key}>
+                {tooltip}
                 <b>{key}</b>:&nbsp;
                 <DebouncedInput marker={obj} changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, fullKey, ddId, index)} value={value} type="number" ddId={ddId} />
             </li>;
         }
 
         if (editableStrings.includes(key)) {
-            return <li key={fullKey}>
+            return <li key={fullKey} data-tooltip-id={key}>
+                {tooltip}
                 <b>{key}</b>:&nbsp;
                 <DebouncedInput marker={obj} changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, fullKey, ddId, index)} value={arrayStrings.includes(key) ? JSON.stringify(value) : value} ddId={ddId} />
             </li>;
@@ -121,7 +131,8 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
         }
 
         if (key === 'time') {
-            return <li key={key}>
+            return <li key={key} data-tooltip-id={key}>
+                {tooltip}
                 <b>AGL File</b>:
                 <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, key, ddId, index)}>
                     {getAvailableTimes(mapId).map(time => <option key={time} value={time}>{time}</option>)}
@@ -135,23 +146,26 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
             // Needs a separate block because it has the same `Condition` as the one below
             // and I don't have a good way to map between the two so ugly solution it is
             if (parent === 'wakeCond' || parent === 'sleepCond') {
-                return <li key={fullKey}>
+                return <li key={fullKey} data-tooltip-id={key}>
+                    {tooltip}
                     <b>{key}</b>:
                     <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, fullKey, ddId, index)}>
                         {Object.values(ActorPlacementAppearanceCondition).map(value => <option key={value} value={value}>{value.replace("EActorPlacementAppearanceCondition::", "")}</option>)}
                     </select>
                 </li>;
             }
-            else return <li key={fullKey}>
+            else return <li key={fullKey} data-tooltip-id={key}>
+                {tooltip}
                 <b>{key}</b>:
                 <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, fullKey, ddId, index)}>
-                    {selectFields[key].map(value => <option key={value} value={value}>{value.replace("EActorPlacementCondition::", "")}</option>)}
+                    {selectFields[key].map(value => <option key={value} value={value}>{value.replace(/.+::/, "")}</option>)}
                 </select>
             </li>;
         }
 
         if (editableBools.includes(key)) {
-            return <li key={fullKey}>
+            return <li key={fullKey} data-tooltip-id={key}>
+                {tooltip}
                 <b>{key}</b>
                 <input
                     type="checkbox"
@@ -202,6 +216,7 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
             }[key];
 
             return <li key={key}>
+                {tooltip}
                 <b className="font-bold inline-flex">
                     {key}:
                     <svg

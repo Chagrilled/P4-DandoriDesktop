@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-const Panel = ({ auto, children, width = "20%" }) => {
+const Panel = ({ auto, children, width = "22%" }) => {
     return children
         ? <div className={`${auto ? 'w-auto' : ''} w-20 h-full flex flex-initial flex-col`} style={{ minWidth: auto ? 0 : width }}>{children}</div>
         : null;

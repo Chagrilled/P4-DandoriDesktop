@@ -118,17 +118,16 @@ export const MapMenu = ({ }) => {
                 <Item id="GroupDropManager" onClick={handleItemClick}>GroupDropManager</Item>
                 <Separator />
                 <Submenu label="Objects">
-                    <Item id={Gimmick} onClick={handleItemClick}>Gimmick</Item>
-                    <Item id={Object} onClick={handleItemClick}>Object</Item>
-                    <Item id={WorkObject} onClick={handleItemClick}>WorkObject</Item>
-                    <Item id={Pikmin} onClick={handleItemClick}>Pikmin</Item>
                     <Item id={Base} onClick={handleItemClick}>Base</Item>
-                    <Item id={Onion} onClick={handleItemClick}>Onion</Item>
+                    <Item id={Gimmick} onClick={handleItemClick}>Gimmick</Item>
                     <Item id={Hazard} onClick={handleItemClick}>Hazard</Item>
+                    <Item id={InfoType.Item} onClick={handleItemClick}>Item</Item>
+                    <Item id={Object} onClick={handleItemClick}>Object</Item>
+                    <Item id={Onion} onClick={handleItemClick}>Onion</Item>
+                    <Item id={Pikmin} onClick={handleItemClick}>Pikmin</Item>
                     <Item id={Portal} onClick={handleItemClick}>Portal</Item>
                     <Item id={Treasure} onClick={handleItemClick}>Treasure</Item>
-                    <Item id={InfoType.Item} onClick={handleItemClick}>Item</Item>
-
+                    <Item id={WorkObject} onClick={handleItemClick}>WorkObject</Item>
                 </Submenu>
             </Menu>
         </div>

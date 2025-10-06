@@ -74,8 +74,6 @@ const SCALE_OVERRIDES = {
     pelplanttable: 0.75,
     warptrigger: 0.5,
     burrow: 0.5,
-    ropebranch: 0.5,
-    ropebranchsmall: 0.5,
     navmeshtrigger: 0.5,
     navmeshtriggerlinkforsplash: 0.5,
     navmeshtriggerclear: 0.5,
@@ -108,7 +106,9 @@ const SCALE_OVERRIDES = {
     lucky: 0.6,
     fuurosoua: 0.15,
     fuurosoub: 0.15,
-    ooinu: 0.4
+    ooinu: 0.4,
+    survivorleaf: 0.2,
+    survivorolimarleaf: 0.2
 };
 
 export const getIconOptions = (type) => {

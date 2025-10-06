@@ -84,7 +84,7 @@ const extractFiles = async (filePath, mainWindow, destination, resetMessage) => 
             });
             if (!destination) shell.openPath(filePath);
             let message = "Files copied - This is your Carrot4 folder. Put it in UassetEditor's _EDIT folder.";
-            if (resetMessage) message = "Reset all maps files";
+            if (resetMessage) message = "Reset all files";
             return mainWindow.webContents.send(Messages.SUCCESS, message);
         });
     });
@@ -418,16 +418,28 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
             {
                 label: 'Reset All Files',
                 click: () => {
-                    const dest = join(`${app.getPath('userData')}`, 'maps');
-                    if (existsSync(join(`${app.getPath('userData')}`, 'maps', 'Maps'))) {
-                        extractFiles(join(dest, 'Maps'), mainWindow, join(config.gameDir), true);
+                    const dest = join(`${app.getPath('userData')}`);
+                    const mapPath = join(dest, 'maps', 'Maps');
+
+                    if (existsSync(join(dest, 'maps', 'Maps')) && existsSync(join(dest, 'core'))) {
+                        extractFiles(mapPath, mainWindow, join(config.gameDir), true);
+                        cpSync(join(dest, "core"), config.gameDir, {
+                            recursive: true
+                        });
                     }
                     else {
                         mainWindow.webContents.send(Messages.PROGRESS, 'Downloading contents, hold tight');
 
                         axios.get('https://github.com/Chagrilled/P4-Utils/raw/master/Maps.zip', { responseType: 'arraybuffer' }).then(async (maps) => {
-                            new AdmZip(Buffer.from(maps.data, 'binary')).extractAllTo(dest);
-                            await extractFiles(join(dest, 'Maps'), mainWindow, join(config.gameDir), true);
+                            new AdmZip(Buffer.from(maps.data, 'binary')).extractAllTo(join(dest, 'maps'));
+                            await extractFiles(mapPath, mainWindow, join(config.gameDir), true);
+                        });
+
+                        axios.get('https://github.com/Chagrilled/P4-Utils/raw/master/DT.zip', { responseType: 'arraybuffer' }).then(async (dt) => {
+                            new AdmZip(Buffer.from(dt.data, 'binary')).extractAllTo(join(dest, 'core'));
+                            cpSync(join(dest, 'core', "Core"), join(config.gameDir, "Core"), {
+                                recursive: true
+                            });
                         });
                     }
                 }

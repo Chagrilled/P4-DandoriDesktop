@@ -251,7 +251,7 @@ export const MapContainer = ({
 
             const [x, y] = absoluteCoords;
             const splineObject = ent.creatureId.startsWith('Spline') ? "ActorParameter" : "AIProperties";
-            const splineKey = ['Geyser', 'Branch_Long'].includes(ent.creatureId) ? "navLinkRight" : "splinePoints";
+            const splineKey = ['Geyser', 'Branch_Long', 'Circulator'].some(e => ent.creatureId.includes(e)) ? "navLinkRight" : "splinePoints";
 
             const feature = new Feature({
                 geometry: new Point([y, x]),
@@ -298,7 +298,7 @@ export const MapContainer = ({
         });
         const layers = [layer];
 
-        if (!['Geyser', 'Branch_Long'].includes(ent.creatureId)) {
+        if (!['Geyser', 'Branch_Long', 'Circulator'].some(e => ent.creatureId.includes(e))) {
             // Draw the actual curve
             const curveStyle = new Style({
                 stroke: new Stroke({

@@ -238,29 +238,48 @@ ipcMain.handle('getConfigData', async (event, configFile) => {
 const getConfigs = async () => {
     const configs = [];
     try {
-        const actorConfigs = readdirSync(`${join(config.gameDir, 'Core', 'GActor')}`);
-        actorConfigs.forEach((fileName) => {
-            if (fileName.includes(".json")) {
-                const name = fileName.split('.')[0];
-                if ([
-                    "DT_TekiParameter",
-                    "DT_OtakaraParameter",
-                    "DT_OrimaEquipParameter",
-                    "DT_HappyEquipParameter",
-                    "DT_PikminProperty",
-                    // "DT_MoveSpeedRate",
-                    // "DT_NpcInfo"
-                ].includes(name))
-                    configs.push({
-                        name,
-                        folder: "Core/GActor"
-                    });
-            }
+        [{
+            path: `${join(config.gameDir, 'Core', 'GActor')}`,
+            folder: 'Core/GActor'
+        },
+        {
+            path: `${join(config.gameDir, 'Core', 'Shop')}`,
+            folder: 'Core/Shop'
+        },
+        {
+            path: `${join(config.gameDir, 'Core', 'Cave')}`,
+            folder: 'Core/Cave'
+        }
+        ].forEach(read => {
+            const actorConfigs = readdirSync(read.path);
+            actorConfigs.forEach((fileName) => {
+                if (fileName.includes(".json")) {
+                    const name = fileName.split('.')[0];
+                    if ([
+                        "DT_TekiParameter",
+                        "DT_OtakaraParameter",
+                        "DT_OrimaEquipParameter",
+                        "DT_HappyEquipParameter",
+                        "DT_PikminProperty",
+                        // "DT_MoveSpeedRate",
+                        "DT_NpcInfo",
+                        "DT_NpcRole",
+                        "CaveOtakaraCollectRankTable",
+                        "DT_DDBHandicapTable",
+                        "DT_Shop"
+                    ].includes(name))
+                        configs.push({
+                            name,
+                            folder: read.folder
+                        });
+                }
+            });
         });
+
         mainWindow.webContents.send('getConfigs', configs);
     } catch (error) {
-        logger.error(err.stack);
-        return mainWindow.webContents.send(Messages.ERROR, `Failed to read from config folders: ${err}`, err.stack);
+        logger.error(error.stack);
+        return mainWindow.webContents.send(Messages.ERROR, `Failed to read from config folders: ${error}`, error.stack);
     }
 };
 
@@ -296,7 +315,61 @@ ipcMain.handle('saveConfig', async (event, configFile, data) => {
         if (!data || !configFile) return;
         const floats = {};
         // see saveMaps for reason
-        ["FlashBangRate", "FreezeDamageRatio", "CrushStopTime", "ThunderStopTime"].forEach(k => floats[k] = 'float');
+        [
+            "FlashBangRate",
+            "FreezeDamageRatio",
+            "BombHit",
+            "BombInsideHit",
+            "PoisonHit",
+            "PurpleDirectHit",
+            "PressHit",
+            "IceBombHit",
+            "IceBombInsideHit",
+            "FreezeHit",
+            "FreezeInsideHit",
+            "FreezeDamageRatio",
+            "CrushHit",
+            "FrozenCrushDamageRate",
+            "SnowBallDamage",
+            "StoneDamage",
+            "CrushKnockBackSpeed",
+            "PlayerDamage",
+            "OtherDamage",
+            "FlashBangTargetWeight",
+            "CrushStopTime",
+            "ThunderStopTime",
+            "BoostAntenna1",
+            "SensorRadius1",
+            "BoostAntenna2",
+            "SensorRadius2",
+            "BoostAntenna3",
+            "SensorRadius3",
+            "VitalSystem1",
+            "VitalSystem2",
+            "VitalSystem3",
+            "MetalSystem1",
+            "MetalSystem2",
+            "MetalSystem3",
+            "DashBoots1",
+            "DashBoots2",
+            "DashBoots3",
+            "HeadLampNoneIntensity",
+            "HeadLampNoneAttenuationRadius",
+            "HeadLampNoneLightFalloffExponent",
+            "HeadLamp1Intensity",
+            "HeadLamp1AttenuationRadius",
+            "HeadLamp1LightFalloffExponent",
+            "HeadLamp2Intensity",
+            "HeadLamp2AttenuationRadius",
+            "HeadLamp2LightFalloffExponent",
+            "RecoveryKitRate",
+            "RecoveryKitInvincibleTime",
+            "LeafSpeed",
+            "BudSpeed",
+            "FlowerSpeed",
+            "DopeSpeed",
+            "ArriveTimer"
+        ].forEach(k => floats[k] = 'float');
 
         const newJson = {
             Content: [
@@ -776,7 +849,7 @@ try {
             logger.info("Force upgrading name_classes.json");
             const toolingZip = await axios.get('https://github.com/Chagrilled/P4-Utils/raw/master/tooling/P4UassetEditor.zip', { responseType: 'arraybuffer' });
             // renameSync(namePath, join(config.encoderDir, "P4UassetEditor", "name_classes_old.json"));
-            new AdmZip(Buffer.from(toolingZip.data, 'binary')).extractEntryTo("P4UassetEditor/P4UassetEditor/name_classes.json", join(config.encoderDir, "P4UassetEditor"), false, true,);
+            new AdmZip(Buffer.from(toolingZip.data, 'binary')).extractEntryTo("P4UassetEditor/P4UassetEditor/name_classes.json", join(config.encoderDir, "P4UassetEditor"), false, true);
             logger.info("Force upgraded name_classes.json");
             setTimeout(() => {
                 if (mainWindow?.webContents) mainWindow.webContents.send(Messages.SUCCESS, "Force upgraded the encoder to fix DT_ files");
