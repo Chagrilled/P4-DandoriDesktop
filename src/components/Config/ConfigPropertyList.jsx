@@ -170,7 +170,6 @@ export const ConfigPropertyList = () => {
             </>;
         },
         DT_Shop: (key, value) => {
-
             return <>
                 <MarkerIcon type={"item"} id={key} />
                 {key}

@@ -194,6 +194,7 @@ export const regenerateAGLEntity = (actor, aglData) => {
             ...aglData.RebirthInfo,
             ActivityTime: actor.activityTime,
             RebirthType: actor.rebirthType,
+            CurrNum: parseInt(actor.generateNum),
             RebirthInterval: parseInt(actor.rebirthInterval) || 0,
             BirthDay: parseInt(actor.birthDay) || 0,
             DeadDay: parseInt(actor.deadDay) || 0,

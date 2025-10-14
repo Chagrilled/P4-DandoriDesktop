@@ -253,26 +253,28 @@ const getConfigs = async () => {
         ].forEach(read => {
             const actorConfigs = readdirSync(read.path);
             actorConfigs.forEach((fileName) => {
-                if (fileName.includes(".json")) {
-                    const name = fileName.split('.')[0];
-                    if ([
-                        "DT_TekiParameter",
-                        "DT_OtakaraParameter",
-                        "DT_OrimaEquipParameter",
-                        "DT_HappyEquipParameter",
-                        "DT_PikminProperty",
-                        // "DT_MoveSpeedRate",
-                        "DT_NpcInfo",
-                        "DT_NpcRole",
-                        "CaveOtakaraCollectRankTable",
-                        "DT_DDBHandicapTable",
-                        "DT_Shop"
-                    ].includes(name))
-                        configs.push({
-                            name,
-                            folder: read.folder
-                        });
-                }
+                try {
+                    if (fileName.includes(".json")) {
+                        const name = fileName.split('.')[0];
+                        if ([
+                            "DT_TekiParameter",
+                            "DT_OtakaraParameter",
+                            "DT_OrimaEquipParameter",
+                            "DT_HappyEquipParameter",
+                            "DT_PikminProperty",
+                            // "DT_MoveSpeedRate",
+                            "DT_NpcInfo",
+                            "DT_NpcRole",
+                            "CaveOtakaraCollectRankTable",
+                            "DT_DDBHandicapTable",
+                            "DT_Shop"
+                        ].includes(name))
+                            configs.push({
+                                name,
+                                folder: read.folder
+                            });
+                    }
+                } catch (e) { }
             });
         });
 
@@ -845,7 +847,7 @@ try {
         const nameContents = readFileSync(namePath, { encoding: 'utf-8' });
 
         // They have an old version of name_classes, force upgrade
-        if (!nameContents.includes("DT_ActorTexture")) {
+        if (!nameContents.includes("IsTotugeki")) {
             logger.info("Force upgrading name_classes.json");
             const toolingZip = await axios.get('https://github.com/Chagrilled/P4-Utils/raw/master/tooling/P4UassetEditor.zip', { responseType: 'arraybuffer' });
             // renameSync(namePath, join(config.encoderDir, "P4UassetEditor", "name_classes_old.json"));

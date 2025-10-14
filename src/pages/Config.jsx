@@ -92,9 +92,6 @@ export const Config = () => {
 
     // Todo list:
     // MoveSpeedRate
-    // NpcInfo - UI/Common/Icon/SourceImages for NPC faces
-    // NpcRole
-    // 
     // /Characters/HappySkill
     // HappySkillGroup
     // HappyRegeneration

@@ -1269,7 +1269,7 @@ export const constructActor = (actor, mapId) => {
             BirthDay: parseInt(actor.birthDay) || 0,
             DeadDay: parseInt(actor.deadDay) || 0,
             ExpireDay: 0,
-            CurrNum: 1,
+            CurrNum: parseInt(actor.generateNum),
             ExpireProgress: 0,
             RebirthInterval: parseInt(actor.rebirthInterval) || 0,
             SaveFlag: entData.SaveFlag[0],
