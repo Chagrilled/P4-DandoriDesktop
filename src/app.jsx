@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast';
 
 const root = createRoot(document.body);
 root.render(
-    <div className='h-screen w-screen bg-sky-1000 text-blue-200'>
+    <div className={window?.location?.hash?.includes('randomiser') ? 'min-h-screen min-w-screen bg-sky-1000 text-blue-200' : 'h-screen w-screen bg-sky-1000 text-blue-200'}>
         <AppRoutes />
         <Toaster />
     </div>

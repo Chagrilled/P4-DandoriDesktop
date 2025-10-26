@@ -10,6 +10,7 @@ import { version } from '../../package.json';
 import AdmZip from "adm-zip";
 import axios from 'axios';
 import { Messages } from '../api/types';
+import sudo from 'sudo-prompt';
 
 const isMac = process.platform === 'darwin';
 const LOG_PATH = join(`${app.getPath('userData')}`, 'logs');
@@ -167,14 +168,17 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                                 ...config,
                                 outputDir: filePaths[0]
                             }, null, 4), { encoding: "utf-8" }, () => { });
-                            mainWindow.webContents.send(Messages.SUCCESS, 'Set outputDir directory');
+                            const modPath = join('Carrot4', 'Content', 'Paks');
+                            if (!filePaths[0].includes(modPath))
+                                mainWindow.webContents.send(Messages.ERROR, `Output folder doesn't contain "${modPath}"`);
+                            else mainWindow.webContents.send(Messages.SUCCESS, 'Set outputDir directory');
                         }
                     });
                 }
             },
             {
-                label: 'Set Emulator Executable',
-                enabled: false,
+                label: 'Set Game ROM',
+                enabled: true,
                 click: () => {
                     dialog.showOpenDialog(mainWindow, { properties: ['openFile'], filters: { extensions: '.exe' } }).then(({ filePaths, canceled }) => {
                         if (filePaths && !canceled) {
@@ -183,7 +187,7 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                                 ...config,
                                 emulatorFile: filePaths[0]
                             }, null, 4), { encoding: "utf-8" }, () => { });
-                            mainWindow.webContents.send(Messages.SUCCESS, 'Set emulator path');
+                            mainWindow.webContents.send(Messages.SUCCESS, 'Set ROM path');
                         }
                     });
                 }
@@ -338,14 +342,6 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                 }
             },
             {
-                label: 'Open Emulator (Admin Startup Required)',
-                click: () => {
-                    if (!config.emulatorFile) return mainWindow.webContents.send(Messages.ERROR, "Set your emulator path first");
-                    const subprocess = spawn(config.emulatorFile);
-                    subprocess.on('error', () => mainWindow.webContents.send(Messages.ERROR, "Dandori Desktop must be run as administrator to do this."));
-                }
-            },
-            {
                 label: 'Open in IDE',
                 click: () => {
                     mainWindow.webContents.send('fileNameRequest');
@@ -462,6 +458,18 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
             // and load the index.html of the app.
             if (!app.isPackaged) randoWindow.openDevTools();
             randoWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY + '#randomiser');
+        }
+    },
+    {
+        label: 'Open Game',
+        click: () => {
+            if (!config.emulatorFile) return mainWindow.webContents.send(Messages.ERROR, "Set your emulator path first");
+            let options = { name: 'Dandori Desktop' };
+            sudo.exec(`"${config.emulatorFile}"`, options,
+                (error, stdout, stderr) => {
+                    if (error) mainWindow.webContents.send(Messages.ERROR, error);
+                }
+            );
         }
     },
     {

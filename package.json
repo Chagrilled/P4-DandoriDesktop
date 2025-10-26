@@ -1,7 +1,7 @@
 {
     "name": "p4-dandoridesktop",
     "productName": "p4-dandoridesktop",
-    "version": "1.7.1",
+    "version": "1.7.2",
     "description": "A Pikmin 4 Editor",
     "main": ".webpack/main",
     "icon": "src/images/icon/icon.ico",
@@ -48,7 +48,11 @@
         "vitest": "^2.0.5"
     },
     "dependencies": {
+        "@emotion/react": "^11.14.0",
+        "@emotion/styled": "^11.14.1",
+        "@fontsource/roboto": "^5.2.8",
         "@heroicons/react": "^2.0.18",
+        "@mui/material": "^7.3.4",
         "adm-zip": "^0.5.14",
         "axios": "^1.7.2",
         "deep-equal": "^2.2.3",
@@ -60,9 +64,11 @@
         "react-dom": "^18.2.0",
         "react-editable-json-tree": "^2.3.0",
         "react-hot-toast": "^2.4.1",
+        "react-is": "^18.2.0",
         "react-router-dom": "^6.21.0",
         "react-tooltip": "^5.27.1",
         "stringify-with-floats": "^2.0.1",
+        "sudo-prompt": "^9.2.1",
         "update-electron-app": "^3.0.0",
         "winston": "^3.14.1",
         "winston-daily-rotate-file": "^5.0.0"
@@ -71,5 +77,8 @@
         "setupFiles": [
             "./tests/setupTests.js"
         ]
+    },
+    "overrides": {
+        "react-is": "^18.2.0"
     }
 }

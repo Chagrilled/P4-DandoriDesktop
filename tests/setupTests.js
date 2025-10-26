@@ -33,7 +33,7 @@ vi.mock('../src/utils/createMenu', () => {
 
 vi.mock('../src/utils/logger', () => {
     return {
-        default: { info: vi.fn() }
+        default: { info: vi.fn(), error: vi.fn() }
     };
 });
 

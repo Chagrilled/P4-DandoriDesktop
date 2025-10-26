@@ -3,21 +3,27 @@ import { Tooltip } from 'react-tooltip';
 import { MarkerIcon } from '../components/MarkerIcon';
 import { PikminNames } from '../api/types';
 import '../Randomiser.css';
+import { Slider } from '@mui/material';
 
 export const Randomiser = () => {
 
     const randInt = (max) => Math.floor(Math.random() * max);
     const pikminList = Object.keys(PikminNames);
+    const [pikminState, setPikminState] = useState({
+        leftIconImage: pikminList[randInt(pikminList.length)],
+        rightIconImage: pikminList[randInt(pikminList.length)],
+        flip: false
+    });
 
     useEffect(() => {
         if (!state.maps) {
             window.electron.ipcRenderer.readMaps();
             setInterval(() => setPikminState({
                 leftIconImage: pikminList[randInt(pikminList.length)],
-                rightIconImage: pikminList[randInt(pikminList.length)]
+                rightIconImage: pikminList[randInt(pikminList.length)],
+                flip: Date.now() % 2
             }), 1500);
         }
-
         window.electron.ipcRenderer.on('getMaps', (evt, message) => { console.log(message); setState({ ...state, maps: message.maps }); });
 
         return () => {
@@ -74,12 +80,18 @@ export const Randomiser = () => {
         bossDropChance: 25,
         gatesDrop: false,
         retainOSTOnions: true,
-        randMaterialPiles: 0
-    });
-
-    const [pikminState, setPikminState] = useState({
-        leftIconImage: pikminList[randInt(pikminList.length)],
-        rightIconImage: pikminList[randInt(pikminList.length)],
+        randMaterialPiles: 0,
+        sproutMultiplier: [100, 100],
+        creatureWeightMultiplier: [100, 100],
+        purpleDirectHitMultiplier: [100, 100],
+        poisonDamageMultiplier: [100, 100],
+        healthMultiplier: [100, 100],
+        freezeMultiplier: [100, 100],
+        shopMultiplier: [100, 100],
+        shopUnlockMultiplier: [100, 100],
+        treasureWeightMultiplier: [100, 100],
+        creatureSparkliumMultiplier: [100, 100],
+        freezeDamageMultiplier: [100, 100]
     });
 
     const settings = {
@@ -265,6 +277,39 @@ export const Randomiser = () => {
                 id: 'asIntervalLimit',
                 min: 0
             },
+            {
+                label: 'Weight: ',
+                tooltip: <><span>Modifies the weight of each creature corpse by a random percentage in this range</span></>,
+                type: 'range',
+                id: 'creatureWeightMultiplier',
+                min: 0,
+                max: 200,
+                step: 2.5,
+                a: 100,
+                b: 144.27
+            },
+            {
+                label: 'Health: ',
+                tooltip: <><span>Modifies each creatures health by a random percentage in this range.</span></>,
+                type: 'range',
+                id: 'healthMultiplier',
+                min: 0,
+                max: 200,
+                step: 2.5,
+                a: 33.3333,
+                b: 72.1348
+            },
+            {
+                label: 'Sparklium: ',
+                tooltip: <><span>Modifies each creatures sparklium by a random percentage in this range (per creature).</span></>,
+                type: 'range',
+                id: 'creatureSparkliumMultiplier',
+                min: 0,
+                max: 200,
+                step: 2.5,
+                a: 33.3333,
+                b: 72.1348
+            },
         ],
         //#region Treasure Options
         treasures: [
@@ -286,7 +331,7 @@ export const Randomiser = () => {
                 id: 'retainOSTOnions'
             },
             {
-                label: 'Raw Material Ceiling',
+                label: 'Extra Raw Material',
                 tooltip: <>
                     <span>Maximum amount of extra raw material that can be added to a pile's existing amount</span>
                     <span>Negative numbers do work but the range excludes -0 and -YourNumber</span>
@@ -294,6 +339,21 @@ export const Randomiser = () => {
                 type: 'number',
                 onChange: (e) => setState({ ...state, randMaterialPiles: e.target.value }),
                 id: 'randMaterialPiles'
+            },
+            {
+                label: 'Weight: ',
+                tooltip: <><span>Modifies the weight of each treasure by a random percentage in this range</span></>,
+                type: 'range',
+                id: 'treasureWeightMultiplier',
+                min: 0,
+                max: 200,
+                step: 2.5,
+                a: 100,
+                b: 144.27
+                // Clamps the exponential between 0-300
+                // solve x(e^(100/y)-1) = 100; x(e^(200/y)-1) = 300
+                // y\ =\ a\left(e^{\frac{x}{b}}-1\right)
+                // y = a(e^x/b - 1)
             },
             // {
             //     label: 'Treasures Like-For-Like',
@@ -477,6 +537,7 @@ export const Randomiser = () => {
             //     id: 'retainMaterials'
             // },
         ],
+        //#region General Options
         general: [
             {
                 label: 'Limit Per Drop',
@@ -519,6 +580,83 @@ export const Randomiser = () => {
                 onChange: (e) => setState({ ...state, randIntFunction: e.target.value }),
                 id: 'randIntFunction'
             },
+            {
+                label: 'Sprouts: ',
+                tooltip: <><span>Modifies the number of Pikmin sprouts produced by each entity by a random percentage in this range</span></>,
+                type: 'range',
+                id: 'sproutMultiplier',
+                min: 0,
+                max: 200,
+                step: 2.5,
+                a: 100,
+                b: 144.27
+            },
+            {
+                label: 'Shop Prices: ',
+                tooltip: <><span>Modifies each shop price by a random percentage in this range</span></>,
+                type: 'range',
+                id: 'shopMultiplier',
+                min: 0,
+                max: 200,
+                step: 2.5,
+                a: 100,
+                b: 144.27
+            },
+            {
+                label: 'Shop Unlocks: ',
+                tooltip: <><span>Modifies each item's sparklium unlock requirement by a random percentage in this range</span></>,
+                type: 'range',
+                id: 'shopUnlockMultiplier',
+                min: 0,
+                max: 200,
+                step: 5,
+                a: 100,
+                b: 144.27
+            },
+            {
+                label: 'Ice Numbers: ',
+                tooltip: <><span>Modifies each creature's freeze parameters by a random percentage in this range</span></>,
+                type: 'range',
+                id: 'freezeMultiplier',
+                min: 0,
+                max: 200,
+                step: 2.5,
+                a: 33.3333,
+                b: 72.1348
+            },
+            {
+                label: 'Freeze Damage: ',
+                tooltip: <><span>Modifies each creature's recevied damage while frozen by a random percentage in this range</span></>,
+                type: 'range',
+                id: 'freezeDamageMultiplier',
+                min: 0,
+                max: 200,
+                step: 2.5,
+                a: 33.3333,
+                b: 72.1348
+            },
+            {
+                label: 'PurpleDirectHit: ',
+                tooltip: <><span>Modifies each creature's PurpleDirectHit parameter by a random percentage in this range. PurpleDirectHit makes impact deal (MaxHealth / PurpleHit) damage</span></>,
+                type: 'range',
+                id: 'purpleDirectHitMultiplier',
+                min: 0,
+                max: 200,
+                step: 2.5,
+                a: 33.3333,
+                b: 72.1348
+            },
+            {
+                label: 'Poison Damage: ',
+                tooltip: <><span>Modifies each creature's poison damage by a random percentage in this range.</span></>,
+                type: 'range',
+                id: 'poisonDamageMultiplier',
+                min: 0,
+                max: 200,
+                step: 2.5,
+                a: 33.3333,
+                b: 72.1348
+            },
         ]
     };
 
@@ -541,27 +679,43 @@ export const Randomiser = () => {
                             <option key="even" value="even">Even</option>
                             <option key="lowWeighted" value="lowWeighted">lowWeighted</option>
                         </select>
-                        : <input
-                            type={o.type}
-                            className={o.type === 'checkbox' ? css : textCss}
-                            onChange={o.onChange}
-                            id={o.id}
-                            checked={state[o.id]}
-                            defaultValue={state[o.id]}
-                            min={o.min ?? undefined}
-                            max={o.max ?? undefined}
-                        />}
+                        : o.type === 'range' ? <Slider
+                            getAriaLabel={() => 'Temperature range'}
+                            value={state[o.id]}
+                            onChange={(e, value) => setState({ ...state, [o.id]: value })}
+                            valueLabelDisplay="auto"
+                            min={o.min}
+                            max={o.max}
+                            step={o.step}
+                            scale={v => {
+                                if (v <= 100) return v;
+                                return Math.round(o.a * (Math.E ** (v / o.b) - 1));
+                            }}
+                        />
+                            : <input
+                                type={o.type}
+                                className={o.type === 'checkbox' ? css : textCss}
+                                onChange={o.onChange}
+                                id={o.id}
+                                checked={state[o.id]}
+                                defaultValue={state[o.id]}
+                                min={o.min ?? undefined}
+                                max={o.max ?? undefined}
+                            />}
 
                 </label>
             </div>
     );
+
     console.log(state);
+    console.log(pikminState);
+
     return (
         <div className="container py-20 px-10 mx-0 min-w-full flex flex-col items-center">
             <h2 className="text-7xl mb-8 text-blue-200 font-[Pikmin]">
-                <MarkerIcon type="pikmin" id={pikminState.leftIconImage} card={true} />
+                <MarkerIcon type="pikmin" id={pikminState.leftIconImage} card={true} flip={pikminState.flip} />
                 Randomiser
-                <MarkerIcon type="pikmin" id={pikminState.rightIconImage} card={true} />
+                <MarkerIcon type="pikmin" id={pikminState.rightIconImage} card={true} flip={pikminState.flip} />
             </h2>
 
             <div className='columns-4 flex'>

@@ -1,5 +1,5 @@
 import { CreatureNames, TreasureNames, InfoType, OnionNames, RebirthTypes, ExploreRateTargetType, weirdAIEntities, DandoriChallengeMaps, StartingLevels, FinalFloors, OverworldPortals, PortalDestinations, HazardNames, WorkObjectNames, PikminTypes, OnionToPikminMap, onionWeights, DefaultDrop, DefaultActorSpawnerDrop, ActivityTimes } from "../api/types";
-import { readMapData, saveMaps } from "../main";
+import { readMapData, saveMaps, getConfigData, saveConfigs } from "../main";
 import { getInfoType, deepCopy, getSubpathFromAsset, getAssetPathFromId, getNameFromAsset, doesEntityHaveDrops, getInfoTypeFromId, mutateAIProperties } from "../utils";
 import { randomBytes } from 'crypto';
 import logger from "../utils/logger";
@@ -1120,6 +1120,57 @@ export const randomiser = async (config) => {
         }
 
         await saveMaps(map, randomMarkers);
+    }
+
+    //#region Randomise Configs
+    try {
+        const tekiParameter = await getConfigData({ name: 'DT_TekiParameter', folder: 'Core/GActor' });
+        const otakaraParameter = await getConfigData({ name: 'DT_OtakaraParameter', folder: 'Core/GActor' });
+        const shop = await getConfigData({ name: 'DT_Shop', folder: 'Core/Shop' });
+
+        Object.values(tekiParameter).forEach(teki => {
+            const weightMult = randFloatBounded(...config.creatureWeightMultiplier) / 100;
+            teki.CarryWeightMin = Math.max(Math.min(Math.floor(teki.CarryWeightMin * weightMult), 1000), 1);
+            teki.CarryWeightMax = Math.max(Math.min(Math.floor(teki.CarryWeightMax * weightMult), 1000), 1);
+            teki.MaxLife = parseFloat((teki.MaxLife * randFloatBounded(...config.healthMultiplier) / 100).toFixed(1));
+            teki.CarryIncPikmins = Math.floor(teki.CarryIncPikmins * randFloatBounded(...config.sproutMultiplier) / 100);
+            teki.PurpleDirectHit = parseFloat((teki.PurpleDirectHit * randFloatBounded(...config.purpleDirectHitMultiplier) / 100).toFixed(1));
+            teki.PoisonHit = parseFloat((teki.PoisonHit * randFloatBounded(...config.poisonDamageMultiplier) / 100).toFixed(1));
+            const iceMult = randFloatBounded(...config.freezeMultiplier) / 100;
+            teki.FreezeHit = parseFloat((teki.FreezeHit * iceMult).toFixed(1));
+            teki.FreezeInsideHit = parseFloat((teki.FreezeInsideHit * iceMult).toFixed(1));
+            teki.FreezeDamageRatio = (teki.FreezeDamageRatio * randFloatBounded(...config.freezeDamageMultiplier) / 100);
+            teki.Kira = Math.floor(teki.Kira * randFloatBounded(...config.creatureSparkliumMultiplier) / 100);
+        });
+
+        Object.values(otakaraParameter).forEach(otakara => {
+            const weightMult = randFloatBounded(...config.treasureWeightMultiplier) / 100;
+            otakara.CarryWeightMin = Math.max(Math.min(Math.floor(otakara.CarryWeightMin * weightMult), 1000), 1);
+            otakara.CarryWeightMax = Math.max(Math.min(Math.floor(otakara.CarryWeightMax * weightMult), 1000), 1);
+        });
+
+        Object.values(shop).forEach(shopItem => {
+            shopItem.Price = Math.floor(shopItem.Price * randFloatBounded(...config.shopMultiplier) / 100);
+            shopItem.UnlockTP = Math.floor(shopItem.UnlockTP * randFloatBounded(...config.shopUnlockMultiplier) / 100);
+        });
+
+        await Promise.all([
+            saveConfigs(undefined, {
+                name: 'DT_TekiParameter',
+                folder: 'Core/GActor'
+            }, tekiParameter),
+            saveConfigs(undefined, {
+                name: 'DT_OtakaraParameter',
+                folder: 'Core/GActor'
+            }, otakaraParameter),
+            saveConfigs(undefined, {
+                name: 'DT_Shop',
+                folder: 'Core/Shop'
+            }, shop)
+        ]);
+    } catch (e) {
+        logger.error(`Error randomising configs: ${e.stack}`);
+        return { e, failed: 'configs (reset all files to get them)' };
     }
 };
 

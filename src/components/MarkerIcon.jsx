@@ -2,7 +2,7 @@ import React from "react";
 import { getIconOptions } from "./Map/FeatureStyles";
 import { InfoType, iconOverrides } from "../api/types";
 
-export const MarkerIcon = ({ type, id, size = 'small', card, override }) => {
+export const MarkerIcon = ({ type, id, size = 'small', card, override, flip }) => {
     const typeOverrides = {
         [InfoType.Gimmick]: 'w-48 h-48 mr-2 mt-4 inline self-center',
         [InfoType.Object]: 'w-48 h-48 mr-2 mt-4 inline self-center',
@@ -28,5 +28,5 @@ export const MarkerIcon = ({ type, id, size = 'small', card, override }) => {
         'small': "w-16 h-16 mr-2 inline self-center",
         'xl': 'w-32 h-32 mr-2 mt-4 inline self-center'
     };
-    return <img className={(!card && typeOverrides[type + override]) || sizes[size] || 'self-center'} src={src} />;
+    return <img className={(!card && typeOverrides[type + override]) || sizes[size] || 'self-center'} src={src} style={{ 'transform': `scale(${flip ? -1 : 1}, 1)`}}/>;
 };

@@ -221,19 +221,23 @@ ipcMain.on('getConfigs', event => {
 
 //#region Get DT_s
 ipcMain.handle('getConfigData', async (event, configFile) => {
+    return getConfigData(configFile);
+});
+
+export const getConfigData = async configFile => {
     const filePath = join(config.gameDir, configFile.folder, `${configFile.name}.json`);
     let contents;
 
     try {
         contents = await promises.readFile(filePath, { encoding: 'utf-8' });
     } catch (err) {
-        logger.error(`Error reading config file ${filePath}: ${e.stack}`);
+        logger.error(`Error reading config file ${filePath}: ${err.stack}`);
         return mainWindow.webContents.send(Messages.ERROR, `Failed to read from ${filePath}`, err.stack);
     }
 
     rawData[configFile.name] = JSON.parse(protectNumbers(contents));
     return rawData[configFile.name].Content[1].Rows;
-});
+};
 
 const getConfigs = async () => {
     const configs = [];
@@ -313,6 +317,10 @@ ipcMain.handle('getEntityData', async (event, entityId) => {
 
 //#region Save Configs/DTs
 ipcMain.handle('saveConfig', async (event, configFile, data) => {
+    saveConfigs(event, configFile, data);
+});
+
+export const saveConfigs = async (event, configFile, data) => {
     try {
         if (!data || !configFile) return;
         const floats = {};
@@ -391,14 +399,14 @@ ipcMain.handle('saveConfig', async (event, configFile, data) => {
             return 0; //idk return status codes or something
         } catch (e) {
             logger.error(`Error saving ${configFile.name}: ${e.stack}`);
-            event.sender.send(Messages.ERROR, `Couldn't write to file: ${e}`, e.stack);
+            if (event) event.sender.send(Messages.ERROR, `Couldn't write to file: ${e}`, e.stack);
             return e; // ??
         }
     } catch (e) {
         logger.error(e.stack);
         return e;
     }
-});
+};
 
 //#region Save Maps
 ipcMain.handle('saveMaps', async (event, mapId, data) => {
@@ -830,8 +838,9 @@ ipcMain.on('randomise', async (event, config) => {
         event.sender.send(Messages.PROGRESS, `Randomising maps!`);
         const { randomiser } = await import('./genEditing/randomiser');
 
-        await randomiser(config);
+        const err = await randomiser(config);
         logger.info("All done randomising!");
+        if (err) event.sender.send(Messages.NONBLOCKING, `Failed to randomise ${err.failed}: ${err.e.stack}`);
         return event.sender.send(Messages.SUCCESS, "Randomised all maps! Don't forget to deploy.");
     } catch (e) {
         logger.error(`Error randomising: ${e.stack}`);

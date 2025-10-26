@@ -1649,7 +1649,7 @@ export const ObjectNames = {
     SurvivorKoppai: "Koppai Survivor",
     SurvivorLeaf: "Leafling Survivor",
     SurvivorLouie: "Louie",
-    TargetPoint_LivingRoom: "RestPoint_LivingRoom",
+    TargetPoint_LivingRoom: "TargetPoint_LivingRoom",
     TargetPoint_Kitchen: "TargetPoint_Kitchen",
     Tsuyukusa: "Burgeoning Spiderwort",
     SurvivorOlimarLeaf: "Olimar Leafling",

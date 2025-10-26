@@ -46,7 +46,7 @@ export const AppRoutes = () => {
         });
         window.electron.ipcRenderer.on(Messages.NONBLOCKING, (something, message) => {
             toast(message, {
-                duration: 5000,
+                duration: 7000,
                 icon: '🤷‍♂️',
                 style: {
                     color: '#e0a810',

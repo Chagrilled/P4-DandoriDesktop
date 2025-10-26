@@ -10,7 +10,7 @@ export const TekiParameter = () => <div className='bg-sky-1200 w-full h-full p-8
     <ConfigInput iconType="icon" iconId="weight" value="CarryWeightMax" type="number" tooltip="The maximum number of individual carriers on an object, including captains, dogs and (Giant) Breadbugs Each entity only counts as 1 regardless of its carry strength." />
     <ConfigInput iconType="icon" iconId="weight" value="CarryWeightMaxVs" type="number" tooltip="The maximum number of individual carriers on an object during Dandori Battles. This is also used when a Breadbug or Giant Breadbug is carrying the object." />
     <ConfigInput iconType="icon" iconId="weight" value="CarryWeightMinVs" type="number" tooltip="The minimum carry strength of the combined carriers required to carry an object while in a Dandori Battle." />
-    <ConfigInput iconType="icon" iconId="weight" value="CarryIncPikmins" type="number" tooltip="Number of Pikmin sprouts produced by the corpse." />
+    <ConfigInput iconType="item" iconId="roulette-003" value="CarryIncPikmins" type="number" tooltip="Number of Pikmin sprouts produced by the corpse." />
     <ConfigInput iconType="creature" iconId="marofrog" value="CrushHit" type="number" tooltip="Damage taken if crushed by anoth er enemy such as a Wollyhop, equal to MaxLife divided by CrushHit." />
     <ConfigInput iconType="creature" iconId="marofrog" value="CrushKnockBackSpeed" type="number" tooltip="Knockback speed an enemy will take if CrushHit applies damage to it." />
     <ConfigInput iconType="portal" iconId="madoripoko" value="CrushStopTime" type="number" tooltip="Enemy pause time if CrushHit applies damage to it." />
