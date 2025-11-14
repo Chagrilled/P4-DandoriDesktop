@@ -103,6 +103,7 @@ export const getReadAIStaticFunc = (creatureId, infoType) => {
     if (infoType === InfoType.Base) return parseBaseAI;
     if (creatureId === 'Sprinkler') return parseSprinklerAI;
     if (creatureId.includes('Valve')) return parseValveAI;
+    if (creatureId.includes('StickyFloorParts')) return () => ({ parsed: [] });
     if (creatureId.includes('StickyFloor')) return parseStickyFloorAI;
     if (creatureId.includes('Geyser')) return parseGeyserAI;
     if (creatureId.includes('Circulator')) return parseCirculatorAI;
@@ -1109,7 +1110,6 @@ export const parseTekiAI = (ai, generatorVersion, creatureId) => {
         });
     }
     index += 4; // something else to end SniffPointParameter
-    console.log(generatorVersion,)
     const creatureAIProperties = getReadCreatureAIFunc(creatureId)(ai.slice(index, ai.length));
 
     return {

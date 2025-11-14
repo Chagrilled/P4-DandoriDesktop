@@ -324,7 +324,7 @@ These objects have (most) of their pertinent bytes parsed and displayed for mani
  - ✅ Circulators (switchID@155, bWindLong after, bRotateDefault last 4 bytes of dynamic? last 3 floats of static are the added transform?)
  - ❌ Bridges/buildables
  - ✅ Mush
- - ✅ Stickyfloors
+ - ✅ Stickyfloors (for `StickyFloorParts*` they need a regular StickyFloor and mushroom (or `bAutoSpawnMush`) to go with them to work)
  - ❌ PanModoki/breadbug burrows
  - ❌ Hazards - I have no leads on how these bytes work 🥲
  - ❌ Cardboard boxes

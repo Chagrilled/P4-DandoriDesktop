@@ -22,7 +22,6 @@ export const MapContainer = ({
     onSelect,
 }) => {
     const [map, setMap] = useState(() => new Map());
-    const [markerLayers, setMarkerLayers] = useState({});
     const [mapLayers, setMapLayers] = useState([]);
     const { show } = useContextMenu({ id: 'MAP_MENU ' });
     const { mapMarkerData, setMapData, filter, mapId, config } = useContext(MapContext);
@@ -69,7 +68,7 @@ export const MapContainer = ({
         // Drag and drop inteaction - updates the map data with new translation
         // you could just update the feature, but we also need the main context to know
         // to update the infopanel
-        Object.values(markerLayers).forEach(layer => {
+        Object.values(visibleLayers).forEach(layer => {
             const modifyFeature = new Modify({
                 features: new Collection(layer.getSource().getFeatures())
             });
@@ -112,7 +111,6 @@ export const MapContainer = ({
             ...getSplinePointLayer(markerRef.current),
             ...getRadiusLayer(markerRef.current)
         ]);
-        setMarkerLayers(markerLayers);
         setMapLayers([
             ...imageLayers,
             ...visibleLayers
@@ -142,33 +140,12 @@ export const MapContainer = ({
     // uwc-debug
     useEffect(() => {
         (async () => await rebuildLayers())();
-    }, [mapMarkerData, config]);
+    }, [mapMarkerData, config, filter]);
 
     useEffect(() => {
         onSelect?.(undefined);
         markerRef.current = undefined;
     }, [mapId]);
-
-    useEffect(() => {
-        const filterKeys = Object.keys(filter);
-        for (const key of filterKeys) {
-            const layer = markerLayers[key];
-            if (!layer) {
-                continue;
-            }
-
-            if (!!filter[key] !== !!prevFilter.current[key]) {
-                if (!filter[key]) {
-                    map.removeLayer(layer);
-                }
-                else {
-                    map.addLayer(layer);
-                }
-            }
-        }
-
-        prevFilter.current = filter;
-    }, [filter]);
 
     //#region Interactions
     const handleSelect = useCallback((evt) => {

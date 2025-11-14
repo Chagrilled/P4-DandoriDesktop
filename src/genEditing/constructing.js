@@ -78,6 +78,7 @@ export const getConstructAIStaticFunc = (creatureId, infoType) => {
     if (infoType === InfoType.Base) return constructBaseAI;
     if (creatureId === 'Sprinkler') return constructSprinklerAI;
     if (creatureId.includes('Valve')) return constructValveAI;
+    if (creatureId.includes('StickyFloorParts')) return defaultAI;
     if (creatureId.includes('StickyFloor')) return constructStickyFloorAI;
     if (creatureId.includes('Geyser')) return constructGeyserAI;
     if (creatureId.includes('Circulator')) return constructCirculatorAI;
