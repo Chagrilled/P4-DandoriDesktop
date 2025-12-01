@@ -3,13 +3,19 @@ import React, { useEffect } from 'react';
 import { SplashScreen } from './pages/Splashscreen';
 import { Maps } from './pages/Maps';
 import { Editor } from './pages/Editor';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route, Outlet } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { MapProvider } from './components/Map/MapContext';
 import { Randomiser } from './pages/Randomiser';
 import { Messages } from './api/types';
 import { Config } from './pages/Config';
 import { ConfigProvider } from './components/Config/ConfigContext';
+import { RandomiserProvider } from './components/RandomiserContext';
+import { RandomiserWeights } from './pages/RandomiserWeights';
+
+const RandomiserLayout = () => {
+    return <Outlet />;
+};
 
 export const AppRoutes = () => {
     useEffect(() => {
@@ -72,7 +78,15 @@ export const AppRoutes = () => {
                         <Maps />
                     </MapProvider>
                 } />
-                <Route path="/randomiser" element={<Randomiser />} />
+                <Route path="/randomiser" element={
+                    <RandomiserProvider>
+                        <RandomiserLayout />
+                    </RandomiserProvider>
+                }
+                >
+                    <Route index element={<Randomiser />} />
+                    <Route path="weights" element={<RandomiserWeights />} />
+                </Route>
                 <Route path="/editor" element={<Editor />} />
                 <Route path="/config" element={
                     <ConfigProvider>

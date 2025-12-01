@@ -64,8 +64,9 @@ export const regenerateAGLEntity = (actor, aglData) => {
     const dynamicAI = getReadAIDynamicFunc(actor.creatureId, actor.infoType)(aiDynamic);
     const AIProperties = { ...existingAIP, ...dynamicAI };
 
-    logger.info(`Generating new actor ${actor.creatureId}from the following properties:`);
+    logger.info(`Generating new actor ${actor.creatureId} with the existing (or defaulted) following properties:`);
     logger.info(JSON.stringify(AIProperties));
+    logger.info(`Actor AIP is: ${JSON.stringify(actor.AIProperties)}`);
 
     const isAIEqual = deepEqual({
         parsed,

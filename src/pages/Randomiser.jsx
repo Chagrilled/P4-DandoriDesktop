@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Tooltip } from 'react-tooltip';
 import { MarkerIcon } from '../components/MarkerIcon';
 import { PikminNames } from '../api/types';
 import '../Randomiser.css';
 import { Slider } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { RandomiserContext } from '../components/RandomiserContext';
 
 export const Randomiser = () => {
 
     const randInt = (max) => Math.floor(Math.random() * max);
     const pikminList = Object.keys(PikminNames);
-    const [pikminState, setPikminState] = useState({
-        leftIconImage: pikminList[randInt(pikminList.length)],
-        rightIconImage: pikminList[randInt(pikminList.length)],
-        flip: false
-    });
+    const { state, setState, pikminState, setPikminState } = useContext(RandomiserContext);
 
     useEffect(() => {
         if (!state.maps) {
@@ -31,68 +29,6 @@ export const Randomiser = () => {
         };
     }, []);
 
-    const [state, setState] = useState({
-        randCreatures: true, // ✅
-        randEnemyDrops: true, // ✅
-        allCreaturesDrop: true, // ✅
-        randMaxDrops: 3, // ✅
-        dropLimitMax: 2, // ✅
-        creatureDropChance: 100,
-        randGenerateNumLimit: 4, // ✅
-        randBossGenerateNumLimit: 2, // ✅
-        randGenerateNums: true, // ✅
-        randBossGenerateNums: true,
-        objectsKeepGenerateNum: true, // ✅
-        retainSpawners: true, // ✅
-        creaturesLfL: true,
-        retainNonBosses: false, // ✅
-        retainBosses: true, // ✅
-        allBosses: false, // ✅
-        asInfiniteChance: 40, // ✅
-        asLimit: 5, // ✅
-        asIntervalLimit: 30, // ✅
-        randTreasures: true, // ✅
-        treasuresLfL: true,
-        randPortals: true, // ✅
-        randOverworldOnly: true, // ✅
-        randPileAmounts: false,
-        randDisabled: false, // ✅
-        randObjects: true, // ✅
-        hazardsLfL: false, // ✅
-        // gatesLfL: false,
-        excludeGates: true,
-        allObjectsDrop: true, // ✅
-        objectDropChance: 100,
-        randStartingOnion: true, // ✅
-        randAllOnions: true, // ✅
-        retainMaterials: true,
-        retainWildPikmin: true, // ✅
-        randObjectDrops: true,
-        objectsLfL: true, // ✅
-        startingFlarlics: 3, // ✅
-        bossesCanDrop: true, // ✅
-        rebirthInterval: 5, // ✅
-        randIntFunction: 'even', // ✅
-        forceCaves: false, // ✅
-        noOverworldSnowfake: true,
-        retainExits: true, // add tests for these later V
-        randomiseNight: true,
-        bossDropChance: 25,
-        gatesDrop: false,
-        retainOSTOnions: true,
-        randMaterialPiles: 0,
-        sproutMultiplier: [100, 100],
-        creatureWeightMultiplier: [100, 100],
-        purpleDirectHitMultiplier: [100, 100],
-        poisonDamageMultiplier: [100, 100],
-        healthMultiplier: [100, 100],
-        freezeMultiplier: [100, 100],
-        shopMultiplier: [100, 100],
-        shopUnlockMultiplier: [100, 100],
-        treasureWeightMultiplier: [100, 100],
-        creatureSparkliumMultiplier: [100, 100],
-        freezeDamageMultiplier: [100, 100]
-    });
 
     const settings = {
         //#region Creature Options
@@ -709,9 +645,17 @@ export const Randomiser = () => {
 
     console.log(state);
     console.log(pikminState);
+    const navigate = useNavigate();
 
     return (
         <div className="container py-20 px-10 mx-0 min-w-full flex flex-col items-center">
+            <button
+                className="absolute left-0 top-0 ml-4 mt-4 bg-green-600 rounded-xl p-2"
+                onClick={() => navigate('/randomiser/weights')}
+            >
+                <img className="w-16 h-16 inline self-center" src="../images/icons/icon-weight.png" />
+            </button>
+
             <h2 className="text-7xl mb-8 text-blue-200 font-[Pikmin]">
                 <MarkerIcon type="pikmin" id={pikminState.leftIconImage} card={true} flip={pikminState.flip} />
                 Randomiser

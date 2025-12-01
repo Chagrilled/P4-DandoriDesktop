@@ -19,6 +19,15 @@ If you've found a **repeatable** crash (sometimes the game _does_ just crash, bu
 
 The whackier you go with the settings, the less stable you should expect the game to be.
 
+### Weights
+
+The weights page lets you configure the frequency that an enemy will appear in the randomiser pool. This means you can remove an enemy completely, or make the entire game one creature. There are a few considerations:
+
+- There must always be at least one creature with a non-zero value
+- The **night pool** <u>***must***</u> have one non-zero creature ([these are here](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/src/genEditing/randomiser.js#L390-L417)) - `Night...` creatures like `NightKochappy` are filtered out of non-night maps so won't appear on day/caves.
+- Certain settings must have correct corresponding weights to keep them functioning - i.e if you have `All Bosses` or `Retain Bosses` on,then you must have at least one boss with a non-zero weight.
+- The pool is randomly mixed with things like items, wild pikmin and so on, so if everything is `0` apart from one creature at `1`, it is very likely to be overwritten with a pikmin/item when the option is available, compared to a weight of 3-5 which makes it more even (as these chances are balanced around having the entire drop pool)
+
 ### 🐗 Enemies
 - [Randomise Enemies](#randomise-enemies)
 - [Randomise Enemy Drops](#randomise-enemy-drops)
@@ -38,10 +47,15 @@ The whackier you go with the settings, the less stable you should expect the gam
 - [ActorSpawner Infinite Chance](#actorspawner-infinite-chance)
 - [ActorSpawner Limit](#actorspawner-limit)
 - [ActorSpawner Interval Limit](#actorspawner-interval-limit)
+- [Carry Weight](#weight)
+- [Health](#health)
+- [Sparklium](#sparklium)
 
 ### 🪙 Treasures
 - [Randomise Treasures](#randomise-treasures)
 - [Retain OST Onions](#retain-ost-onions)
+- [Carry Weight](#weight)
+
 
 ### 🏺 Objects
 - [Randomise Portals](#randomise-portals)
@@ -67,6 +81,13 @@ The whackier you go with the settings, the less stable you should expect the gam
 - [Randomise Night](#randomise-night)
 - [Rebirth Interval](#rebirth-interval)
 - [Random Function](#random-function)
+- [Sprouts](#sprouts)
+- [Shop Prices](#shop-prices)
+- [Shop Unlocks](#shop-unlocks)
+- [Ice Numbers](#ice-numbers)
+- [Freeze Damage](#freeze-damage)
+- [PurpleDirectHit](#purpledirecthit)
+- [Poison Damage](#poison-damage)
 
 ### Randomise Enemies
 
@@ -160,7 +181,7 @@ Selects the function used to randomise integers for other options that do that:
 - `even` - a basic even weight randomiser
 - `lowWeighted` - a distribution that heavily favours the low end, with very infrequent high numbers. May let you experiment with high values of drop limits/GenerateNums without making the game unplayable
 
-Example values:
+Example distribution of 1000 values:
 
 | Occurrences of    |   even   | lowWeighted
 | :---------------- | :------: | ----:
@@ -224,6 +245,20 @@ _Upper bound_ of how many creatures an ActorSpawner can have alive at any one ti
 ### ActorSpawner Interval Limit
 
 ActorSpawners that are infinite-enabled have a delay between each spawn. This is the _upper bound_ of what that number will randomise to. 1 is the minimum.
+
+### Weight
+
+This slider affects the required carry weight of creatures (or treasures). A percentage is generated between the slider's minimum and maximum (yes there are two sliders on top of each other by default) which is then applied to each entity's minimum carry weight. The maximum carry weight is that number doubled.
+
+Every slider's random percentage is applied to an entity in isolation, so for a slider of 50-150, `Kochappy` could generate a 50% carry multiplier, while `BigKingChappy` could get a 125% multiplier.
+
+### Health
+
+Slider minimum and maximum modifiers for a creature's health value. See [weight](#weight) for details.
+
+### Sparklium
+
+Slider minimum and maximum modifiers for how much sparklium each creature's corpse will give. See [weight](#weight) for details. 
 
 ## Treasures
 
@@ -310,3 +345,31 @@ The other onions (not-flarlics) are randomised into other types. They are still 
 ### Starting Flarlics
 
 Places X amount of Flarlic in hub area. Given how hectic and combat-driven randomiser will tend to be, this lets you adjust how much leeway you have from the get-go with your group size.
+
+### Sprouts
+
+Slider minimum and maximum modifiers for how many pikmin sprouts a corpse will grant. See [weight](#weight) for details.
+
+### Shop Prices
+
+Slider minimum and maximum modifiers for how much material shop items cost. See [weight](#weight) for details.
+
+### Shop Unlocks
+
+Slider minimum and maximum modifiers for how much sparklium is required to unlock shop items. See [weight](#weight) for details.
+
+### Ice Numbers
+
+Slider minimum and maximum modifiers applied to a creature's `FreezeInsideHit` and `FreezeHit`, being the amount of ice hits (or eaten) to freeze something. See [weight](#weight) for details.
+
+### Ice Damage
+
+Slider minimum and maximum modifiers applied to a creature's `FreezeDamageRatio`, which is how much damage it takes when frozen. This will likely want to be a value <100% to reduce freeze damage. See [weight](#weight) for details.
+
+### PurpleDirectHit
+
+Slider minimum and maximum modifiers applied to a creature's `PurpleDirectHit` which is how much damage purples do on their slam attack. See [weight](#weight) for details.
+
+### PurpleDirectHit
+
+Slider minimum and maximum modifiers applied to a creature's `PoisonHit` which is how much damage whites do when eaten. See [weight](#weight) for details.

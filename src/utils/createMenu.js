@@ -202,7 +202,7 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                         ...config,
                         internalNames: config.internalNames
                     }, null, 4), { encoding: "utf-8" }, () => { });
-                    mainWindow.webContents.send('getConfig', config);
+                    BrowserWindow.getAllWindows().map(w => w.webContents.send('getConfig', config))
                 }
             },
             {

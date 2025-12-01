@@ -5,7 +5,7 @@
 // some assets are not spawned by the AGLs
 
 // Also collects the Sublevels/ teki and object files for the exposed parameter config, for mining purposes
-const { readdirSync, readFileSync, writeFileSync, mkdirSync } = require('fs');
+const { readdirSync, readFileSync, writeFileSync, mkdirSync, statSync } = require('fs');
 
 const data = {};
 const names = [];
@@ -115,6 +115,7 @@ const parser = (jsonTeki) => {
 };
 
 const sublevelData = {};
+const placeableData = {};
 
 const sublevelParser = data => {
     data.forEach(obj => {
@@ -123,6 +124,20 @@ const sublevelParser = data => {
             // console.log(key);
             if (!sublevelData[obj.Template]) sublevelData[obj.Template] = {};
             looper(sublevelData[obj.Template], val, key);
+        });
+    });
+};
+
+const blueprintParser = data => {
+    data.Content.forEach(obj => {
+        if (!obj.Name || !['ActorSpawner_GEN_VARIABLE', 'AI_GEN_VARIABLE', 'GroupDropManager_GEN_VARIABLE', 'PortalTrigger_GEN_VARIABLE'].some(s => obj.Name.includes(s)) || !obj.Properties) return;
+        Object.entries(obj.Properties).forEach(([key, val]) => {
+            if (!placeableData[obj.Name]) placeableData[obj.Name] = {};
+            if (typeof val !== 'object') {
+                if (!placeableData[obj.Name][key]) placeableData[obj.Name][key] = [];
+                placeableData[obj.Name][key].push(val);
+            } 
+            else looper(placeableData, val, key);
         });
     });
 };
@@ -198,10 +213,21 @@ readdirSync('Madori/Cave').forEach(cave => {
     });
 });
 
+const read = path => {
+    readdirSync(path).forEach(file => {
+        if (statSync(join(path, file)).isDirectory()) return read(join(path, file));
+        reader(join(path, file), blueprintParser);
+    });
+};
+
+readdirSync('Placeables').forEach(path => read(join('Placeables', path)));
+
 writeFileSync('output-pretty.json', unprotectNumbers(JSON.stringify(data, null, 4)));
 writeFileSync('output-compressed.json', unprotectNumbers(JSON.stringify(data)));
 writeFileSync('sublevels.json', unprotectNumbers(JSON.stringify(sublevelData, null, 4)));
 writeFileSync('names.json', JSON.stringify(names, null, 4));
+writeFileSync('blueprints.json', unprotectNumbers(JSON.stringify(placeableData, null, 4)));
+
 console.log("Wrote files");
 
 

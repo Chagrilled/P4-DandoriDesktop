@@ -26,6 +26,7 @@ export const MarkerIcon = ({ type, id, size = 'small', card, override, flip }) =
     const sizes = {
         'xs': "w-10 h-10 mr-2 inline self-center",
         'small': "w-16 h-16 mr-2 inline self-center",
+        'large': 'w-28 h-28 inline self-center',
         'xl': 'w-32 h-32 mr-2 mt-4 inline self-center'
     };
     return <img className={(!card && typeOverrides[type + override]) || sizes[size] || 'self-center'} src={src} style={{ 'transform': `scale(${flip ? -1 : 1}, 1)`}}/>;

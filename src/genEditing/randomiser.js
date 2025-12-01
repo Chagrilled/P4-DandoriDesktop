@@ -1,4 +1,4 @@
-import { CreatureNames, TreasureNames, InfoType, OnionNames, RebirthTypes, ExploreRateTargetType, weirdAIEntities, DandoriChallengeMaps, StartingLevels, FinalFloors, OverworldPortals, PortalDestinations, HazardNames, WorkObjectNames, PikminTypes, OnionToPikminMap, onionWeights, DefaultDrop, DefaultActorSpawnerDrop, ActivityTimes } from "../api/types";
+import { CreatureNames, TreasureNames, InfoType, OnionNames, RebirthTypes, weirdAIEntities, DandoriChallengeMaps, StartingLevels, FinalFloors, OverworldPortals, PortalDestinations, HazardNames, WorkObjectNames, PikminTypes, OnionToPikminMap, onionWeights, DefaultDrop, DefaultActorSpawnerDrop, ActivityTimes, randCreatures as randCreaturesList } from "../api/types";
 import { readMapData, saveMaps, getConfigData, saveConfigs } from "../main";
 import { getInfoType, deepCopy, getSubpathFromAsset, getAssetPathFromId, getNameFromAsset, doesEntityHaveDrops, getInfoTypeFromId, mutateAIProperties } from "../utils";
 import { randomBytes } from 'crypto';
@@ -149,42 +149,8 @@ const hubFlarlic = {
 };
 
 // This list filters out things we don't want to randomise or be randomised into
-const randCreatures = Object.keys(CreatureNames).filter(k => ![
-    "BossInu",
-    "BossInu2",
-    "Chaser",
-    "GroupDropManager",
-    "PikminRed",
-    "PikminYellow",
-    "PikminBlue",
-    "PikminRock",
-    "PikminWing",
-    "PikminPurple",
-    "PikminPhoton",
-    "PikminWhite",
-    "PikminIce",
-    "GroupDropManager",
-    "Queen", // Crashes if game can't place her in spaces - GenerateRadius doens't seem to help
-    "AmeBozu", // Probably crashes without his spline,
-    "SplineFutakuchiRock",
-    "SplineKumaChappy",
-    "SplinePatroller",
-    "SplineHageDamagumo",
-    "SplineDamagumoCanStep",
-    "SplineChaser_Kitchen",
-    "SplineChaser_LivingRoom",
-    "SplineBaby",
-    "SplineAmeBozu",
-    "SplineNightKochappy",
-    "SplineDokuNameko",
-    "SplineFutakuchiAdultRock",
-    "SplinePanModoki",
-    "SplineBigUjinko",
-    "SplineDodoro",
-    "PanModokiHideArea",
-    "IceFrogIce",
-    "BossInuPoisonArea"
-].includes(k));
+let randCreatures;
+let nonBosses;
 
 const bosses = [
     // 'AmeBozu',
@@ -212,7 +178,6 @@ const bosses = [
     'YukiFutakuchiAdult',
     'Yukimushi',
 ];
-const nonBosses = randCreatures.filter(c => !bosses.includes(c));
 const nonDropList = [
     'ActorSpawner',
     'Kajiokoshi',
@@ -238,6 +203,49 @@ const nonDropList = [
     // "Kogani"
 ];
 
+// Call this at function start, as re-randomising causes the globals NOT to be reset
+// despite the dynamic import in main, leading to modified lists being retained between runs
+const resetLists = () => {
+    randCreatures = randCreaturesList;
+
+    nonBosses = randCreatures.filter(c => !bosses.includes(c));
+
+    objectRandFullList = [
+        ...objectsToRand,
+        ...gimmicksToRand,
+        ...hazards
+    ];
+
+    nightCreatureList = [
+        ...Object.keys(CreatureNames).filter(c => c.startsWith('Night')),
+        "KareHambo",
+        "BigKingChappy",
+        "HageDamagumo",
+        "KingChappy",
+        "Arikui",
+        "Chappy",
+        "BigChappy",
+        "IceChappy",
+        "Kochappy",
+        "KinoKochappy",
+        "IceKochappy",
+        "TenKochappy",
+        "TentenChappy",
+        "Baby",
+        "Kemekuji",
+        "Rusher",
+        "Kajiokoshi",
+        "KinoKajiokoshi",
+        "IceMar",
+        "Namazu",
+        "KumaChappy",
+        "KumaKochappy",
+        "Dodoro",
+        "DodoroEgg",
+        "UjinkoB"
+    ];
+
+};
 // Prevent treasures randomising into these as their construction data will have wall pin bytes in
 const treasureBanList = [
     "OtaPocketWatch",
@@ -253,7 +261,13 @@ const startingLevels = [...StartingLevels];
 const overworldPortals = [...OverworldPortals];
 const portalDestinations = [...PortalDestinations];
 
-const hazards = Object.keys(HazardNames).filter(h => !["Charcoal"].includes(h));
+const hazards = Object.keys(HazardNames).filter(h => ![
+    "Charcoal",
+    "StickyFloorPartsMadori",
+    "StickyFloorPartsOtaS",
+    "StickyFloorPartsOtaB"
+].includes(h));
+
 const objectsToRand = [
     "BikkuriGikuPlant",
     "BikkuriKinokoPlant",
@@ -289,17 +303,16 @@ const gimmicksToRand = [
     "CrushJelly_M",
     "CrushJelly_L"
 ];
-const objectRandFullList = [
-    ...objectsToRand,
-    ...gimmicksToRand,
-    ...hazards
-];
-
+let objectRandFullList;
+// .filter((x, i) => i === objectRandFullList.indexOf(x));
+// These two arrays actually have objects in twice, which isn't terrible as it adds a slight bias
 const objectRandLfLList = [
     ...objectsToRand,
     ...gimmicksToRand,
     ...hazards
 ];
+// .filter((x, i) => i === objectRandLfLList.indexOf(x));
+
 const gates = Object.keys(WorkObjectNames).filter(w => w.includes('Gate'));
 const pikminList = Object.values(PikminTypes).filter(p => !["PikminPhoton", "Not set (PongashiColor only)"].includes(p));
 let appendCreatures;
@@ -387,33 +400,19 @@ const miscDropList = [
     "PiecePick"
 ];
 
-const nightCreatureList = [
-    ...Object.keys(CreatureNames).filter(c => c.startsWith('Night')),
-    "KareHambo",
-    "BigKingChappy",
-    "HageDamagumo",
-    "KingChappy",
-    "Arikui",
-    "Chappy",
-    "BigChappy",
-    "IceChappy",
-    "Kochappy",
-    "KinoKochappy",
-    "IceKochappy",
-    "TenKochappy",
-    "TentenChappy",
-    "Baby",
-    "Kemekuji",
-    "Rusher",
-    "Kajiokoshi",
-    "KinoKajiokoshi",
-    "IceMar",
-    "Namazu",
-    "KumaChappy",
-    "KumaKochappy",
-    "Dodoro",
-    "DodoroEgg",
-    "UjinkoB"
+let nightCreatureList;
+
+const nightBanList = [
+    "Kogane",
+    "OoKogane",
+    "GasKogane",
+    "TamagoMushi",
+];
+
+const hazardBanList = [
+    "StickyFloorPartsMadori",
+    "StickyFloorPartsOtaS",
+    "StickyFloorPartsOtaB"
 ];
 
 //#region Skiplist
@@ -725,10 +724,23 @@ const skipList = [
 ];
 
 export const randomiser = async (config) => {
+    resetLists();
+
     logger.info(`randomiser config: ${JSON.stringify(config)}`);
-    appendCreatures = config.allBosses ? bosses
+    nightCreatureList = nightCreatureList.map(c => Array(config.weights[c] ?? 1).fill(c)).flat();
+    nonBosses = nonBosses.map(c => Array(config.weights[c] ?? 1).fill(c)).flat();
+    randCreatures = randCreatures.map(c => Array(config.weights[c] ?? 1).fill(c)).flat();
+
+    appendCreatures = config.allBosses ? bosses.map(c => Array(config.weights[c] ?? 1).fill(c)).flat()
         : config.retainNonBosses ? nonBosses : randCreatures;
     objectRandFullList.push(...appendCreatures);
+
+    logger.info("Weighted results are:");
+    logger.info(`nightCreatures: ${nightCreatureList.toString()}`);
+    logger.info(`nonBoss list: ${nonBosses.toString()}`);
+    logger.info(`Regular creature list: ${randCreatures.toString()}`);
+    logger.info(`Object list: ${objectRandFullList.toString()}`);
+
     hubFlarlic.generateNum = parseInt(config.startingFlarlics);
     config.maps.sort(sortMaps);
     if (config.retainOSTOnions) {
@@ -1070,6 +1082,11 @@ export const randomiser = async (config) => {
                     if (map.startsWith('Night') && (!config.randomiseNight || hazard.activityTime !== ActivityTimes.Nighttime))
                         return randomMarkers[InfoType.Hazard].push(hazard);
 
+                    // Some hazards don't want randomised (also exposes an issue where changing stickyfloorparts to stickyfloors
+                    // doesn't assign them their AIProps)
+                    if (hazardBanList.includes(hazard.creatureId))
+                        return randomMarkers[InfoType.Hazard].push(hazard);
+
                     let newHazard;
                     if (config.hazardsLfL) {
                         newHazard = hazards[randInt(hazards.length)];
@@ -1408,15 +1425,17 @@ const randomiseActorSpawnerDrop = (creature, config, map) => {
 const getCreatureList = (creature, config, isDrop, map) => {
     const isBoss = bosses.includes(creature);
     let list;
+    // Apply weights - boss list is checked for other things so needs to be done at selection
+    const bossList = bosses.map(c => Array(config.weights[c] ?? 1).fill(c)).flat();
 
     // 15% for non-night enemies to be chucked into the mix
     if (map.startsWith('Night') && Math.random() <= 0.85) list = nightCreatureList;
-    else if (config.allBosses) list = bosses;
+    else if (config.allBosses) list = bossList;
     else if (map === 'Cave035_F06') list = nonBosses;
     else if (isDrop && !config.bossesCanDrop) list = nonBosses;
     else if (isDrop && config.bossesCanDrop && Math.random() < (parseFloat(config.bossDropChance) / 100)) list = randCreatures;
     else if (isBoss) {
-        if (config.retainBosses) list = bosses;
+        if (config.retainBosses) list = bossList;
         else list = randCreatures;
     }
     else if (config.retainNonBosses) list = nonBosses;
@@ -1430,6 +1449,10 @@ const getCreatureList = (creature, config, isDrop, map) => {
 
     // Filter night enemies out of the pool so they don't occupy two slots for basically the same mob
     if (!map.startsWith('Night')) list = list.filter(i => !i.startsWith('Night'));
+
+    // Burrowing bugs shouldn't spawn at night as they don't "die", so you can't finish the missions early.
+    if (map.startsWith('Night')) list = list.filter(i => !nightBanList.includes(i));
+
 
     // We don't want to drop ActorSpawners, but they should be spawnable
     return isDrop ? list.filter(e => !nonDropList.includes(e)) : list;
