@@ -27,7 +27,7 @@ const randFunctions = {
     lowWeighted: randIntLowWeight
 };
 
-const randOnions = Object.keys(OnionNames).filter(k => !["OnyonBootUpRed", "Onyon", "OnyonCarryBoost"].includes(k));
+let randOnions;
 
 const randomOnion = {
     "infoType": "onion",
@@ -206,6 +206,7 @@ const nonDropList = [
 // Call this at function start, as re-randomising causes the globals NOT to be reset
 // despite the dynamic import in main, leading to modified lists being retained between runs
 const resetLists = () => {
+    randOnions = Object.keys(OnionNames).filter(k => !["OnyonBootUpRed", "Onyon", "OnyonCarryBoost"].includes(k));
     randCreatures = randCreaturesList;
 
     nonBosses = randCreatures.filter(c => !bosses.includes(c));
