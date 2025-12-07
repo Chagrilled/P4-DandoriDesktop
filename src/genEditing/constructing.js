@@ -125,6 +125,8 @@ export const getConstructCreatureAIFunc = creatureId => {
     if (creatureId === 'BigUjinko') return constructBigUjinkoAI;
     if (creatureId === 'DodoroEgg') return constructDodoroEggAI;
     if (creatureId === ('Queen')) return constructQueenAI;
+    if (creatureId === ('DamagumoCannon')) return constructDamagumoCannonAI;
+    if (creatureId === ('Yamashinju')) return constructYamashinjuAI;
     return () => [];
 };
 
@@ -1091,11 +1093,42 @@ const constructQueenAI = AIProperties => [
     ...floatBytes(AIProperties.flickDistXY)
 ];
 
+const constructDamagumoCannonAI = (AIProperties) => {
+    const bytes = [];
+    writeAsciiString(bytes, AIProperties.searchTagName);
+    const areas = ["AITerritory?", "searchAreaCaution", "searchAreaRest"];
+
+    bytes.push(
+        AIProperties.bSplineWalkStart ? 1 : 0, 0, 0, 0,
+        AIProperties.bAlreadyAppear ? 1 : 0, 0, 0, 0,
+        ...areas.map(a => [
+            ...floatBytes(AIProperties[a].center.X),
+            ...floatBytes(AIProperties[a].center.Y),
+            ...floatBytes(AIProperties[a].center.Z),
+            ...floatBytes(AIProperties[a].halfHeight),
+            ...floatBytes(AIProperties[a].radius),
+            ...floatBytes(AIProperties[a].angle),
+            ...floatBytes(AIProperties[a].sphereRadius),
+        ]).flat()
+    );
+    return bytes;
+};
+
+const constructYamashinjuAI = (AIProperties) => {
+    const bytes = [
+        ...floatBytes(AIProperties.dropPearlScale)
+    ];
+    writeAsciiString(bytes, AIProperties.dropActor);
+    writeAsciiString(bytes, AIProperties.customParameter);
+    bytes.push(...Array(14).fill(0));
+    return bytes;
+};
+
 const constructHageDamagumoAI = AIProperties => {
     const bytes = [];
     writeAsciiString(bytes, AIProperties.searchTagName);
     bytes.push(
-        AIProperties.bStartSplineWalk ? 1 : 0, 0, 0, 0,
+        AIProperties.bSplineWalkStart ? 1 : 0, 0, 0, 0,
         ...floatBytes(AIProperties.searchAreaRest.center.X),
         ...floatBytes(AIProperties.searchAreaRest.center.Y),
         ...floatBytes(AIProperties.searchAreaRest.center.Z),

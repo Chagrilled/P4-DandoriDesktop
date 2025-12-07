@@ -409,6 +409,52 @@ export const creatureDefaults = [
         }
     },
     {
+        ents: ["DamagumoCannon"],
+        AIProperties: {
+            searchTagName: "None",
+            bSplineWalkStart: false,
+            bAlreadyAppear: true,
+            "AITerritory?": {
+                center: {
+                    ...defaultVector,
+                    Z: 153
+                },
+                halfHeight: 300,
+                radius: 600,
+                angle: 180,
+                sphereRadius: 100
+            },
+            searchAreaCaution: {
+                center: {
+                    ...defaultVector,
+                    Z: 153
+                },
+                halfHeight: 300,
+                radius: 600,
+                angle: 180,
+                sphereRadius: 100
+            },
+            searchAreaRest: {
+                center: {
+                    ...defaultVector,
+                    Z: 153
+                },
+                halfHeight: 300,
+                radius: 600,
+                angle: 180,
+                sphereRadius: 100
+            }
+        }
+    },
+    {
+        ents: ["Yamashinju"],
+        AIProperties: {
+            dropPearlScale: 0.5,
+            dropActor: "/Game/Carrot4/Placeables/Objects/Otakara/GOtaYamashinju.GOtaYamashinju_C",
+            customParameter: "None"
+        }
+    },
+    {
         ents: ["PanModoki", "OoPanModoki"],
         AIProperties: {
             routeTag: "PanModokiRoute1",

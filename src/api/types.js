@@ -379,6 +379,7 @@ export const editableNumberFields = [
     "deadDay",
     "demoID",
     "dropOption",
+    "dropPearlScale",
     "escapeSecMin",
     "escapeSecMax",
     "fallHeight",
@@ -524,6 +525,7 @@ export const editableStrings = [
     "CIDList",
     "CondName",
     "CondPikminColor",
+    "customParameter",
     "boneName",
     "demoBindName",
     "hideAreaTag",
@@ -1103,8 +1105,8 @@ export const CreatureNames = {
     YukiFutakuchi: "Arctic Cannon Larva",
     YukiFutakuchiAdult: "Arctic Cannon Beetle",
     Yukimushi: "Snowfake Fluttertail",
-    BossInuPoisonArea: "(ActorSpawner drop) funny gloom pool",
-    IceFrogIce: "(ActorSpawner drop) IceFrog pool",
+    BossInuPoisonArea: "(Drop only) funny gloom pool",
+    IceFrogIce: "(Drop only) IceFrog pool",
 };
 
 //#region Treasure Names

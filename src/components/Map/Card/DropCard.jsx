@@ -7,7 +7,7 @@ import tooltips from "../../../api/tooltips";
 import { Tooltip } from "react-tooltip";
 
 // This is actually such a terrible component and could probably be a third of the size
-export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
+export const DropCard = ({ drop, updateDrops, isActorSpawner, isYamashinju, ddId }) => {
     console.log("DropCard", drop);
 
     const nameSuffix = drop.dropCondition == DropConditions.SALVAGE_ITEM ? ' (Revisit only)' : '';
@@ -235,95 +235,98 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
                 <DebouncedInput value={drop.invasionStartTimeRatio} type="number" changeFunc={(v) => updateDrops(v, drop, "invasionStartTimeRatio")} ddId={ddId} />
             </div>
         </> :
-        <>
-            {amountStr != 'undefined' && <span>
-                <b>Amount</b>:&nbsp;
-                <DebouncedInput value={amountStr} changeFunc={(v) => updateDrops(v, drop, "amount")} ddId={ddId} />
-            </span>}
-            {!!drop.dropChance && <span>
-                <b>Chance</b>:&nbsp;
-                <DebouncedInput value={Math.round(drop.dropChance * 100) + '%'} changeFunc={(v) => updateDrops(v, drop, "dropChance")} ddId={ddId} />
-            </span>}
-            <div>
-                <b>Drop Condition</b>:
-                <select
-                    className="w-full bg-sky-1000 max-w-[50%]"
-                    value={drop.dropCondition || "0"}
-                    onChange={(e) => updateDrops(e.target.value, drop, "dropCondition")}
-                >
-                    {Object.entries(DropConditions_Named).map(([k, v]) =>
-                        <option key={k} value={k}>{v}</option>
-                    )}
-                </select>
-            </div>
-            {drop.flags && <div>
-                <b>Flags</b>:&nbsp;
-                <DebouncedInput
-                    className="max-w-[7em] bg-sky-1000"
-                    changeFunc={(v) => updateDrops(v, drop, "flags")}
-                    type="text"
-                    value={JSON.stringify(drop.flags).replaceAll(',', ', ')}
-                    ddId={ddId}
-                />
-            </div>}
-            <div>
-                <b>CustomFloatParameter</b>:&nbsp;
-                <DebouncedInput
-                    changeFunc={(v) => updateDrops(v, drop, "customFloatParameter")}
-                    className="bg-sky-1000"
-                    type="number"
-                    value={drop.customFloatParam}
-                    ddId={ddId}
-                />
-            </div>
-            <div>
-                <b>GameRulePermissionFlag</b>:&nbsp;
-                <select
-                    className="w-full bg-sky-1000 max-w-[50%]"
-                    value={drop.gameRulePermissionFlag || 0}
-                    onChange={(e) => updateDrops(e.target.value, drop, "gameRulePermissionFlag")}
-                >
-                    {GameRulePermissionFlags.map((flag) =>
-                        <option key={flag} value={flag}>{flag}</option>
-                    )}
-                </select>
-            </div>
-            <div>
-                <b>bSetTerritory</b>:&nbsp;
-                <input
-                    type="checkbox"
-                    checked={drop.bSetTerritory}
-                    className={classNameStyles}
-                    onChange={(e) => updateDrops(e.target.checked, drop, "bSetTerritory")}
-                />
-            </div>
-            <div data-tooltip-id="bRegistGenerator">
-                <Tooltip id="bRegistGenerator" place={"top"}>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        {tooltips.bRegistGenerator}
-                    </div>
-                </Tooltip>
-                <b>bRegistGenerator</b>:&nbsp;
-                <input
-                    type="checkbox"
-                    checked={drop.bRegistGenerator}
-                    className={classNameStyles}
-                    onChange={(e) => updateDrops(e.target.checked, drop, "bRegistGenerator")}
-                />
-            </div>
-            {drop.bSetTerritory ? ["X", "Y", "Z", "halfHeight", "radius"].map(key => (
-                <div key={key}>
-                    <b>{key}</b>:&nbsp;
+        isYamashinju ?
+            <>
+            </> :
+            <>
+                {amountStr != 'undefined' && <span>
+                    <b>Amount</b>:&nbsp;
+                    <DebouncedInput value={amountStr} changeFunc={(v) => updateDrops(v, drop, "amount")} ddId={ddId} />
+                </span>}
+                {!!drop.dropChance && <span>
+                    <b>Chance</b>:&nbsp;
+                    <DebouncedInput value={Math.round(drop.dropChance * 100) + '%'} changeFunc={(v) => updateDrops(v, drop, "dropChance")} ddId={ddId} />
+                </span>}
+                <div>
+                    <b>Drop Condition</b>:
+                    <select
+                        className="w-full bg-sky-1000 max-w-[50%]"
+                        value={drop.dropCondition || "0"}
+                        onChange={(e) => updateDrops(e.target.value, drop, "dropCondition")}
+                    >
+                        {Object.entries(DropConditions_Named).map(([k, v]) =>
+                            <option key={k} value={k}>{v}</option>
+                        )}
+                    </select>
+                </div>
+                {drop.flags && <div>
+                    <b>Flags</b>:&nbsp;
                     <DebouncedInput
-                        changeFunc={(v) => updateDrops(v, drop, key)}
-                        className="bg-sky-1000 max-w-[5em]"
+                        className="max-w-[7em] bg-sky-1000"
+                        changeFunc={(v) => updateDrops(v, drop, "flags")}
+                        type="text"
+                        value={JSON.stringify(drop.flags).replaceAll(',', ', ')}
+                        ddId={ddId}
+                    />
+                </div>}
+                <div>
+                    <b>CustomFloatParameter</b>:&nbsp;
+                    <DebouncedInput
+                        changeFunc={(v) => updateDrops(v, drop, "customFloatParameter")}
+                        className="bg-sky-1000"
                         type="number"
-                        value={drop[key] || 0.0}
+                        value={drop.customFloatParam}
                         ddId={ddId}
                     />
                 </div>
-            )) : ''}
-        </>;
+                <div>
+                    <b>GameRulePermissionFlag</b>:&nbsp;
+                    <select
+                        className="w-full bg-sky-1000 max-w-[50%]"
+                        value={drop.gameRulePermissionFlag || 0}
+                        onChange={(e) => updateDrops(e.target.value, drop, "gameRulePermissionFlag")}
+                    >
+                        {GameRulePermissionFlags.map((flag) =>
+                            <option key={flag} value={flag}>{flag}</option>
+                        )}
+                    </select>
+                </div>
+                <div>
+                    <b>bSetTerritory</b>:&nbsp;
+                    <input
+                        type="checkbox"
+                        checked={drop.bSetTerritory}
+                        className={classNameStyles}
+                        onChange={(e) => updateDrops(e.target.checked, drop, "bSetTerritory")}
+                    />
+                </div>
+                <div data-tooltip-id="bRegistGenerator">
+                    <Tooltip id="bRegistGenerator" place={"top"}>
+                        <div style={{ display: 'flex', flexDirection: 'column' }}>
+                            {tooltips.bRegistGenerator}
+                        </div>
+                    </Tooltip>
+                    <b>bRegistGenerator</b>:&nbsp;
+                    <input
+                        type="checkbox"
+                        checked={drop.bRegistGenerator}
+                        className={classNameStyles}
+                        onChange={(e) => updateDrops(e.target.checked, drop, "bRegistGenerator")}
+                    />
+                </div>
+                {drop.bSetTerritory ? ["X", "Y", "Z", "halfHeight", "radius"].map(key => (
+                    <div key={key}>
+                        <b>{key}</b>:&nbsp;
+                        <DebouncedInput
+                            changeFunc={(v) => updateDrops(v, drop, key)}
+                            className="bg-sky-1000 max-w-[5em]"
+                            type="number"
+                            value={drop[key] || 0.0}
+                            ddId={ddId}
+                        />
+                    </div>
+                )) : ''}
+            </>;
 
     const imageProps = {};
     imageProps.imgType = infoType;
@@ -335,6 +338,7 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, ddId }) => {
         footer={footerFragment}
         drop={drop}
         updateDrops={updateDrops}
+        isYamashinju={isYamashinju}
         isActorSpawner={isActorSpawner}
         {...imageProps}
     />;

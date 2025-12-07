@@ -27,4 +27,5 @@ export default {
     warpID: 'Links two warp entrances/exits together',
     npcInfoKey: 'The specific NPC that this survivor should be. Refer to the NpcInfo file',
     ignoreList: "Entities that should not be included by this GroupDropManager's group",
+    dropPearlScale: "The size of the thing the Pearly Clamclamp is holding"
 }

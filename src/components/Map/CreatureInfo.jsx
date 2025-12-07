@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { NameMap, editableNumberFields, editableBools, ignoreFields, editableStrings, arrayStrings, selectFields, defaultPlacementCond, defaultVector, PikminTypes, defaultSplinePoint, defaultAppearanceCond, ActorPlacementAppearanceCondition } from "../../api/types";
-import { findMarkerById, getAvailableTimes, mutateAIProperties, deepCopy } from '../../utils';
+import { findMarkerById, getAvailableTimes, mutateAIProperties, deepCopy, getAssetPathFromId } from '../../utils';
 import { DebouncedInput } from './DebouncedInput';
 import { MapContext } from './MapContext';
 import { MarkerIcon } from '../MarkerIcon';
 import tooltips from '../../api/tooltips';
 import { Tooltip } from 'react-tooltip';
+import { DropCard } from './Card/DropCard';
 
 //#region updateCreature
 const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId, index) => {
@@ -89,7 +90,7 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
                 {tooltips[key]}
             </div>
         </Tooltip> : null;
-        
+
         if (editableNumberFields.includes(key)) {
             // console.log(fullKey)
             return <li key={fullKey} data-tooltip-id={key}>
@@ -253,6 +254,17 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
                         </div>
                     </div>;
                 })}
+            </li>;
+        }
+
+        if (key === 'dropActor') {
+            return <li key={key} data-tooltip-id={key}>
+                <DropCard
+                    drop={{ assetName: value }}
+                    isActorSpawner={false}
+                    isYamashinju={true}
+                    ddId={ddId}
+                    updateDrops={(val, drop, field) => updateCreature(getAssetPathFromId(val), mapMarkerData, setMapData, obj, fullKey, ddId, index)} />
             </li>;
         }
 

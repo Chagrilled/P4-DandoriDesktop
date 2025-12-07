@@ -159,6 +159,8 @@ export const getReadCreatureAIFunc = creatureId => {
     if (creatureId === 'BigUjinko') return parseBigUjinkoAI;
     if (creatureId === 'DodoroEgg') return parseDodoroEggAI;
     if (creatureId === 'Queen') return parseQueenAI;
+    if (creatureId === 'DamagumoCannon') return parseDamagumoCannonAI;
+    if (creatureId === 'Yamashinju') return parseYamashinjuAI;
     return () => { };
 };
 
@@ -1281,6 +1283,63 @@ const parseQueenAI = ai => {
         flickDistXY: readFloat(ai.slice(index, index += 4))
     };
 };
+
+const parseDamagumoCannonAI = ai => {
+    let index = 0;
+    const AIProperties = {
+        searchTagName: readAsciiString(ai, index)
+    };
+    index += ai[index] + 4;
+    AIProperties.bSplineWalkStart = ai[index];
+    index += 4;
+    AIProperties.bAlreadyAppear = ai[index];
+    AIProperties["AITerritory?"] = {
+        center: {
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        },
+        halfHeight: readFloat(ai.slice(index, index += 4)),
+        radius: readFloat(ai.slice(index, index += 4)),
+        angle: readFloat(ai.slice(index, index += 4)),
+        sphereRadius: readFloat(ai.slice(index, index += 4))
+    };
+    AIProperties.searchAreaCaution = {
+        center: {
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        },
+        halfHeight: readFloat(ai.slice(index, index += 4)),
+        radius: readFloat(ai.slice(index, index += 4)),
+        angle: readFloat(ai.slice(index, index += 4)),
+        sphereRadius: readFloat(ai.slice(index, index += 4))
+    };
+    AIProperties.searchAreaRest = {
+        center: {
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        },
+        halfHeight: readFloat(ai.slice(index, index += 4)),
+        radius: readFloat(ai.slice(index, index += 4)),
+        angle: readFloat(ai.slice(index, index += 4)),
+        sphereRadius: readFloat(ai.slice(index, index += 4))
+    };
+    return AIProperties;
+};
+
+const parseYamashinjuAI = ai => {
+    let index = 0;
+    const AIProperties = {
+        dropPearlScale: readFloat(ai.slice(index, index += 4)),
+        dropActor: readAsciiString(ai, index),
+    };
+    index += ai[index] + 4;
+    AIProperties.customParameter = readAsciiString(ai, index);
+    return AIProperties;
+};
+
 
 // he needs charting properly I think
 // const parseBigKingChappyAI = ai => {
