@@ -1100,7 +1100,7 @@ export const CreatureNames = {
     WaterTank: "Watery Blowhog",
     WhiteShijimi: "White Spectralids",
     YakiSenbei: "Scorchcake",
-    Yamashinju: "Pearly Clamcamp",
+    Yamashinju: "Pearly Clamclamp",
     YellowShijimi: "Yellow Spectralids",
     YukiFutakuchi: "Arctic Cannon Larva",
     YukiFutakuchiAdult: "Arctic Cannon Beetle",
