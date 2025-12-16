@@ -484,6 +484,7 @@ export const editableBools = [
     "bEnableOptionalPoint",
     "bFalled",
     "bFixCautionAreaCenter",
+    "bHideEnter",
     "bInitialPortalMove",
     "bMabikiPongashi",
     "bNoBurrowType",

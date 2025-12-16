@@ -455,6 +455,15 @@ export const creatureDefaults = [
         }
     },
     {
+        ents: ["BigChappy"],
+        AIProperties: {
+            bHideEnter: true,
+            hideOffset: {
+                ...defaultVector
+            }
+        }
+    },
+    {
         ents: ["PanModoki", "OoPanModoki"],
         AIProperties: {
             routeTag: "PanModokiRoute1",

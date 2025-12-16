@@ -127,6 +127,7 @@ export const getConstructCreatureAIFunc = creatureId => {
     if (creatureId === ('Queen')) return constructQueenAI;
     if (creatureId === ('DamagumoCannon')) return constructDamagumoCannonAI;
     if (creatureId === ('Yamashinju')) return constructYamashinjuAI;
+    if (creatureId === 'BigChappy') return constructBigChappyAI;
     return () => [];
 };
 
@@ -1123,6 +1124,13 @@ const constructYamashinjuAI = (AIProperties) => {
     bytes.push(...Array(14).fill(0));
     return bytes;
 };
+
+const constructBigChappyAI = (AIProperties) => [
+    AIProperties.bHideEnter ? 1 : 0, 0, 0, 0,
+    ...floatBytes(AIProperties.hideOffset.X),
+    ...floatBytes(AIProperties.hideOffset.Y),
+    ...floatBytes(AIProperties.hideOffset.Z),
+];
 
 const constructHageDamagumoAI = AIProperties => {
     const bytes = [];

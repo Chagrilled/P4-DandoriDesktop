@@ -161,6 +161,7 @@ export const getReadCreatureAIFunc = creatureId => {
     if (creatureId === 'Queen') return parseQueenAI;
     if (creatureId === 'DamagumoCannon') return parseDamagumoCannonAI;
     if (creatureId === 'Yamashinju') return parseYamashinjuAI;
+    if (creatureId === 'BigChappy') return parseBigChappyAI;
     return () => { };
 };
 
@@ -1340,6 +1341,17 @@ const parseYamashinjuAI = ai => {
     return AIProperties;
 };
 
+const parseBigChappyAI = ai => {
+    let index = 4;
+    return {
+        bHideEnter: ai[0],
+        hideOffset: {
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        },
+    };
+};
 
 // he needs charting properly I think
 // const parseBigKingChappyAI = ai => {

@@ -146,6 +146,7 @@ export const InfoPanel = ({ marker, setSelectedMarker }) => {
                     setDeleteStack(deleteStack.filter(c => c.ddId != missingMarker.ddId));
                 }
             }
+            //#region Copy/paste
             if ((event.metaKey || event.ctrlKey) && event.code === 'KeyV') {
                 let inInput = ['input', 'textarea'].some(el => el === document.activeElement.localName);
                 if (!marker || inInput) return;
@@ -154,7 +155,7 @@ export const InfoPanel = ({ marker, setSelectedMarker }) => {
                     ...deepCopy(marker),
                     ddId: window.crypto.randomUUID(),
                     transform: {
-                        ...transform,
+                        ...deepCopy(marker.transform),
                         translation: {
                             X: transform.translation.X + 200.0,
                             Y: transform.translation.Y + 200.0,
