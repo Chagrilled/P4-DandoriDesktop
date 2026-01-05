@@ -109,7 +109,8 @@ export const MapContainer = ({
             ...imageLayers,
             ...visibleLayers,
             ...getSplinePointLayer(markerRef.current),
-            ...getRadiusLayer(markerRef.current)
+            ...getRadiusLayer(markerRef.current),
+            ...getTerritoryLayer(markerRef.current)
         ]);
         setMapLayers([
             ...imageLayers,
@@ -167,7 +168,8 @@ export const MapContainer = ({
         map.setLayers([
             ...mapLayers,
             ...getSplinePointLayer(data),
-            ...getRadiusLayer(data)
+            ...getRadiusLayer(data),
+            ...getTerritoryLayer(markerRef.current)
         ]);
 
         console.log(data);
@@ -426,6 +428,55 @@ export const MapContainer = ({
             }),
             fill: new Fill({
                 color: 'rgba(200, 200, 0, 0.2)'
+            })
+        });
+        feature.setStyle(style);
+
+        const layer = new VectorLayer({
+            source: new VectorSource({
+                features: [
+                    feature
+                ]
+            }),
+            zIndex: 10005
+        });
+
+        return [layer];
+    };
+
+    const getTerritoryLayer = data => {
+        if (!data || (!data?.AIProperties?.territory && !data?.drops?.parsed[0]?.bSetTerritory)) return [];
+
+        let yx;
+        let radius;
+
+        if (data?.creatureId === 'ActorSpawner') {
+            const [drop] = data.drops.parsed;
+            if (!drop.territoryX || !drop.territoryY || !drop.territoryRadius) return [];
+
+            yx = [
+                drop.territoryY + data.transform.translation.Y,
+                drop.territoryX + data.transform.translation.X
+            ];
+            radius = drop.territoryRadius;
+        }
+        else {
+            yx = [
+                data.AIProperties.territory.Y + data.transform.translation.Y,
+                data.AIProperties.territory.X + data.transform.translation.X
+            ];
+            radius = data.AIProperties.territory.radius;
+        }
+
+        const circleGeom = fromCircle(new geomCircle(yx, radius));
+        const feature = new Feature({
+            geometry: circleGeom
+        });
+        const style = new Style({
+            stroke: new Stroke({
+                color: 'white',
+                width: 3,
+                lineDash: [10, 20]
             })
         });
         feature.setStyle(style);
