@@ -28,7 +28,6 @@ export const MapContainer = ({
     // This ref keeps track of the marker so rebuildLayers can keep track of the current one
     // to add in the spline layer it could probably be a useCallback with a dep of selectedMarker passed from the parent component
     const markerRef = useRef();
-    const prevFilter = useRef({});
     const mapContainerRef = useRef(null);
 
     useEffect(() => {
