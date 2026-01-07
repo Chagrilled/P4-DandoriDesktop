@@ -2,7 +2,7 @@
 import { setFloats, getAssetPathFromId } from '../utils';
 import deepEqual from 'deep-equal';
 import { getReadAIDynamicFunc, getReadAIStaticFunc, getReadPortalFunc } from './reading';
-import { getConstructAIStaticFunc, getConstructPortalTriggerFunc, writeLifeDynamic, writeAffordanceWeight, getConstructDynamicFunc, getConstructActorParamFunc, ASP_FIELDS, getConstructNavMeshTriggerFunc, getConstructSubAIStaticFunc, getConstructWaterTriggerFunc } from './constructing';
+import { getConstructAIStaticFunc, getConstructPortalTriggerFunc, writeLifeDynamic, writeAffordanceWeight, getConstructDynamicFunc, getConstructActorParamFunc, ASP_FIELDS, getConstructNavMeshTriggerFunc, getConstructSubAIStaticFunc, getConstructWaterTriggerFunc, defaultConstructionData } from './constructing';
 import { default as entityData } from '../api/entityData.json';
 import { TeamIDs, InfoType } from '../api/types';
 import logger from '../utils/logger';
@@ -14,6 +14,7 @@ export const getSubpath = creatureId => {
     return 'Teki';
 };
 
+// I want to remove this and only have the constructActor in constructing.js as they're almost identical now
 export const regenerateAGLEntity = (actor, aglData) => {
     // console.log("AGL ID:", aglData.ddId);
     const transforms = {
@@ -22,30 +23,7 @@ export const regenerateAGLEntity = (actor, aglData) => {
         Scale3D: setFloats(actor.transform.scale3D)
     };
     const asp = aglData.ActorSerializeParameter;
-    let entData = entityData[actor.creatureId];
-
-    if (!entData && actor.infoType === InfoType.Treasure) {
-        // see constructing.js for why
-        entData = entityData.OtaPaintsAQU;
-    }
-    if (!entData && actor.infoType === InfoType.Pikmin) {
-        entData = entityData.PikminRed;
-    }
-    if (!entData && actor.creatureId === "NightBaby") {
-        entData = entityData.Baby;
-    }
-    if (!entData && actor.creatureId === "Dodoro") {
-        entData = entityData.Kochappy;
-    }
-    if (!entData && actor.creatureId === "PoisonKomush") {
-        entData = entityData.PoisonKomushS;
-    }
-    if (!entData && actor.creatureId === "OnyonCarryRed") {
-        entData = entityData.OnyonCarryYellow;
-    }
-    if (!entData && actor.infoType === InfoType.Item) {
-        entData = entityData.Bomb;
-    }
+    let entData = entityData[actor.creatureId] || defaultConstructionData(actor); ;
 
     const assetPathName = getAssetPathFromId(actor.creatureId) || `/Game/Carrot4/Placeables/${getSubpath(actor.creatureId)}/G${actor.creatureId}.G${actor.creatureId}_C`;
     const newAsset = assetPathName !== aglData.SoftRefActorClass.AssetPathName;

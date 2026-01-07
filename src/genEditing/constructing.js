@@ -1,9 +1,10 @@
-import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs, weirdAIEntities, ObjectAI_STRING_INDEX, ObjectAI_END_INDEX, InterpModes, RockModes, QueenAIType } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs, weirdAIEntities, ObjectAI_STRING_INDEX, ObjectAI_END_INDEX, InterpModes, RockModes, QueenAIType, Messages } from '../api/types';
 import { default as entityData } from '../api/entityData.json';
 import { floatToByteArr, intToByteArr, disableFlagsToInt } from '../utils/bytes';
 import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue, getObjectAIOffset } from '../utils';
 import { parseGDMDrops, parseTekiAI, parsePotDrops, readInventory } from './reading';
 import logger from '../utils/logger';
+import { BrowserWindow } from 'electron';
 
 const defaultAI = (_, ai) => ai;
 
@@ -1241,33 +1242,7 @@ const constructAmeBozuAI_Dynamic = (aiDynamic, { AIProperties }) => [
 //#region Actor
 export const constructActor = (actor, mapId) => {
     logger.info(`Constructing a ${actor.creatureId} :: ${JSON.stringify(actor)}`);
-    let entData = entityData[actor.creatureId];
-    if (!entData && actor.infoType === InfoType.Treasure) {
-        // Treasures (and all entities) that only appear as drops won't have any 
-        // construction data, as there's no AGL data to scrape. Thus, we either need to
-        // fully understand the full ASP, or use a sensible default. While I've charted the treasure bytes
-        // there's a lot of facets to fully recreating the ASP beyond just AI. Thus, we'll just assign
-        // the default data to this paints one, which seems to have a very basic bitch config.
-        entData = entityData.OtaPaintsAQU;
-    }
-    if (!entData && actor.infoType === InfoType.Pikmin) {
-        entData = entityData.PikminRed;
-    }
-    if (!entData && actor.creatureId === "NightBaby") {
-        entData = entityData.Baby;
-    }
-    if (!entData && actor.creatureId === "Dodoro") {
-        entData = entityData.Kochappy;
-    }
-    if (!entData && actor.creatureId === "PoisonKomush") {
-        entData = entityData.PoisonKomushS;
-    }
-    if (!entData && actor.creatureId === "OnyonCarryRed") {
-        entData = entityData.OnyonCarryYellow;
-    }
-    if (!entData && actor.infoType === InfoType.Item) {
-        entData = entityData.Bomb;
-    }
+    let entData = entityData[actor.creatureId] || defaultConstructionData(actor);
 
     const transforms = {
         Rotation: {
@@ -1443,4 +1418,23 @@ const constructInventory = (drops, bytes) => {
             bytes.push(...floatBytes(parseFloat(drop.radius || 0.0)));
         }
     });
+};
+
+export const defaultConstructionData = actor => {
+    // Treasures (and all entities) that only appear as drops won't have any 
+    // construction data, as there's no AGL data to scrape. Thus, we either need to
+    // fully understand the full ASP, or use a sensible default. While I've charted the treasure bytes
+    // there's a lot of facets to fully recreating the ASP beyond just AI. Thus, we'll just assign
+    // some similar default entities that DO have data and hope things turn out ok.
+    if (actor.infoType === InfoType.Treasure) return entityData.OtaPaintsAQU;
+    if (actor.infoType === InfoType.Pikmin) return entityData.PikminRed;
+    if (actor.creatureId === "NightBaby") return entityData.Baby;
+    if (actor.creatureId === "Dodoro") return entityData.Kochappy;
+    if (actor.creatureId === "PoisonKomush") return entityData.PoisonKomushS;
+    if (actor.creatureId === "OnyonCarryRed") return entityData.OnyonCarryYellow;
+    if (actor.infoType === InfoType.Item) return entityData.Bomb;
+    if (actor.creatureId === "Pellet10") return entityData.Pellet5;
+
+    BrowserWindow.getAllWindows().map(w => w.webContents.send(Messages.ERROR, `${actor.creatureId} doesn't have construction data or an override - report this to Noodl`));
+    return undefined;
 };
