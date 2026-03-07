@@ -12,7 +12,7 @@
         "make": "electron-forge make",
         "publish": "electron-forge publish",
         "lint": "echo \"No linting configured\"",
-        "test": "vitest tests"
+        "test": "vitest run tests"
     },
     "keywords": [],
     "author": {
