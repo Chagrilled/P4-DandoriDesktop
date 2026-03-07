@@ -845,14 +845,14 @@ export const defaultCreatureAI = {
     vel: {
         X: 0.0,
         Y: 0.0,
-        Z: 0.0
+        Z: 350.0
     },
     randVel: {
-        X: 0.0,
-        Y: 0.0,
-        Z: 0.0
+        X: 25.0,
+        Y: 25.0,
+        Z: 25.0
     },
-    dropOption: 6,
+    dropOption: 1,
     bOverrideInitLocation: false,
     overrideInitLocation: {
         X: 0.0,
