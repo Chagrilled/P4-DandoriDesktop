@@ -1,7 +1,7 @@
 
 
 
-const { app, Menu, dialog, shell } = require('electron');
+const { app, Menu, dialog, shell, Notification } = require('electron');
 import { BrowserWindow } from 'electron';
 import { readdir, promises, writeFile, accessSync, createWriteStream, existsSync, rmSync, cpSync } from 'fs';
 import { join } from 'path';
@@ -328,6 +328,12 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                                     if (code > 7) {
                                         return mainWindow.webContents.send(Messages.ERROR, `Failed copying to ${config.outputDir}`);
                                     }
+                                    new Notification({
+                                        title: 'Dandori Desktop',
+                                        body: 'Mod deployed',
+                                        icon: '../images/icons/icon.png'
+                                    }).show();
+                                    mainWindow.flashFrame(true);
                                     return mainWindow.webContents.send(Messages.SUCCESS, `Paks copied to ${config.outputDir}`);
                                 });
                             });

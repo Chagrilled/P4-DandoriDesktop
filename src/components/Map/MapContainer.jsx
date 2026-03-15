@@ -123,6 +123,10 @@ export const MapContainer = ({
             const mapData = await getMapData(mapId);
             const projection = getProjectionForMap(mapData);
 
+            // Clearing the layers is required since OL10 otherwise exception
+            map.getLayers().clear();
+            map.getOverlays().clear();
+
             // Overwrite the view rather than initialise new map objects
             const view = new View({
                 projection: projection,
