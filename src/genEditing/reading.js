@@ -1084,7 +1084,7 @@ export const parseTekiAI = (ai, generatorVersion, creatureId) => {
         Y: readFloat(ai.slice(index, index += 4)),
         Z: readFloat(ai.slice(index, index += 4))
     };
-    index += 4 + invSize * 8; // skip the inventory flag loop
+    index += 4 + ai[index] * 8; // skip the inventory flag loop
 
     // Short gen version is missing 4 bytes here. Not 100% sure which
     // bool is freezeBothDrop vs something else. It might be bEnableZukanDrop
