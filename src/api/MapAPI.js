@@ -14,7 +14,7 @@ export const getMapData = async (mapId) => {
     const data = getPregeneratedData(mapId);
     return {
         mapId,
-        imageUrl: `../images/maps/${mapId}/T_ui_Map_${mapId}_D.png`,
+        imageUrl: `map-img://images/maps/${mapId}/T_ui_Map_${mapId}_D.png`,
         rotation: mapTransform.rotation,
         extentRadius: mapTransform.extentRadius,
         waterboxes: [

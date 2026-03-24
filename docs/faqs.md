@@ -6,6 +6,8 @@
 - [Can I skip the tutorial](#can-i-skip-the-tutorial)
 - [I got an encoding error](#i-got-an-encoding-error)
 - [Can I re-randomise mid-game?](#can-i-re-randomise-mid-game)
+- [Where do I put paks on console?](#where-do-i-put-paks-console)
+- [How do I override the map PNGs?](#how-do-i-override-the-map-pngs)
 
 ## 🐍 I can't install CityHash
 
@@ -60,3 +62,18 @@ First, ensure some basic things:
 Sort of - if you encounter a crashing map and don't want to debug, and haven't loaded into it yet, you can just re-randomise and deploy a new mod for a new seed. It'll only apply to future unloaded maps, not the parts of the game you've already loaded into.
 
 This does mean the linking of caves may get messed up, depending on your settings.
+
+## Where do I put paks on console?
+
+If you're bundling to real hardware you want your path to look something like: `This PC\Nintendo Switch\SD Card\atmosphere\contents\0100B7C00933A000\romfs\Carrot4\Content\Paks`
+
+## How do I override the map PNGs?
+
+Now that we've recently discovered custom geometry/cave chunking, you might want to have your new geometry display on the DDT map for help in placing things.
+
+- Map overrides will be checked upon any map load in folders like `%appdata%/mapOverrides/Area001/T_ui_Map_Area001_D.png`. 
+- WaterBox images can not be overriden. 
+- OST maps will be named like `HeroStory001`. Night maps use the regular area map.
+- If you need the base images to edit, [they can be found here](../src/images/maps). 
+  - WaterBoxes are laid on top separately. 
+  - Ensure your edited images retain the original rotation. 

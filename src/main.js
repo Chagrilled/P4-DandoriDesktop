@@ -1,5 +1,5 @@
-const { app, BrowserWindow, ipcMain, Menu, dialog, shell } = require('electron');
-import { readdir, promises, constants, readFileSync, accessSync, writeFileSync, readdirSync, renameSync } from 'fs';
+const { app, BrowserWindow, ipcMain, Menu, dialog, shell, protocol, net } = require('electron');
+import { readdir, promises, constants, readFileSync, accessSync, writeFileSync, readdirSync, mkdirSync, existsSync } from 'fs';
 import { join, sep } from 'path';
 import { randomBytes } from 'crypto';
 import swf from 'stringify-with-floats';
@@ -15,6 +15,7 @@ import { updateElectronApp } from 'update-electron-app';
 import logger from './utils/logger';
 import axios from 'axios';
 import AdmZip from "adm-zip";
+import { pathToFileURL } from 'node:url';
 
 const CONFIG_PATH = join(`${app.getPath('userData')}`, "config.json");
 const TEKI = 'Teki';
@@ -34,6 +35,36 @@ let config = {};
 let mapsCache = {};
 let rawData = {};
 const cache = {};
+
+protocol.registerSchemesAsPrivileged([
+    { scheme: 'map-img', privileges: { secure: true, standard: true, supportFetchAPI: true } }
+]);
+
+app.whenReady().then(() => {
+    const customMapsDir = join(app.getPath('userData'), 'mapOverrides');
+    const appRoot = app.getAppPath();
+
+    if (!existsSync(customMapsDir)) {
+        logger.info("Making mapOverrides");
+        mkdirSync(customMapsDir, { recursive: true });
+    }
+
+    protocol.handle('map-img', (request) => {
+        logger.info(`Fetching map protocol for ${request.url}`);
+        const fileName = decodeURIComponent(request.url.slice('map-img://'.length));
+        const [_, mapId, name] = fileName.match(/images\/maps\/([^\/]+)\/(.+)/);
+
+        const mapPath = join(customMapsDir, mapId, name);
+        const bundledPath = app.isPackaged ? join(appRoot, '.webpack', 'renderer', fileName) : join(appRoot, 'src', fileName);
+        const override = !mapPath.includes("WaterBox") && existsSync(mapPath);
+        logger.info(`overridePath: ${mapPath}`);
+
+        const finalPath = override ? mapPath : bundledPath;
+        logger.info(`Fetching map from ${finalPath}`);
+
+        return net.fetch(pathToFileURL(finalPath).toString());
+    });
+});
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
