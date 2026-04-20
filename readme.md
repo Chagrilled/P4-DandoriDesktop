@@ -23,6 +23,8 @@ Special thanks goes to Dodiou for making [DandoriDB](https://github.com/Dodiou/D
 - [🎰 Randomiser](./docs/randomiser.md)
 - [❓ FAQs](./docs/faqs.md)
 
+Read the [FAQs](./docs/faqs.md) for some quick help.
+
 Currently supports:
 
 - Editing/creating entities on the game maps
@@ -142,7 +144,7 @@ The design philosophy is a little weird for this one. There are far far too many
 
 Bugs will be bountiful. Please check the [🐛bug list](#-bugsknown-issues)/existing issues before posting.
 
-If you find one, plese use the devtools (while they still exist in the prod build) to copy/screencap any error traces from the JavaScript console, and (ideally) create an [issue](https://github.com/Chagrilled/P4-DandoriDesktop/issues) on the repo so I can keep them tracked. Be sure to include as much as you can to help me reproduce (potentially including your game file in question if relevant).
+If you find one, please use the devtools/log folder to copy/screencap any error traces from the JavaScript console, and (ideally) create an [issue](https://github.com/Chagrilled/P4-DandoriDesktop/issues) on the repo so I can keep them tracked. Be sure to include as much as you can to help me reproduce (potentially including your JSON in question if relevant).
 
 Post in #pikmin-4-help in the [Hocotate Hacker](https://discord.gg/G7Pgkdh) server to say you've posted one or to discuss it.
 

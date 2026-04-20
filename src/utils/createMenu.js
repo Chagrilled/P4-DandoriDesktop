@@ -10,7 +10,7 @@ import { version } from '../../package.json';
 import AdmZip from "adm-zip";
 import axios from 'axios';
 import { Messages } from '../api/types';
-import sudo from 'sudo-prompt';
+import sudo from '@vscode/sudo-prompt';
 
 const isMac = process.platform === 'darwin';
 const LOG_PATH = join(`${app.getPath('userData')}`, 'logs');

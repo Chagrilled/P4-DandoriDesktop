@@ -1,7 +1,7 @@
 {
     "name": "p4-dandoridesktop",
     "productName": "p4-dandoridesktop",
-    "version": "1.7.12",
+    "version": "1.7.13",
     "description": "A Pikmin 4 Editor",
     "main": ".webpack/main",
     "icon": "src/images/icon/icon.ico",
@@ -68,7 +68,7 @@
         "react-router-dom": "^6.21.0",
         "react-tooltip": "^5.27.1",
         "stringify-with-floats": "^2.0.1",
-        "sudo-prompt": "^9.2.1",
+        "@vscode/sudo-prompt": "^9.2.1",
         "update-electron-app": "^3.0.0",
         "winston": "^3.14.1",
         "winston-daily-rotate-file": "^5.0.0"
