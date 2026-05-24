@@ -640,6 +640,7 @@ export const readMapData = async (mapId, webContents) => {
             ddId,
             originalAGL: fileType,
             aglFile: fileType,
+            teamId: object.TeamId,
             // time: fileType,
             generatorVersion: object.GeneratorVersion
         });

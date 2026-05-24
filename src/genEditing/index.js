@@ -221,7 +221,7 @@ export const regenerateAGLEntity = (actor, aglData) => {
             },
         },
         LastNavPos: transforms.Translation,
-        TeamId: actor.creatureId.startsWith('NavMeshTrigger') ? TeamIDs.A : TeamIDs.No
+        TeamId: actor.teamId
     };
     // console.log("regenerated:", newEntity.DropActorInfo.DropOwnerDebugUniqueId);
     delete newEntity.ddId;

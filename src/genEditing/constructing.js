@@ -1412,7 +1412,7 @@ export const constructActor = (actor, mapId) => {
             }
         },
         SubLevelName: mapId.replace('Night', 'Area').replace(/-\d/, ''),
-        TeamId: actor.creatureId.startsWith('NavMeshTrigger') ? TeamIDs.A : TeamIDs.No,
+        TeamId: actor.teamId,
         GenerateFlags: entData.GenerateFlags[0],
         OriginalPhysicsRadiusZ: entData.OriginalPhysicsRadiusZ[0],
         LastNavPos: transforms.Translation,

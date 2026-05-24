@@ -1,4 +1,4 @@
-import { CreatureNames, TreasureNames, InfoType, OnionNames, RebirthTypes, weirdAIEntities, DandoriChallengeMaps, StartingLevels, FinalFloors, OverworldPortals, PortalDestinations, HazardNames, WorkObjectNames, PikminTypes, OnionToPikminMap, onionWeights, DefaultDrop, DefaultActorSpawnerDrop, ActivityTimes, randCreatures as randCreaturesList, AGLs } from "../api/types";
+import { CreatureNames, TreasureNames, InfoType, OnionNames, RebirthTypes, weirdAIEntities, DandoriChallengeMaps, StartingLevels, FinalFloors, OverworldPortals, PortalDestinations, HazardNames, WorkObjectNames, PikminTypes, OnionToPikminMap, onionWeights, DefaultDrop, DefaultActorSpawnerDrop, ActivityTimes, randCreatures as randCreaturesList, AGLs, TeamIDs } from "../api/types";
 import { readMapData, saveMaps, getConfigData, saveConfigs } from "../main";
 import { getInfoType, deepCopy, getSubpathFromAsset, getAssetPathFromId, getNameFromAsset, doesEntityHaveDrops, getInfoTypeFromId, mutateAIProperties } from "../utils";
 import { randomBytes } from 'crypto';
@@ -67,6 +67,7 @@ const randomOnion = {
     "ddId": randomBytes(16).toString('hex'),
     "aglFile": AGLs.Objects_Perm,
     "originalAGL": AGLs.Objects_Perm,
+    "teamId": TeamIDs.No,
     "time": "Permanent"
 };
 
@@ -109,6 +110,7 @@ const wildPiks = {
     "ddId": randomBytes(16).toString('hex'),
     "aglFile": AGLs.Objects_Perm,
     "originalAGL": AGLs.Objects_Perm,
+    "teamId": TeamIDs.No,
     "time": "Permanent"
 };
 
@@ -151,6 +153,7 @@ const hubFlarlic = {
     "ddId": randomBytes(16).toString('hex'),
     "aglFile": AGLs.Objects_Perm,
     "originalAGL": AGLs.Objects_Perm,
+    "teamId": TeamIDs.No,
     "time": "Permanent"
 };
 

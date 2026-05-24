@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { Menu, Item, Separator, Submenu } from 'react-contexify';
-import { RebirthTypes, DefaultActorSpawnerDrop, InfoType, DefaultPortalTrigger, defaultBaseAIProperties, defaultCreatureAI, ActivityTimes, ActorPlacementCondition, ExploreRateTargetType, defaultTreasureAI, PikminTypes } from '../../api/types';
+import { RebirthTypes, DefaultActorSpawnerDrop, InfoType, DefaultPortalTrigger, defaultBaseAIProperties, defaultCreatureAI, ActivityTimes, ActorPlacementCondition, ExploreRateTargetType, defaultTreasureAI, PikminTypes, TeamIDs } from '../../api/types';
 import { deepCopy, getAvailableAGLs, getAvailableTimes } from '../../utils';
 import { MapContext } from './MapContext';
 
@@ -69,6 +69,7 @@ export const MapMenu = ({ }) => {
             eraseCond: [],
             sleepCond: [],
             wakeCond: [],
+            teamId: TeamIDs.No,
             drops: {
                 parsed: [],
                 rareDrops: [],

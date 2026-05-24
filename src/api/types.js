@@ -595,7 +595,8 @@ export const selectFields = {
     rockMode: Object.values(RockModes),
     queenAIType: Object.values(QueenAIType),
     DDBPikminHeightType: Object.values(DDBPikminHeightType),
-    popObjectType: Object.values(PopObjectType)
+    popObjectType: Object.values(PopObjectType),
+    teamId: Object.values(TeamIDs)
 };
 
 export const NightMaps = {
