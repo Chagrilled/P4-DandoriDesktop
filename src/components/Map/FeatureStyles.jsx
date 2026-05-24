@@ -38,6 +38,7 @@ const SCALE_OVERRIDES = {
     hikarikinoko: 0.4,
     bikkurikinokoplant: 0.4,
     onyon: 0.45,
+    onyonvs: 0.45,
     dolphin: 0.45,
     poisonkomushs: 1.5,
     komushs: 1.5,
@@ -116,7 +117,8 @@ const SCALE_OVERRIDES = {
     fuurosoub: 0.15,
     ooinu: 0.4,
     survivorleaf: 0.2,
-    survivorolimarleaf: 0.2
+    survivorolimarleaf: 0.2,
+    popplaceactor: .6,
 };
 
 export const getIconOptions = (type) => {
@@ -202,7 +204,7 @@ const getFeatureStyle = async (marker, globalMarkerStyle) => {
         const [drop] = marker.drops.parsed;
         const creatureId = marker.creatureId === 'ActorSpawner' ? getNameFromAsset(drop.assetName) : marker.creatureId.toLowerCase().replace('night', '');
         let id = iconOverrides[marker.creatureId.toLowerCase()] || creatureId.toLowerCase();
-        let scale = SCALE_OVERRIDES[id] || 0.35;
+        let scale = SCALE_OVERRIDES[id] || SCALE_OVERRIDES[creatureId] || 0.35;
         let src = `${ROOT_CREATURE_URL}/creature-${id}.png`;
 
         let infoType = Creature;

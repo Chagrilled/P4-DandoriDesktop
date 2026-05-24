@@ -1,4 +1,4 @@
-import { InfoType, Times, weirdAIEntities, ActorPlacementCondition } from '../api/types';
+import { InfoType, Times, weirdAIEntities, ActorPlacementCondition, AGLs } from '../api/types';
 import { internalAssetNames } from "../api/assetList";
 import { creatureDefaults, entityDefaults } from "./defaults";
 
@@ -69,13 +69,15 @@ export const getInfoType = subPath => {
     if (subPath.includes('/Portal')) infoType = InfoType.Portal;
     if (subPath.includes('/Madori')) infoType = InfoType.Portal;
     if (subPath.includes('/Charcoal')) infoType = InfoType.Hazard;
-    if (subPath === 'Teki') infoType = InfoType.Creature;
     if (subPath === 'Items') infoType = InfoType.Item;
     if (subPath === 'Items/RockBall') infoType = InfoType.Item;
     if (subPath === 'Gimmicks/WarpCarry') infoType = InfoType.WorkObject;
     if (subPath === 'Gimmicks/ActorSpawner') infoType = InfoType.Creature;
     if (subPath === 'Objects/Egg') infoType = InfoType.Creature;
     if (subPath.includes('Spline')) infoType = InfoType.Creature;
+    if (subPath === 'Actor/VS') infoType = InfoType.Creature;
+    if (subPath === 'Teki') infoType = InfoType.Creature;
+    if (subPath.includes('ActorSpawner')) infoType = InfoType.Creature;
     return infoType;
 };
 
@@ -91,9 +93,28 @@ export const getAssetPathFromId = id => id === 'None' ? "None" : internalAssetNa
 export const getInfoTypeFromId = id => getInfoType(getSubpathFromAsset(getAssetPathFromId(id)));
 
 export const getAvailableTimes = mapId => {
-    if (['HeroStory', 'Cave', 'Area011', 'Area500'].some(area => mapId.includes(area))) return [Times.PERM];
+    if (['HeroStory', 'Cave', 'Area011', 'Area500', 'DDB'].some(area => mapId.includes(area))) return [Times.PERM];
     if (mapId.includes('Night')) return [Times.NIGHT, Times.PERM];
     return [Times.DAY, Times.PERM];
+};
+
+export const getAvailableAGLs = mapId => {
+    if (mapId.includes('DDB')) {
+        return mapId.includes('-VS') ? [AGLs.Objects_VS] : [AGLs.Objects_Perm];
+    }
+    if (mapId.includes('Cave')) {
+        const agls = [AGLs.Objects_Perm];
+        if (!['Cave004_F00', 'Cave013_F02'].includes(mapId)) agls.push(AGLs.Teki_Perm);
+        return agls;
+    }
+    if (mapId.includes('HeroStory')) return [AGLs.Teki_Perm, AGLs.Objects_Perm];
+    if (mapId.includes('Night')) return [AGLs.Objects_Perm, AGLs.Objects_Night, AGLs.Teki_Night];
+    if (mapId === 'Area011') return [AGLs.Objects_Perm, AGLs.Teki_Perm];
+
+    // Area004 DOES actually have a Teki_Perm file with one GDM in it?? Let's pretend it doesn't
+    const agls = [AGLs.Objects_Perm];
+    if (mapId !== 'Area500') agls.push(AGLs.Objects_Day, AGLs.Teki_Day);
+    return agls;
 };
 
 export const findObjectKey = (object, target) => Object.keys(object).find(key => key === target);
@@ -182,7 +203,7 @@ export const mutateAIProperties = (creature, newCreatureId, newInfoType = '', ol
         aiEnts.push(...o.ents);
 
         if (o.ents.some(e => newCreatureId.includes(e) && !oldCreatureId.includes(e)) || o.infoTypes?.some(e => newInfoType.includes(e))) { // There was an && !creature.AIProperties here, I forget why
-            ["AIProperties", "ActorParameter", "NavMeshTrigger", "WaterTrigger"].forEach(prop => {
+            ["AIProperties", "ActorParameter", "NavMeshTrigger", "WaterTrigger", "PopPlace"].forEach(prop => {
                 if (o[prop]) creature[prop] = { ...deepCopy(o[prop]) };
                 else delete creature[prop];
             });

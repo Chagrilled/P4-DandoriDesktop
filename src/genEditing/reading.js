@@ -1,4 +1,4 @@
-import { InfoType, PikminTypes, PikminPlayType, PortalTypes, ValveWorkType, weirdAIEntities, InterpModes, RockModes, ObjectAI_END_INDEX, QueenAIType } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, PortalTypes, ValveWorkType, weirdAIEntities, InterpModes, RockModes, ObjectAI_END_INDEX, QueenAIType, PopObjectType, DDBPikminHeightType } from '../api/types';
 import { findSequenceStartIndex, getObjectAIOffset } from '../utils';
 import { bytesToInt, getDisableSettings } from '../utils/bytes';
 
@@ -165,22 +165,10 @@ export const getReadCreatureAIFunc = creatureId => {
     return () => { };
 };
 
-// bytes between the 240 and none in long OAIP: 51 67
-// short: 47 63
-// const readObjectAIParameter = (ai, generatorVersion) => {
-//     let parsed = [];
-//     let index = 0;
-//     const invSize = ai[index];
-//     ({ parsed, index } = readInventory(ai, index, invSize));
-//     const someString = readAsciiString(ai, index);
-//     index += ai[index] + 4;
-//     index += 16; // bunch of 0s idk
-//     const float1 = readFloat(ai.slice(index, index += 4))
-//     const float2 = readFloat(ai.slice(index, index += 4))
-//     const float3 = readFloat(ai.slice(index, index += 4))
-//     const float4 = readFloat(ai.slice(index, index += 4))
-//     const float5 = readFloat(ai.slice(index, index += 4))
-// }
+export const getReadPopPlaceFunc = creatureId => {
+    if (creatureId === 'PopPlaceActor') return parsePopPlaceActor;
+    return () => false;
+};
 
 //#region Circulators
 const parseCirculatorAI = (ai, generatorVersion) => {
@@ -835,7 +823,7 @@ const parseActorSpawnerDrops = drops => {
     bytes.infiniteSpawn = drops[index];
     index += 4;
     bytes.spawnInterval = readFloat(drops.slice(index, index += 4));
-    bytes.spawnLimit = bytesToInt(drops.slice(index, index += 4));;
+    bytes.spawnLimit = bytesToInt(drops.slice(index, index += 4));
     index += 4; // Mystery bool here
     bytes.randomRotation = drops[index];
     index += 4;
@@ -1499,4 +1487,58 @@ const parsePortalTrigger = portalTrigger => {
     PortalTrigger.spareBytes = portalTrigger.slice(index, portalTrigger.length); // These last 3 floats are the trigger coordinates
 
     return { PortalTrigger };
+};
+
+
+//#region PopPlace
+const parsePopPlaceActor = (bytes) => {
+    let index = 1;
+    const PopPlace = {
+        popObjectType: PopObjectType[bytes[0]],
+        groupId: bytesToInt(bytes.slice(index, index += 4)),
+        maxObjectNumInRange: bytesToInt(bytes.slice(index, index += 4))
+    };
+    index += 4; // ?
+    PopPlace.isTerritorySetting = bytes[index];
+    index += 4;
+    PopPlace.bNoSearchOuterTerritory = bytes[index];
+    index += 4;
+    PopPlace.territory = {
+        X: readFloat(bytes.slice(index, index += 4)),
+        Y: readFloat(bytes.slice(index, index += 4)),
+        Z: readFloat(bytes.slice(index, index += 4)),
+        halfHeight: readFloat(bytes.slice(index, index += 4)),
+        radius: readFloat(bytes.slice(index, index += 4))
+    };
+    index += 1;
+    PopPlace.string = readAsciiString(bytes, index);
+    index += bytes[index] + 4;
+
+    // This skips everything between the string and IsOtakaraSetting as it's never changed and thus untraceable, so I think it's safe
+    PopPlace.spareBytes = bytes.slice(index, index += 171);
+
+    PopPlace.isOtakaraSetting = bytes[index];
+    index += 8; // dunno what the bool after is
+    PopPlace.bChangeCrushImpactMoveDir = bytes[index];
+    index += 4;
+    PopPlace.bReceiveCrushImpactEvent = bytes[index];
+    index += 4;
+    PopPlace.bSendCrushImpactEvent = bytes[index];
+    index += 4;
+    PopPlace.crushImpactMoveRot = {
+        pitch: readFloat(bytes.slice(index, index += 4)),
+        yaw: readFloat(bytes.slice(index, index += 4)),
+        roll: readFloat(bytes.slice(index, index += 4)),
+    };
+    PopPlace.bUseCrushDDB = bytes[index];
+    index += 4;
+    PopPlace.crushDDBPoint = {
+        X: PopPlace.bUseCrushDDB ? readFloat(bytes.slice(index, index += 4)) : 0,
+        Y: PopPlace.bUseCrushDDB ? readFloat(bytes.slice(index, index += 4)) : 0,
+        Z: PopPlace.bUseCrushDDB ? readFloat(bytes.slice(index, index += 4)) : 0
+    };
+    PopPlace.DDBPikminHeightType = DDBPikminHeightType[bytes[index]];
+    // Some stuff comes after but it's a None and 12 bytes of 0
+
+    return { PopPlace };
 };

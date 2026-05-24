@@ -196,6 +196,20 @@ export const QueenAIType = {
     3: "FallBaby"
 };
 
+export const PopObjectType = {
+    1: "EVsPopObjectType::Otakara",
+    2: "EVsPopObjectType::Candy",
+    6: "EVsPopObjectType::Gensei",
+    7: "EVsPopObjectType::Star",
+    8: "EVsPopObjectType::SPBomb",
+};
+
+export const DDBPikminHeightType = {
+    0: "EDDBPikminHeightType:???",
+    1: "EDDBPikminHeightType::YellowOnly",
+    2: "EDDBPikminHeightType::None"
+};
+
 export const AmbientSoundIDs = [
     "PondBig01",
     "PongBig02",
@@ -359,50 +373,61 @@ export const RockModes = {
 
 //#region UI Numbers
 export const editableNumberFields = [
-    "acceleration",
-    "afterMaxIcePikmins",
-    "attackLoopWaitSecMin",
-    "attackLoopWaitSecMax",
-    "attackSignSecMin",
-    "attackSignSecMax",
-    "attackInterval",
-    "attackIntervalSuccess",
     "CondInt",
     "Life",
     "W",
     "X",
     "Y",
     "Z",
+    "acceleration",
+    "afterMaxIcePikmins",
     "angle",
+    "attackInterval",
+    "attackIntervalSuccess",
+    "attackLoopWaitSecMax",
+    "attackLoopWaitSecMin",
+    "attackSignSecMax",
+    "attackSignSecMin",
     "baseCampId",
     "birthDay",
+    "bornSpeed",
+    "childSearchRadius",
     "deadDay",
     "demoID",
     "dropOption",
     "dropPearlScale",
-    "escapeSecMin",
     "escapeSecMax",
+    "escapeSecMin",
+    "fallBabySpawnNum",
+    "fallBabySpawnRadius",
     "fallHeight",
-    "flatEffectOffsetZ",
     "fightCameraChangeDistanceXY",
+    "flatEffectOffsetZ",
+    "flickDistXY",
     "generateNum",
     "generateRadius",
     "generatorIndex",
     "giveUpDistance",
+    "groupId",
     "groupingRadius",
+    "guruguruDist",
     "halfHeight",
-    "hideTimeMin",
     "hideTimeMax",
+    "hideTimeMin",
     "inVal",
     "invasionStartTimeRatio",
+    "jumpForceXY",
+    "jumpForceZ",
     "jumpHeight",
     "leftProjectHeight",
     "lifeTire",
     "mabikiNumFromFollow",
+    "manualWorkNum",
     "maxFallDownLength",
     "maxIcePikmins",
-    "minMoveSpeed",
     "maxMoveSpeed",
+    "maxObjectNumInRange",
+    "minMoveSpeed",
     "moveSpeed",
     "noSpawnRadius",
     "numDig",
@@ -417,49 +442,40 @@ export const editableNumberFields = [
     "radius",
     "rebirthInterval",
     "refObstacleGenID",
+    "rockBallHeightMax",
+    "rockBallHeightMaxInOppositeSide",
+    "rockBallHeightMin",
+    "rockBallHeightMinInOppositeSide",
+    "rockBallSpawnOffsetY",
+    "rockBallSpawnRadius",
+    "rockBallSpawnRadiusInOppositeSide",
     "roll",
+    "ropeAng",
     "searchAreaOtakaraCarryRadius",
     "searchBoundX",
     "searchBoundY",
     "searchBoundZ",
-    "stateChangeDelayTime",
-    "guruguruDist",
     "snapHeight",
     "snapRadius",
     "spawnNum",
     "spawnRadius",
-    "sphereRadius",
     "spawnTimer",
     "spawnTimerAfterDemo",
-    "startValidWallIndex",
+    "sphereRadius",
     "startTargetSpeed",
+    "startValidWallIndex",
+    "stateChangeDelayTime",
     "stopQueenDistXY",
     "toPortalId",
-    "unknownInt",
     "uniqueLife",
+    "unknownInt",
     "waitTime",
-    "waterRange",
     "waterLevelChangeDist",
     "waterLevelChangeTime",
+    "waterRange",
     "weight",
     "workNum",
-    "yaw",
-    "jumpForceXY",
-    "jumpForceZ",
-    "manualWorkNum",
-    "ropeAng",
-    "rockBallHeightMin",
-    "rockBallHeightMax",
-    "rockBallSpawnRadius",
-    "rockBallSpawnOffsetY",
-    "rockBallHeightMinInOppositeSide",
-    "rockBallHeightMaxInOppositeSide",
-    "rockBallSpawnRadiusInOppositeSide",
-    "bornSpeed",
-    "childSearchRadius",
-    "fallBabySpawnRadius",
-    "fallBabySpawnNum",
-    "flickDistXY",
+    "yaw"
 ];
 
 //#region UI Bools
@@ -508,6 +524,9 @@ export const editableBools = [
     "bUseSunMeter",
     "bWindLong",
     "bPlayDemo",
+    "bUseCrushDDB",
+    "isOtakaraSetting",
+    "isTerritorySetting"
 ];
 
 export const ignoreFields = [
@@ -517,7 +536,8 @@ export const ignoreFields = [
     "ddId",
     "outlineFolderPath",
     "spareBytes",
-    "generatorVersion"
+    "generatorVersion",
+    "originalAGL"
 ];
 
 //#region UI Strings
@@ -547,6 +567,7 @@ export const editableStrings = [
     "warpID",
     "waterBoxId",
     "waterBoxSwitchId",
+    "string"
 ];
 
 export const arrayStrings = [
@@ -572,7 +593,9 @@ export const selectFields = {
     ambientSoundId: AmbientSoundIDs,
     interpMode: Object.values(InterpModes),
     rockMode: Object.values(RockModes),
-    queenAIType: Object.values(QueenAIType)
+    queenAIType: Object.values(QueenAIType),
+    DDBPikminHeightType: Object.values(DDBPikminHeightType),
+    popObjectType: Object.values(PopObjectType)
 };
 
 export const NightMaps = {
@@ -628,17 +651,9 @@ export const InfoType = {
     WaterSwamp: "water-swamp",
 };
 
-export const isTreasure = (marker) => {
-    return marker.infoType === InfoType.Treasure;
-};
-
-export const isCreature = (marker) => {
-    return marker.infoType === InfoType.Creature;
-};
-
-export const isGimmick = (marker) => {
-    return marker.infoType === InfoType.Gimmick;
-};
+export const isTreasure = (marker) => marker.infoType === InfoType.Treasure;
+export const isCreature = (marker) => marker.infoType === InfoType.Creature;
+export const isGimmick = (marker) => marker.infoType === InfoType.Gimmick;
 
 export const Legends = [
     InfoType.Creature,
@@ -651,7 +666,7 @@ export const Legends = [
     InfoType.Onion,
     InfoType.Hazard,
     InfoType.Portal,
-    InfoType.Item
+    InfoType.Item,
 ];
 
 export const Categories = [
@@ -774,6 +789,8 @@ export const DefaultActorSpawnerDrop = {
     bSetTerritory: 0.0,
     invasionStartTimeRatio: 0.0
 };
+
+export const PopPlaceActorSpareBytes = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 72, 66, 0, 0, 200, 66, 0, 0, 180, 66, 0, 0, 240, 65, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 72, 66, 0, 0, 200, 66, 0, 0, 180, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 72, 66, 0, 0, 200, 66, 0, 0, 180, 66, 0, 0, 240, 65, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 255, 255, 5, 0, 0, 0, 78, 111, 110, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 150, 66, 0, 128, 187, 67, 0, 0, 0, 0, 0, 0, 112, 65, 0, 0, 240, 65, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 export const DefaultPortalTrigger = {
     portalType: PortalTypes[6],
@@ -996,6 +1013,7 @@ export const CreatureNames = {
     FutakuchiAdult: "Horned Cannon Beetle",
     GasKogane: "Doodlebug",
     GasOtakara: "Venom Dweevil",
+    GenericPoolActor: "Generic Pool Actor",
     GroupDropManager: "GroupDropManager",
     HageDamagumo: "Baldy Long Legs",
     Hambo: "Skitter Leaf",
@@ -1063,6 +1081,7 @@ export const CreatureNames = {
     PikminWhite: "White Pikmin",
     PikminPhoton: "Glow Pikmin",
     PikminIce: "Ice Pikmin",
+    PopPlaceActor: "Pop Place Actor",
     Queen: "Empress Bulblax",
     RedShijimi: "Red Spectralids",
     Rusher: "Tusked Blowhog",
@@ -1570,6 +1589,7 @@ export const HazardNames = {
 
 export const OnionNames = {
     Onyon: "Onion",
+    OnyonVS: "Onion (VS)",
     OnyonCarryBlue: "Blue Onion",
     OnyonCarryBoost: "Flarlic",
     OnyonCarryIce: "Ice Onion",
@@ -1640,12 +1660,15 @@ export const ObjectNames = {
     Pellet5: "5 Pellet",
     Pellet10: "10 Pellet",
     Pelplant1: "1 Pellet Posy",
+    Pelplant1DDB: "1 Pellet Posy (DDB)",
     Pelplant1Revive: "1 Pellet Posy (Reviving)",
     Pelplant1ReviveForHero: "1 Pellet Posy (Reviving) (Hero)",
     Pelplant5: "5 Pellet Posy",
+    Pelplant5DDB: "5 Pellet Posy (DDB)",
     Pelplant5Revive: "5 Pellet Posy (Reviving)",
     Pelplant5ReviveForHero: "5 Pellet Posy (Reviving) (Hero)",
     Pelplant10: "10 Pellet Posy",
+    Pelplant10DDB: "10 Pellet Posy (DDB)",
     Pelplant10ReviveForHero: "10 Pellet Posy (Reviving) (Hero)",
     Pod: "Pod",
     RestPoint_LivingRoom: "RestPoint_LivingRoom",
@@ -1690,6 +1713,7 @@ export const WorkObjectNames = {
     GateRock175uu: "Rock Gate (175uu)",
     GateRock200uu: "Rock Gate (200uu)",
     GateRock275uu: "Rock Gate (275uu)",
+    GateRock300uu: "Rock Gate (300uu)",
     GateRock325uu: "Rock Gate (325uu)",
     HandleBoard: "Hanging Clipboard Handle",
     HandleBoardYellow: "Hanging Clipboard Handle (Yellow)",
@@ -1760,7 +1784,7 @@ export const EntityNames = {
     ...OnionNames,
     ...BaseNames,
     ...ObjectNames,
-    ...PortalNames
+    ...PortalNames,
 };
 
 export const NameMap = {
@@ -1804,6 +1828,7 @@ export const iconOverrides = {
     gaterock175uu: "gaterock",
     gaterock200uu: "gaterock",
     gaterock275uu: "gaterock",
+    gaterock300uu: "gaterock",
     gaterock325uu: "gaterock",
     komushl: "komush",
     komushs: "komush",
@@ -1993,6 +2018,8 @@ export const iconOverrides = {
     dashboots1: 'dashboots',
     nukifue: 'hikkonukifue',
     shugoexflag: 'shugoflag',
+    popplaceactor: "default",
+    onyonvs: "onyon"
     // none: "default"
 };
 
@@ -2045,7 +2072,9 @@ export const weirdAIEntities = [
     'TargetPoint_Kitchen',
     'TargetPoint_LivingRoom',
     'DemoWarpPoint',
-    'PerchTakeOff'
+    'PerchTakeOff',
+    "GenericPoolActor",
+    "PopPlaceActor"
 ];
 
 export const DandoriChallengeMaps = [
@@ -2539,5 +2568,17 @@ export const randCreatures = Object.keys(CreatureNames).filter(k => ![
     "SplineDodoro",
     "PanModokiHideArea",
     "IceFrogIce",
-    "BossInuPoisonArea"
+    "BossInuPoisonArea",
+    "GenericPoolActor",
+    "PopPlaceActor"
 ].includes(k));
+
+export const AGLs = {
+    Objects_Perm: 'Objects (All)',
+    Objects_Day: 'Objects (Day)',
+    Objects_Night: 'Objects (Night)',
+    Objects_VS: 'Objects (VS)',
+    Teki_Day: 'Teki (Day)',
+    Teki_Night: 'Teki (Night)',
+    Teki_Perm: 'Teki (All)'
+};  

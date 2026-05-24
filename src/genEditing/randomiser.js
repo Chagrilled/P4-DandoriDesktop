@@ -1,4 +1,4 @@
-import { CreatureNames, TreasureNames, InfoType, OnionNames, RebirthTypes, weirdAIEntities, DandoriChallengeMaps, StartingLevels, FinalFloors, OverworldPortals, PortalDestinations, HazardNames, WorkObjectNames, PikminTypes, OnionToPikminMap, onionWeights, DefaultDrop, DefaultActorSpawnerDrop, ActivityTimes, randCreatures as randCreaturesList } from "../api/types";
+import { CreatureNames, TreasureNames, InfoType, OnionNames, RebirthTypes, weirdAIEntities, DandoriChallengeMaps, StartingLevels, FinalFloors, OverworldPortals, PortalDestinations, HazardNames, WorkObjectNames, PikminTypes, OnionToPikminMap, onionWeights, DefaultDrop, DefaultActorSpawnerDrop, ActivityTimes, randCreatures as randCreaturesList, AGLs } from "../api/types";
 import { readMapData, saveMaps, getConfigData, saveConfigs } from "../main";
 import { getInfoType, deepCopy, getSubpathFromAsset, getAssetPathFromId, getNameFromAsset, doesEntityHaveDrops, getInfoTypeFromId, mutateAIProperties } from "../utils";
 import { randomBytes } from 'crypto';
@@ -65,6 +65,8 @@ const randomOnion = {
         "parsed": []
     },
     "ddId": randomBytes(16).toString('hex'),
+    "aglFile": AGLs.Objects_Perm,
+    "originalAGL": AGLs.Objects_Perm,
     "time": "Permanent"
 };
 
@@ -105,6 +107,8 @@ const wildPiks = {
         "parsed": []
     },
     "ddId": randomBytes(16).toString('hex'),
+    "aglFile": AGLs.Objects_Perm,
+    "originalAGL": AGLs.Objects_Perm,
     "time": "Permanent"
 };
 
@@ -145,6 +149,8 @@ const hubFlarlic = {
         "parsedSubAI": []
     },
     "ddId": randomBytes(16).toString('hex'),
+    "aglFile": AGLs.Objects_Perm,
+    "originalAGL": AGLs.Objects_Perm,
     "time": "Permanent"
 };
 
@@ -198,6 +204,8 @@ const nonDropList = [
     "SplineFutakuchiAdultRock",
     "SplinePanModoki",
     "SplineBigUjinko",
+    "PopPlaceActor",
+    "GenericPoolActor"
     // These two are possibly crashy - haven't replicated though
     // "Kanitama",
     // "Kogani"
@@ -341,7 +349,8 @@ const ignoreList = [
     "SplineFutakuchiAdultRock",
     "SplinePanModoki",
     "SplineBigUjinko",
-    "OtaHeroPartsP"
+    "OtaHeroPartsP",
+    "PopPlaceActor"
     // All splines are added in this list already
 ];
 
@@ -743,7 +752,9 @@ export const randomiser = async (config) => {
     logger.info(`Object list: ${objectRandFullList.toString()}`);
 
     hubFlarlic.generateNum = parseInt(config.startingFlarlics);
+    console.log(config.maps);
     config.maps.sort(sortMaps);
+    config.maps = config.maps.filter(m => !m.includes("DDB"));
     if (config.retainOSTOnions) {
         skipList.push(
             {

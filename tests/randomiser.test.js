@@ -1196,7 +1196,7 @@ describe('Randomiser Tests', () => {
             expect(main.saveMaps).toHaveBeenCalledWith('Cave001_F00', expect.objectContaining({
                 [InfoType.WorkObject]: expect.arrayContaining([
                     expect.objectContaining({
-                        creatureId: 'VarGateIceNoPillar',
+                        creatureId: 'VarGateIce',
                         infoType: InfoType.WorkObject
                     })
                 ]),
@@ -1512,7 +1512,7 @@ describe('Randomiser Tests', () => {
             expect(main.saveMaps).toHaveBeenCalledWith('Cave001_F00', expect.objectContaining({
                 [InfoType.Onion]: expect.arrayContaining([
                     expect.objectContaining({
-                        creatureId: 'OnyonCarryPink',
+                        creatureId: 'OnyonCarryIce',
                         infoType: InfoType.Onion,
                     })
                 ]),

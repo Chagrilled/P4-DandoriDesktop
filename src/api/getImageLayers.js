@@ -210,6 +210,7 @@ const WaterBoxRadii = {
     'T_ui_Map_Cave035_F02_WaterBox00_D.png': 700,
     'T_ui_Map_Cave035_F02_WaterBox01_D.png': 1000,
     'T_ui_Map_Cave035_F03_WaterBox00_D.png': 2200,
+    'T_ui_Map_DDB_AI004_WaterBox00_D.png': 220
 };
 // adapted from https://github.com/openlayers/openlayers/issues/4949#issuecomment-525272189
 const buildWaterboxProjection = (mapProjection, waterbox) => {

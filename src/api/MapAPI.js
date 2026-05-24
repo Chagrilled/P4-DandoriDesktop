@@ -7,9 +7,8 @@ extents to check:
 */
 
 export const getMapData = async (mapId) => {
-
     // TODO need to reorganize all this stuff
-    mapId = mapId.replace('Night', 'Area').replace(/-\d/, '');
+    mapId = mapId.replace('Night', 'Area').replace(/-\d/, '').replace('-VS', '');
     const mapTransform = MapTransforms[mapId];
     const data = getPregeneratedData(mapId);
     return {
@@ -26,12 +25,15 @@ export const getMapData = async (mapId) => {
 
 const getPregeneratedData = (mapId) => {
     if (mapId === 'Area011') return {};
-    mapId = mapId.replace('Night', 'Area').replace(/-\d/, '');
+    mapId = mapId.replace('Night', 'Area').replace(/-\d/, '').replace('-VS', '');
 
     let dataUrl = '';
     if (mapId.startsWith('Cave')) {
         const caveId = mapId.split('_')[0];
         dataUrl += `${caveId}/${mapId}.json`;
+    }
+    else if (mapId.startsWith('DDB')) {
+        dataUrl += `${mapId}/${mapId}.json`;
     }
     else if (mapId.startsWith('HeroStory')) {
         const areaId = 'Area' + mapId.slice(-3);

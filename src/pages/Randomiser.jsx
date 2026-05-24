@@ -14,6 +14,7 @@ export const Randomiser = () => {
     const { state, setState, pikminState, setPikminState } = useContext(RandomiserContext);
 
     useEffect(() => {
+        window.electron.ipcRenderer.on('getMaps', (evt, message) => { console.log("Randomiser response"); console.log(message); setState({ ...state, maps: message.maps }); });
         if (!state.maps) {
             window.electron.ipcRenderer.readMaps();
             setInterval(() => setPikminState({
@@ -22,7 +23,6 @@ export const Randomiser = () => {
                 flip: Date.now() % 2
             }), 1500);
         }
-        window.electron.ipcRenderer.on('getMaps', (evt, message) => { console.log(message); setState({ ...state, maps: message.maps }); });
 
         return () => {
             window.electron.ipcRenderer.removeAllListeners('getMaps');

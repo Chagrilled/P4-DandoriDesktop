@@ -1766,6 +1766,14 @@
                 0.786776,
                 1.395611,
                 1.003724,
+                1.281809,
+                0.981925,
+                1.286011,
+                1.439468,
+                0.801905,
+                1.146396,
+                1.302776,
+                1.253387,
                 1.499117,
                 1.29773,
                 1.4,
@@ -2554,7 +2562,18 @@
         ],
         "/Game/Carrot4/Maps/Main/Area/Area010/Sublevels/Area010_Hero_Objects_368639": [
             null
-        ]
+        ],
+        "AIParameter": {
+            "ForceFloweringTimeRatio": [
+                0
+            ],
+            "TimeToGrowBud": [
+                0
+            ],
+            "TimeToGrowFlower": [
+                0
+            ]
+        }
     },
     "PieceStationAI_GEN_VARIABLE": {
         "PieceNum": [
@@ -2947,11 +2966,12 @@
         "ObjectAIParameter": {
             "LinkWarpTriggerID": [
                 "GHandleBoardYellow",
+                "board001",
                 "WarpTriggerLink1"
             ],
             "LinkNarrowSpaceBoxID": [
-                "NarrowSpace1",
-                "NarrowSpace0"
+                "NarrowSpace0",
+                "NarrowSpace1"
             ]
         }
     },
@@ -5423,6 +5443,7 @@
             "burning",
             "BURNING",
             "SLOPEBOTH",
+            "HANDLEBOARD",
             "TRIGGERDOOR",
             "FENCEFALL",
             "FenceFall",
@@ -5442,6 +5463,7 @@
             250,
             150.73772,
             123,
+            159.58032,
             300,
             600,
             650,
@@ -5471,6 +5493,12 @@
                 "CrackPot_M04",
                 "CrackPot_M05",
                 "BURNING001",
+                "And03",
+                "And04",
+                "And05",
+                "And00",
+                "And01",
+                "And02",
                 "Or00",
                 "Or01",
                 "Or03",
@@ -12782,6 +12810,149 @@
                 }
             }
         }
+    },
+    "PopPlaceComponent_GEN_VARIABLE": {
+        "PopObjectType": [
+            "EVsPopObjectType::Otakara",
+            "EVsPopObjectType::Gensei",
+            "EVsPopObjectType::SPBomb",
+            "EVsPopObjectType::Candy",
+            "EVsPopObjectType::Star"
+        ],
+        "GroupId": [
+            100,
+            103,
+            4,
+            104,
+            2,
+            102,
+            1,
+            101,
+            3,
+            5,
+            151,
+            150,
+            20,
+            152,
+            111,
+            12,
+            11,
+            14,
+            10,
+            200,
+            6,
+            26,
+            8,
+            22,
+            21,
+            24,
+            7,
+            23,
+            105,
+            106
+        ],
+        "IsOtakaraSetting": [
+            true
+        ],
+        "OtakaraAIParameter": {
+            "bUseCrushDDB": [
+                true
+            ],
+            "CrushDDBPoint": {
+                "X": [
+                    411.75,
+                    271.25,
+                    -85,
+                    458,
+                    -915.5,
+                    -628.5,
+                    200,
+                    -216.35,
+                    669.15924,
+                    -669.15924
+                ],
+                "Y": [
+                    -344,
+                    622.5,
+                    550,
+                    -271.5,
+                    -653.75,
+                    -912.75,
+                    408.5,
+                    -387.5,
+                    754.15924
+                ],
+                "Z": [
+                    0,
+                    5.624453,
+                    15,
+                    13.549576,
+                    3.280403
+                ]
+            },
+            "bChangeCrushImpactMoveDir": [
+                true
+            ],
+            "CrushImpactMoveRot": {
+                "Pitch": [
+                    0
+                ],
+                "Yaw": [
+                    0,
+                    -45
+                ],
+                "Roll": [
+                    50,
+                    65,
+                    60
+                ]
+            },
+            "DDBPikminHeightType": [
+                "EDDBPikminHeightType::None",
+                "EDDBPikminHeightType::YellowOnly"
+            ]
+        },
+        "IsTerritorySetting": [
+            true
+        ],
+        "Territory": {
+            "Radius": [
+                200,
+                220,
+                150,
+                50,
+                75,
+                80,
+                300
+            ],
+            "bSearchOuterTerritory": [
+                false
+            ]
+        },
+        "bNoSearchOuterTerritory": [
+            true
+        ],
+        "SearchAreaCaution": {
+            "bSearchOuterTerritory": [
+                false
+            ],
+            "Radius": [
+                250
+            ]
+        },
+        "SearchRange": [
+            350
+        ],
+        "FutakuchiAIParameter": {
+            "SearchAreaAttack": {
+                "Radius": [
+                    300
+                ]
+            }
+        },
+        "MaxObjectNumInRange": [
+            2
+        ]
     },
     "BabyAI_GEN_VARIABLE": {
         "BabyAIParameter": {

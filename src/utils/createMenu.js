@@ -24,12 +24,16 @@ const defaultLogger = (data, logStream) => {
 const extractFiles = async (filePath, mainWindow, destination, resetMessage) => {
     const AREA_PATH = join(`${filePath}`, "Main", "Area");
     const CAVE_PATH = join(`${filePath}`, "Madori", "Cave");
+    const DDB_PATH = join(`${filePath}`, "Madori", "Ddb");
+
     const basePath = destination || join(filePath, 'DandoriDesktop-Carrot4');
-    await promises.mkdir(join(basePath, 'Maps'), { recursive: true });
     await promises.mkdir(join(basePath, 'Maps', 'Main', 'Area'), { recursive: true });
     await promises.mkdir(join(basePath, 'Maps', 'Madori', 'Cave'), { recursive: true });
+    await promises.mkdir(join(basePath, 'Maps', 'Madori', 'Ddb'), { recursive: true });
+
     const exportAreaPath = join(basePath, 'Maps', 'Main', 'Area');
     const exportCavePath = join(basePath, 'Maps', 'Madori', 'Cave');
+    const exportDDBPath = join(basePath, 'Maps', 'Madori', 'Ddb');
 
     readdir(AREA_PATH, (err, areaMaps) => {
         console.log("areaMap", areaMaps);
@@ -59,6 +63,7 @@ const extractFiles = async (filePath, mainWindow, destination, resetMessage) => 
                 } catch (e) { }
             });
         });
+
         readdir(CAVE_PATH, async (err, caveMaps) => {
             console.log("caveMaps", caveMaps);
             if (err) {
@@ -87,6 +92,32 @@ const extractFiles = async (filePath, mainWindow, destination, resetMessage) => 
             let message = "Files copied - This is your Carrot4 folder. Put it in UassetEditor's _EDIT folder.";
             if (resetMessage) message = "Reset all files";
             return mainWindow.webContents.send(Messages.SUCCESS, message);
+        });
+
+        // This is weird, I have no idea why these are nested in the area maps read, or why they aren't sync
+        // Might have been a time where cave maps weren't included by default? we roll for now
+        readdir(DDB_PATH, async (err, ddbMaps) => {
+            console.log("Ddb maps", ddbMaps);
+            if (err) {
+                logger.error(err);
+                shell.openPath(filePath);
+                mainWindow.webContents.send(Messages.NONBLOCKING, 'Could not read DDB maps');
+            }
+            ddbMaps.forEach(async map => {
+                const fileNames = [
+                    "LVS_Objects",
+                    "Objects"
+                ];
+                await promises.mkdir(join(exportDDBPath, map, 'ActorPlacementInfo'), { recursive: true });
+
+                fileNames.forEach(async file => {
+                    try {
+                        const mapPath = join(map, 'ActorPlacementInfo', `AP_${map}_P_${file}.json`);
+                        accessSync(join(DDB_PATH, mapPath));
+                        await promises.cp(join(DDB_PATH, mapPath), join(exportDDBPath, mapPath));
+                    } catch (e) { }
+                });
+            });
         });
     });
 };
@@ -202,7 +233,7 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                         ...config,
                         internalNames: config.internalNames
                     }, null, 4), { encoding: "utf-8" }, () => { });
-                    BrowserWindow.getAllWindows().map(w => w.webContents.send('getConfig', config))
+                    BrowserWindow.getAllWindows().map(w => w.webContents.send('getConfig', config));
                 }
             },
             {
@@ -473,7 +504,8 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
             let options = { name: 'Dandori Desktop' };
             sudo.exec(`"${config.emulatorFile}"`, options,
                 (error, stdout, stderr) => {
-                    if (error) mainWindow.webContents.send(Messages.ERROR, error);
+                    if (error?.message?.includes('User did not grant permission')) return;
+                    if (error) mainWindow.webContents.send(Messages.ERROR, error.message);
                 }
             );
         }

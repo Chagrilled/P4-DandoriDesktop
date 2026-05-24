@@ -119,11 +119,12 @@ const placeableData = {};
 
 const sublevelParser = data => {
     data.forEach(obj => {
-        if (!obj.Template || !['ActorSpawner_GEN_VARIABLE', 'AI_GEN_VARIABLE', 'GroupDropManager_GEN_VARIABLE', 'PortalTrigger_GEN_VARIABLE'].some(s => obj.Template.includes(s)) || !obj.Properties) return;
+        const template = typeof obj.Template === 'object' ? (obj.Template.ObjectName?.match(/:(.+)'/) || [])[1] : obj.Template
+        if (!template || typeof template != 'string' || !['ActorSpawner_GEN_VARIABLE', 'AI_GEN_VARIABLE', 'GroupDropManager_GEN_VARIABLE', 'PortalTrigger_GEN_VARIABLE', 'PopPlaceComponent'].some(s => template.includes(s)) || !obj.Properties) return;
         Object.entries(obj.Properties).forEach(([key, val]) => {
             // console.log(key);
-            if (!sublevelData[obj.Template]) sublevelData[obj.Template] = {};
-            looper(sublevelData[obj.Template], val, key);
+            if (!sublevelData[template]) sublevelData[template] = {};
+            looper(sublevelData[template], val, key);
         });
     });
 };
@@ -201,6 +202,14 @@ readdirSync('Main/Area').forEach(areaDir => {
 
         } catch (e) { console.log("Ignore this error:", e); } // cba to filter out the non-hero stages
     }
+});
+
+readdirSync('Madori/Ddb').forEach(ddb => {
+    if (['Cave004_F00', 'Cave013_F02'].includes(ddb)) return; //idk these ones don't have teki files - didn't want to try/catch
+    reader(`Madori/Ddb/${ddb}/ActorPlacementInfo/AP_${ddb}_P_LVS_Objects.json`, parser);
+    reader(`Madori/Ddb/${ddb}/ActorPlacementInfo/AP_${ddb}_P_Objects.json`, parser);
+    reader(`Madori/Ddb/${ddb}/Sublevels/${ddb}_LVS_Objects.json`, sublevelParser);
+    reader(`Madori/Ddb/${ddb}/Sublevels/${ddb}_Objects.json`, sublevelParser);
 });
 
 readdirSync('Madori/Cave').forEach(cave => {

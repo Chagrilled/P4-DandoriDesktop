@@ -2,9 +2,9 @@
 import { setFloats, getAssetPathFromId } from '../utils';
 import deepEqual from 'deep-equal';
 import { getReadAIDynamicFunc, getReadAIStaticFunc, getReadPortalFunc } from './reading';
-import { getConstructAIStaticFunc, getConstructPortalTriggerFunc, writeLifeDynamic, writeAffordanceWeight, getConstructDynamicFunc, getConstructActorParamFunc, ASP_FIELDS, getConstructNavMeshTriggerFunc, getConstructSubAIStaticFunc, getConstructWaterTriggerFunc, defaultConstructionData } from './constructing';
+import { getConstructAIStaticFunc, getConstructPortalTriggerFunc, writeLifeDynamic, writeAffordanceWeight, getConstructDynamicFunc, getConstructActorParamFunc, ASP_FIELDS, getConstructNavMeshTriggerFunc, getConstructSubAIStaticFunc, getConstructWaterTriggerFunc, defaultConstructionData, getConstructPopPlaceFunc } from './constructing';
 import { default as entityData } from '../api/entityData.json';
-import { TeamIDs, InfoType } from '../api/types';
+import { TeamIDs } from '../api/types';
 import logger from '../utils/logger';
 
 export const getSubpath = creatureId => {
@@ -23,7 +23,7 @@ export const regenerateAGLEntity = (actor, aglData) => {
         Scale3D: setFloats(actor.transform.scale3D)
     };
     const asp = aglData.ActorSerializeParameter;
-    let entData = entityData[actor.creatureId] || defaultConstructionData(actor); ;
+    let entData = entityData[actor.creatureId] || defaultConstructionData(actor);
 
     const assetPathName = getAssetPathFromId(actor.creatureId) || `/Game/Carrot4/Placeables/${getSubpath(actor.creatureId)}/G${actor.creatureId}.G${actor.creatureId}_C`;
     const newAsset = assetPathName !== aglData.SoftRefActorClass.AssetPathName;
@@ -115,6 +115,13 @@ export const regenerateAGLEntity = (actor, aglData) => {
         }
     };
 
+    const newPP = {
+        PopPlace: {
+            Static: newAsset ? entData.PopPlace[0].Static : asp.PopPlace.Static,
+            Dynamic: newAsset ? entData.PopPlace[0].Dynamic : asp.PopPlace.Dynamic
+        }
+    };
+
     // Only tateanas seem to use SubAI for an AS gen var, so jank the func to work with that.
     let subAI = {};
     if (actor.creatureId.includes('Tateana')) subAI = {
@@ -130,6 +137,10 @@ export const regenerateAGLEntity = (actor, aglData) => {
 
     if (actor.WaterTrigger) {
         newWT.WaterTrigger.Static = getConstructWaterTriggerFunc(actor.creatureId)(newWT.WaterTrigger.Static, actor.WaterTrigger);
+    }
+
+    if (actor.PopPlace) {
+        newPP.PopPlace.Static = getConstructPopPlaceFunc(actor.creatureId)(actor.PopPlace);
     }
 
     const newASP = {
@@ -194,6 +205,8 @@ export const regenerateAGLEntity = (actor, aglData) => {
             ...newPT,
             ...newAP,
             ...newWT,
+            ...newPP,
+            ...subAI,
             Life: {
                 Static: asp.Life.Static,
                 Dynamic: actor.Life ? writeLifeDynamic(actor.Life) : newAsset ? asp.Life.Dynamic : asp.Life.Dynamic
@@ -206,7 +219,6 @@ export const regenerateAGLEntity = (actor, aglData) => {
                 Static: getConstructNavMeshTriggerFunc(actor.creatureId)(newAsset ? entData.NavMeshTrigger[0].Static : asp.NavMeshTrigger.Static, actor.NavMeshTrigger),
                 Dynamic: newAsset ? entData.NavMeshTrigger[0].Dynamic : asp.NavMeshTrigger.Dynamic
             },
-            ...subAI
         },
         LastNavPos: transforms.Translation,
         TeamId: actor.creatureId.startsWith('NavMeshTrigger') ? TeamIDs.A : TeamIDs.No

@@ -24,8 +24,8 @@ The whackier you go with the settings, the less stable you should expect the gam
 The weights page lets you configure the frequency that an enemy will appear in the randomiser pool. This means you can remove an enemy completely, or make the entire game one creature. There are a few considerations:
 
 - There must always be at least one creature with a non-zero value
-- The **night pool** <u>***must***</u> have one non-zero creature ([these are here](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/src/genEditing/randomiser.js#L390-L417)) - `Night...` creatures like `NightKochappy` are filtered out of non-night maps so won't appear on day/caves.
-- Certain settings must have correct corresponding weights to keep them functioning - i.e if you have `All Bosses` or `Retain Bosses` on,then you must have at least one boss with a non-zero weight.
+- The **night pool** <u>***must***</u> have one non-zero creature ([these are here](https://github.com/Chagrilled/P4-DandoriDesktop/blob/master/src/genEditing/randomiser.js#L220-L246)) - `Night...` creatures like `NightKochappy` are filtered out of non-night maps so won't appear on day/caves.
+- Certain settings must have correct corresponding weights to keep them functioning - i.e if you have `All Bosses` or `Retain Bosses` on, then you must have at least one boss with a non-zero weight.
 - The pool is randomly mixed with things like items, wild pikmin and so on, so if everything is `0` apart from one creature at `1`, it is very likely to be overwritten with a pikmin/item when the option is available, compared to a weight of 3-5 which makes it more even (as these chances are balanced around having the entire drop pool)
 
 ### 🐗 Enemies

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { NameMap, editableNumberFields, editableBools, ignoreFields, editableStrings, arrayStrings, selectFields, defaultPlacementCond, defaultVector, PikminTypes, defaultSplinePoint, defaultAppearanceCond, ActorPlacementAppearanceCondition } from "../../api/types";
-import { findMarkerById, getAvailableTimes, mutateAIProperties, deepCopy, getAssetPathFromId } from '../../utils';
+import { findMarkerById, getAvailableTimes, getAvailableAGLs, mutateAIProperties, deepCopy, getAssetPathFromId } from '../../utils';
 import { DebouncedInput } from './DebouncedInput';
 import { MapContext } from './MapContext';
 import { MarkerIcon } from '../MarkerIcon';
@@ -137,6 +137,16 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
                 <b>AGL File</b>:
                 <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, key, ddId, index)}>
                     {getAvailableTimes(mapId).map(time => <option key={time} value={time}>{time}</option>)}
+                </select>
+            </li>;
+        }
+
+        if (key === 'aglFile') {
+            return <li key={key} data-tooltip-id={key}>
+                {tooltip}
+                <b>AGL File</b>:
+                <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, key, ddId, index)}>
+                    {getAvailableAGLs(mapId).map(agl => <option key={agl} value={agl}>{agl}</option>)}
                 </select>
             </li>;
         }

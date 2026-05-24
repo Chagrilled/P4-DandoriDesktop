@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { Menu, Item, Separator, Submenu } from 'react-contexify';
 import { RebirthTypes, DefaultActorSpawnerDrop, InfoType, DefaultPortalTrigger, defaultBaseAIProperties, defaultCreatureAI, ActivityTimes, ActorPlacementCondition, ExploreRateTargetType, defaultTreasureAI, PikminTypes } from '../../api/types';
-import { deepCopy, getAvailableTimes } from '../../utils';
+import { deepCopy, getAvailableAGLs, getAvailableTimes } from '../../utils';
 import { MapContext } from './MapContext';
 
 const { Creature, Treasure, Gimmick, Object, WorkObject, Pikmin, Base, Onion, Hazard, Portal } = InfoType;
@@ -86,6 +86,7 @@ export const MapMenu = ({ }) => {
         }
         if (id === Portal) newMarker.PortalTrigger = deepCopy(DefaultPortalTrigger);
         if (id !== Creature) newMarker.time = getAvailableTimes(mapId)[0];
+
         if (id === Base) newMarker.AIProperties = deepCopy(defaultBaseAIProperties);
         if (id === Creature) {
             newMarker.AIProperties = deepCopy(defaultCreatureAI);
@@ -100,6 +101,11 @@ export const MapMenu = ({ }) => {
         }
         if (id === Treasure) newMarker.AIProperties = deepCopy(defaultTreasureAI);
         if (id === Object) newMarker.AIProperties = { colour: PikminTypes[0] };
+
+        const agls = getAvailableAGLs(mapId);
+        const agl = (id === Creature ? agls.find(agl => agl.includes('Teki')) : agls.find(agl => !agl.includes('Teki'))) || agls[0];
+        newMarker.aglFile = agl;
+        newMarker.originalAGL = agl;
 
         setMapData({
             ...mapMarkerData,

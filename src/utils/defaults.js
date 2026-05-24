@@ -1,4 +1,4 @@
-import { InfoType, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, DefaultActorSpawnerDrop, WaterBoxTextures, AmbientSoundIDs, defaultVector, defaultSplinePoint, RockModes, defaultTreasureAI, PikminTypes, QueenAIType } from "../api/types";
+import { InfoType, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, DefaultActorSpawnerDrop, WaterBoxTextures, AmbientSoundIDs, defaultVector, defaultSplinePoint, RockModes, defaultTreasureAI, PikminTypes, QueenAIType, PopObjectType, PopPlaceActorSpareBytes, DDBPikminHeightType } from "../api/types";
 
 export const entityDefaults = [
     {
@@ -154,6 +154,33 @@ export const entityDefaults = [
         ActorParameter: {
             radarMapWBTexture: WaterBoxTextures[0],
             radarMapWBChangeDistTexture: "None"
+        }
+    },
+    {
+        ents: ["PopPlaceActor"],
+        PopPlace: {
+            popObjectType: PopObjectType[1],
+            groupId: 1,
+            isTerritorySetting: 0,
+            bNoSearchOuterTerritory: 0,
+            territory: {
+                ...defaultVector,
+                halfHeight: 50,
+                radius: 100
+            },
+            string: "FutakuchiRock",
+            spareBytes: PopPlaceActorSpareBytes,
+            isOtakaraSetting: 0,
+            bChangeCrushImpactMoveDir: 0,
+            bReceiveCrushImpactEvent: 0,
+            crushImpactMoveRot: {
+                roll: 0,
+                pitch: 0,
+                yaw: 0
+            },
+            bUseCrushDDB: false,
+            crushDDBPoint: defaultVector,
+            DDBPikminHeightType: DDBPikminHeightType[2]
         }
     },
     {

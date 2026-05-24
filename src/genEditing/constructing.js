@@ -1,4 +1,4 @@
-import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs, weirdAIEntities, ObjectAI_STRING_INDEX, ObjectAI_END_INDEX, InterpModes, RockModes, QueenAIType, Messages } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs, weirdAIEntities, ObjectAI_STRING_INDEX, ObjectAI_END_INDEX, InterpModes, RockModes, QueenAIType, Messages, PopObjectType, DDBPikminHeightType } from '../api/types';
 import { default as entityData } from '../api/entityData.json';
 import { floatToByteArr, intToByteArr, disableFlagsToInt } from '../utils/bytes';
 import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue, getObjectAIOffset } from '../utils';
@@ -158,6 +158,10 @@ export const getConstructWaterTriggerFunc = creatureId => {
     return (wt) => wt;
 };
 
+export const getConstructPopPlaceFunc = creatureId => {
+    if (creatureId.includes('PopPlaceActor')) return constructPopPlace;
+    return (pp) => pp;
+};
 
 //#region WaterBoxes
 const constructWaterBoxNavAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
@@ -219,7 +223,47 @@ const constructSwampBoxWaterTrigger = (wtStatic, wt) => {
     bytes.push(wt.bDisableSink ? 1 : 0, 0, 0, 0);
     return bytes;
 };
-constructSwampBoxWaterTrigger;
+
+const constructPopPlace = (pp) => {
+    const bytes = [
+        parseInt(findObjectKeyByValue(PopObjectType, pp.popObjectType)),
+        ...intToByteArr(pp.groupId),
+        ...intToByteArr(pp.maxObjectNumInRange),
+        0, 0, 0, 0,
+        pp.isTerritorySetting ? 1 : 0, 0, 0, 0,
+        pp.bNoSearchOuterTerritory ? 1 : 0, 0, 0, 0,
+        ...floatBytes(parseFloat(pp.territory.X)),
+        ...floatBytes(parseFloat(pp.territory.Y)),
+        ...floatBytes(parseFloat(pp.territory.Z)),
+        ...floatBytes(parseFloat(pp.territory.halfHeight)),
+        ...floatBytes(parseFloat(pp.territory.radius)),
+        0,
+    ];
+    writeAsciiString(bytes, pp.string);
+    bytes.push(
+        ...pp.spareBytes,
+        pp.isOtakaraSetting ? 1 : 0, 0, 0, 0,
+        0, 0, 0, 0,
+        pp.bChangeCrushImpactMoveDir ? 1 : 0, 0, 0, 0,
+        pp.bReceiveCrushImpactEvent ? 1 : 0, 0, 0, 0,
+        pp.bSendCrushImpactEvent ? 1 : 0, 0, 0, 0,
+        ...floatBytes(pp.crushImpactMoveRot.roll),
+        ...floatBytes(pp.crushImpactMoveRot.pitch),
+        ...floatBytes(pp.crushImpactMoveRot.yaw),
+        pp.bUseCrushDDB ? 1 : 0, 0, 0, 0,
+        ...(pp.bUseCrushDDB ? [
+            ...floatBytes(pp.crushDDBPoint.X),
+            ...floatBytes(pp.crushDDBPoint.Y),
+            ...floatBytes(pp.crushDDBPoint.Z),
+        ] : []),
+        parseInt(findObjectKeyByValue(DDBPikminHeightType, pp.DDBPikminHeightType)),
+        ...NONE_BYTES,
+        0, 0, 0, 0,
+        0, 0, 0, 0,
+        0, 0, 0, 0
+    );
+    return bytes;
+};
 
 const constructMizunukiAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
     const bytes = [
@@ -725,7 +769,7 @@ const constructPotAI = ({ parsed }, aiStatic, { inventoryEnd }) => {
 };
 
 //#region Otakara 
-const constructOtakaraAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
+const constructOtakaraAI = (_, aiStatic, { AIProperties }) => {
     const bytes = [
         aiStatic[0], 0, 0, 0,
         AIProperties.bChangeCrushImpactMoveDir ? 1 : 0, 0, 0, 0,
@@ -1360,6 +1404,10 @@ export const constructActor = (actor, mapId) => {
             },
             WaterTrigger: {
                 Static: getConstructWaterTriggerFunc(actor.creatureId)(entData.WaterTrigger[0].Static, actor.WaterTrigger),
+                Dynamic: []
+            },
+            PopPlace: {
+                Static: getConstructPopPlaceFunc(actor.creatureId)(actor.PopPlace),
                 Dynamic: []
             }
         },
