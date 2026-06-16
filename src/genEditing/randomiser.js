@@ -217,7 +217,7 @@ const nonDropList = [
 // Call this at function start, as re-randomising causes the globals NOT to be reset
 // despite the dynamic import in main, leading to modified lists being retained between runs
 const resetLists = () => {
-    randOnions = Object.keys(OnionNames).filter(k => !["OnyonBootUpRed", "Onyon", "OnyonCarryBoost"].includes(k));
+    randOnions = Object.keys(OnionNames).filter(k => !["OnyonBootUpRed", "Onyon", "OnyonCarryBoost", "OnyonVS"].includes(k));
     randCreatures = randCreaturesList;
 
     nonBosses = randCreatures.filter(c => !bosses.includes(c));
@@ -353,7 +353,8 @@ const ignoreList = [
     "SplinePanModoki",
     "SplineBigUjinko",
     "OtaHeroPartsP",
-    "PopPlaceActor"
+    "PopPlaceActor",
+    "GenericPoolActor"
     // All splines are added in this list already
 ];
 
