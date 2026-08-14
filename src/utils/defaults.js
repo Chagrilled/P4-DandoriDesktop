@@ -312,6 +312,17 @@ export const entityDefaults = [
         ents: ["Gate"],
         AIProperties: {
             startValidWallIndex: -1
+        },
+        Life: {
+            maxLife: 8000,
+            life: 8000
+        }
+    },
+    {
+        ents: ["Hiba", "Charcoal"],
+        Life: {
+            maxLife: 8000,
+            life: 8000
         }
     }
 ];

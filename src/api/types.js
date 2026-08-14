@@ -374,7 +374,8 @@ export const RockModes = {
 //#region UI Numbers
 export const editableNumberFields = [
     "CondInt",
-    "Life",
+    "maxLife",
+    "life",
     "W",
     "X",
     "Y",
@@ -1058,7 +1059,7 @@ export const CreatureNames = {
     NightFrog: "Yellow Wollyhop (Night)",
     NightKaburi: "Joustmite (Night)",
     NightKareHambo: "Dessicated Skitterleaf (Night)",
-    NightKochappy: "Dwarf Bulborb (Night)",
+    NightKochappy: "Albino Dwarf Bulborb",
     NightMar: "Puffy Blowhog (Night)",
     NightTobiKaburi: "Flying Joustmite (Night)",
     NightTobinko: "Shearwig (Night)",
@@ -1190,6 +1191,7 @@ export const TreasureNames = {
     OtaDoguHead: "Ancient Statue Head",
     OtaDragonFruit: "Fire-Breathing Feast",
     OtaDuckL: "Universal Rubber Cutie",
+    OtaDuckB: "Dapper Rubber Cutie",
     OtaDuckM: "Planetary Rubber Cutie",
     OtaDuckS: "Stately Rubber Cutie",
     OtaEclair: "Sweet Torrent",

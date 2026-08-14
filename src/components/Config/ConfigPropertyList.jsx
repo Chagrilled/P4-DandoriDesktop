@@ -83,7 +83,7 @@ export const ConfigPropertyList = () => {
                 VSDROPSTARL: "Vs Bomb Drop L",
                 VSSPBOMB: "Vs Sneak Bomb",
                 OTAROBOUNI: "Robot (Full)",
-                OTADUCKB: "Duck",
+                OTADUCKB: "Dapper Rubber Cutie",
                 OTAVSGLD: "Vs Gold Pear",
                 OTAKENDAMAUNI: "Kendama (Full)",
                 OTARAILWAYLINEUNI: "Railway (Full)",

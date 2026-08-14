@@ -1542,3 +1542,8 @@ const parsePopPlaceActor = (bytes) => {
 
     return { PopPlace };
 };
+
+export const readLife = life => ({
+    maxLife: readFloat(life.slice(0, 4)),
+    life: readFloat(life.slice(4, 8)),
+});

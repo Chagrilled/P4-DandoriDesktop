@@ -203,7 +203,7 @@ export const mutateAIProperties = (creature, newCreatureId, newInfoType = '', ol
         aiEnts.push(...o.ents);
 
         if (o.ents.some(e => newCreatureId.includes(e) && !oldCreatureId.includes(e)) || o.infoTypes?.some(e => newInfoType.includes(e))) { // There was an && !creature.AIProperties here, I forget why
-            ["AIProperties", "ActorParameter", "NavMeshTrigger", "WaterTrigger", "PopPlace"].forEach(prop => {
+            ["AIProperties", "ActorParameter", "NavMeshTrigger", "WaterTrigger", "PopPlace", "Life"].forEach(prop => {
                 if (o[prop]) creature[prop] = { ...deepCopy(o[prop]) };
                 else delete creature[prop];
             });
@@ -230,6 +230,7 @@ export const mutateAIProperties = (creature, newCreatureId, newInfoType = '', ol
         delete creature.NavMeshTrigger;
         delete creature.ActorParameter;
         delete creature.WaterTrigger;
+        delete creature.Life;
     }
 };
 
@@ -245,3 +246,7 @@ export const isEntityOnNightMap = (entity, mapId) => {
         cond.Condition === ActorPlacementCondition.NightAdventurePattern && parseInt(cond.CondInt) + 1 == nightStage
     );
 };
+
+export const shouldReadLife = ent => {
+    return ent.includes('Gate') || ent.includes('Hiba') || ent === 'Charcoal'
+}

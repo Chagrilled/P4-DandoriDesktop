@@ -6,9 +6,9 @@ import swf from 'stringify-with-floats';
 import { spawn } from 'child_process';
 import { exposedGenVars, InfoType, Times, NightMaps, Messages, AGLs } from './api/types';
 import { regenerateAGLEntity } from './genEditing';
-import { getReadAIStaticFunc, getReadPortalFunc, getReadAIDynamicFunc, getReadActorParameterFunc, getReadNavMeshTriggerFunc, getReadSubAIStaticFunc, getReadWaterTriggerFunc, getReadPopPlaceFunc } from './genEditing/reading';
+import { getReadAIStaticFunc, getReadPortalFunc, getReadAIDynamicFunc, getReadActorParameterFunc, getReadNavMeshTriggerFunc, getReadSubAIStaticFunc, getReadWaterTriggerFunc, getReadPopPlaceFunc, readLife } from './genEditing/reading';
 import { constructActor } from './genEditing/constructing';
-import { protectNumbers, unprotectNumbers, getInfoType, getAvailableTimes, getAvailableAGLs } from './utils';
+import { protectNumbers, unprotectNumbers, getInfoType, getAvailableTimes, getAvailableAGLs, shouldReadLife } from './utils';
 import { createMenu } from './utils/createMenu';
 import { byteArrToInt } from './utils/bytes';
 import { updateElectronApp } from 'update-electron-app';
@@ -593,7 +593,7 @@ export const readMapData = async (mapId, webContents) => {
         const WaterTrigger = getReadWaterTriggerFunc(entityId)(asp.WaterTrigger.Static);
         const AIProperties = { ...staticAI, ...dynamicAI };
         const { parsed: parsedSubAI } = getReadSubAIStaticFunc(entityId, infoType)(asp.SubAI.Static);
-        const Life = entityId.includes('Gate') ? parseFloat(new Float32Array(new Uint8Array(asp.Life.Dynamic.slice(0, 4)).buffer)[0]) : null;
+        const Life = shouldReadLife(entityId) ? readLife(asp.Life.Dynamic) : null;
         const weight = entityId.includes('DownWall') ? byteArrToInt(asp.Affordance.Static.slice(-4).reverse()) : null;
         // console.log("AIProperties", AIProperties);
 

@@ -1422,12 +1422,10 @@ export const constructActor = (actor, mapId) => {
 };
 
 //#region Extras
-export const writeLifeDynamic = Life => {
-    return [
-        ...floatBytes(Life),
-        ...floatBytes(Life)
-    ];
-};
+export const writeLifeDynamic = Life => [
+    ...floatBytes(Life.maxLife),
+    ...floatBytes(Life.life)
+];
 
 export const writeAffordanceWeight = (weight, { Static }) => Static.toSpliced(Static.length - 4, 4, ...intToByteArr(weight));
 

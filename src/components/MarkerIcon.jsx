@@ -16,12 +16,12 @@ export const MarkerIcon = ({ type, id, size = 'small', card, override, flip }) =
         [InfoType.PopPlaceActor]: 'w-48 h-48 mr-2 mt-4 inline self-center',
         "pikmin-disable": 'w-10 h-10 mr-px mt-px inline self-center'
     };
-    if (id?.startsWith('night')) id = id.replace('night', '');
+    if (id?.startsWith('night' && !id.includes('kochappy'))) id = id.replace('night', '');
     id = iconOverrides[id?.toLowerCase()] || id;
 
     const src = !id
         ? getIconOptions(type).src
-        : `../images/${type}s/${type}-${id.toLowerCase().replace('night', '')}.png`;
+        : `../images/${type}s/${type}-${id.toLowerCase()}.png`;
 
     const sizes = {
         'xs': "w-10 h-10 mr-2 inline self-center",
