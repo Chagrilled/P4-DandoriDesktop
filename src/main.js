@@ -1,10 +1,11 @@
+import 'source-map-support/register';
 const { app, BrowserWindow, ipcMain, Menu, dialog, shell, protocol, net } = require('electron');
 import { readdir, promises, constants, readFileSync, accessSync, writeFileSync, readdirSync, mkdirSync, existsSync } from 'fs';
 import { join, sep } from 'path';
 import { randomBytes } from 'crypto';
 import swf from 'stringify-with-floats';
 import { spawn } from 'child_process';
-import { exposedGenVars, InfoType, Times, NightMaps, Messages, AGLs } from './api/types';
+import { exposedGenVars, InfoType, NightMaps, Messages, AGLs } from './api/types';
 import { regenerateAGLEntity } from './genEditing';
 import { getReadAIStaticFunc, getReadPortalFunc, getReadAIDynamicFunc, getReadActorParameterFunc, getReadNavMeshTriggerFunc, getReadSubAIStaticFunc, getReadWaterTriggerFunc, getReadPopPlaceFunc, readLife } from './genEditing/reading';
 import { constructActor } from './genEditing/constructing';
@@ -715,6 +716,7 @@ const getFileData = async fileName => {
         return JSON.parse(protectNumbers(fileData));
     } catch (e) {
         mainWindow.webContents.send(Messages.ERROR, `Failed reading data from: ${fileName}`, e.stack);
+        logger.error(e.stack)
         return undefined;
     }
 };
