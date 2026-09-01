@@ -352,14 +352,14 @@ export const MapContainer = ({
             const p0 = { X: x, Y: y, Z: z };
             const p3 = { X: x2, Y: y2, Z: z2 };
             const p1 = {
-                X: p0.X + points[i].leaveTangent.X,
-                Y: p0.Y + points[i].leaveTangent.Y,
-                Z: p0.Z + points[i].leaveTangent.Z
+                X: p0.X + points[i].leaveTangent.X / 3,
+                Y: p0.Y + points[i].leaveTangent.Y / 3,
+                Z: p0.Z + points[i].leaveTangent.Z / 3
             };
             const p2 = {
-                X: p3.X - points[(i + 1) % points.length].arriveTangent.X,
-                Y: p3.Y - points[(i + 1) % points.length].arriveTangent.Y,
-                Z: p3.Z - points[(i + 1) % points.length].arriveTangent.Z
+                X: p3.X - points[(i + 1) % points.length].arriveTangent.X / 3,
+                Y: p3.Y - points[(i + 1) % points.length].arriveTangent.Y / 3,
+                Z: p3.Z - points[(i + 1) % points.length].arriveTangent.Z / 3
             };
 
             for (let t = 0; t <= 1; t += 0.02) {

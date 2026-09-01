@@ -27,5 +27,4 @@ module.exports = {
         copyPlugins
     ],
     devtool: 'inline-source-map',
-    target: 'electron-renderer',
 };
