@@ -263,6 +263,19 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                 }
             },
             {
+                label: 'Clean Deployments',
+                type: 'checkbox',
+                checked: config.cleanDeployDirectories,
+                click: () => {
+                    config.cleanDeployDirectories = !config.cleanDeployDirectories;
+                    writeFile(CONFIG_PATH, JSON.stringify({
+                        ...config,
+                        cleanDeployDirectories: config.cleanDeployDirectories
+                    }, null, 4), { encoding: "utf-8" }, () => { });
+                    mainWindow.webContents.send('getConfig', config);
+                }
+            },
+            {
                 label: 'Disable Auto Update',
                 type: 'checkbox',
                 checked: config.disableAutoUpdate,
@@ -298,8 +311,10 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                     if (!config.outputDir)
                         return mainWindow.webContents.send(Messages.ERROR, 'Set output paks folder first');
 
-                    rmSync(join(config.encoderDir, "_OUTPUT", "Carrot4"), { recursive: true, force: true });
-                    rmSync(join(config.castocDir, "_EDIT", "Carrot4"), { recursive: true, force: true });
+                    if (config.cleanDeployDirectories) {
+                        rmSync(join(config.encoderDir, "_OUTPUT", "Carrot4"), { recursive: true, force: true });
+                        rmSync(join(config.castocDir, "_EDIT", "Carrot4"), { recursive: true, force: true });
+                    }
 
                     mainWindow.webContents.send(Messages.PROGRESS, 'Encoding JSONs');
                     let errorFlag = false;

@@ -30,7 +30,8 @@ const DEFAULT_CONFIG = {
     internalNames: false,
     hideInvisEntities: false,
     showRotation: true,
-    disableAutoUpdate: false
+    disableAutoUpdate: false,
+    cleanDeployDirectories: true
 };
 let config = {};
 let mapsCache = {};
@@ -816,7 +817,10 @@ try {
     accessSync(CONFIG_PATH, constants.F_OK);
     const data = readFileSync(CONFIG_PATH, { encoding: "utf-8" });
     // if (err) mainWindow.webContents.send(Messages.ERROR, `Could not read from config: ${e}`);
-    config = JSON.parse(data);
+    config = {
+        ...DEFAULT_CONFIG, // Merge new config keys in to people's existing configs
+        ...JSON.parse(data)
+    }
 } catch (err) {
     logger.warn(`${CONFIG_PATH} does not exist, generating`);
     writeFileSync(CONFIG_PATH, JSON.stringify(DEFAULT_CONFIG, null, 4), { encoding: "utf-8" });
