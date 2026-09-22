@@ -11,7 +11,8 @@ rules.push({
 const copyPlugins = new CopyPlugin(
     {
         patterns: [
-            { from: "src/images", to: "images" }
+            { from: "src/images", to: "images" },
+            { from: "src/audio", to: "audio" }
         ]
     }
 );

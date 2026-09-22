@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { SplashScreen } from './pages/Splashscreen';
 import { Maps } from './pages/Maps';
@@ -17,7 +17,34 @@ const RandomiserLayout = () => {
     return <Outlet />;
 };
 
+const AUDIO_SOURCES = [
+    '../audio/pluck6.mp3',
+    '../audio/pikmin-y-woo.mp3',
+    '../audio/pluck7.mp3',
+    '../audio/pluck10.mp3',
+    '../audio/louie.mp3'
+];
+
 export const AppRoutes = () => {
+
+    const audioPoolRef = useRef([]);
+
+    useEffect(() => {
+        audioPoolRef.current = AUDIO_SOURCES.map((src) => {
+            const audio = new Audio(src);
+            audio.preload = 'auto';
+            return audio;
+        });
+
+        return () => {
+            audioPoolRef.current.forEach((audio) => {
+                audio.pause();
+                audio.src = '';
+            });
+            audioPoolRef.current = [];
+        };
+    }, []);
+
     useEffect(() => {
         window.electron.ipcRenderer.on(Messages.ERROR, (something, message, e) => {
             toast(message, {
@@ -31,6 +58,12 @@ export const AppRoutes = () => {
             if (e) console.error(e);
         });
         window.electron.ipcRenderer.on(Messages.SUCCESS, (something, message) => {
+            if (message.includes('Paks copied to')) {
+                const pool = audioPoolRef.current;
+                const audio = pool[Math.random() * pool.length | 0];
+                audio.play();
+            }
+
             toast(message, {
                 duration: 5000,
                 icon: '✅',
@@ -40,6 +73,7 @@ export const AppRoutes = () => {
                 }
             });
         });
+
         window.electron.ipcRenderer.on(Messages.PROGRESS, (something, message) => {
             toast(message, {
                 duration: 5000,
