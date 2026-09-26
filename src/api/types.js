@@ -1469,7 +1469,7 @@ export const GimmickNames = {
     ExcavationM: 'Excavation (M)',
     ExcavationOnyon: 'Excavation (Tutorial Onion)',
     ExcavationPanmodokiSoilS: 'Excavation (Breadbug)',
-    ExcavationPanmodokiSoilSM: 'Excavation (Breadbug)',
+    ExcavationPanmodokiSoilM: 'Excavation (Breadbug)',
     ExcavationS: 'Excavation (S)',
     ExcavationUnder: 'ExcavationUnder',
     Fence: 'Fence',
@@ -1518,7 +1518,7 @@ export const GimmickNames = {
     Tateana: 'Hole',
     TateanaBaby: 'Hole (Small)',
     Trampoline: 'Trampoline',
-    TrampolineOneWay: 'Trampoline (One Way)',
+    TrampolineOneway: 'Trampoline (One Way)',
     TrampolineWideAngle: 'Trampoline (Wide)',
     TriggerColdOFF: 'TriggerColdOFF',
     TriggerDoor: 'Trigger Gate',
@@ -1780,6 +1780,7 @@ export const EntityNames = {
     ...BaseNames,
     ...ObjectNames,
     ...PortalNames,
+    ...PikminNames
 };
 
 export const NameMap = {

@@ -124,7 +124,7 @@ export const MapMenu = ({ }) => {
                 <Item id="ActorSpawner" onClick={handleItemClick}>ActorSpawner</Item>
                 <Item id="GroupDropManager" onClick={handleItemClick}>GroupDropManager</Item>
                 <Separator />
-                <Submenu label="Objects">
+                <Submenu label="Actors">
                     <Item id={Base} onClick={handleItemClick}>Base</Item>
                     <Item id={Gimmick} onClick={handleItemClick}>Gimmick</Item>
                     <Item id={Hazard} onClick={handleItemClick}>Hazard</Item>

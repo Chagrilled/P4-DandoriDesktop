@@ -1480,7 +1480,7 @@ export const defaultConstructionData = actor => {
     if (actor.creatureId === "OnyonCarryRed") return entityData.OnyonCarryYellow;
     if (actor.infoType === InfoType.Item) return entityData.Bomb;
     if (actor.creatureId === "Pellet10") return entityData.Pellet5;
-
+    if (actor.creatureId === 'KinkaiPick') return entityData.PiecePick;
     BrowserWindow.getAllWindows().map(w => w.webContents.send(Messages.ERROR, `${actor.creatureId} doesn't have construction data or an override - report this to Noodl`));
     return undefined;
 };

@@ -16,8 +16,10 @@ export const MarkerIcon = ({ type, id, size = 'small', card, override, flip }) =
         [InfoType.PopPlaceActor]: 'w-48 h-48 mr-2 mt-4 inline self-center',
         "pikmin-disable": 'w-10 h-10 mr-px mt-px inline self-center'
     };
-    if (id?.startsWith('night' && !id.includes('kochappy'))) id = id.replace('night', '');
-    id = iconOverrides[id?.toLowerCase()] || id;
+
+    let lowerId = id?.toLowerCase() || "";
+    if (lowerId.startsWith('night') && !lowerId.includes('kochappy')) lowerId = lowerId.replace('night', '');
+    id = iconOverrides[lowerId?.toLowerCase()] || lowerId;
 
     const src = !id
         ? getIconOptions(type).src
@@ -29,5 +31,5 @@ export const MarkerIcon = ({ type, id, size = 'small', card, override, flip }) =
         'large': 'w-28 h-28 inline self-center',
         'xl': 'w-32 h-32 mr-2 mt-4 inline self-center'
     };
-    return <img className={(!card && typeOverrides[type + override]) || sizes[size] || 'self-center'} src={src} style={{ 'transform': `scale(${flip ? -1 : 1}, 1)`}}/>;
+    return <img className={(!card && typeOverrides[type + override]) || sizes[size] || 'self-center'} src={src} style={{ 'transform': `scale(${flip ? -1 : 1}, 1)` }} />;
 };

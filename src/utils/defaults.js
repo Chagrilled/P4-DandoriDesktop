@@ -206,6 +206,9 @@ export const entityDefaults = [
     {
         ents: ['HandleBoard'],
         AIProperties: {
+            linkNarrowSpaceBoxID: "None",
+            linkWarpTriggerID: "None",
+            navMeshTriggerID: "None",
             workNum: 10,
             pointLinks: {
                 left: {
@@ -310,6 +313,7 @@ export const entityDefaults = [
     },
     {
         ents: ["Gate"],
+        rareDrops: [],
         AIProperties: {
             startValidWallIndex: -1
         },

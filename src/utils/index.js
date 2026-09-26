@@ -208,7 +208,7 @@ export const mutateAIProperties = (creature, newCreatureId, newInfoType = '', ol
                 else delete creature[prop];
             });
 
-            ["parsed", "parsedSubAI"].forEach(prop => {
+            ["parsed", "parsedSubAI", "rareDrops"].forEach(prop => {
                 if (o[prop]) creature.drops[prop] = deepCopy(o[prop]);
             });
         }
