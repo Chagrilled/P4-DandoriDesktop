@@ -40,8 +40,12 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, isYamashinju, ddId
                 <DebouncedInput value={drop.spawnInterval} type="number" changeFunc={(v) => updateDrops(v, drop, "spawnInterval")} ddId={ddId} />
             </div>
             <div>
-                <b>Spawn limit</b>:&nbsp;
-                <DebouncedInput value={drop.spawnLimit} tpe="number" changeFunc={(v) => updateDrops(v, drop, "spawnLimit")} ddId={ddId} />
+                <b>Max Alive Spawns</b>:&nbsp;
+                <DebouncedInput value={drop.maxAreaNum} type="number" changeFunc={(v) => updateDrops(v, drop, "maxAreaNum")} ddId={ddId} />
+            </div>
+            <div>
+                <b>Total Spawns</b>:&nbsp;
+                <DebouncedInput value={drop.maxSpawnNum} type="number" changeFunc={(v) => updateDrops(v, drop, "maxSpawnNum")} ddId={ddId} />
             </div>
             <div className="flex">
                 <b>overlapCenterX</b>:&nbsp;
@@ -259,16 +263,6 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, isYamashinju, ddId
                         )}
                     </select>
                 </div>
-                {drop.flags && <div>
-                    <b>Flags</b>:&nbsp;
-                    <DebouncedInput
-                        className="max-w-[7em] bg-sky-1000"
-                        changeFunc={(v) => updateDrops(v, drop, "flags")}
-                        type="text"
-                        value={JSON.stringify(drop.flags).replaceAll(',', ', ')}
-                        ddId={ddId}
-                    />
-                </div>}
                 <div>
                     <b>CustomFloatParameter</b>:&nbsp;
                     <DebouncedInput

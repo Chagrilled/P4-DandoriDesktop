@@ -1,6 +1,6 @@
-import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs, weirdAIEntities, ObjectAI_STRING_INDEX, ObjectAI_END_INDEX, InterpModes, RockModes, QueenAIType, Messages, PopObjectType, DDBPikminHeightType } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes, areaBaseGenVarBytes, TriggerDoorAIBytes, ValveWorkType, ValveAPBytes, TeamIDs, weirdAIEntities, ObjectAI_STRING_INDEX, ObjectAI_END_INDEX, InterpModes, RockModes, QueenAIType, Messages, PopObjectType, DDBPikminHeightType, AmeBozuWalkTypes, NavLinkDirection, PikminLeaves } from '../api/types';
 import { default as entityData } from '../api/entityData.json';
-import { floatToByteArr, intToByteArr, disableFlagsToInt } from '../utils/bytes';
+import { floatToByteArr, intToByteArr, disableFlagsToInt, u64ToBytes } from '../utils/bytes';
 import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue, getObjectAIOffset } from '../utils';
 import { parseGDMDrops, parseTekiAI, parsePotDrops, readInventory } from './reading';
 import logger from '../utils/logger';
@@ -48,7 +48,8 @@ export const ASP_FIELDS = [
     'WaterTrigger'
 ];
 
-const writeAsciiString = (bytes, string) => {
+// I have no idea why I made this modify the array rather than return the bytes to spread
+const writeAsciiString = (bytes, string = "None") => {
     let lengthBytes = intToByteArr(string.length + 1);
     bytes.push(
         ...lengthBytes,
@@ -56,6 +57,25 @@ const writeAsciiString = (bytes, string) => {
         0
     );
 };
+
+// Writes a 7-float 28-byte area that usually defines searchAreaCaution/Rest areas
+const writeArea = area => [
+    ...writeVector(area.center),
+    ...floatBytes(area.halfHeight ?? 180.0),
+    ...floatBytes(area.radius ?? 100.0),
+    ...floatBytes(area.angle ?? 100.0),
+    ...floatBytes(area.sphereRadius ?? 180.0)
+];
+
+const bool = b => [
+    b ? 1 : 0, 0, 0, 0
+];
+
+const writeVector = v => [
+    ...floatBytes(v.X ?? 0.0),
+    ...floatBytes(v.Y ?? 0.0),
+    ...floatBytes(v.Z ?? 0.0),
+];
 
 //#region Func Controllers
 // The contract for these functions is (drops, aiStatic, { variousProperties }, generatorVersion, creatureId)
@@ -129,6 +149,7 @@ export const getConstructCreatureAIFunc = creatureId => {
     if (creatureId === ('DamagumoCannon')) return constructDamagumoCannonAI;
     if (creatureId === ('Yamashinju')) return constructYamashinjuAI;
     if (creatureId === 'BigChappy') return constructBigChappyAI;
+    if (creatureId.includes('Kurage')) return constructKurageAI;
     return () => [];
 };
 
@@ -163,15 +184,97 @@ export const getConstructPopPlaceFunc = creatureId => {
     return (pp) => pp;
 };
 
+//#region ObjectAIParameter
+const constructObjectAIParameter = (parsed, AIProperties, generatorVersion) => {
+    const bytes = [parsed.length, 0, 0, 0];
+
+    parsed.forEach(drop => {
+        const slotBytes = [
+            255, 255, 255, 255,
+            255, 255, 255, 255
+        ];
+        slotBytes.push(
+            ...intToByteArr(parseInt(drop.minDrops)),
+            ...intToByteArr(parseInt(drop.maxDrops)),
+            ...floatBytes(parseFloat(drop.dropChance)),
+            ...bool(drop.bRegistGenerator),
+        );
+
+        if (drop.dropCondition && drop.dropCondition != 'None') {
+            slotBytes.push(
+                1, 0, 0, 0,
+                parseInt(drop.dropCondition),
+                ...intToByteArr(parseInt(drop.dropCondInt)),
+            );
+            writeAsciiString(slotBytes, drop.dropCondName);
+            slotBytes.push(0);
+        }
+        else slotBytes.push(0, 0, 0, 0);
+        writeAsciiString(slotBytes, drop.assetName);
+
+        writeAsciiString(slotBytes, drop.customParameter);
+
+        slotBytes.push(
+            ...floatBytes(parseFloat(drop.customFloatParam)),
+            ...intToByteArr(parseInt(drop.gameRulePermissionFlag), 2),
+            ...bool(drop.bSetTerritory)
+        );
+
+        if (drop.bSetTerritory) {
+            slotBytes.push(
+                ...writeVector(drop),
+                ...floatBytes(drop.halfHeight || 0.0),
+                ...floatBytes(drop.radius || 0.0)
+            );
+        }
+        bytes.push(...slotBytes);
+    });
+    bytes.push(255, 255, 255, 255);
+    writeAsciiString(bytes, AIProperties.boneName);
+
+    ["localOffset", "vel", "randVel"].forEach(prop => bytes.push(...writeVector(AIProperties[prop])));
+
+    bytes.push(
+        ...intToByteArr(parseInt(AIProperties.dropOption), 2),
+        ...intToByteArr(parseInt(AIProperties.fixedHotExtractDropNum)),
+        ...bool(AIProperties.bOverrideInitLocation),
+        ...writeVector(AIProperties.overrideInitLocation),
+        0, 0, 0, 0, // DebugUniqueIds always 0 in objects
+    );
+
+    const offset = getObjectAIOffset(generatorVersion);
+    if (offset === 4) bytes.push(...bool(AIProperties.bEnableFreezeBothDrop));
+    bytes.push(
+        ...bool(AIProperties.bIgnoreLaterTask),
+        ...bool(AIProperties.bIgnoreCompleteUI),
+        ...writeVector(AIProperties.completeUIOffset),
+        ...bool(AIProperties.bEnableOptimizeWaterBoxContext),
+        ...bool(AIProperties.bDisableSoftEdge),
+        ...bool(AIProperties.bDisableSoftEdgeOnlyFrom),
+        ...bool(AIProperties.bDisableSoftEdgeOnlyTo),
+    );
+    writeAsciiString(bytes, AIProperties.linkNarrowSpaceBoxID);
+    writeAsciiString(bytes, AIProperties.linkWarpTriggerID);
+    writeAsciiString(bytes, AIProperties.navMeshTriggerID);
+    bytes.push(
+        AIProperties.escapePoints.length,
+        ...AIProperties.escapePoints.map(ep => writeVector(ep)).flat(),
+        ...bool(AIProperties.bEnableOptionalPoint),
+        ...intToByteArr(AIProperties.optionalPointOffsets.length),
+        ...AIProperties.optionalPointOffsets.map(opo => writeVector(opo)).flat(),
+        ...intToByteArr(AIProperties.optionalPointPriorityInfo.length),
+        ...AIProperties.optionalPointPriorityInfo.map(opo => intToByteArr(opo)).flat(),
+    );
+    return bytes;
+};
+
 //#region WaterBoxes
 const constructWaterBoxNavAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
     const bytes = [
         ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion))
     ];
-    bytes.push(AIProperties.bUseHappyOnly ? 1 : 0, 0, 0, 0);
-    bytes.push(...floatBytes(AIProperties.rightOffset.X));
-    bytes.push(...floatBytes(AIProperties.rightOffset.Y));
-    bytes.push(...floatBytes(AIProperties.rightOffset.Z));
+    bytes.push(...bool(AIProperties.bUseHappyOnly));
+    bytes.push(...writeVector(AIProperties.rightOffset));
     return bytes;
 };
 
@@ -184,9 +287,9 @@ const constructWaterBoxAI = (_, aiStatic, { AIProperties }, generatorVersion) =>
     bytes.push(...floatBytes(AIProperties.waterLevelChangeTime));
     bytes.push(0, 0, 128, 191, 1, 0, 0, 0);
     bytes.push(...(AIProperties.generatorIndex === -1 ? [255, 255, 255, 255] : [0, 0, 0, 0]));
-    bytes.push(AIProperties.bUseSunMeter ? 1 : 0, 0, 0, 0);
+    bytes.push(...bool(AIProperties.bUseSunMeter));
     bytes.push(0, 0, 0, 63);
-    bytes.push(AIProperties.bPlayDemo ? 1 : 0, 0, 0, 0);
+    bytes.push(...bool(AIProperties.bPlayDemo));
     return bytes;
 };
 
@@ -220,7 +323,7 @@ const constructWaterBoxWaterTrigger = (wtStatic, wt) => {
 
 const constructSwampBoxWaterTrigger = (wtStatic, wt) => {
     const bytes = constructWaterBoxWaterTrigger(wtStatic, wt);
-    bytes.push(wt.bDisableSink ? 1 : 0, 0, 0, 0);
+    bytes.push(...bool(wt.bDisableSink));
     return bytes;
 };
 
@@ -230,11 +333,9 @@ const constructPopPlace = (pp) => {
         ...intToByteArr(pp.groupId),
         ...intToByteArr(pp.maxObjectNumInRange),
         0, 0, 0, 0,
-        pp.isTerritorySetting ? 1 : 0, 0, 0, 0,
-        pp.bNoSearchOuterTerritory ? 1 : 0, 0, 0, 0,
-        ...floatBytes(parseFloat(pp.territory.X)),
-        ...floatBytes(parseFloat(pp.territory.Y)),
-        ...floatBytes(parseFloat(pp.territory.Z)),
+        ...bool(pp.isTerritorySetting),
+        ...bool(pp.bNoSearchOuterTerritory),
+        ...writeVector(pp.territory),
         ...floatBytes(parseFloat(pp.territory.halfHeight)),
         ...floatBytes(parseFloat(pp.territory.radius)),
         0,
@@ -242,20 +343,16 @@ const constructPopPlace = (pp) => {
     writeAsciiString(bytes, pp.string);
     bytes.push(
         ...pp.spareBytes,
-        pp.isOtakaraSetting ? 1 : 0, 0, 0, 0,
+        ...bool(pp.isOtakaraSetting),
         0, 0, 0, 0,
-        pp.bChangeCrushImpactMoveDir ? 1 : 0, 0, 0, 0,
-        pp.bReceiveCrushImpactEvent ? 1 : 0, 0, 0, 0,
-        pp.bSendCrushImpactEvent ? 1 : 0, 0, 0, 0,
-        ...floatBytes(pp.crushImpactMoveRot.roll),
+        ...bool(pp.bChangeCrushImpactMoveDir),
+        ...bool(pp.bReceiveCrushImpactEvent),
+        ...bool(pp.bSendCrushImpactEvent),
         ...floatBytes(pp.crushImpactMoveRot.pitch),
         ...floatBytes(pp.crushImpactMoveRot.yaw),
-        pp.bUseCrushDDB ? 1 : 0, 0, 0, 0,
-        ...(pp.bUseCrushDDB ? [
-            ...floatBytes(pp.crushDDBPoint.X),
-            ...floatBytes(pp.crushDDBPoint.Y),
-            ...floatBytes(pp.crushDDBPoint.Z),
-        ] : []),
+        ...floatBytes(pp.crushImpactMoveRot.roll),
+        ...bool(pp.bUseCrushDDB),
+        ...(pp.bUseCrushDDB ? writeVector(pp.crushDDBPoint) : []),
         parseInt(findObjectKeyByValue(DDBPikminHeightType, pp.DDBPikminHeightType)),
         ...NONE_BYTES,
         0, 0, 0, 0,
@@ -281,10 +378,8 @@ const constructMoveFloorAI = (_, aiStatic, { AIProperties }, generatorVersion) =
     bytes.push(
         ...floatBytes(AIProperties.waitTime),
         ...floatBytes(AIProperties.moveSpeed),
-        AIProperties.bEnableWarpActor ? 1 : 0, 0, 0, 0,
-        ...floatBytes(AIProperties.warpOffset.X),
-        ...floatBytes(AIProperties.warpOffset.Y),
-        ...floatBytes(AIProperties.warpOffset.Z),
+        ...bool(AIProperties.bEnableWarpActor),
+        ...writeVector(AIProperties.warpOffset),
         ...constructSplinePoints(AIProperties.splinePoints)
     );
 
@@ -300,21 +395,13 @@ const constructSplinePoints = splinePoints => {
     for (const point of splinePoints) {
         bytes.push(
             ...floatBytes(point.inVal),
-            ...floatBytes(point.outVal.X),
-            ...floatBytes(point.outVal.Y),
-            ...floatBytes(point.outVal.Z),
-            ...floatBytes(point.arriveTangent.X),
-            ...floatBytes(point.arriveTangent.Y),
-            ...floatBytes(point.arriveTangent.Z),
-            ...floatBytes(point.leaveTangent.X),
-            ...floatBytes(point.leaveTangent.Y),
-            ...floatBytes(point.leaveTangent.Z),
-            ...floatBytes(point.rotation.roll),
+            ...writeVector(point.outVal),
+            ...writeVector(point.arriveTangent),
+            ...writeVector(point.leaveTangent),
             ...floatBytes(point.rotation.pitch),
             ...floatBytes(point.rotation.yaw),
-            ...floatBytes(point.scale.X),
-            ...floatBytes(point.scale.Y),
-            ...floatBytes(point.scale.Z),
+            ...floatBytes(point.rotation.roll),
+            ...writeVector(point.scale),
             parseInt(findObjectKeyByValue(InterpModes, point.interpMode))
         );
     };
@@ -368,14 +455,12 @@ const constructHandleBoardAI = (_, aiStatic, { AIProperties }, generatorVersion)
 const constructBranchAI = (_, aiStatic, { AIProperties }, generatorVersion) => [
     ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion)),
     ...floatBytes(AIProperties.jumpHeight),
-    ...floatBytes(AIProperties.navLinkRight.X),
-    ...floatBytes(AIProperties.navLinkRight.Y),
-    ...floatBytes(AIProperties.navLinkRight.Z)
+    ...writeVector(AIProperties.navLinkRight),
 ];
 
 const constructDownWallAI = (_, aiStatic, { AIProperties }, generatorVersion) => [
     ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion)),
-    ...floatBytes(AIProperties.bDisableAirWall ? 1 : 0, 0, 0, 0)
+    ...bool(AIProperties.bDisableAirWall)
 ];
 
 const constructStringAI = (_, aiStatic, { AIProperties }, generatorVersion) => [
@@ -385,7 +470,7 @@ const constructStringAI = (_, aiStatic, { AIProperties }, generatorVersion) => [
 
 const constructStringAI_Dynamic = (aiStatic, { AIProperties }) => [
     ...Array(12).fill(0),
-    AIProperties.bFalled ? 1 : 0, 0, 0, 0
+    ...bool(AIProperties.bFalled)
 ];
 
 //#region Circulators
@@ -394,16 +479,14 @@ const constructCirculatorAI = (_, aiStatic, { AIProperties }, generatorVersion) 
         ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion))
     ];
     writeAsciiString(bytes, AIProperties.switchID);
-    bytes.push(AIProperties.bWindLong ? 1 : 0, 0, 0, 0);
-    bytes.push(...floatBytes(AIProperties.navLinkRight.X));
-    bytes.push(...floatBytes(AIProperties.navLinkRight.Y));
-    bytes.push(...floatBytes(AIProperties.navLinkRight.Z));
+    bytes.push(...bool(AIProperties.bWindLong));
+    bytes.push(...writeVector(AIProperties.navLinkRight));
     return bytes;
 };
 
 const constructCirculatorAI_Dynamic = (aiDynamic, { AIProperties }) => [
     ...Array(12).fill(0),
-    AIProperties.bRotateDefault ? 1 : 0, 0, 0, 0
+    ...bool(AIProperties.bRotateDefault)
 ];
 
 //#region Treasure Pile
@@ -421,38 +504,27 @@ const constructTateanaAI_Dynamic = (aiDynamic, { AIProperties }) => [
 
 //#region Geyser
 const constructGeyserAI = (_, aiStatic, { AIProperties }, generatorVersion) => [
-    ...aiStatic.slice(0, 99 + getObjectAIOffset(generatorVersion)),
-    AIProperties.bEnableCustomSoftEdge ? 1 : 0, 0, 0, 0,
-    AIProperties.bDisableSoftEdge ? 1 : 0, 0, 0, 0,
-    ...aiStatic.slice(107 + getObjectAIOffset(generatorVersion), ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion)),
-    AIProperties.bSetCrystal ? 1 : 0, 0, 0, 0,
+    ...constructObjectAIParameter([], AIProperties, generatorVersion),
+    ...bool(AIProperties.bSetCrystal),
     ...floatBytes(AIProperties.stopQueenDistXY),
     1, 0, 0, 0,
-    ...floatBytes(AIProperties.navLinkLeft.X),
-    ...floatBytes(AIProperties.navLinkLeft.Y),
-    ...floatBytes(AIProperties.navLinkLeft.Z),
-    ...floatBytes(AIProperties.navLinkRight.X),
-    ...floatBytes(AIProperties.navLinkRight.Y),
-    ...floatBytes(AIProperties.navLinkRight.Z),
+    ...writeVector(AIProperties.navLinkLeft),
+    ...writeVector(AIProperties.navLinkRight),
     ...floatBytes(AIProperties.leftProjectHeight),
     ...floatBytes(AIProperties.maxFallDownLength),
-    1,
+    parseInt(findObjectKeyByValue(NavLinkDirection, AIProperties.direction)),
     ...floatBytes(AIProperties.snapRadius),
     ...floatBytes(AIProperties.snapHeight),
     255, 255, 255, 255,
     AIProperties.bUseSnapHeight ? 1 : 0,
-    1
+    AIProperties.bSnapToCheapestArea ? 1 : 0
 ];
 
 //#region NavMeshTriger
 const constructNavMeshTrigger = (trigger, triggerProperties) => {
     const bytes = [
-        ...floatBytes(triggerProperties.overlapBoxExtent.X),
-        ...floatBytes(triggerProperties.overlapBoxExtent.Y),
-        ...floatBytes(triggerProperties.overlapBoxExtent.Z),
-        ...floatBytes(triggerProperties.navCollBoxExtent.X),
-        ...floatBytes(triggerProperties.navCollBoxExtent.Y),
-        ...floatBytes(triggerProperties.navCollBoxExtent.Z)
+        ...writeVector(triggerProperties.overlapBoxExtent),
+        ...writeVector(triggerProperties.navCollBoxExtent),
     ];
 
     if (typeof triggerProperties.CIDList === 'string') triggerProperties.CIDList = JSON.parse(triggerProperties.CIDList);
@@ -464,20 +536,10 @@ const constructNavMeshTrigger = (trigger, triggerProperties) => {
 };
 
 //#region StickyFloor
-const constructStickyFloorAI = ({ parsed }, aiStatic, { AIProperties, inventoryEnd }) => {
-    const bytes = [];
-    bytes.push(parsed.length, 0, 0, 0);
-
-    constructInventory(parsed, bytes);
-
-    bytes.push(255, 255, 255, 255);
-    if (!inventoryEnd) {
-        ({ inventoryEnd } = parsePotDrops(aiStatic)); // PotDrops is basically the same - split this out later?
-    }
-    const finalBytes = [...bytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)];
-    finalBytes[finalBytes.length - 4] = AIProperties.bAutoSpawnMush ? 1 : 0;
-    return finalBytes;
-};
+const constructStickyFloorAI = ({ parsed }, aiStatic, { AIProperties }, generatorVersion) => [
+    ...constructObjectAIParameter(parsed, AIProperties, generatorVersion),
+    ...bool(AIProperties.bAutoSpawnMush)
+];
 
 //#region Valve
 const constructValveAI_Dynamic = (aiDynamic, { AIProperties }) => {
@@ -488,11 +550,14 @@ const constructValveAI_Dynamic = (aiDynamic, { AIProperties }) => {
     ];
 };
 
-const constructValveAI = (_, aiStatic, { AIProperties }) => {
-    let index = 163;
-    let bytes = aiStatic.slice(0, index);
+const constructValveAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
+    let bytes = constructObjectAIParameter([], AIProperties, generatorVersion);
+    bytes.push(
+        ...floatBytes(AIProperties.entranceOffset),
+        ...intToByteArr(AIProperties.piecePerPanel)
+    );
     writeAsciiString(bytes, AIProperties.valveID);
-    bytes.push(parseInt(findObjectKeyByValue(ValveWorkType, AIProperties.workType)), 0, 0, 0);
+    bytes.push(parseInt(findObjectKeyByValue(ValveWorkType, AIProperties.builtWorkType)), 0, 0, 0);
     bytes.push(parseInt(AIProperties.demoID), 0, 0, 0);
     return bytes;
 };
@@ -510,7 +575,7 @@ const constructBaseAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
     let bytes = aiStatic.slice(0, index);
 
     bytes.push(parseInt(AIProperties.baseCampId), 0, 0, 0);
-    bytes.push(AIProperties.bDeactivateByExit ? 1 : 0, 0, 0, 0);
+    bytes.push(...bool(AIProperties.bDeactivateByExit));
     bytes.push(...floatBytes(AIProperties.safeRadius));
     bytes.push(...floatBytes(AIProperties.safeAreaOffsetX));
     bytes.push(...floatBytes(AIProperties.safeAreaOffsetY));
@@ -543,27 +608,17 @@ const constructSprinklerAI = (_, aiStatic, { AIProperties, transform }) => {
     bytes.push(...floatBytes(parseFloat(AIProperties.openTime)));
     bytes.push(1, 0, 0, 0);
     bytes.push(...floatBytes(parseFloat(AIProperties.flatEffectOffsetZ)));
-    bytes.push(AIProperties.bSprinklerOnly ? 1 : 0, 0, 0, 0);
+    bytes.push(...bool(AIProperties.bSprinklerOnly));
     return bytes;
 };
 
 //#region Gate
-const constructGateAI = ({ parsed, rareDrops, spareBytes }, aiStatic, _, generatorVersion) => {
-    const bytes = [];
-    bytes.push(rareDrops.length, 0, 0, 0);
-    constructInventory(rareDrops, bytes);
-    bytes.push(255, 255, 255, 255);
-
-    // Grab inventory end index - readInventory will just return 4 if invSize is 0 
-    let index = 4;
-    if (aiStatic[0] === 0) index = 8; // skip to OAIP if no inv
-    else index = readInventory(aiStatic, 4, aiStatic[0]).index + 4; // +4 for the inventory end marker
-    // slice the middle 147 (+4) bytes of OAIP so they're unchanged AND GV-correct 
-    bytes.push(...aiStatic.slice(index, index + 147 + getObjectAIOffset(generatorVersion)));
+const constructGateAI = ({ parsed, rareDrops }, aiStatic, { AIProperties }, generatorVersion) => {
+    let bytes = constructObjectAIParameter(parsed, AIProperties, generatorVersion);
 
     // then tack on the second inventory
-    bytes.push(parsed.length, 0, 0, 0);
-    constructInventory(parsed, bytes);
+    bytes.push(rareDrops.length, 0, 0, 0);
+    constructInventory(rareDrops, bytes);
     return bytes;
 };
 
@@ -642,9 +697,12 @@ const constructPortalTrigger = ({ transform, PortalTrigger }) => {
     writeAsciiString(bytes, PortalTrigger.toSubLevelName);
     bytes.push(parseInt(PortalTrigger.toPortalId), 0, 0, 0);
     bytes.push(1, 0, 0, 0); // Dunno what this bool is
-    writeAsciiString(bytes, `/Game/Carrot4/Demo/PlayParam/Common/${PortalTrigger.demoPlayParamEnter}.${PortalTrigger.demoPlayParamEnter}`);
+    const playPrefix = PortalTrigger.demoPlayParamEnter === 'None' ? '' : `/Game/Carrot4/Demo/PlayParam/Common/${PortalTrigger.demoPlayParamEnter}.`;
+    const exitPrefix = PortalTrigger.demoPlayParamExit === 'None' ? '' : `/Game/Carrot4/Demo/PlayParam/Common/${PortalTrigger.demoPlayParamExit}.`;
+
+    writeAsciiString(bytes, `${playPrefix}${PortalTrigger.demoPlayParamEnter}`);
     bytes.push(0, 0, 0, 0); // dunno what this is
-    writeAsciiString(bytes, `/Game/Carrot4/Demo/PlayParam/Common/${PortalTrigger.demoPlayParamExit}.${PortalTrigger.demoPlayParamExit}`);
+    writeAsciiString(bytes, `${exitPrefix}${PortalTrigger.demoPlayParamExit}`);
     bytes.push(0, 0, 0, 0); // or this
     if (PortalTrigger.checkPointLevelNames) {
         bytes.push(PortalTrigger.checkPointLevelNames.length, 0, 0, 0);
@@ -652,14 +710,14 @@ const constructPortalTrigger = ({ transform, PortalTrigger }) => {
     }
     else bytes.push(0, 0, 0, 0);
     bytes.push(...intToByteArr(parseInt(PortalTrigger.toBaseCampId)));
-    bytes.push(PortalTrigger.bInitialPortalMove ? 1 : 0, 0, 0, 0);
-    bytes.push(PortalTrigger.bDeactivateByExit ? 1 : 0, 0, 0, 0);
+    bytes.push(...bool(PortalTrigger.bInitialPortalMove));
+    bytes.push(...bool(PortalTrigger.bDeactivateByExit));
     bytes.push(0, 0, 250, 67); // this float seems regular
     bytes.push(...floatBytes(parseFloat(PortalTrigger.playAnimDist)));
     bytes.push(0, 0, 0, 0);
-    bytes.push(parseInt(PortalTrigger.panzakuPriority), 0, 0, 0);
+    bytes.push(parseInt(PortalTrigger.pankuzuPriority), 0, 0, 0);
     bytes.push(...intToByteArr(parseInt(disableFlagsToInt(PortalTrigger.disablePikminFlags))));
-    bytes.push(PortalTrigger.bDisableIsFlareGuard ? 1 : 0, 0, 0, 0);
+    bytes.push(...bool(PortalTrigger.bDisableIsFlareGuard));
     // bytes.push(...PortalTrigger.spareBytes);
     bytes.push(0, 0, 200, 66, 0, 0, 180, 66, 0, 0, 72, 66);
     bytes.push(...floatBytes(parseFloat(transform.translation.X)));
@@ -672,30 +730,36 @@ const constructPortalTrigger = ({ transform, PortalTrigger }) => {
 const constructNoraSpawnerAI = ({ parsed }, aiStatic, { AIProperties }) => {
     const bytes = [];
     console.log("Constructing NoraSpawner from:", parsed, AIProperties);
-    bytes.push(parseInt(AIProperties.spawnNum), 0, 0, 0);
-    bytes.push(...floatBytes(parseFloat(AIProperties.spawnRadius)));
-    bytes.push(...floatBytes(parseFloat(AIProperties.noSpawnRadius)));
-    bytes.push(parseInt(findObjectKeyByValue(PikminTypes, AIProperties.pikminType)));
-    bytes.push(1, 0, 0, 0);
-    bytes.push(2);
-    bytes.push(...intToByteArr(AIProperties.mabikiNumFromFollow));
-    bytes.push(...aiStatic.slice(22, 26));
-    bytes.push(AIProperties.bMabikiPongashi ? 1 : 0, 0, 0, 0);
-    bytes.push(...intToByteArr(AIProperties.pongashiChangeColorFollowNum));
-    bytes.push(parseInt(findObjectKeyByValue(PikminTypes, AIProperties.pongashiChangeColorFromFollow)));
-    bytes.push(0, 0, 0, 0); // bReservedBirth
-    bytes.push(0, 0, 0, 0);
-    bytes.push(1, 0, 0, 0);
-    bytes.push(16); // no idea what this is, it's related to pongashi color
+
+    bytes.push(
+        parseInt(AIProperties.spawnNum), 0, 0, 0,
+        ...floatBytes(parseFloat(AIProperties.spawnRadius)),
+        ...floatBytes(parseFloat(AIProperties.noSpawnRadius)),
+        parseInt(findObjectKeyByValue(PikminTypes, AIProperties.pikminType)),
+        ...bool(AIProperties.bMabikiEnable),
+        parseInt(findObjectKeyByValue(PikminLeaves, AIProperties.spawnHeadLeaves)),
+        ...intToByteArr(AIProperties.mabikiNumFromFollow),
+        ...intToByteArr(AIProperties.mabikiNumFromAll),
+        ...bool(AIProperties.bMabikiPongashi),
+        ...intToByteArr(AIProperties.pongashiChangeColorFollowNum),
+        parseInt(findObjectKeyByValue(PikminTypes, AIProperties.pongashiChangeColorFromFollow)),
+        ...bool(AIProperties.bReservedBirth),
+        ...bool(AIProperties.bDisableForcePongashi),
+        ...bool(AIProperties.bProWrestling),
+        parseInt(findObjectKeyByValue(PikminTypes, AIProperties.pongashiColor)),
+    );
+
     writeAsciiString(bytes, AIProperties.noraIdlingPreset);
-    bytes.push(0, 0, 0, 0); // this changes often, no clue what bool it is yet
-    bytes.push(parseInt(findObjectKeyByValue(PikminPlayType, AIProperties.groupIdlingType)));
-    bytes.push(0, 0, 0, 0);
-    bytes.push(...floatBytes(parseFloat(AIProperties.mabikiPongashiOffset.X)));
-    bytes.push(...floatBytes(parseFloat(AIProperties.mabikiPongashiOffset.Y)));
-    bytes.push(...floatBytes(parseFloat(AIProperties.mabikiPongashiOffset.Z)));
-    bytes.push(0, 0, 128, 191);
-    bytes.push(parsed.length, 0, 0, 0);
+    bytes.push(
+        ...bool(AIProperties.bEnablePointLight),
+        parseInt(findObjectKeyByValue(PikminPlayType, AIProperties.groupIdlingType)),
+        ...bool(AIProperties.bExcludesFue),
+        ...writeVector(AIProperties.mabikiPongashiOffset),
+        ...floatBytes(AIProperties.aiWaitTime),
+        parsed.length, 0, 0, 0,
+    );
+
+
     parsed.forEach(drop => {
         writeAsciiString(bytes, drop.assetName);
         const actorName = getNameFromAsset(drop.assetName);
@@ -707,26 +771,23 @@ const constructNoraSpawnerAI = ({ parsed }, aiStatic, { AIProperties }) => {
 
         bytes.push(...floatBytes(parseFloat(drop.customFloatParam)));
         bytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag), 2));
-        bytes.push(drop.bSetTerritory ? 1 : 0, 0, 0, 0);
+        bytes.push(...bool(drop.bSetTerritory));
         if (drop.bSetTerritory) {
-            bytes.push(...floatBytes(parseFloat(drop.X || 0.0)));
-            bytes.push(...floatBytes(parseFloat(drop.Y || 0.0)));
-            bytes.push(...floatBytes(parseFloat(drop.Z || 0.0)));
+            bytes.push(...writeVector(drop));
             bytes.push(...floatBytes(parseFloat(drop.halfHeight || 0.0)));
             bytes.push(...floatBytes(parseFloat(drop.radius || 0.0)));
         }
     });
 
-    bytes.push(AIProperties.bEnableOptionalPoint ? 1 : 0, 0, 0);
+    bytes.push(...bool(AIProperties.bEnableOptionalPoint));
     if (AIProperties.optionalPointOffsets) {
         bytes.push(AIProperties.optionalPointOffsets.length, 0, 0, 0);
         AIProperties.optionalPointOffsets.forEach(offset => {
-            bytes.push(...floatBytes(offset.X));
-            bytes.push(...floatBytes(offset.Y));
-            bytes.push(...floatBytes(offset.Z));
+            bytes.push(...writeVector(offset));
         });
     }
     else bytes.push(0, 0, 0, 0);
+
     bytes.push(0, 0, 0, 0);
     return bytes;
 };
@@ -772,30 +833,24 @@ const constructPotAI = ({ parsed }, aiStatic, { inventoryEnd }) => {
 const constructOtakaraAI = (_, aiStatic, { AIProperties }) => {
     const bytes = [
         aiStatic[0], 0, 0, 0,
-        AIProperties.bChangeCrushImpactMoveDir ? 1 : 0, 0, 0, 0,
-        AIProperties.bReceiveCrushImpactEvent ? 1 : 0, 0, 0, 0,
-        AIProperties.bSendCrushImpactEvent ? 1 : 0, 0, 0, 0,
-        ...floatBytes(parseFloat(AIProperties.crushImpactMoveRot.X)),
-        ...floatBytes(parseFloat(AIProperties.crushImpactMoveRot.Y)),
-        ...floatBytes(parseFloat(AIProperties.crushImpactMoveRot.Z)),
+        ...bool(AIProperties.bChangeCrushImpactMoveDir),
+        ...bool(AIProperties.bReceiveCrushImpactEvent),
+        ...bool(AIProperties.bSendCrushImpactEvent),
+        ...writeVector(AIProperties.crushImpactMoveRot),
         0, 0, 0, 0, 0, // there are 5 here
-        AIProperties.bDDBSurvivorLeaf ? 1 : 0, 0, 0, 0,
-        AIProperties.bEnableOptionalPoint ? 1 : 0, 0, 0, 0,
+        ...bool(AIProperties.bDDBSurvivorLeaf),
+        ...bool(AIProperties.bEnableOptionalPoint),
     ];
 
     if (AIProperties.bEnableOptionalPoint) {
         bytes.push(AIProperties.optionalPointOffsets.length, 0, 0, 0);
-        AIProperties.optionalPointOffsets.forEach(offset => {
-            bytes.push(...floatBytes(offset.X));
-            bytes.push(...floatBytes(offset.Y));
-            bytes.push(...floatBytes(offset.Z));
-        });
+        AIProperties.optionalPointOffsets.forEach(offset => bytes.push(...writeVector(offset)));
     }
     else bytes.push(0, 0, 0, 0);
 
     bytes.push(
-        AIProperties.optionalPointPriorityInfoSize, 0, 0, 0,
-        ...Array(AIProperties.optionalPointPriorityInfoSize * 4).fill(0),
+        ...intToByteArr(AIProperties.optionalPointPriorityInfo.length),
+        ...AIProperties.optionalPointPriorityInfo.map(opo => intToByteArr(opo)).flat(),
     );
 
     return bytes;
@@ -809,23 +864,19 @@ const constructSurvivorAI_Dynamic = (aiDynamic, { AIProperties }) => {
 };
 
 const constructOtakaraAI_Dynamic = (aiDynamic, { AIProperties }) => [
-    AIProperties.bCanFall ? 1 : 0, 0, 0, 0,
-    AIProperties.bEnableChangeInitTransformAfterFalling ? 1 : 0, 0, 0, 0,
-    ...floatBytes(parseFloat(AIProperties.rotation.X)),
-    ...floatBytes(parseFloat(AIProperties.rotation.Y)),
-    ...floatBytes(parseFloat(AIProperties.rotation.Z)),
+    ...bool(AIProperties.bCanFall),
+    ...bool(AIProperties.bEnableChangeInitTransformAfterFalling),
+    ...writeVector(AIProperties.rotation),
     ...floatBytes(parseFloat(AIProperties.rotation.W)),
-    ...floatBytes(parseFloat(AIProperties.translation.X)),
-    ...floatBytes(parseFloat(AIProperties.translation.Y)),
-    ...floatBytes(parseFloat(AIProperties.translation.Z)),
+    ...writeVector(AIProperties.translation),
     ...aiDynamic.slice(9 * 4, aiDynamic.length) // get everything after what we know
 ];
 
 const constructPelletAI_Dynamic = (aiDynamic, { AIProperties }) => [parseInt(findObjectKeyByValue(PikminTypes, AIProperties.colour))];
 
 //#region RopeFishing
-const constructRopeFishingAI = (_, aiStatic, { AIProperties }, generatorVersion) => [
-    ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion)),
+const constructRopeFishingAI = ({ parsed }, aiStatic, { AIProperties }, generatorVersion) => [
+    ...constructObjectAIParameter(parsed, AIProperties, generatorVersion),
     ...floatBytes(parseFloat(AIProperties.jumpForceXY)),
     ...floatBytes(parseFloat(AIProperties.jumpForceZ)),
     ...floatBytes(parseFloat(AIProperties.ropeAng)),
@@ -833,34 +884,28 @@ const constructRopeFishingAI = (_, aiStatic, { AIProperties }, generatorVersion)
 ];
 
 const constructZiplineAI = (_, aiStatic, { AIProperties }, generatorVersion) => [
-    ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion)),
-    ...floatBytes(parseFloat(AIProperties.goalOffset.X)),
-    ...floatBytes(parseFloat(AIProperties.goalOffset.Y)),
-    ...floatBytes(parseFloat(AIProperties.goalOffset.Z)),
+    ...constructObjectAIParameter([], AIProperties, generatorVersion),
+    ...writeVector(AIProperties.goalOffset),
     ...floatBytes(parseFloat(AIProperties.startTargetSpeed)),
     ...floatBytes(parseFloat(AIProperties.maxMoveSpeed)),
     ...floatBytes(parseFloat(AIProperties.minMoveSpeed)),
     ...floatBytes(parseFloat(AIProperties.acceleration)),
-    0, 0, 140, 66,
+    ...floatBytes(parseFloat(AIProperties.deceleration)),
     ...constructSplinePoints(AIProperties.splinePoints)
 ];
 
 const constructPressFloorAI = (_, aiStatic, { AIProperties }, generatorVersion) => {
     const bytes = [
-        ...aiStatic.slice(0, ObjectAI_END_INDEX + getObjectAIOffset(generatorVersion)),
-        0, 0, 32, 194,
-        0, 0, 200, 66,
-        0, 0, 72, 67, // idk the only two examples use these floats and there's nothing in the
-        0, 0, 160, 65 // blueprint to indicate what they are
+        ...constructObjectAIParameter([], AIProperties, generatorVersion),
+        ...floatBytes(AIProperties.height),
+        ...floatBytes(AIProperties.maxHeightSpeed),
+        ...floatBytes(AIProperties.radius),
+        ...floatBytes(AIProperties.maxRadiusSpeed),
     ];
     writeAsciiString(bytes, AIProperties.waterBoxId);
     bytes.push(
-        ...floatBytes(parseFloat(AIProperties.createNavBoxRange.X)),
-        ...floatBytes(parseFloat(AIProperties.createNavBoxRange.Y)),
-        ...floatBytes(parseFloat(AIProperties.createNavBoxRange.Z)),
-        ...floatBytes(parseFloat(AIProperties.createNavBoxOffset.X)),
-        ...floatBytes(parseFloat(AIProperties.createNavBoxOffset.Y)),
-        ...floatBytes(parseFloat(AIProperties.createNavBoxOffset.Z)),
+        ...writeVector(AIProperties.createNavBoxRange),
+        ...writeVector(AIProperties.createNavBoxOffset)
     );
     return bytes;
 };
@@ -870,12 +915,12 @@ const constructPressFloorAI = (_, aiStatic, { AIProperties }, generatorVersion) 
 const constructActorSpawnerAI = ({ parsed: [drop] }, aiStatic) => {
     const bytes = [];
     // These are some ordering of avatar, pikmin, both, and something else 
-    bytes.push(drop.avatar ? 1 : 0, 0, 0, 0);
-    bytes.push(drop.pikmin ? 1 : 0, 0, 0, 0);
-    bytes.push(drop.avatarAndPikmin ? 1 : 0, 0, 0, 0);
-    bytes.push(drop.carry ? 1 : 0, 0, 0, 0);
-    bytes.push(drop.bNotOverlap ? 1 : 0, 0, 0, 0);
-    bytes.push(drop.bGenseiControl ? 1 : 0, 0, 0, 0);
+    bytes.push(...bool(drop.avatar));
+    bytes.push(...bool(drop.pikmin));
+    bytes.push(...bool(drop.avatarAndPikmin));
+    bytes.push(...bool(drop.carry));
+    bytes.push(...bool(drop.bGenseiControl));
+    bytes.push(...bool(drop.bNotOverlap));
     // X
     bytes.push(...floatBytes(drop.overlapCenterX));
     // Y
@@ -902,7 +947,7 @@ const constructActorSpawnerAI = ({ parsed: [drop] }, aiStatic) => {
     // Spawn Z
     bytes.push(...floatBytes(drop.spawnLocationZ));
 
-    bytes.push(drop.bSpawnAngRand ? 1 : 0, 0, 0, 0);
+    bytes.push(...bool(drop.bSpawnAngRand));
     bytes.push(...floatBytes(drop.spawnAng));
     bytes.push(...floatBytes(drop.spawnVelX));
     bytes.push(...floatBytes(drop.spawnVelY));
@@ -912,9 +957,8 @@ const constructActorSpawnerAI = ({ parsed: [drop] }, aiStatic) => {
     // spawnInterval
     bytes.push(...floatBytes(drop.spawnInterval));
     // spawnLimit
-    bytes.push(...intToByteArr(parseInt(drop.spawnLimit)));
-    // ???
-    bytes.push(1, 0, 0, 0);
+    bytes.push(...intToByteArr(parseInt(drop.maxAreaNum)));
+    bytes.push(...intToByteArr(parseInt(drop.maxSpawnNum)));
     /// bRandomRotation
     bytes.push(parseInt(drop.randomRotation) ? 1 : 0, 0, 0, 0);
     //bNoDropItem
@@ -924,7 +968,7 @@ const constructActorSpawnerAI = ({ parsed: [drop] }, aiStatic) => {
     writeAsciiString(bytes, drop.customParameter);
     bytes.push(...floatBytes(drop.customFloatParameter));
     bytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag), 2));
-    bytes.push(drop.bSetTerritory ? 1 : 0, 0, 0, 0);
+    bytes.push(...bool(drop.bSetTerritory));
     if (drop.bSetTerritory) {
         bytes.push(...floatBytes(drop.territoryX || 0));
         bytes.push(...floatBytes(drop.territoryY || 0));
@@ -942,49 +986,47 @@ const constructActorSpawnerAI = ({ parsed: [drop] }, aiStatic) => {
 const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd, AIProperties }, generatorVersion, creatureId) => {
     // The -1 at the end of an inventory could be at [24] for 0 inventories
     const inventoryBytes = [
-        ...floatBytes(parseFloat(AIProperties.territory.X)),
-        ...floatBytes(parseFloat(AIProperties.territory.Y)),
-        ...floatBytes(parseFloat(AIProperties.territory.Z)),
-        ...floatBytes(parseFloat(AIProperties.territory.halfHeight)),
-        ...floatBytes(parseFloat(AIProperties.territory.radius)),
+        ...writeVector(AIProperties.territory),
+        ...floatBytes(AIProperties.territory.halfHeight),
+        ...floatBytes(AIProperties.territory.radius),
         parsed.length, 0, 0, 0
     ];
 
     parsed.forEach(drop => {
-        const slotBytes = intToByteArr(parseInt(drop.id));
-        if (typeof drop.flags == 'string') drop.flags = JSON.parse(drop.flags);
-        slotBytes.push(...drop.flags);
-        slotBytes.push(drop.minDrops, 0, 0, 0);
-        slotBytes.push(drop.maxDrops, 0, 0, 0);
-        slotBytes.push(...floatBytes(parseFloat(drop.dropChance)));
-        slotBytes.push(drop.bRegistGenerator ? 1 : 0, 0, 0, 0);
+        const slotBytes = u64ToBytes(BigInt(drop.id));
+        slotBytes.push(
+            ...intToByteArr(parseInt(drop.minDrops)),
+            ...intToByteArr(parseInt(drop.maxDrops)),
+            ...floatBytes(parseFloat(drop.dropChance)),
+            ...bool(drop.bRegistGenerator),
+        );
+
         if (drop.dropCondition && drop.dropCondition != 'None') {
-            slotBytes.push(1, 0, 0, 0);
-            slotBytes.push(parseInt(drop.dropCondition));
-            slotBytes.push(0, 0, 0, 0); // We'll 0 dropCondInt for now, idk what -1 is for
-            slotBytes.push(...NONE_BYTES); // Force dropCondName to None for now.
-            slotBytes.push(0); // Also zero demoFlag for now too
+            slotBytes.push(
+                1, 0, 0, 0,
+                parseInt(drop.dropCondition),
+                ...intToByteArr(parseInt(drop.dropCondInt)),
+            );
+            writeAsciiString(slotBytes, drop.dropCondName);
+            slotBytes.push(0);
         }
         else slotBytes.push(0, 0, 0, 0);
         writeAsciiString(slotBytes, drop.assetName);
 
-        const actorName = getNameFromAsset(drop.assetName);
-        if (actorName.includes("Survivor")) { // Push custom sleep params if survivor
-            writeAsciiString(slotBytes, CustomParameterOverrides[actorName]);
-        }
-        else slotBytes.push(...NONE_BYTES);
+        writeAsciiString(slotBytes, drop.customParameter);
 
-        // if (typeof parsed.params == 'string') drop.params = JSON.parse(drop.params);
-        // slotBytes.push(...drop.params);
-        slotBytes.push(...floatBytes(parseFloat(drop.customFloatParam)));
-        slotBytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag), 2));
-        slotBytes.push(drop.bSetTerritory ? 1 : 0, 0, 0, 0);
+        slotBytes.push(
+            ...floatBytes(parseFloat(drop.customFloatParam)),
+            ...intToByteArr(parseInt(drop.gameRulePermissionFlag), 2),
+            ...bool(drop.bSetTerritory)
+        );
+
         if (drop.bSetTerritory) {
-            slotBytes.push(...floatBytes(parseFloat(drop.X || 0.0)));
-            slotBytes.push(...floatBytes(parseFloat(drop.Y || 0.0)));
-            slotBytes.push(...floatBytes(parseFloat(drop.Z || 0.0)));
-            slotBytes.push(...floatBytes(parseFloat(drop.halfHeight || 0.0)));
-            slotBytes.push(...floatBytes(parseFloat(drop.radius || 0.0)));
+            slotBytes.push(
+                ...writeVector(drop),
+                ...floatBytes(parseFloat(drop.halfHeight || 0.0)),
+                ...floatBytes(parseFloat(drop.radius || 0.0))
+            );
         }
         inventoryBytes.push(...slotBytes);
     });
@@ -992,45 +1034,48 @@ const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd, AIProperties 
     writeAsciiString(inventoryBytes, AIProperties.boneName);
 
     ["localOffset", "vel", "randVel"].forEach(prop => {
-        inventoryBytes.push(...floatBytes(parseFloat(AIProperties[prop].X || 0.0)));
-        inventoryBytes.push(...floatBytes(parseFloat(AIProperties[prop].Y || 0.0)));
-        inventoryBytes.push(...floatBytes(parseFloat(AIProperties[prop].Z || 0.0)));
+        inventoryBytes.push(
+            ...writeVector(AIProperties[prop])
+        );
     });
-    inventoryBytes.push(...intToByteArr(parseInt(AIProperties.dropOption), 2));
-    inventoryBytes.push(0, 0, 0, 0); //FixedHotExtractDropNum?
-    inventoryBytes.push(AIProperties.bOverrideInitLocation ? 1 : 0, 0, 0, 0);
-    inventoryBytes.push(...floatBytes(parseFloat(AIProperties.overrideInitLocation.X || 0.0)));
-    inventoryBytes.push(...floatBytes(parseFloat(AIProperties.overrideInitLocation.Y || 0.0)));
-    inventoryBytes.push(...floatBytes(parseFloat(AIProperties.overrideInitLocation.Z || 0.0)));
 
-    inventoryBytes.push(parsed.length, 0, 0, 0);
+    inventoryBytes.push(
+        ...intToByteArr(parseInt(AIProperties.dropOption), 2),
+        ...intToByteArr(parseInt(AIProperties.fixedHotExtractDropNum)),
+        ...bool(AIProperties.bOverrideInitLocation),
+        ...writeVector(AIProperties.overrideInitLocation),
+        parsed.length, 0, 0, 0,
+    );
+
     parsed.forEach(drop => {
-        inventoryBytes.push(...intToByteArr(parseInt(drop.id)));
-        inventoryBytes.push(...drop.flags);
+        inventoryBytes.push(...u64ToBytes(BigInt(drop.id)));
     });
-    const offset = getObjectAIOffset(generatorVersion);
-    if (offset) inventoryBytes.push(AIProperties.bEnableFreezeBothDrop ? 1 : 0, 0, 0, 0);
-    inventoryBytes.push(1, 0, 0, 0); // no idea what this bool is, but it's usually 1?
-    inventoryBytes.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0); // 3 somethings
-    inventoryBytes.push(0, 0, 72, 66);
-    inventoryBytes.push(...floatBytes(AIProperties.searchAreaOtakaraCarryRadius));
-    inventoryBytes.push(0, 0, 52, 67, 0, 0, 240, 65);
-    inventoryBytes.push(...floatBytes(AIProperties.invasionStartTimeRatio));
-    inventoryBytes.push(0, 0, 0, 0);
-    inventoryBytes.push(1, 0, 0, 0);
-    inventoryBytes.push(0, 0, 0, 0);
-    inventoryBytes.push(AIProperties.bEnableOptionalPoint ? 1 : 0, 0, 0, 0);
 
-    if (AIProperties.bEnableOptionalPoint) {
-        inventoryBytes.push(AIProperties.optionalPointOffsets.length, 0, 0, 0);
+    const offset = getObjectAIOffset(generatorVersion);
+    if (offset) inventoryBytes.push(...bool(AIProperties.bEnableFreezeBothDrop));
+    inventoryBytes.push(
+        ...bool(AIProperties.bCalcSearchAreaOtakaraCarryWithTerritory),
+        ...writeArea(AIProperties.searchAreaOtakaraCarry),
+        ...floatBytes(AIProperties.invasionStartTimeRatio),
+        ...bool(AIProperties.bNotifyCarryNearProWrestlingPikmin),
+        ...bool(AIProperties.bEnableCullSearchEnemy),
+        ...bool(AIProperties.bUseActorLastRenderTime),
+        ...bool(AIProperties.bEnableOptionalPoint)
+    );
+
+    inventoryBytes.push(AIProperties.optionalPointOffsets.length, 0, 0, 0);
+    if (AIProperties.optionalPointOffsets.length) {
         AIProperties.optionalPointOffsets.forEach(offset => {
-            inventoryBytes.push(...floatBytes(offset.X));
-            inventoryBytes.push(...floatBytes(offset.Y));
-            inventoryBytes.push(...floatBytes(offset.Z));
+            inventoryBytes.push(...writeVector(offset));
         });
     }
-    else inventoryBytes.push(0, 0, 0, 0);
-    inventoryBytes.push(0, 0, 0, 0); // possible OptionalPointPriorityInfo
+
+    inventoryBytes.push(AIProperties.optionalPointPriorityInfo.length, 0, 0, 0);
+    if (AIProperties.optionalPointPriorityInfo.length) {
+        AIProperties.optionalPointPriorityInfo.forEach(offset => {
+            inventoryBytes.push(...intToByteArr(offset));
+        });
+    }
 
     console.log(AIProperties);
     const creatureAIBytes = getConstructCreatureAIFunc(creatureId)(AIProperties);
@@ -1047,8 +1092,9 @@ const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd, AIProperties 
         inventoryBytes.push(...creatureAIBytes);
         inventoryEnd += creatureAIBytes.length;
     }
-    // console.log("AI:", [...aiStatic.slice(0, 20), ...inventoryBytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)]);
-    // Splice our new inventory into a regular functioning AI
+    // If we haven't constructed creature AI ourselves, or have left params out,
+    // grab the rest of the static. This definitely breaks for variable length strings though
+    // oh well
     return [...inventoryBytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)];
 };
 
@@ -1062,15 +1108,15 @@ const constructKumaChappyAI = (AIProperties) => {
 
 const constructAmeBozuAI = (AIProperties) => {
     const bytes = [
-        AIProperties.bAppearSearch ? 1 : 0, 0, 0, 0,
+        ...bool(AIProperties.bAppearSearch),
     ];
     writeAsciiString(bytes, AIProperties.searchTagName);
     bytes.push(
         ...floatBytes(AIProperties.hideTimeMin),
         ...floatBytes(AIProperties.hideTimeMax),
-        AIProperties.bAppearFixedLocation ? 1 : 0, 0, 0, 0,
-        ...floatBytes(AIProperties["searchDistance?"]),
-        1
+        ...bool(AIProperties.bAppearFixedLocation),
+        ...floatBytes(AIProperties.appearSearchRadius),
+        parseInt(findObjectKeyByValue(AmeBozuWalkTypes, AIProperties.walkType))
     );
     writeAsciiString(bytes, AIProperties.canAttackLevelFaceMessageName);
     return bytes;
@@ -1085,16 +1131,16 @@ const constructPanModokiAI = AIProperties => {
 
 const constructBabyAI = AIProperties => {
     const bytes = [
-        AIProperties.bPatrolType ? 1 : 0, 0, 0, 0
+        ...bool(AIProperties.bPatrolType)
     ];
-    writeAsciiString(bytes, AIProperties.searchAreaTag);
+    writeAsciiString(bytes, AIProperties.searchTagName);
     return bytes;
 };
 
 const constructBigUjinkoAI = AIProperties => {
     const bytes = [
-        AIProperties.bPatrolType ? 1 : 0, 0, 0, 0,
-        AIProperties.bNoBurrowType ? 1 : 0, 0, 0, 0,
+        ...bool(AIProperties.bNoBurrowType),
+        ...bool(AIProperties.bPatrolType),
     ];
     writeAsciiString(bytes, AIProperties.searchAreaTag);
     bytes.push(
@@ -1114,8 +1160,8 @@ const constructDodoroEggAI = AIProperties => {
     writeAsciiString(bytes, AIProperties.splineRoutePathTag);
     bytes.push(
         ...floatBytes(AIProperties.spawnTimer),
-        AIProperties.bUseParentDropInfo ? 1 : 0, 0, 0, 0,
-        AIProperties.bOnceDodoroAppearDemo ? 1 : 0, 0, 0, 0,
+        ...bool(AIProperties.bUseParentDropInfo),
+        ...bool(AIProperties.bOnceDodoroAppearDemo),
         ...floatBytes(AIProperties.spawnTimerAfterDemo)
     );
     writeAsciiString(bytes, AIProperties.subSplineRoutePathTag);
@@ -1142,20 +1188,12 @@ const constructQueenAI = AIProperties => [
 const constructDamagumoCannonAI = (AIProperties) => {
     const bytes = [];
     writeAsciiString(bytes, AIProperties.searchTagName);
-    const areas = ["AITerritory?", "searchAreaCaution", "searchAreaRest"];
+    const areas = ["searchAreaGoToHome", "searchAreaCaution", "searchAreaRest"];
 
     bytes.push(
-        AIProperties.bSplineWalkStart ? 1 : 0, 0, 0, 0,
-        AIProperties.bAlreadyAppear ? 1 : 0, 0, 0, 0,
-        ...areas.map(a => [
-            ...floatBytes(AIProperties[a].center.X),
-            ...floatBytes(AIProperties[a].center.Y),
-            ...floatBytes(AIProperties[a].center.Z),
-            ...floatBytes(AIProperties[a].halfHeight),
-            ...floatBytes(AIProperties[a].radius),
-            ...floatBytes(AIProperties[a].angle),
-            ...floatBytes(AIProperties[a].sphereRadius),
-        ]).flat()
+        ...bool(AIProperties.bStraddle),
+        ...bool(AIProperties.bAlreadyAppear),
+        ...areas.map(a => writeArea(AIProperties[a])).flat()
     );
     return bytes;
 };
@@ -1171,28 +1209,27 @@ const constructYamashinjuAI = (AIProperties) => {
 };
 
 const constructBigChappyAI = (AIProperties) => [
-    AIProperties.bHideEnter ? 1 : 0, 0, 0, 0,
-    ...floatBytes(AIProperties.hideOffset.X),
-    ...floatBytes(AIProperties.hideOffset.Y),
-    ...floatBytes(AIProperties.hideOffset.Z),
+    ...bool(AIProperties.bHideEnter),
+    ...writeVector(AIProperties.hideOffset),
+];
+
+const constructKurageAI = (AIProperties) => [
+    ...floatBytes(AIProperties.eatOnBirthRange),
+    ...bool(AIProperties.bFallStart),
+    ...writeArea(AIProperties.searchAreaRest),
+    ...bool(AIProperties.ownerSubComponentFlag)
 ];
 
 const constructHageDamagumoAI = AIProperties => {
     const bytes = [];
     writeAsciiString(bytes, AIProperties.searchTagName);
     bytes.push(
-        AIProperties.bSplineWalkStart ? 1 : 0, 0, 0, 0,
-        ...floatBytes(AIProperties.searchAreaRest.center.X),
-        ...floatBytes(AIProperties.searchAreaRest.center.Y),
-        ...floatBytes(AIProperties.searchAreaRest.center.Z),
-        ...floatBytes(AIProperties.searchAreaRest.halfHeight),
-        ...floatBytes(AIProperties.searchAreaRest.radius),
-        ...floatBytes(AIProperties.searchAreaRest.angle),
-        ...floatBytes(AIProperties.searchAreaRest.sphereRadius),
-        AIProperties.bStraddle ? 1 : 0, 0, 0, 0,
-        AIProperties.bUniqueLife ? 1 : 0, 0, 0, 0,
+        ...bool(AIProperties.bStraddle),
+        ...writeArea(AIProperties.searchAreaRest),
+        ...bool(AIProperties.bSplineWalkStart),
+        ...bool(AIProperties.bUniqueLife),
         ...floatBytes(AIProperties.uniqueLife),
-        AIProperties.bAlreadyAppear ? 1 : 0, 0, 0, 0,
+        ...bool(AIProperties.bAlreadyAppear),
         ...floatBytes(AIProperties.fightCameraChangeDistanceXY),
     );
     return bytes;
@@ -1204,47 +1241,25 @@ const constructFutakuchiAI = AIProperties => {
     ];
     writeAsciiString(bytes, AIProperties.searchTagName);
     bytes.push(
-        ...floatBytes(AIProperties.splineSearchArea.center.X),
-        ...floatBytes(AIProperties.splineSearchArea.center.Y),
-        ...floatBytes(AIProperties.splineSearchArea.center.Z),
-        ...floatBytes(AIProperties.splineSearchArea.halfHeight),
-        ...floatBytes(AIProperties.splineSearchArea.radius),
-        ...floatBytes(AIProperties.splineSearchArea.angle),
-        ...floatBytes(AIProperties.splineSearchArea.sphereRadius),
-
-        ...floatBytes(AIProperties.searchAreaAttack.center.X),
-        ...floatBytes(AIProperties.searchAreaAttack.center.Y),
-        ...floatBytes(AIProperties.searchAreaAttack.center.Z),
+        ...writeArea(AIProperties.splineSearchArea),
+        ...writeVector(AIProperties.searchAreaAttack.center),
         ...floatBytes(AIProperties.searchAreaAttack.halfHeight),
         ...floatBytes(AIProperties.searchAreaAttack.radius),
         ...floatBytes(AIProperties.searchAreaAttack.angle),
+        // DOES NOT HAVE A SPHERERADIUS
 
-        AIProperties.bFixCautionAreaCenter ? 1 : 0, 0, 0, 0,
-        AIProperties.bDisappearVisibleOff ? 1 : 0, 0, 0, 0,
+        ...bool(AIProperties.bFixCautionAreaCenter),
+        ...bool(AIProperties.bDisappearVisibleOff),
 
-        ...floatBytes(AIProperties.searchAreaCaution.center.X),
-        ...floatBytes(AIProperties.searchAreaCaution.center.Y),
-        ...floatBytes(AIProperties.searchAreaCaution.center.Z),
-        ...floatBytes(AIProperties.searchAreaCaution.halfHeight),
-        ...floatBytes(AIProperties.searchAreaCaution.radius),
-        ...floatBytes(AIProperties.searchAreaCaution.angle),
-        ...floatBytes(AIProperties.searchAreaCaution.sphereRadius),
+        ...writeArea(AIProperties.searchAreaCaution),
     );
     return bytes;
 };
 
 const constructFutakuchiAdultAI = AIProperties => {
     const bytes = [
-        ...floatBytes(AIProperties.attackArea.center.X),
-        ...floatBytes(AIProperties.attackArea.center.Y),
-        ...floatBytes(AIProperties.attackArea.center.Z),
-        ...floatBytes(AIProperties.attackArea.halfHeight),
-        ...floatBytes(AIProperties.attackArea.radius),
-        ...floatBytes(AIProperties.attackArea.angle),
-        ...floatBytes(AIProperties.attackArea.sphereRadius),
-
-        AIProperties.bSplineType ? 1 : 0, 0, 0, 0,
-
+        ...writeArea(AIProperties.attackArea),
+        ...bool(AIProperties.bSplineType),
         ...floatBytes(AIProperties.splineAttackParam.attackLoopWaitSecMin),
         ...floatBytes(AIProperties.splineAttackParam.attackLoopWaitSecMax),
         ...floatBytes(AIProperties.splineAttackParam.attackSignSecMin),
@@ -1263,24 +1278,18 @@ const constructFutakuchiAdultAI = AIProperties => {
         ...floatBytes(AIProperties.attackParam.attackInterval),
         ...floatBytes(AIProperties.attackParam.attackIntervalSuccess),
 
-        AIProperties.bCreateIcicle ? 1 : 0, 0, 0, 0,
+        ...bool(AIProperties.bCreateIcicle),
         ...floatBytes(AIProperties.escapeSecMin),
         ...floatBytes(AIProperties.escapeSecMax),
 
-        ...floatBytes(AIProperties.searchAreaCaution.center.X),
-        ...floatBytes(AIProperties.searchAreaCaution.center.Y),
-        ...floatBytes(AIProperties.searchAreaCaution.center.Z),
-        ...floatBytes(AIProperties.searchAreaCaution.halfHeight),
-        ...floatBytes(AIProperties.searchAreaCaution.radius),
-        ...floatBytes(AIProperties.searchAreaCaution.angle),
-        ...floatBytes(AIProperties.searchAreaCaution.sphereRadius),
+        ...writeArea(AIProperties.searchAreaCaution),
     );
     return bytes;
 };
 
 const constructAmeBozuAI_Dynamic = (aiDynamic, { AIProperties }) => [
     ...Array(20).fill(0),
-    AIProperties.lifeTire ? 1 : 0, 0, 0, 0
+    ...floatBytes(AIProperties.lifeTire)
 ];
 
 //#region Actor
@@ -1435,33 +1444,29 @@ const constructInventory = (drops, bytes) => {
         bytes.push(drop.minDrops, 0, 0, 0);
         bytes.push(drop.maxDrops, 0, 0, 0);
         bytes.push(...floatBytes(parseFloat(drop.dropChance)));
-        bytes.push(drop.bRegistGenerator ? 1 : 0, 0, 0, 0);
+        bytes.push(...bool(drop.bRegistGenerator));
         if (drop.dropCondition && drop.dropCondition != 'None') {
-            bytes.push(1, 0, 0, 0);
-            bytes.push(parseInt(drop.dropCondition));
-            bytes.push(0, 0, 0, 0); // We'll 0 dropCondInt for now, idk what -1 is for
-            bytes.push(...NONE_BYTES); // Force dropCondName to None for now.
-            bytes.push(0); // Also zero demoFlag for now too
+            bytes.push(
+                1, 0, 0, 0,
+                parseInt(drop.dropCondition),
+                ...intToByteArr(parseInt(drop.dropCondInt)),
+            );
+            writeAsciiString(bytes, drop.dropCondName);
+            bytes.push(0);
         }
         else bytes.push(0, 0, 0, 0);
         writeAsciiString(bytes, drop.assetName);
 
-        const actorName = getNameFromAsset(drop.assetName);
-
-        if (actorName.includes("Survivor")) { // Push custom sleep params if survivor
-            writeAsciiString(bytes, CustomParameterOverrides[actorName]);
-        }
-        else bytes.push(...NONE_BYTES);
+        writeAsciiString(bytes, drop.customParameter);
 
         bytes.push(...floatBytes(parseFloat(drop.customFloatParam)));
         bytes.push(...intToByteArr(parseInt(drop.gameRulePermissionFlag), 2));
-        bytes.push(drop.bSetTerritory ? 1 : 0, 0, 0, 0);
+        bytes.push(...bool(drop.bSetTerritory));
         if (drop.bSetTerritory) {
-            bytes.push(...floatBytes(parseFloat(drop.X || 0.0)));
-            bytes.push(...floatBytes(parseFloat(drop.Y || 0.0)));
-            bytes.push(...floatBytes(parseFloat(drop.Z || 0.0)));
-            bytes.push(...floatBytes(parseFloat(drop.halfHeight || 0.0)));
-            bytes.push(...floatBytes(parseFloat(drop.radius || 0.0)));
+
+            bytes.push(...writeVector(drop));
+            bytes.push(...floatBytes(drop.halfHeight || 0.0));
+            bytes.push(...floatBytes(drop.radius || 0.0));
         }
     });
 };

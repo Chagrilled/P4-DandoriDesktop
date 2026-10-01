@@ -43,16 +43,23 @@ export const OnionToPikminMap = {
 export const TeamIDs = {
     A: "ETeamIdEditor::A",
     B: "ETeamIdEditor::B",
+    C: "ETeamIdEditor::C",
+    D: "ETeamIdEditor::D",
     No: "ETeamIdEditor::No"
 };
 
 export const PortalTypes = {
+    1: "DungeonEntrance",
     2: "DungeonExit",
     3: "UpPortal",
     4: "DownPortal (cave)",
+    5: "MadoriPortal",
     6: "DownPortal (overworld)",
+    7: "MadoriShop",
+    8: "MadoriArena",
     9: "MadoriHome",
     10: "InitialPortalMove",
+    11: "ExitPortal",
     12: "ExtraCavePortal"
 };
 
@@ -70,26 +77,74 @@ export const DemoPlayParamExit = [
     "None"
 ];
 
+
+export const AmeBozuWalkTypes = {
+    0: "Random",
+    1: "Search",
+    2: "Escape",
+    3: "Appear",
+    4: "ChasePlayer"
+};
+
 // EPikminIdlePlayType enum
 export const PikminPlayType = {
     0: "None",
+    1: "RideAndJump",
     2: "Guidance",
     3: "GatherInCircle",
-    // RideAndJump, RunAroundHappy and AmazeByHappySneeze are also in this enum, values unknown    
+    4: "AvatarPikminWatch",
+    5: "AvatarPikminStretch",
+    6: "RunAroundHappy",
+    7: "AmazeByHappySneeze"
 };
 
+// According to Ghidra this struct is None, Build, WorkOpen, Opened, WorkClose, Closed, Once, OnceWorked
+// but that doesn't track with the ASP.AI which has Build as 6 in the bytes?
 export const ValveWorkType = {
-    2: "Once",
-    6: "Build"
+    0: "None",
+    1: "Build",
+    2: "WorkOpen",
+    3: "Opened",
+    4: "WorkClose",
+    5: "Closed",
+    6: "Once",
+    7: "OnceWorked"
+};
+
+export const NavLinkDirection = {
+    0: "BothWays",
+    1: "LeftToRight",
+    2: "RightToLeft"
+};
+
+export const PikminLeaves = {
+    0: "Leaf",
+    1: "Bud",
+    2: "Flower",
+    3: "Undef",
+    4: "Num"
+};
+
+export const GDMDropTiming = {
+    0: "First",
+    1: "Last",
+    2: "Random"
 };
 
 export const DropConditions = {
+    NO_RESCUE_SURVIVOR: 1,
+    RESCUE_SURVIVOR: 2,
+    NO_SALVAGE_OTAKARA: 3,
+    SALVAGE_OTAKARA: 4,
     NO_SALVAGE_ITEM: 5,
     SALVAGE_ITEM: 6,
     PLAYED_DEMO: 7
 };
 
 export const DropConditions_Named = {
+    1: "NoRescueSurvivor",
+    2: "RescueSurvivor",
+    3: "NoSalvageOtakara",
     4: "SalvageOtakara",
     5: "NoSalvageItem",
     6: "SalvageItem",
@@ -105,6 +160,7 @@ export const GameRulePermissionFlags = [
     269,
     271
 ];
+
 export const ActorSpawnerCustomParameter = [
     "None",
     "BasedOnSpawner",
@@ -158,21 +214,32 @@ export const ActivityTimes = {
 
 //EActorPlacementCondition
 export const ActorPlacementCondition = {
+    CollectUniteOnyon: "EActorPlacementCondition::CollectUniteOnyon",
+    ExploreRateLessThen: "EActorPlacementCondition::ExploreRateLessThen",
     ExploreRateNotLessThen: "EActorPlacementCondition::ExploreRateNotLessThen",
     LessMaxPikminLimit: "EActorPlacementCondition::LessMaxPikminLimit",
+    LessPikminNumber: "EActorPlacementCondition::LessPikminNumber",
+    MorePikminNumber: "EActorPlacementCondition::MorePikminNumber",
     MoreRescuerLeafNumber: "EActorPlacementCondition::MoreRescuerLeafNumber",
     MoreRescuerNpcNumber: "EActorPlacementCondition::MoreRescuerNpcNumber",
     MoreRescuerNumber: "EActorPlacementCondition::MoreRescuerNumber",
     NightAdventurePattern: "EActorPlacementCondition::NightAdventurePattern",
+    NoRescueSurvivor: "EActorPlacementCondition::NoRescueSurvivor",
+    OnlyDayTime: "EActorPlacementCondition::OnlyDayTime",
+    QuestActive: "EActorPlacementCondition::QuestActive",
     QuestClear: "EActorPlacementCondition::QuestClear",
+    QuestOrder: "EActorPlacementCondition::QuestOrder",
+    RematchVsGame: "EActorPlacementCondition::RematchVsGame",
     RescueSurvivor: "EActorPlacementCondition::RescueSurvivor",
     ResistActorGlobalId: "EActorPlacementCondition::ResistActorGlobalId",
+    SpecifiedDay: "EActorPlacementCondition::SpecifiedDay",
     UnclearCaveAfterEnding: "EActorPlacementCondition::UnclearCaveAfterEnding",
     UnionPikmin: "EActorPlacementCondition::UnionPikmin",
 };
 
 //EActorPlacementAppearanceCondition
 export const ActorPlacementAppearanceCondition = {
+    DayEndStart: "EActorPlacementAppearanceCondition::DayEndStart",
     QuestEvent: "EActorPlacementAppearanceCondition::QuestEvent",
     TimeCourse: "EActorPlacementAppearanceCondition::TimeCourse",
     WaterBoxFluctuation: "EActorPlacementAppearanceCondition::WaterBoxFluctuation"
@@ -191,21 +258,25 @@ export const ExploreRateTargetType = {
 };
 
 export const QueenAIType = {
-    0: "None",
+    0: "SleepStart",
     1: "Born",
+    2: "BornAndRock",
     3: "FallBaby"
 };
 
 export const PopObjectType = {
     1: "EVsPopObjectType::Otakara",
     2: "EVsPopObjectType::Candy",
+    3: "EVsPopObjectType::Pellet",
+    4: "EVsPopObjectType::Komush",
+    5: "EVsPopObjectType::HappyNut",
     6: "EVsPopObjectType::Gensei",
     7: "EVsPopObjectType::Star",
     8: "EVsPopObjectType::SPBomb",
 };
 
 export const DDBPikminHeightType = {
-    0: "EDDBPikminHeightType:???",
+    0: "EDDBPikminHeightType::AllPikmin",
     1: "EDDBPikminHeightType::YellowOnly",
     2: "EDDBPikminHeightType::None"
 };
@@ -244,7 +315,6 @@ export const WaterBoxTextures = [
     "None",
     "T_ui_Map_Area001_WaterBox00_D",
     "T_ui_Map_Area001_WaterBox01_D",
-    "T_ui_Map_HeroStory001_WaterBox00_Hero_D",
     "T_ui_Map_Area002_WaterBox00_D",
     "T_ui_Map_Area003_WaterBox00_D",
     "T_ui_Map_Area003_WaterBox00_ChangeDist_D",
@@ -278,6 +348,7 @@ export const WaterBoxTextures = [
     "T_ui_Map_Area006_WaterBox05_D",
     "T_ui_Map_Area010_WaterBox00_D",
     "T_ui_Map_Area011_WaterBox00_D",
+    "T_ui_Map_HeroStory001_WaterBox00_Hero_D",
     "T_ui_Map_HeroStory002_WaterBox00_Hero_D",
     "T_ui_Map_HeroStory002_WaterBox00_Hero_ChangeDist_D",
     "T_ui_Map_HeroStory003_WaterBox01_Hero_D",
@@ -367,7 +438,7 @@ export const InterpModes = {
 };
 
 export const RockModes = {
-    0: "Normal",
+    0: "ERockMode::Straight",
     1: "ERockMode::Spline",
 };
 
@@ -380,6 +451,7 @@ export const editableNumberFields = [
     "X",
     "Y",
     "Z",
+    "aiWaitTime",
     "acceleration",
     "afterMaxIcePikmins",
     "angle",
@@ -393,10 +465,14 @@ export const editableNumberFields = [
     "birthDay",
     "bornSpeed",
     "childSearchRadius",
+    "deceleration",
     "deadDay",
     "demoID",
+    "dropCondInt",
     "dropOption",
     "dropPearlScale",
+    "eatOnBirthRange",
+    "entranceOffset",
     "escapeSecMax",
     "escapeSecMin",
     "fallBabySpawnNum",
@@ -405,6 +481,7 @@ export const editableNumberFields = [
     "fightCameraChangeDistanceXY",
     "flatEffectOffsetZ",
     "flickDistXY",
+    "fixedHotExtractDropNum",
     "generateNum",
     "generateRadius",
     "generatorIndex",
@@ -413,6 +490,7 @@ export const editableNumberFields = [
     "groupingRadius",
     "guruguruDist",
     "halfHeight",
+    "height",
     "hideTimeMax",
     "hideTimeMin",
     "inVal",
@@ -423,18 +501,24 @@ export const editableNumberFields = [
     "leftProjectHeight",
     "lifeTire",
     "mabikiNumFromFollow",
+    "mabikiNumFromAll",
     "manualWorkNum",
+    "maxAreaNum",
+    "maxSpawnNum",
     "maxFallDownLength",
     "maxIcePikmins",
+    "maxHeightSpeed",
     "maxMoveSpeed",
     "maxObjectNumInRange",
+    "maxRadiusSpeed",
     "minMoveSpeed",
     "moveSpeed",
     "noSpawnRadius",
     "numDig",
     "openTime",
-    "panzakuPriority",
+    "pankuzuPriority",
     "pieceNum",
+    "piecePerPanel",
     "piecePutNum",
     "pitch",
     "playAnimDist",
@@ -485,31 +569,46 @@ export const editableBools = [
     "bAppearSearch",
     "bAlreadyAppear",
     "bAutoSpawnMush",
+    "bCalcSearchAreaOtakaraCarryWithTerritory",
     "bCanFall",
     "bChangeCrushImpactMoveDir",
     "bCreateIcicle",
     "bDDBSurvivorLeaf",
     "bDeactivateByExit",
     "bDisableAirWall",
+    "bDisableForcePongashi",
     "bDisableIsFlareGuard",
     "bDisableSoftEdge",
+    "bDisableSoftEdgeOnlyFrom",
+    "bDisableSoftEdgeOnlyTo",
     "bDisableSink",
     "bDisappearVisibleOff",
     "bEnableChangeInitTransformAfterFalling",
+    "bEnableCullSearchEnemy",
     "bEnableCustomSoftEdge",
     "bEnableFreezeBothDrop",
     "bEnableOptionalPoint",
+    "bEnableOptimizeWaterBoxContext",
+    "bEnablePointLight",
+    "bExcludesFue",
     "bFalled",
+    "bFallStart",
     "bFixCautionAreaCenter",
     "bHideEnter",
+    "bIgnoreLaterTask",
+    "bIgnoreCompleteUI",
     "bInitialPortalMove",
+    "bMabikiEnable",
     "bMabikiPongashi",
     "bNoBurrowType",
     "bNoChkCondWhenDead",
+    "bNotifyCarryNearProWrestlingPikmin",
     "bOnceDodoroAppearDemo",
     "bOnceWakeCond",
     "bOverrideInitLocation",
     "bPatrolType",
+    "bProWrestling",
+    "bReservedBirth",
     "bRotateDefault",
     "bReceiveCrushImpactEvent",
     "bSendCrushImpactEvent",
@@ -517,8 +616,10 @@ export const editableBools = [
     "bSplineWalkStart",
     "bSplineType",
     "bSprinklerOnly",
+    "bSnapToCheapestArea",
     "bStraddle",
     "bUniqueLife",
+    "bUseActorLastRenderTime",
     "bUseHappyOnly",
     "bUseParentDropInfo",
     "bUseSnapHeight",
@@ -527,7 +628,8 @@ export const editableBools = [
     "bPlayDemo",
     "bUseCrushDDB",
     "isOtakaraSetting",
-    "isTerritorySetting"
+    "isTerritorySetting",
+    "ownerSubComponentFlag"
 ];
 
 export const ignoreFields = [
@@ -538,7 +640,8 @@ export const ignoreFields = [
     "outlineFolderPath",
     "spareBytes",
     "generatorVersion",
-    "originalAGL"
+    "originalAGL",
+    "optionalPointPriorityInfo",
 ];
 
 //#region UI Strings
@@ -550,6 +653,7 @@ export const editableStrings = [
     "customParameter",
     "boneName",
     "demoBindName",
+    "dropCondName",
     "hideAreaTag",
     "ignoreList",
     "linkNarrowSpaceBoxID",
@@ -557,7 +661,7 @@ export const editableStrings = [
     "navMeshTriggerID",
     "npcInfoKey",
     "routeTag",
-    "searchDistance?",
+    "appearSearchRadius",
     "searchTagName",
     "splineRoutePathTag",
     "subSplineRoutePathTag",
@@ -585,7 +689,7 @@ export const selectFields = {
     portalType: Object.values(PortalTypes),
     demoPlayParamEnter: DemoPlayParamEnter,
     demoPlayParamExit: DemoPlayParamExit,
-    workType: Object.values(ValveWorkType),
+    builtWorkType: Object.values(ValveWorkType),
     activityTime: Object.values(ActivityTimes),
     Condition: Object.values(ActorPlacementCondition),
     exploreRateType: Object.values(ExploreRateTargetType),
@@ -597,7 +701,12 @@ export const selectFields = {
     queenAIType: Object.values(QueenAIType),
     DDBPikminHeightType: Object.values(DDBPikminHeightType),
     popObjectType: Object.values(PopObjectType),
-    teamId: Object.values(TeamIDs)
+    teamId: Object.values(TeamIDs),
+    walkType: Object.values(AmeBozuWalkTypes),
+    direction: Object.values(NavLinkDirection),
+    spawnHeadLeaves: Object.values(PikminLeaves),
+    pongashiColor: Object.values(PikminTypes),
+
 };
 
 export const NightMaps = {
@@ -739,16 +848,18 @@ export const Categories = [
 export const exposedGenVars = ["AttackAffordance", "AI", "CarrotMove", "Life", "PointerAssist", "CarryAffordance"];
 
 export const DefaultDrop = {
-    id: 1,
+    id: "1",
     bRegistGenerator: 0,
     dropChance: 1,
     dropCondition: 0,
     gameRulePermissionFlag: 0,
-    flags: [1, 8, 16, 64],
     customFloatParam: 0.0,
     bSetTerritory: false,
     maxDrops: 1,
     minDrops: 1,
+    customParameter: "None",
+    dropCondInt: 0,
+    dropCondName: "None",
     assetName: "/Game/Carrot4/Placeables/Teki/GKochappy.GKochappy_C"
 };
 
@@ -776,9 +887,9 @@ export const DefaultActorSpawnerDrop = {
     angle: 180,
     sphereRadius: 500,
     randomRotation: 0,
-    spareBytes: [5, 0, 0, 0, 78, 111, 110, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63],
     spawnInterval: 1,
-    spawnLimit: 10,
+    maxAreaNum: 10,
+    maxSpawnNum: 1,
     spawnLocationX: 0,
     spawnLocationY: 0,
     spawnLocationZ: 0,
@@ -806,7 +917,7 @@ export const DefaultPortalTrigger = {
     bInitialPortalMove: false,
     bDeactivateByExit: false,
     playAnimDist: 300,
-    panzakuPriority: 0,
+    pankuzuPriority: 0,
     disablePikminFlags: Object.fromEntries(Array.from({ length: 16 }, (_, i) => [i, false])),
     bDisableIsFlareGuard: false,
 };
@@ -817,18 +928,28 @@ export const defaultAIProperties = {
     spawnNum: 1,
     spawnRadius: 50,
     noSpawnRadius: 35,
+    bMabikiEnable: true,
+    spawnHeadLeaves: PikminLeaves[0],
     pikminType: PikminTypes[0],
     mabikiNumFromFollow: 50,
+    mabikiNumFromAll: -1,
     bMabikiPongashi: true,
     pongashiChangeColorFollowNum: -1,
     pongashiChangeColorFromFollow: PikminTypes[0],
+    bReservedBirth: false,
+    bDisableForcePongashi: false,
+    bProWrestling: false,
+    pongashiColor: PikminTypes[16],
     noraIdlingPreset: "NoraDefault01",
+    bEnablePointLight: true,
     groupIdlingType: PikminPlayType[2],
+    bExcludesFue: false,
     mabikiPongashiOffset: {
         X: 0.0,
         Y: 0.0,
         Z: 0.0
-    }
+    },
+    aiWaitTime: -1
 };
 
 export const defaultTreasureAI = {
@@ -839,7 +960,7 @@ export const defaultTreasureAI = {
     bDDBSurvivorLeaf: false,
     bEnableOptionalPoint: false,
     optionalPointOffsets: [],
-    optionalPointPriorityInfoSize: 0,
+    optionalPointPriorityInfo: [],
     bCanFall: false,
     bEnableChangeInitTransformAfterFalling: false,
     rotation: {
@@ -847,6 +968,50 @@ export const defaultTreasureAI = {
         W: 1
     },
     translation: defaultVector
+};
+
+export const defaultObjectAI = {
+    boneName: "None",
+    localOffset: {
+        X: 0.0,
+        Y: 0.0,
+        Z: 0.0
+    },
+    vel: {
+        X: 0.0,
+        Y: 75.0,
+        Z: 375.0
+    },
+    randVel: {
+        X: 0.0,
+        Y: 15.0,
+        Z: 30.0
+    },
+    dropOption: 0,
+    fixedHotExtractDropNum: 0,
+    bOverrideInitLocation: false,
+    overrideInitLocation: {
+        X: 0.0,
+        Y: 0.0,
+        Z: 0.0
+    },
+    bEnableFreezeBothDrop: false,
+    bIgnoreLaterTask: false,
+    bIgnoreCompleteUI: false,
+    completeUIOffset: {
+        ...defaultVector
+    },
+    bEnableOptimizeWaterBoxContext: true,
+    bDisableSoftEdge: false,
+    bDisableSoftEdgeOnlyFrom: false,
+    bDisableSoftEdgeOnlyTo: false,
+    linkNarrowSpaceBoxID: "None",
+    linkWarpTriggerID: "None",
+    navMeshTriggerID: "None",
+    escapePoints: [],
+    bEnableOptionalPoint: false,
+    optionalPointOffsets: [],
+    optionalPointPriorityInfo: []
 };
 
 export const defaultCreatureAI = {
@@ -872,6 +1037,7 @@ export const defaultCreatureAI = {
         Z: 25.0
     },
     dropOption: 1,
+    fixedHotExtractDropNum: 0,
     bOverrideInitLocation: false,
     overrideInitLocation: {
         X: 0.0,
@@ -879,7 +1045,6 @@ export const defaultCreatureAI = {
         Z: 0.0
     },
     bEnableFreezeBothDrop: false,
-    searchAreaOtakaraCarryRadius: 1000.0,
     invasionStartTimeRatio: 0.0,
     bEnableOptionalPoint: false,
     optionalPointOffsets: [{
@@ -887,6 +1052,18 @@ export const defaultCreatureAI = {
         Y: 0.0,
         Z: 0.0
     }],
+    optionalPointPriorityInfo: [],
+    bCalcSearchAreaOtakaraCarryWithTerritory: true,
+    searchAreaOtakaraCarry: {
+        center: { ...defaultVector },
+        halfHeight: 100,
+        radius: 1000,
+        angle: 180,
+        sphereRadius: 130
+    },
+    bNotifyCarryNearProWrestlingPikmin: false,
+    bEnableCullSearchEnemy: true,
+    bUseActorLastRenderTime: false,
 };
 
 export const defaultTriggerAI = {
@@ -905,9 +1082,11 @@ export const defaultSprinklerAI = {
 
 export const defaultValveAI = {
     valveID: "valve0",
-    workType: ValveWorkType[6],
+    builtWorkType: ValveWorkType[6],
     demoID: 0,
-    piecePutNum: 4
+    piecePutNum: 4,
+    entranceOffset: 0.0,
+    piecePerPanel: 1
 };
 
 export const defaultBaseAIProperties = {
@@ -969,9 +1148,7 @@ export const defaultSplinePoint = {
 };
 
 export const TriggerDoorAIBytes = [13, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 87, 195, 0, 128, 110, 68, 0, 0, 0, 0, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 128, 63, 0, 0, 122, 68, 0, 0, 122, 68, 0, 0, 72, 67];
-export const ValveAPBytes = [0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 191, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 128, 191];
-// Does not contain the mystery extra 4 bytes
-export const ObjectAIParameter = [0, 0, 0, 0, 255, 255, 255, 255, 5, 0, 0, 0, 78, 111, 110, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 150, 66, 0, 128, 187, 67, 0, 0, 0, 0, 0, 0, 112, 65, 0, 0, 240, 65, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+export const ValveAPBytes = [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 5, 0, 0, 0, 78, 111, 110, 101, 0, 0, 0, 0, 0, 0, 0, 128, 191, 0, 0, 128, 191, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 128, 191];
 
 //#region Creature Names
 export const CreatureNames = {
@@ -2242,6 +2419,7 @@ export const NpcHairType = {
     HairType_03: "ENpcHairType::HairType_03",
     HairType_04: "ENpcHairType::HairType_04",
     HairType_05: "ENpcHairType::HairType_05",
+    HairType_06: "ENpcHairType::HairType_06",
 };
 
 export const NpcFaceType = {
@@ -2466,6 +2644,7 @@ export const NpcRoleGroupType = {
 };
 
 export const GenseiVSDifficulty = {
+    Veryeasy: "EGenseiVSDifficulty::Veryeasy",
     Easy: "EGenseiVSDifficulty::Easy",
     Normal: "EGenseiVSDifficulty::Normal",
     Hard: "EGenseiVSDifficulty::Hard"

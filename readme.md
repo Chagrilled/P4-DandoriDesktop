@@ -185,6 +185,8 @@ AI editing works as such - the bytes I expose, I'm confident I understand and ca
  
 The bytes I construct are then spliced together with the base template for that enemy, and written to the AGL. <b>It is therefore possible that the base template includes some odd overrides, like territory for example, that may be pervasive</b>.
 
+Big data scrapes of blueprint and AI.Static parameters can be found in [docs](docs).
+
 <hr/>
 
 ## 🏗️ To Do List:
@@ -213,8 +215,8 @@ The bytes I construct are then spliced together with the base template for that 
 - 🚧 Refactor to use context to help global state stuff?
 - ❌ Error handling when stuff like bad JSON is attempted to be parsed
 - ✅❗ Debounce all inputs 
-- ❌ kurage fall AI - cave024_f03 - how is FallStart defined in the AI bytes?
-- ❌ Get default flags for each mob type? are they even flags
+- ✅ kurage fall AI - cave024_f03 - how is FallStart defined in the AI bytes?
+- ✅ Get default flags for each mob type? are they even flags
 - ✅ Do water boxes
 - ✅ Option to flip internal and English names in dropdowns/infopanels
 - ✅ Support misc items as drops
@@ -224,7 +226,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ Egg tekis and their drops 
 - ❌ Rename all creature/creatureId references to entityId
 - ✅ Work out what the bytes are after the inventory so we don't set every default to some weird override
-- ❌ Draw radius around ActorSpawners/GDMs when highlighted - probably has to be done after refactoring the map props otherwise each click will re-render the map, making it worse than it already is.
+- ✅ Draw radius around ActorSpawners/GDMs when highlighted - probably has to be done after refactoring the map props otherwise each click will re-render the map, making it worse than it already is.
 - ✅ ~~Jellyfloats seem broken when spawned by ActorSpawners? They just don't attack anything - I think they may have more important ties to their Territory and EatArea params that are often provided by the blueprints overriding the AI variable. There are no examples of kurage ActorSpawners. Might have to find another enemy being given territory parameters via spawners and understand the final bytes. It doesn't seem limited to just them. GrubChucker also showed very little natural aggression. Maybe aggression is tied to territory, and if they're out of it, they don't care, and the territory is out near the actorspawner? Idk I lowered the AS to be nearer to the 'ground', and they still seem unbothered. Must investigate later. KingChappy is very happy to chase me around and try eat me. I've tried using bSetTerritory as an offset and absolute position, and Foolix just wants to slink off somewhere slightly northwest of the spawn platform way off in the abyss. Using 0/0/310 as the vector made him go in a totally different direction, so it definitely does SOMETHING. I also tried SubAI, which is used by Tateana - FModel shows the blueprint using `ComponentTag` or something to label each AI_Gen_Variable as AI vs SubAI for the `Tateana` vs the `Baby` - I thought I could use this with ActorSpawners to inject AI bytes to its children, but no.~~ This has finally been solved by fiddling with territory/EatArea/radius parameters in the blueprint. I whacked the radius of the aforemention params and set `bSearchOuterTerritory` to true wherever it occurred. **Alternatively**, using the `bSetTerritory` aspect of ActorSpawner's drop with a big radius (keeping the XYZ as 0 since it's offset, not origin) also worked.
 - ✅ Fix the CSS of the map buttons being killed by tailwind
 - Front page styling
@@ -238,7 +240,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ Extract JSONs button
 - ✅ Send a message if people's uasset isn't the decoded `Content` array
 - ✅ Fix icons for night enemies in caves
-- ❌ Dandori battle maps - where/what even are they? [TKB Notes](https://pikmintkb.com/wiki/Dandori_Battles)
+- ✅ Dandori battle maps - where/what even are they? [TKB Notes](https://pikmintkb.com/wiki/Dandori_Battles)
 - ✅ Support castaway drops (untested in game, but AI looks correct)
 - ✅ Better error reporting for the deploy process
 - ✅ Alphabetise the creature dropdown by the type of name we're displaying first (swapping internal names still makes them ordered by internal) 
@@ -253,8 +255,8 @@ The bytes I construct are then spliced together with the base template for that 
 - ✅ How do handleboard weights work
 - 🚧 Base camp AI - some of the genvar bytes are editable, but I haven't been able to create a new, locked base.
 - 🚧 Missing icons - excavation, ojama blocks, bookends, bank - for now some are mapped to a default icon
-- ❌ Refactor `regenerateAGLEntity` and `constructActor` as they're getting very similar now
-- ❌ Implement some tracking during byte reading/writing to let the UI indicate at least _a little bit_ what went wrong, like what property we were trying to read when throwing.
+- ✅ Refactor `regenerateAGLEntity` and `constructActor` as they're getting very similar now
+- ✅ Implement some tracking during byte reading/writing to let the UI indicate at least _a little bit_ what went wrong, like what property we were trying to read when throwing.
 - ✅ Splines
 - ✅ Geyser/vector aiming on the map
 - ❌ Accurate waterbox scale on the map when selecting
@@ -268,7 +270,7 @@ The bytes I construct are then spliced together with the base template for that 
 - ❌ Randomiser: random enemy stats from presets of weirdness
 - ❌ Randomiser: Fix cards being stuck sometimes
 - ❌ Randomiser: Random scales
-- 🚧 Support DT_ file editing
+- ✅ Support DT_ file editing
 
 </details>
 

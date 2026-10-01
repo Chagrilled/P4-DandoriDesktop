@@ -191,7 +191,7 @@ describe('Randomiser Tests', () => {
                                     ...DefaultActorSpawnerDrop,
                                     assetName: '/Game/Carrot4/Placeables/Teki/GArikui.GArikui_C',
                                     infiniteSpawn: 1,
-                                    spawnLimit: 2,
+                                    maxAreaNum: 2,
                                     spawnInterval: 2.5
                                 }
                             ]
@@ -215,7 +215,7 @@ describe('Randomiser Tests', () => {
                                     ...DefaultActorSpawnerDrop,
                                     assetName: '/Game/Carrot4/Placeables/Teki/GArikui.GArikui_C',
                                     infiniteSpawn: 0,
-                                    spawnLimit: 2,
+                                    maxAreaNum: 2,
                                     spawnInterval: 2.5
                                 }
                             ],
@@ -551,7 +551,7 @@ describe('Randomiser Tests', () => {
                                     ...DefaultActorSpawnerDrop,
                                     assetName: '/Game/Carrot4/Placeables/Teki/GBilly.GBilly_C',
                                     infiniteSpawn: 0,
-                                    spawnLimit: 2,
+                                    maxAreaNum: 2,
                                     spawnInterval: 2.5,
                                     customParameter: "None"
                                 }

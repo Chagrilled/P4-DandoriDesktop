@@ -137,7 +137,8 @@ export const doesEntityHaveDrops = entity => {
         "MushS",
         "MushL",
         "StickyMush",
-        "StickyFloor"
+        "StickyFloor",
+        "RopeFishing",
     ].some(asset => entity.creatureId.includes(asset));
 };
 

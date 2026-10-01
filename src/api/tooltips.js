@@ -27,5 +27,22 @@ export default {
     warpID: 'Links two warp entrances/exits together',
     npcInfoKey: 'The specific NPC that this survivor should be. Refer to the NpcInfo file',
     ignoreList: "Entities that should not be included by this GroupDropManager's group",
-    dropPearlScale: "The size of the thing the Pearly Clamclamp is holding"
+    dropPearlScale: "The size of the thing the Pearly Clamclamp is holding",
+    pankuzuPriority: "Something to do with the game treating this cave as a breadcrumb destination for guiding",
+    bCalcSearchAreaOtakaraCarryWithTerritory: "Treasure-carry search area is recomputed from territor rather than current actor position",
+    bEnableCullSearchEnemy: "Allows enemy's target search to be culled when off-screen",
+    bUseActorLastRenderTime: "Use actor's last rendered time to decide culling",
+    bIgnoreLaterTask: "Exclude this object from the to-do list/task tracking",
+    bIgnoreCompleteUI: "Don't show completion UI popup when done",
+    completeUIOffset: "World offset for completion UI popup",
+    bEnableOptimizeWaterBoxContext: "Enables waterbox optimisation - skips water checks when not near water",
+    bDisableSoftEdge: "Disable the soft edge that stops pikmin walking off an object",
+    bDisableSoftEdgeOnlyFrom: "Disable soft edge only when leaving",
+    bDisableSoftEdgeOnlyTo: "Disable soft edge only when walking onto object",
+    StartValidWallIndex: "Index of the first intact wall segment - lower = partly broken",
+    bDDBSurvivorLeaf: "Dandori battle castaway variant",
+    fixedHotExtractDropNum: "Fixed number of spicy drops",
+    portalNumber: "Portal's ID within a level",
+    demoPlayParamEnter: "Cutscene played when entering",
+    bEnableFreezeBothDrop: "Frozen kills produce the normal and frozen drop"
 }

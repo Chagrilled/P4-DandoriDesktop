@@ -448,7 +448,7 @@ export const MapContainer = ({
     };
 
     const getTerritoryLayer = data => {
-        if (!data || (!data?.AIProperties?.territory && !data?.drops?.parsed[0]?.bSetTerritory)) return [];
+        if (!data || (!data?.AIProperties?.territory && !data?.drops?.parsed[0]?.territoryX)) return [];
 
         let yx;
         let radius;

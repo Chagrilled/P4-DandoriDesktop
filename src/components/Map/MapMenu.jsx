@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
 import { Menu, Item, Separator, Submenu } from 'react-contexify';
-import { RebirthTypes, DefaultActorSpawnerDrop, InfoType, DefaultPortalTrigger, defaultBaseAIProperties, defaultCreatureAI, ActivityTimes, ActorPlacementCondition, ExploreRateTargetType, defaultTreasureAI, PikminTypes, TeamIDs } from '../../api/types';
+import { RebirthTypes, DefaultActorSpawnerDrop, InfoType, DefaultPortalTrigger, defaultBaseAIProperties, defaultCreatureAI, ActivityTimes, ActorPlacementCondition, ExploreRateTargetType, defaultTreasureAI, PikminTypes, TeamIDs, defaultObjectAI } from '../../api/types';
 import { deepCopy, getAvailableAGLs, getAvailableTimes } from '../../utils';
 import { MapContext } from './MapContext';
 
@@ -101,7 +101,10 @@ export const MapMenu = ({ }) => {
             newMarker.rebirthInterval = 4;
         }
         if (id === Treasure) newMarker.AIProperties = deepCopy(defaultTreasureAI);
-        if (id === Object) newMarker.AIProperties = { colour: PikminTypes[0] };
+        if (id === Object) newMarker.AIProperties = {
+            ...defaultObjectAI,
+            colour: PikminTypes[0]
+        };
 
         const agls = getAvailableAGLs(mapId);
         const agl = (id === Creature ? agls.find(agl => agl.includes('Teki')) : agls.find(agl => !agl.includes('Teki'))) || agls[0];

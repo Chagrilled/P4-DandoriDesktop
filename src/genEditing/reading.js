@@ -1,6 +1,6 @@
-import { InfoType, PikminTypes, PikminPlayType, PortalTypes, ValveWorkType, weirdAIEntities, InterpModes, RockModes, ObjectAI_END_INDEX, QueenAIType, PopObjectType, DDBPikminHeightType } from '../api/types';
+import { InfoType, PikminTypes, PikminPlayType, PortalTypes, ValveWorkType, AmeBozuWalkTypes, weirdAIEntities, InterpModes, RockModes, ObjectAI_END_INDEX, QueenAIType, PopObjectType, DDBPikminHeightType, NavLinkDirection, PikminLeaves } from '../api/types';
 import { findSequenceStartIndex, getObjectAIOffset } from '../utils';
-import { bytesToInt, getDisableSettings } from '../utils/bytes';
+import { bytesToInt, bytesToU64, getDisableSettings } from '../utils/bytes';
 
 //#region Stocks
 const readAsciiString = (bytes, index) => {
@@ -27,19 +27,21 @@ export const readInventory = (drops, index, invSize) => {
         slot.bRegistGenerator = drops[index];
         index += 4;
         if (drops[index] == 1) {
-            const dcLength = drops[index]; // I think it's the number of objects in the DC array - it's always 1 or 0
+            const one = drops[index]; // I think this just signifies an object is in the dropconditions array
             index += 4;
             slot.dropCondition = drops[index];
-            index += 4;
-            const dropCondInt = drops[index]; // This looks like a float tbh, rather than an int, but is always 0 or -1
             index += 1;
-            index += drops[index] + 4 + 1; // start of dropCond string, usually None. We also don't care about the DemoFlag
+            slot.dropCondInt = bytesToInt(drops.slice(index, index += 4));
+            slot.dropCondName = readAsciiString(drops, index);
+            index += drops[index] + 4;
+            index += 1; // skip DropCondDemo
         } else index += 4;
 
         slot.assetName = readAsciiString(drops, index);
         index += drops[index] + 4;
 
-        index += drops[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
+        slot.customParameter = readAsciiString(drops, index);
+        index += drops[index] + 4;
 
         slot.customFloatParam = readFloat(drops.slice(index, index += 4));
         slot.gameRulePermissionFlag = bytesToInt(drops.slice(index, index += 2));
@@ -162,6 +164,7 @@ export const getReadCreatureAIFunc = creatureId => {
     if (creatureId === 'DamagumoCannon') return parseDamagumoCannonAI;
     if (creatureId === 'Yamashinju') return parseYamashinjuAI;
     if (creatureId === 'BigChappy') return parseBigChappyAI;
+    if (creatureId.includes('Kurage')) return parseKurageAI;
     return () => { };
 };
 
@@ -327,9 +330,9 @@ const readSpline = (bytes) => {
                 Z: readFloat(bytes.slice(index, index += 4)),
             },
             rotation: {
-                roll: readFloat(bytes.slice(index, index += 4)),
                 pitch: readFloat(bytes.slice(index, index += 4)),
-                yaw: readFloat(bytes.slice(index, index += 4))
+                yaw: readFloat(bytes.slice(index, index += 4)),
+                roll: readFloat(bytes.slice(index, index += 4)),
             },
             scale: {
                 X: readFloat(bytes.slice(index, index += 4)),
@@ -442,13 +445,153 @@ const parseStringAI = (ai, generatorVersion) => {
 
 const parseStringAI_Dynamic = (ai) => ({ bFalled: ai[12] });
 
+//#region ObjectAIParameter
+const parseObjectAIParameter = (ai, generatorVersion) => {
+    const parsed = [];
+    let index = 0;
+    const invLength = ai[index];
+    index += 4;
+    const AIProperties = {};
+
+    // Inventories always start with 8*255
+    for (let i = 0; i < invLength; i++) {
+        const slot = {};
+        slot.id = `${i + 1}`;
+        index += 8;
+        slot.minDrops = bytesToInt(ai.slice(index, index += 4));
+        slot.maxDrops = bytesToInt(ai.slice(index, index += 4));
+        slot.dropChance = readFloat(ai.slice(index, index += 4));
+        slot.bRegistGenerator = ai[index];
+        index += 4;
+
+        if (ai[index] == 1) {
+            const one = ai[index]; // I think this just signifies an object is in the dropconditions array
+            index += 4;
+            slot.dropCondition = ai[index];
+            index += 1;
+            slot.dropCondInt = bytesToInt(ai.slice(index, index += 4));
+            slot.dropCondName = readAsciiString(ai, index);
+            index += ai[index] + 4;
+            index += 1; // skip DropCondDemo
+        } else index += 4;
+        slot.assetName = readAsciiString(ai, index);
+        index += ai[index] + 4;
+        slot.customParameter = readAsciiString(ai, index);
+        index += ai[index] + 4;
+        slot.customFloatParam = readFloat(ai.slice(index, index += 4));
+        slot.gameRulePermissionFlag = bytesToInt(ai.slice(index, index += 2));
+        slot.bSetTerritory = ai[index];
+        index += 4;
+        if (slot.bSetTerritory) {
+            slot.X = readFloat(ai.slice(index, index += 4));
+            slot.Y = readFloat(ai.slice(index, index += 4));
+            slot.Z = readFloat(ai.slice(index, index += 4));
+            slot.halfHeight = readFloat(ai.slice(index, index += 4));
+            slot.radius = readFloat(ai.slice(index, index += 4));
+        }
+        parsed.push(slot);
+    }
+    // and always end in 4*255 regardless of length
+    index += 4;
+
+    AIProperties.boneName = readAsciiString(ai, index);
+    index += ai[index] + 4;
+
+    AIProperties.localOffset = {
+        X: readFloat(ai.slice(index, index += 4)),
+        Y: readFloat(ai.slice(index, index += 4)),
+        Z: readFloat(ai.slice(index, index += 4))
+    };
+
+    AIProperties.vel = {
+        X: readFloat(ai.slice(index, index += 4)),
+        Y: readFloat(ai.slice(index, index += 4)),
+        Z: readFloat(ai.slice(index, index += 4))
+    };
+    AIProperties.randVel = {
+        X: readFloat(ai.slice(index, index += 4)),
+        Y: readFloat(ai.slice(index, index += 4)),
+        Z: readFloat(ai.slice(index, index += 4))
+    };
+
+    AIProperties.dropOption = bytesToInt(ai.slice(index, index += 2), 2);
+    AIProperties.fixedHotExtractDropNum = bytesToInt(ai.slice(index, index += 4));
+    AIProperties.bOverrideInitLocation = ai[index];
+    index += 4;
+    AIProperties.overrideInitLocation = {
+        X: readFloat(ai.slice(index, index += 4)),
+        Y: readFloat(ai.slice(index, index += 4)),
+        Z: readFloat(ai.slice(index, index += 4))
+    };
+    index += 4; // skip the debugUniqueIds because they're 0'd in objects
+    if (getObjectAIOffset(generatorVersion) === 4) {
+        AIProperties.bEnableFreezeBothDrop = ai[index];
+        index += 4;
+    }
+
+    AIProperties.bIgnoreLaterTask = ai[index];
+    index += 4;
+    AIProperties.bIgnoreCompleteUI = ai[index];
+    index += 4;
+    AIProperties.completeUIOffset = {
+        X: readFloat(ai.slice(index, index += 4)),
+        Y: readFloat(ai.slice(index, index += 4)),
+        Z: readFloat(ai.slice(index, index += 4))
+    };
+    AIProperties.bEnableOptimizeWaterBoxContext = ai[index];
+    index += 4;
+    AIProperties.bDisableSoftEdge = ai[index];
+    index += 4;
+    AIProperties.bDisableSoftEdgeOnlyFrom = ai[index];
+    index += 4;
+    AIProperties.bDisableSoftEdgeOnlyTo = ai[index];
+    index += 4;
+    AIProperties.linkNarrowSpaceBoxID = readAsciiString(ai, index);
+    index += ai[index] + 4;
+    AIProperties.linkWarpTriggerID = readAsciiString(ai, index);
+    index += ai[index] + 4;
+    AIProperties.navMeshTriggerID = readAsciiString(ai, index);
+    index += ai[index] + 4;
+    const escapePointLength = bytesToInt(ai.slice(index, index += 1), 1);
+
+    AIProperties.escapePoints = [];
+    for (let i = 0; i < escapePointLength; i++) {
+        AIProperties.escapePoints.push({
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        });
+    }
+    AIProperties.bEnableOptionalPoint = ai[index];
+    index += 4;
+
+    const sniffPointLength = bytesToInt(ai.slice(index, index += 4));
+    AIProperties.optionalPointOffsets = [];
+    for (let i = 0; i < sniffPointLength; i++) {
+        AIProperties.optionalPointOffsets.push({
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        });
+    }
+
+    const priorityInfoLength = bytesToInt(ai.slice(index, index += 4));
+    AIProperties.optionalPointPriorityInfo = [];
+    for (let i = 0; i < priorityInfoLength; i++) {
+        AIProperties.optionalPointPriorityInfo.push(bytesToInt(ai.slice(index, index += 4)));
+    }
+    return { parsed, AIProperties, index };
+};
+
 //#region RopeFishing
+// FIX THIS
 const parseRopeFishingAI = (ai, generatorVersion) => {
-    const offset = getObjectAIOffset(generatorVersion);
-    let index = ObjectAI_END_INDEX + offset;
+    let { AIProperties, parsed, index } = parseObjectAIParameter(ai, generatorVersion);
+    // let index = ObjectAI_END_INDEX + offset;
     return {
-        parsed: [],
+        parsed,
         AIProperties: {
+            ...AIProperties,
             jumpForceXY: readFloat(ai.slice(index, index += 4)),
             jumpForceZ: readFloat(ai.slice(index, index += 4)),
             ropeAng: readFloat(ai.slice(index, index += 4)),
@@ -458,14 +601,21 @@ const parseRopeFishingAI = (ai, generatorVersion) => {
 };
 
 const parsePressFloorAI = (ai, generatorVersion) => {
-    const offset = getObjectAIOffset(generatorVersion);
-    let index = ObjectAI_END_INDEX + offset + 16;
+    let { AIProperties, parsed, index } = parseObjectAIParameter(ai, generatorVersion);
+    const aip = {
+        height: readFloat(ai.slice(index, index += 4)),
+        maxHeightSpeed: readFloat(ai.slice(index, index += 4)),
+        radius: readFloat(ai.slice(index, index += 4)),
+        maxRadiusSpeed: readFloat(ai.slice(index, index += 4)),
+    };
     const waterBoxId = readAsciiString(ai, index);
     index += ai[index] + 4;
 
     return {
-        parsed: [],
+        parsed,
         AIProperties: {
+            ...AIProperties,
+            ...aip,
             waterBoxId,
             createNavBoxRange: {
                 X: readFloat(ai.slice(index, index += 4)),
@@ -484,13 +634,8 @@ const parsePressFloorAI = (ai, generatorVersion) => {
 
 //#region Geyser
 const parseGeyserAI = (ai, generatorVersion) => {
-    const offset = getObjectAIOffset(generatorVersion);
-    let index = 155 + offset;
-    const AIProperties = {
-        bEnableCustomSoftEdge: ai[99 + offset],
-        bDisableSoftEdge: ai[103 + offset],
-        bSetCrystal: ai[index]
-    };
+    let { AIProperties, parsed, index } = parseObjectAIParameter(ai, generatorVersion);
+    AIProperties.bSetCrystal = ai[index];
     index += 4;
     AIProperties.stopQueenDistXY = readFloat(ai.slice(index, index += 4));
     index += 4;
@@ -506,13 +651,16 @@ const parseGeyserAI = (ai, generatorVersion) => {
     };
     AIProperties.leftProjectHeight = readFloat(ai.slice(index, index += 4));
     AIProperties.maxFallDownLength = readFloat(ai.slice(index, index += 4));
-    index += 1; //mystery u8 here, always 1
+    AIProperties.direction = NavLinkDirection[ai[index]];
+    index += 1;
     AIProperties.snapRadius = readFloat(ai.slice(index, index += 4));
     AIProperties.snapHeight = readFloat(ai.slice(index, index += 4));
-    index += 4;
+    index += 4; // supportedAgentsBits
     AIProperties.bUseSnapHeight = ai[index];
+    index += 1;
+    AIProperties.bSnapToCheapestArea = ai[index];
     return {
-        parsed: [],
+        parsed,
         AIProperties
     };
 };
@@ -547,44 +695,33 @@ const parseNavMeshTrigger = trigger => {
 };
 
 //#region StickyFloor
-const parseStickyFloorAI = ai => {
-    let parsed = [];
-    let index = 0;
-    const invSize = ai[index];
+const parseStickyFloorAI = (ai, generatorVersion) => {
+    let { AIProperties, parsed, index } = parseObjectAIParameter(ai, generatorVersion);
 
-    index += 4; // There's a -1,-1 (255*4, 255*4) after, idk what they do
-    ({ parsed, index } = readInventory(ai, index, invSize));
-    const AIProperties = {
-        bAutoSpawnMush: ai.at(-4) ? true : false
-    };
-
-    while (ai[index] != 255 && index < ai.length) {
-        console.log("Iterating forward in stickyfloor");
-        index += 1; // Just iterate till we find the 255 byte? Shouldn't run, I think
-    }
+    AIProperties.bAutoSpawnMush = ai[index];
 
     return {
         parsed,
         AIProperties,
-        inventoryEnd: index + 4
     };
 };
 
 //#region Valve
-const parseValveAI = ai => {
-    let index = 155;
-    index += 4; // a float
-    index += 4; // a bool
-    const AIProperties = {
-        valveID: readAsciiString(ai, index)
-    };
+const parseValveAI = (ai, generatorVersion) => {
+
+    let { AIProperties, parsed, index } = parseObjectAIParameter(ai, generatorVersion);
+
+    // let index = 155;
+    AIProperties.entranceOffset = readFloat(ai.slice(index, index += 4));
+    AIProperties.piecePerPanel = bytesToInt(ai.slice(index, index += 4));
+    AIProperties.valveID = readAsciiString(ai, index);
     index += ai[index] + 4;
-    AIProperties.workType = ValveWorkType[ai[index]];
+    AIProperties.builtWorkType = ValveWorkType[ai[index]];
     index += 4;
     AIProperties.demoID = ai[index];
     return {
         AIProperties,
-        parsed: []
+        parsed
     };
 };
 
@@ -596,8 +733,10 @@ export const parseValveActorParam = actorParam => ({
 
 //#region Zipline
 const parseZiplineAI = (ai, generatorVersion) => {
-    let index = 155 + getObjectAIOffset(generatorVersion);
+    let { AIProperties: aip, parsed, index } = parseObjectAIParameter(ai, generatorVersion);
+
     const AIProperties = {
+        ...aip,
         goalOffset: {
             X: readFloat(ai.slice(index, index += 4)),
             Y: readFloat(ai.slice(index, index += 4)),
@@ -606,13 +745,13 @@ const parseZiplineAI = (ai, generatorVersion) => {
         startTargetSpeed: readFloat(ai.slice(index, index += 4)),
         maxMoveSpeed: readFloat(ai.slice(index, index += 4)),
         minMoveSpeed: readFloat(ai.slice(index, index += 4)),
-        acceleration: readFloat(ai.slice(index, index += 4))
+        acceleration: readFloat(ai.slice(index, index += 4)),
+        deceleration: readFloat(ai.slice(index, index += 4))
     };
-    index += 4; // 70.0 always here?
     AIProperties.splinePoints = readSpline(ai.slice(index, ai.length)).splinePoints;
 
     return {
-        parsed: [],
+        parsed,
         AIProperties
     };
 };
@@ -640,21 +779,14 @@ const parseSprinklerAI = ai => {
 };
 
 //#region Gate
-const parseGateAI = ai => {
-    let rareDrops = [];
-    let parsed = [];
-    let index = 0;
+const parseGateAI = (ai, generatorVersion) => {
+    let { AIProperties, parsed, index } = parseObjectAIParameter(ai, generatorVersion);
+
     let invSize = ai[index];
     index += 4;
-    ({ parsed: rareDrops, index } = readInventory(ai, index, invSize));
+    const { parsed: rareDrops } = readInventory(ai, index, invSize);
 
-    // Find the start byte of the next inventory AFTER the first one - yes this is susceptible to similar patterns if there are any between
-    let dropItemIndex = findSequenceStartIndex(ai, index, [0, 0, 0, 255, 255, 255, 255]) - 1;
-    const spareBytes = ai.slice(index + 4, dropItemIndex);
-    invSize = ai[dropItemIndex];
-    dropItemIndex += 4;
-    ({ parsed, index } = readInventory(ai, dropItemIndex, invSize));
-    return { parsed, rareDrops, spareBytes };
+    return { parsed, rareDrops, AIProperties };
 };
 
 const parseGateAI_Dynamic = ai => ({
@@ -666,36 +798,45 @@ const parseNoraSpawnerAI = ai => {
     let index = 0;
     const AIProperties = {};
     const parsed = [];
-    AIProperties.spawnNum = ai[index];
-    index += 4;
+    AIProperties.spawnNum = bytesToInt(ai.slice(index, index += 4));
     AIProperties.spawnRadius = readFloat(ai.slice(index, index += 4));
     AIProperties.noSpawnRadius = readFloat(ai.slice(index, index += 4));
     AIProperties.pikminType = PikminTypes[ai[index]];
     index += 1;
-    index += 4; // No idea what this bool is
-    index += 1; // dunno what this int is either
+    AIProperties.bMabikiEnable = ai[index];
+    index += 4;
+    AIProperties.spawnHeadLeaves = PikminLeaves[ai[index]];
+    index += 1;
     AIProperties.mabikiNumFromFollow = bytesToInt(ai.slice(index, index += 4));
-    AIProperties.unknownInt = bytesToInt(ai.slice(index, index += 4));
+    AIProperties.mabikiNumFromAll = bytesToInt(ai.slice(index, index += 4));
     AIProperties.bMabikiPongashi = ai[index];
     index += 4;
     AIProperties.pongashiChangeColorFollowNum = bytesToInt(ai.slice(index, index += 4));
     AIProperties.pongashiChangeColorFromFollow = PikminTypes[ai[index]];
     index += 1;
-    index += 13; // unknown bytes here
+    AIProperties.bReservedBirth = ai[index];
+    index += 4;
+    AIProperties.bDisableForcePongashi = ai[index];
+    index += 4;
+    AIProperties.bProWrestling = ai[index];
+    index += 4;
+    AIProperties.pongashiColor = PikminTypes[ai[index]];
+    index += 1;
     AIProperties.noraIdlingPreset = readAsciiString(ai, index);
     index += ai[index] + 4;
 
-    // AIProperties.bDisableForcePongashi = ai[index];
+    AIProperties.bEnablePointLight = ai[index];
     index += 4;
     AIProperties.groupIdlingType = PikminPlayType[ai[index]];
     index += 1;
-    index += 4; // idk what's here
+    AIProperties.bExcludesFue = ai[index];
+    index += 4;
     AIProperties.mabikiPongashiOffset = {
         X: readFloat(ai.slice(index, index += 4)),
         Y: readFloat(ai.slice(index, index += 4)),
         Z: readFloat(ai.slice(index, index += 4))
     };
-    index += 4; // skip unknown float - always 0, 0, 128, 191 (-1) in float
+    AIProperties.aiWaitTime = readFloat(ai.slice(index, index += 4));
     const randomActorListLength = ai[index];
 
     index += 4;
@@ -795,9 +936,9 @@ const parseActorSpawnerDrops = drops => {
     index += 4;
     bytes.carry = drops[index];
     index += 4;
-    bytes.bNotOverlap = drops[index];
-    index += 4;
     bytes.bGenseiControl = drops[index];
+    index += 4;
+    bytes.bNotOverlap = drops[index];
     index += 4;
     bytes.overlapCenterX = readFloat(drops.slice(index, index += 4));
     bytes.overlapCenterY = readFloat(drops.slice(index, index += 4));
@@ -823,8 +964,8 @@ const parseActorSpawnerDrops = drops => {
     bytes.infiniteSpawn = drops[index];
     index += 4;
     bytes.spawnInterval = readFloat(drops.slice(index, index += 4));
-    bytes.spawnLimit = bytesToInt(drops.slice(index, index += 4));
-    index += 4; // Mystery bool here
+    bytes.maxAreaNum = bytesToInt(drops.slice(index, index += 4));
+    bytes.maxSpawnNum = bytesToInt(drops.slice(index, index += 4));
     bytes.randomRotation = drops[index];
     index += 4;
     bytes.noDropItem = drops[index];
@@ -951,7 +1092,11 @@ const parseOtakaraAI = (ai) => {
             Z: readFloat(ai.slice(index, index += 4))
         });
     }
-    AIProperties.optionalPointPriorityInfoSize = ai[index];
+    const priorityInfoLength = bytesToInt(ai.slice(index, index += 4));
+    AIProperties.optionalPointPriorityInfo = [];
+    for (let i = 0; i < priorityInfoLength; i++) {
+        AIProperties.optionalPointPriorityInfo.push(bytesToInt(ai.slice(index, index += 4)));
+    }
     return { AIProperties, parsed: [] };
 };
 
@@ -1003,12 +1148,9 @@ export const parseTekiAI = (ai, generatorVersion, creatureId) => {
 
     for (let i = 0; i < invSize; i++) {
         const slot = {};
-        slot.id = bytesToInt(ai.slice(index, index += 4));
-        slot.flags = ai.slice(index, index += 4);
-        slot.minDrops = ai[index];
-        index += 4;
-        slot.maxDrops = ai[index];
-        index += 4;
+        slot.id = bytesToU64(ai.slice(index, index += 8)).toString();
+        slot.minDrops = bytesToInt(ai.slice(index, index += 4));
+        slot.maxDrops = bytesToInt(ai.slice(index, index += 4));
         slot.dropChance = readFloat(ai.slice(index, index += 4));
         slot.bRegistGenerator = ai[index];
         index += 4;
@@ -1017,14 +1159,15 @@ export const parseTekiAI = (ai, generatorVersion, creatureId) => {
             const one = ai[index]; // I think this just signifies an object is in the dropconditions array
             index += 4;
             slot.dropCondition = ai[index];
-            index += 4;
-            const dropCondInt = ai[index];
             index += 1;
+            slot.dropCondInt = bytesToInt(ai.slice(index, index += 4));
+            slot.dropCondName = readAsciiString(ai, index);
             index += ai[index] + 4 + 1; // start of dropCond string, usually None. We also don't care about the DemoFlag
         } else index += 4;
         slot.assetName = readAsciiString(ai, index);
         index += ai[index] + 4;
 
+        slot.customParameter = readAsciiString(ai, index);
         index += ai[index] + 4; // CustomParameter can be None, SVSleep000 for castaways, or UseSpawnerTerritory for dweevils
         slot.customFloatParam = readFloat(ai.slice(index, index += 4));
         slot.gameRulePermissionFlag = bytesToInt(ai.slice(index, index += 2));
@@ -1063,7 +1206,7 @@ export const parseTekiAI = (ai, generatorVersion, creatureId) => {
     };
 
     AIProperties.dropOption = bytesToInt(ai.slice(index, index += 2));
-    index += 4; // unknown bool - FixedHotExtractDropNum? it's only ever 0 maybe except on kogane
+    AIProperties.fixedHotExtractDropNum = bytesToInt(ai.slice(index, index += 4));
     AIProperties.bOverrideInitLocation = ai[index];
     index += 4;
 
@@ -1075,18 +1218,31 @@ export const parseTekiAI = (ai, generatorVersion, creatureId) => {
     index += 4 + ai[index] * 8; // skip the inventory flag loop
 
     // Short gen version is missing 4 bytes here. Not 100% sure which
-    // bool is freezeBothDrop vs something else. It might be bEnableZukanDrop
     const offset = getObjectAIOffset(generatorVersion);
-    index += offset;
-    // index += 4; // this is always 1 - maybe bEnableZukanDrop
-
-    AIProperties.bEnableFreezeBothDrop = ai[index];
-    index += 16;
-    index += 4; //unknown float
-    AIProperties.searchAreaOtakaraCarryRadius = readFloat(ai.slice(index, index += 4));
-    index += 8; // unknown floats
+    if (offset === 4) {
+        AIProperties.bEnableFreezeBothDrop = ai[index];
+        index += 4;
+    }
+    AIProperties.bCalcSearchAreaOtakaraCarryWithTerritory = ai[index];
+    index += 4;
+    AIProperties.searchAreaOtakaraCarry = {
+        center: {
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        },
+        halfHeight: readFloat(ai.slice(index, index += 4)),
+        radius: readFloat(ai.slice(index, index += 4)),
+        angle: readFloat(ai.slice(index, index += 4)),
+        sphereRadius: readFloat(ai.slice(index, index += 4))
+    };
     AIProperties.invasionStartTimeRatio = readFloat(ai.slice(index, index += 4));
-    index += 12; // always 1 and 0 bools?
+    AIProperties.bNotifyCarryNearProWrestlingPikmin = ai[index];
+    index += 4;
+    AIProperties.bEnableCullSearchEnemy = ai[index];
+    index += 4;
+    AIProperties.bUseActorLastRenderTime = ai[index];
+    index += 4;
     AIProperties.bEnableOptionalPoint = ai[index];
     index += 4;
 
@@ -1100,7 +1256,13 @@ export const parseTekiAI = (ai, generatorVersion, creatureId) => {
             Z: readFloat(ai.slice(index, index += 4))
         });
     }
-    index += 4; // something else to end SniffPointParameter
+
+    const priorityInfoLength = ai[index];
+    index += 4;
+    AIProperties.optionalPointPriorityInfo = [];
+    for (let i = 0; i < priorityInfoLength; i++) {
+        AIProperties.optionalPointPriorityInfo.push(bytesToInt(ai.slice(index, index += 4)));
+    }
     const creatureAIProperties = getReadCreatureAIFunc(creatureId)(ai.slice(index, ai.length));
 
     return {
@@ -1121,7 +1283,7 @@ const parseKumaChappyAI = ai => {
     };
     index += ai[index] + 4;
     AIProperties.giveUpDistance = readFloat(ai.slice(index, index += 4));
-    // Where's MaxChildNum??
+    // MaxChildNum isn't implemented by the serialiser
 
     return AIProperties;
 };
@@ -1133,7 +1295,7 @@ const parseHageDamagumoAI = ai => {
         searchTagName: readAsciiString(ai, index)
     };
     index += ai[index] + 4;
-    AIProperties.bSplineWalkStart = ai[index];
+    AIProperties.bStraddle = ai[index];
     index += 4;
     AIProperties.searchAreaRest = {
         center: {
@@ -1146,7 +1308,7 @@ const parseHageDamagumoAI = ai => {
         angle: readFloat(ai.slice(index, index += 4)),
         sphereRadius: readFloat(ai.slice(index, index += 4))
     };
-    AIProperties.bStraddle = ai[index];
+    AIProperties.bSplineWalkStart = ai[index];
     index += 4;
     AIProperties.bUniqueLife = ai[index];
     index += 4;
@@ -1220,17 +1382,17 @@ const parseBabyAI = ai => {
         bPatrolType: ai[index]
     };
     index += 4;
-    AIProperties.hideAreaTag = readAsciiString(ai, index);
+    AIProperties.searchTagName = readAsciiString(ai, index);
     return AIProperties;
 };
 
 const parseBigUjinkoAI = ai => {
     let index = 0;
     const AIProperties = {
-        bPatrolType: ai[index]
+        bNoBurrowType: ai[index]
     };
     index += 4;
-    AIProperties.bNoBurrowType = ai[index];
+    AIProperties.bPatrolType = ai[index];
     index += 4;
     AIProperties.searchAreaTag = readAsciiString(ai, index);
     return AIProperties;
@@ -1279,10 +1441,11 @@ const parseDamagumoCannonAI = ai => {
         searchTagName: readAsciiString(ai, index)
     };
     index += ai[index] + 4;
-    AIProperties.bSplineWalkStart = ai[index];
+    AIProperties.bStraddle = ai[index];
     index += 4;
     AIProperties.bAlreadyAppear = ai[index];
-    AIProperties["AITerritory?"] = {
+    index += 4;
+    AIProperties.searchAreaGoToHome = {
         center: {
             X: readFloat(ai.slice(index, index += 4)),
             Y: readFloat(ai.slice(index, index += 4)),
@@ -1341,6 +1504,28 @@ const parseBigChappyAI = ai => {
     };
 };
 
+const parseKurageAI = ai => {
+    let index = 0;
+    const AIProperties = {
+        eatOnBirthRange: readFloat(ai.slice(index, index += 4)),
+        bFallStart: ai[index],
+    };
+    index += 4;
+    AIProperties.searchAreaRest = {
+        center: {
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        },
+        halfHeight: readFloat(ai.slice(index, index += 4)),
+        radius: readFloat(ai.slice(index, index += 4)),
+        angle: readFloat(ai.slice(index, index += 4)),
+        sphereRadius: readFloat(ai.slice(index, index += 4)),
+    };
+    AIProperties.ownerSubComponentFlag = ai[index];
+    return AIProperties;
+};
+
 // he needs charting properly I think
 // const parseBigKingChappyAI = ai => {
 //     let index = 0;
@@ -1389,7 +1574,7 @@ const parseFutakuchiAdultAI = ai => {
         attackInterval: readFloat(ai.slice(index, index += 4)),
         attackIntervalSuccess: readFloat(ai.slice(index, index += 4))
     };
-    AIProperties.bCreateIcicle = true;
+    AIProperties.bCreateIcicle = ai[index];
     index += 4;
     AIProperties.escapeSecMin = readFloat(ai.slice(index, index += 4));
     AIProperties.escapeSecMax = readFloat(ai.slice(index, index += 4));
@@ -1423,8 +1608,9 @@ const parseAmeBozuAI = ai => {
     AIProperties.bAppearFixedLocation = ai[index];
     index += 4;
 
-    AIProperties["searchDistance?"] = readFloat(ai.slice(index, index += 4));
-    index += 1; // random 1 here
+    AIProperties.appearSearchRadius = readFloat(ai.slice(index, index += 4));
+    AIProperties.walkType = AmeBozuWalkTypes[ai[index]];
+    index += 1;
 
     AIProperties.canAttackLevelFaceMessageName = readAsciiString(ai, index);
     return AIProperties;
@@ -1478,13 +1664,13 @@ const parsePortalTrigger = portalTrigger => {
     index += 4; // some float
     PortalTrigger.playAnimDist = readFloat(portalTrigger.slice(index, index += 4));
     index += 4; // unknown zeros
-    PortalTrigger.panzakuPriority = portalTrigger[index];
+    PortalTrigger.pankuzuPriority = portalTrigger[index];
     index += 4;
     const flags = bytesToInt(portalTrigger.slice(index, index += 4));
     PortalTrigger.disablePikminFlags = getDisableSettings(flags);
     PortalTrigger.bDisableIsFlareGuard = portalTrigger[index];
     index += 4;
-    PortalTrigger.spareBytes = portalTrigger.slice(index, portalTrigger.length); // These last 3 floats are the trigger coordinates
+    // PortalTrigger.spareBytes = portalTrigger.slice(index, portalTrigger.length); // These last 3 floats are the trigger coordinates
 
     return { PortalTrigger };
 };

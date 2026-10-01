@@ -27,6 +27,21 @@ const byteArrToDataView = (nums) => {
     return view;
 };
 
+export const bytesToU64 = (bytes) => {
+    const buf = new Uint8Array(8);
+    buf.set(bytes.slice(0, 8));
+    const view = new DataView(buf.buffer);
+    return view.getBigUint64(0, true);
+};
+
+export const u64ToBytes = (bigintVal) => {
+    const buf = new ArrayBuffer(8);
+    const view = new DataView(buf);
+    view.setBigUint64(0, BigInt(bigintVal), true);
+
+    return Array.from(new Uint8Array(buf));
+};
+
 export const byteArrToFloat = (nums) => {
     return byteArrToDataView(nums).getFloat32(0);
 };

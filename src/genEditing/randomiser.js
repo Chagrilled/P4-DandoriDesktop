@@ -1235,18 +1235,15 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
         parsed = randCreature.drops.parsed;
     }
 
-    let lastDropId = 0;
+    let lastDropId = 0n;
     const isCreature = randCreature.infoType === InfoType.Creature;
     const objectDroppable = [InfoType.Object, InfoType.Gimmick, InfoType.Hazard, InfoType.WorkObject].includes(randCreature.infoType);
 
-    // Object DropParameters don't have the flags number - so when a StickyFloor randos to
-    // a creature, it's drops need to be adjusted to slot in as teki drops
+    // Object DropParameters don't use IDs
     // Also accounts for Mush types which for some reason use the creature inventory
-    // If a pot randomises to a creature or something, we need to ensure the existing drops are given flags
-    // Treasyres aren't a big deal because they won't randomise into non-treasures
+    // Treasures aren't a big deal because they won't randomise into non-treasures
     parsed.forEach(drop => {
         if ((randCreature.infoType === InfoType.Creature || randCreature.creatureId.match(/Mush|Komush/i))) {
-            if (!drop.flags) drop.flags = [1, 8, 16, 64];
             if (typeof drop.dropCondition === 'undefined') drop.dropCondition = 0;
         }
         // Similarly, if an ActorSpawner becomes a regular mob, its drop needs converting to a regular drop.
@@ -1260,7 +1257,7 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
 
         const dropMutator = drop => {
             const infoType = getInfoType(getSubpathFromAsset(drop.assetName));
-            lastDropId = drop.id;
+            lastDropId = BigInt(drop.id ?? 1n);
             const name = getNameFromAsset(drop.assetName);
 
             // Creatures are turned into creatures
@@ -1339,7 +1336,7 @@ export const randomiseRegularDrops = (randCreature, config, map) => {
         logger.info(`Padding inventory size to ${invSize} for ${randCreature.creatureId}`);
 
         while (parsed.length < invSize) {
-            parsed.push(generateCreatureDrop(config, lastDropId += 1, randCreature, map));
+            parsed.push(generateCreatureDrop(config, lastDropId += 1n, randCreature, map));
         }
     }
 };
@@ -1378,7 +1375,7 @@ const generateCreatureDrop = (config, id, creature, map) => {
     return {
         ...DefaultDrop,
         assetName: getAssetPathFromId(list[randInt(list.length)]),
-        id,
+        id: id.toString(),
         maxDrops: parseInt(config.randMaxDrops)
     };
 };
@@ -1424,7 +1421,7 @@ const randomiseActorSpawnerDrop = (creature, config, map) => {
                     assetName: newAssetDrop,
                     customParameter,
                     infiniteSpawn: Math.random() < (parseFloat(config.asInfiniteChance) / 100) ? 1 : 0,
-                    spawnLimit: randFunctions[config.randIntFunction](1, parseInt(config.asLimit)),
+                    maxAreaNum: randFunctions[config.randIntFunction](1, parseInt(config.asLimit)),
                     spawnInterval: randFloatBounded(1, parseFloat(config.asIntervalLimit))
                 }
             ]

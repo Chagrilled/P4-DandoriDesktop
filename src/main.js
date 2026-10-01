@@ -574,7 +574,7 @@ export const readMapData = async (mapId, webContents) => {
     // will overwrite this global object - consider making each map an index of it
     rawData = {};
 
-    //#region Object Reading
+    //#region Actor Reading
     const objectProcessor = (object, fileType) => {
         const ddId = randomBytes(16).toString('hex');
         object.ddId = ddId;

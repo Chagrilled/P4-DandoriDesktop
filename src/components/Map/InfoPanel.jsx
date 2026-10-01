@@ -20,10 +20,7 @@ const updateDrops = (value, mapMarkerData, setMapData, ddId, drop, key, dropDele
             creature.drops[dropType] = creature.drops[dropType].map(d => {
                 if (d.id == drop.id) {
                     let newVal;
-                    if (["flags"].includes(key)) {
-                        newVal = JSON.parse(value);
-                    }
-                    else if (key === 'amount') {
+                    if (key === 'amount') {
                         const parts = value.split('-');
                         return {
                             ...d,
@@ -113,7 +110,7 @@ const addDrop = (ddId, setMapData, mapMarkerData, dropType) => {
                         {
                             ...DefaultDrop,
                             // Reduce because undoing/redoing appends to the end, so you need to seek for the highest, as the IDs may no longer be ascending
-                            id: drops.length ? parseInt(drops.reduce((acc, drop) => drop.id > acc ? drop.id : acc, 0)) + 1 : 1 // Can a default ID be 1??? 
+                            id: (drops.length ? drops.reduce((acc, drop) => BigInt(drop.id) > acc ? BigInt(drop.id) : acc, 0n) + 1n : 1n).toString() // Can a default ID be 1??? 
                         }
                     ]
                 }

@@ -1,4 +1,4 @@
-import { InfoType, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, DefaultActorSpawnerDrop, WaterBoxTextures, AmbientSoundIDs, defaultVector, defaultSplinePoint, RockModes, defaultTreasureAI, PikminTypes, QueenAIType, PopObjectType, PopPlaceActorSpareBytes, DDBPikminHeightType } from "../api/types";
+import { InfoType, defaultAIProperties, defaultTriggerAI, defaultSprinklerAI, defaultValveAI, defaultCreatureAI, DefaultActorSpawnerDrop, WaterBoxTextures, AmbientSoundIDs, defaultVector, defaultSplinePoint, RockModes, defaultTreasureAI, PikminTypes, QueenAIType, PopObjectType, PopPlaceActorSpareBytes, DDBPikminHeightType, defaultObjectAI, NavLinkDirection } from "../api/types";
 
 export const entityDefaults = [
     {
@@ -27,6 +27,11 @@ export const entityDefaults = [
         ents: ['Mush', 'Komush'],
     },
     {
+        infoTypes: [InfoType.Object],
+        ents: [],
+        AIProperties: defaultObjectAI
+    },
+    {
         ents: ['TriggerDoor', 'Switch', 'Conveyor265uu'],
         AIProperties: defaultTriggerAI
     },
@@ -47,14 +52,20 @@ export const entityDefaults = [
     },
     {
         ents: ['Valve'],
-        AIProperties: defaultValveAI,
+        AIProperties: {
+            ...defaultObjectAI,
+            ...defaultValveAI,
+        },
         ActorParameter: {
             demoBindName: 'GValveOnce00'
         }
     },
     {
         ents: ['StickyFloor'],
-        AIProperties: { bAutoSpawnMush: false }
+        AIProperties: {
+            ...defaultObjectAI,
+            bAutoSpawnMush: false
+        }
     },
     {
         ents: ['NavMeshTrigger'],
@@ -76,8 +87,7 @@ export const entityDefaults = [
     {
         ents: ['Geyser'],
         AIProperties: {
-            bEnableCustomSoftEdge: true,
-            bDisableSoftEdge: false,
+            ...defaultObjectAI,
             bSetCrystal: false,
             stopQueenDistXY: -1,
             navLinkLeft: {
@@ -92,9 +102,11 @@ export const entityDefaults = [
             },
             leftProjectHeight: 0.0,
             maxFallDownLength: 1000.0,
+            direction: NavLinkDirection[1],
             snapRadius: 30.0,
             snapHeight: 30.0,
-            bUseSnapHeight: false
+            bUseSnapHeight: false,
+            bSnapToCheapestArea: true
         }
     },
     {
@@ -286,6 +298,7 @@ export const entityDefaults = [
     {
         ents: ["RopeFishing"],
         AIProperties: {
+            ...defaultObjectAI,
             jumpForceXY: 300,
             jumpForceZ: 300,
             ropeAng: -30,
@@ -295,17 +308,24 @@ export const entityDefaults = [
     {
         ents: ["ZiplineSplineMesh", 'ZiplineAnother'],
         AIProperties: {
+            ...defaultObjectAI,
             goalOffset: defaultVector,
             startTargetSpeed: 150,
             maxMoveSpeed: 200,
             minMoveSpeed: 100,
             acceleration: 600,
+            deceleration: 70,
             splinePoints: [defaultSplinePoint]
         }
     },
     {
         ents: ["PressFloor"],
         AIProperties: {
+            ...defaultObjectAI,
+            height: -40.0,
+            maxHeightSpeed: 100.0,
+            radius: 144.0,
+            maxRadiusSpeed: 20.0,
             waterBoxId: "press000",
             createNavBoxRange: defaultVector,
             createNavBoxOffset: defaultVector
@@ -355,7 +375,7 @@ export const creatureDefaults = [
             hideTimeMin: 300,
             hideTimeMax: 300,
             bAppearFixedLocation: false,
-            "searchDistance?": 300,
+            appearSearchRadius: 300,
             canAttackLevelFaceMessageName: "Teki_Announce_AmeBozu_01"
         }
     },
@@ -395,7 +415,7 @@ export const creatureDefaults = [
             bSplineType: false,
             escapeSecMin: 0.0,
             escapeSecMax: 1.0,
-            bCreateIcicle: true,
+            bCreateIcicle: 1,
             attackArea: {
                 center: defaultVector,
                 halfHeight: 50,
@@ -432,6 +452,7 @@ export const creatureDefaults = [
         ents: ["HageDamagumo"],
         AIProperties: {
             searchTagName: 'HageDamagumoRootPoint',
+            bStraddle: true,
             bSplineWalkStart: false,
             searchAreaRest: {
                 center: {
@@ -454,9 +475,9 @@ export const creatureDefaults = [
         ents: ["DamagumoCannon"],
         AIProperties: {
             searchTagName: "None",
-            bSplineWalkStart: false,
+            bStraddle: false,
             bAlreadyAppear: true,
-            "AITerritory?": {
+            searchAreaGoToHome: {
                 center: {
                     ...defaultVector,
                     Z: 153
@@ -516,7 +537,7 @@ export const creatureDefaults = [
         ents: ["Baby"],
         AIProperties: {
             bPatrolType: false,
-            searchAreaTag: "BabyRoutePoint"
+            searchTagName: "BabyRoutePoint"
         }
     },
     {
@@ -554,6 +575,23 @@ export const creatureDefaults = [
             fallBabySpawnRadius: 100,
             fallBabySpawnNum: 10,
             flickDistXY: 500
+        }
+    },
+    {
+        ents: ["Kurage", "OoKurage"],
+        AIProperties: {
+            eatOnBirthRange: 50.0,
+            bFallStart: false,
+            ownerSubComponentFlag: true,
+            searchAreaRest: {
+                center: {
+                    ...defaultVector,
+                },
+                halfHeight: 100,
+                radius: 350,
+                angle: 180,
+                sphereRadius: 30
+            }
         }
     },
 ];

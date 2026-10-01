@@ -216,14 +216,15 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
             </li>;
         }
 
-        if (["birthCond", "eraseCond", "optionalPointOffsets", "splinePoints", "sleepCond", "wakeCond"].includes(key)) {
+        if (["birthCond", "eraseCond", "optionalPointOffsets", "splinePoints", "sleepCond", "wakeCond", "escapePoints"].includes(key)) {
             const objectToAdd = {
                 optionalPointOffsets: defaultVector,
                 birthCond: defaultPlacementCond,
                 eraseCond: defaultPlacementCond,
                 sleepCond: defaultAppearanceCond,
                 wakeCond: defaultAppearanceCond,
-                splinePoints: defaultSplinePoint
+                splinePoints: defaultSplinePoint,
+                escapePoints: defaultVector
             }[key];
 
             return <li key={key}>
