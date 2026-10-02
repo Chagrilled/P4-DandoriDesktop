@@ -1392,7 +1392,7 @@ export const constructActor = (actor, mapId) => {
                 Dynamic: entData.PortalTrigger[0].Dynamic
             },
             Life: {
-                Static: entData.Life[0].Static,
+                Static: actor.infoType === InfoType.Creature ? writeModdedLife(actor.moddedLife) : entData.Life[0].Static,
                 Dynamic: actor.Life ? writeLifeDynamic(actor.Life) : entData.Life[0].Dynamic
             },
             Affordance: {
@@ -1434,6 +1434,13 @@ export const constructActor = (actor, mapId) => {
 export const writeLifeDynamic = Life => [
     ...floatBytes(Life.maxLife),
     ...floatBytes(Life.life)
+];
+
+export const writeModdedLife = life => [
+
+    ...(life.maxLife ? floatBytes(life.maxLife) : []),
+    ...(life.startingLife ? floatBytes(life.startingLife) : []),
+    ...(life.regenPercent ? floatBytes(life.regenPercent) : [])
 ];
 
 export const writeAffordanceWeight = (weight, { Static }) => Static.toSpliced(Static.length - 4, 4, ...intToByteArr(weight));

@@ -249,5 +249,55 @@ export const isEntityOnNightMap = (entity, mapId) => {
 };
 
 export const shouldReadLife = ent => {
-    return ent.includes('Gate') || ent.includes('Hiba') || ent === 'Charcoal'
-}
+    return ent.includes('Gate') || ent.includes('Hiba') || ent === 'Charcoal';
+};
+
+const RAD_TO_DEG = 180 / Math.PI;
+const DEG_TO_RAD = Math.PI / 180;
+
+const normalizeAxis = angle => {
+    angle = angle % 360;
+    if (angle < 0) angle += 360;
+    return angle > 180 ? angle - 360 : angle;
+};
+
+// Port of UE4.26 FQuat::Rotator(). Returns degrees
+export const quatToEuler = rotation => {
+    let X = parseFloat(rotation.X), Y = parseFloat(rotation.Y), Z = parseFloat(rotation.Z), W = parseFloat(rotation.W);
+    const norm = Math.hypot(X, Y, Z, W) || 1;
+    X /= norm; Y /= norm; Z /= norm; W /= norm;
+
+    const singularityTest = Z * X - W * Y;
+    const yaw = Math.atan2(2 * (W * Z + X * Y), 1 - 2 * (Y * Y + Z * Z)) * RAD_TO_DEG;
+    const SINGULARITY_THRESHOLD = 0.4999995;
+
+    let pitch, roll;
+    if (singularityTest < -SINGULARITY_THRESHOLD) {
+        pitch = -90;
+        roll = normalizeAxis(-yaw - 2 * Math.atan2(X, W) * RAD_TO_DEG);
+    } else if (singularityTest > SINGULARITY_THRESHOLD) {
+        pitch = 90;
+        roll = normalizeAxis(yaw - 2 * Math.atan2(X, W) * RAD_TO_DEG);
+    } else {
+        pitch = Math.asin(2 * singularityTest) * RAD_TO_DEG;
+        roll = Math.atan2(-2 * (W * X + Y * Z), 1 - 2 * (X * X + Y * Y)) * RAD_TO_DEG;
+    }
+
+    const tidy = v => Math.round(v * 1000) / 1000 + 0;
+    return { X: tidy(roll), Y: tidy(pitch), Z: tidy(yaw) };
+};
+
+export const eulerToQuat = euler => {
+    const half = deg => ((parseFloat(deg) || 0) % 360) * DEG_TO_RAD / 2;
+    const p = half(euler.Y), y = half(euler.Z), r = half(euler.X);
+    const SP = Math.sin(p), CP = Math.cos(p);
+    const SY = Math.sin(y), CY = Math.cos(y);
+    const SR = Math.sin(r), CR = Math.cos(r);
+
+    return {
+        X: CR * SP * SY - SR * CP * CY,
+        Y: -CR * SP * CY - SR * CP * SY,
+        Z: CR * CP * SY - SR * SP * CY,
+        W: CR * CP * CY + SR * SP * SY
+    };
+};

@@ -7,9 +7,9 @@ import swf from 'stringify-with-floats';
 import { spawn } from 'child_process';
 import { exposedGenVars, InfoType, NightMaps, Messages, AGLs } from './api/types';
 import { regenerateAGLEntity } from './genEditing';
-import { getReadAIStaticFunc, getReadPortalFunc, getReadAIDynamicFunc, getReadActorParameterFunc, getReadNavMeshTriggerFunc, getReadSubAIStaticFunc, getReadWaterTriggerFunc, getReadPopPlaceFunc, readLife } from './genEditing/reading';
+import { getReadAIStaticFunc, getReadPortalFunc, getReadAIDynamicFunc, getReadActorParameterFunc, getReadNavMeshTriggerFunc, getReadSubAIStaticFunc, getReadWaterTriggerFunc, getReadPopPlaceFunc, readLife, readModdedLife } from './genEditing/reading';
 import { constructActor } from './genEditing/constructing';
-import { protectNumbers, unprotectNumbers, getInfoType, getAvailableTimes, getAvailableAGLs, shouldReadLife } from './utils';
+import { protectNumbers, unprotectNumbers, getInfoType, getAvailableAGLs, shouldReadLife } from './utils';
 import { createMenu } from './utils/createMenu';
 import { byteArrToInt } from './utils/bytes';
 import { updateElectronApp } from 'update-electron-app';
@@ -31,7 +31,8 @@ const DEFAULT_CONFIG = {
     hideInvisEntities: false,
     showRotation: true,
     disableAutoUpdate: false,
-    cleanDeployDirectories: true
+    cleanDeployDirectories: true,
+    eulerAngles: false
 };
 let config = {};
 let mapsCache = {};
@@ -596,6 +597,7 @@ export const readMapData = async (mapId, webContents) => {
         const AIProperties = { ...staticAI, ...dynamicAI };
         const { parsed: parsedSubAI } = getReadSubAIStaticFunc(entityId, infoType)(asp.SubAI.Static);
         const Life = shouldReadLife(entityId) ? readLife(asp.Life.Dynamic) : null;
+        const moddedLife = infoType === InfoType.Creature ? readModdedLife(asp.Life.Static) : null;
         const weight = entityId.includes('DownWall') ? byteArrToInt(asp.Affordance.Static.slice(-4).reverse()) : null;
         // console.log("AIProperties", AIProperties);
 
@@ -610,6 +612,7 @@ export const readMapData = async (mapId, webContents) => {
             ...(Object.keys(AIProperties).length !== 0 && { AIProperties }),
             ...(PortalTrigger && { PortalTrigger }),
             ...(Life && { Life }),
+            ...(moddedLife && { moddedLife }),
             ...(weight && { weight }),
             ...(ActorParameter && { ActorParameter }),
             ...(PopPlace && { PopPlace }),

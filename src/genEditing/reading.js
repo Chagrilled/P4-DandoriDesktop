@@ -1733,3 +1733,9 @@ export const readLife = life => ({
     maxLife: readFloat(life.slice(0, 4)),
     life: readFloat(life.slice(4, 8)),
 });
+
+export const readModdedLife = life => ({
+    maxLife: life?.slice(0, 4)?.length ? readFloat(life?.slice(0, 4)) : 0,
+    startingLife: life?.slice(4, 8)?.length ? readFloat(life?.slice(4, 8)) : 0,
+    regenPercent: life?.slice(8, 12)?.length ? readFloat(life?.slice(8, 12)) : 0,
+});

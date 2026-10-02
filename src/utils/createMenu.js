@@ -263,6 +263,19 @@ export const createMenu = (config, CONFIG_PATH, readMaps, getTekis, mainWindow) 
                 }
             },
             {
+                label: 'Euler Angles for Rotation',
+                type: 'checkbox',
+                checked: config.eulerAngles,
+                click: () => {
+                    config.eulerAngles = !config.eulerAngles;
+                    writeFile(CONFIG_PATH, JSON.stringify({
+                        ...config,
+                        eulerAngles: config.eulerAngles
+                    }, null, 4), { encoding: "utf-8" }, () => { });
+                    mainWindow.webContents.send('getConfig', config);
+                }
+            },
+            {
                 label: 'Clean Deployments',
                 type: 'checkbox',
                 checked: config.cleanDeployDirectories,

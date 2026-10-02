@@ -447,6 +447,8 @@ export const editableNumberFields = [
     "CondInt",
     "maxLife",
     "life",
+    "startingLife",
+    "regenPercent",
     "W",
     "X",
     "Y",

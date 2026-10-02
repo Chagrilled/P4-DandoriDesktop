@@ -2,9 +2,9 @@
 import { setFloats, getAssetPathFromId } from '../utils';
 import deepEqual from 'deep-equal';
 import { getReadAIDynamicFunc, getReadAIStaticFunc, getReadPortalFunc } from './reading';
-import { getConstructAIStaticFunc, getConstructPortalTriggerFunc, writeLifeDynamic, writeAffordanceWeight, getConstructDynamicFunc, getConstructActorParamFunc, ASP_FIELDS, getConstructNavMeshTriggerFunc, getConstructSubAIStaticFunc, getConstructWaterTriggerFunc, defaultConstructionData, getConstructPopPlaceFunc } from './constructing';
+import { getConstructAIStaticFunc, getConstructPortalTriggerFunc, writeLifeDynamic, writeAffordanceWeight, getConstructDynamicFunc, getConstructActorParamFunc, ASP_FIELDS, getConstructNavMeshTriggerFunc, getConstructSubAIStaticFunc, getConstructWaterTriggerFunc, defaultConstructionData, getConstructPopPlaceFunc, writeModdedLife } from './constructing';
 import { default as entityData } from '../api/entityData.json';
-import { TeamIDs } from '../api/types';
+import { InfoType } from '../api/types';
 import logger from '../utils/logger';
 
 export const getSubpath = creatureId => {
@@ -208,7 +208,7 @@ export const regenerateAGLEntity = (actor, aglData) => {
             ...newPP,
             ...subAI,
             Life: {
-                Static: asp.Life.Static,
+                Static: actor.infoType === InfoType.Creature ? writeModdedLife(actor.moddedLife) : asp.Life.Static,
                 Dynamic: actor.Life ? writeLifeDynamic(actor.Life) : newAsset ? asp.Life.Dynamic : asp.Life.Dynamic
             },
             Affordance: {

@@ -99,6 +99,11 @@ export const MapMenu = ({ }) => {
             });
             newMarker.rebirthType = RebirthTypes.RebirthLater;
             newMarker.rebirthInterval = 4;
+            newMarker.moddedLife = {
+                maxLife: 0,
+                startingLife: 0,
+                regenPercent: 0.3
+            };
         }
         if (id === Treasure) newMarker.AIProperties = deepCopy(defaultTreasureAI);
         if (id === Object) newMarker.AIProperties = {

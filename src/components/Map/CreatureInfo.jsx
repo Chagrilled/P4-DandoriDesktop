@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { NameMap, editableNumberFields, editableBools, ignoreFields, editableStrings, arrayStrings, selectFields, defaultPlacementCond, defaultVector, PikminTypes, defaultSplinePoint, defaultAppearanceCond, ActorPlacementAppearanceCondition } from "../../api/types";
-import { findMarkerById, getAvailableTimes, getAvailableAGLs, mutateAIProperties, deepCopy, getAssetPathFromId } from '../../utils';
+import { findMarkerById, getAvailableTimes, getAvailableAGLs, mutateAIProperties, deepCopy, getAssetPathFromId, quatToEuler, eulerToQuat } from '../../utils';
 import { DebouncedInput } from './DebouncedInput';
 import { MapContext } from './MapContext';
 import { MarkerIcon } from '../MarkerIcon';
@@ -9,12 +9,21 @@ import { Tooltip } from 'react-tooltip';
 import { DropCard } from './Card/DropCard';
 
 //#region updateCreature
-const updateCreature = (value, mapMarkerData, setMapData, obj, path, ddId, index) => {
+const updateCreature = (value, { mapMarkerData, setMapData, config }, obj, path, ddId, index) => {
     console.log("updateObj", obj);
     let type = obj.infoType;
     const oldCreatureId = obj.creatureId;
     if (!type) {
         ({ type } = findMarkerById(ddId, mapMarkerData));
+    }
+
+    if (path.startsWith('transform.rotation') && config.eulerAngles) {
+        const parts = path.split('.');
+        value = eulerToQuat({
+            ...quatToEuler(obj),
+            [parts.pop()]: value
+        });
+        path = parts.join('.');
     }
 
     const newMapData = mapMarkerData[type].map(creature => {
@@ -71,12 +80,15 @@ const deepUpdate = (obj, path, value, index) => {
         return deepUpdate(obj[path[0]], path.slice(1), value, index);
 };
 
+// CreatureInfo handles how all of the side panel fields are displayed. It's mostly driven by the numbers/bools/strings in types.js
+// but can have overrides for specific fields where required.
 //#region Component
 export const CreatureInfo = ({ obj, parent, ddId, index }) => {
     if (!obj) {
         return null;
     }
-    const { mapMarkerData, setMapData, mapId, config } = useContext(MapContext);
+    const context = useContext(MapContext);
+    const { mapId, config } = context;
 
     return Object.entries(obj).map(([key, value]) => {
         if (value == null) {
@@ -93,10 +105,15 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
 
         if (editableNumberFields.includes(key)) {
             // console.log(fullKey)
+            if (fullKey.startsWith('transform.rotation') && config.eulerAngles) {
+                if (key === 'W') return;
+                value = quatToEuler(obj)[key];
+            }
+
             return <li key={fullKey} data-tooltip-id={key}>
                 {tooltip}
                 <b>{key}</b>:&nbsp;
-                <DebouncedInput marker={obj} changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, fullKey, ddId, index)} value={value} type="number" ddId={ddId} />
+                <DebouncedInput config={config} marker={obj} changeFunc={e => updateCreature(e, context, obj, fullKey, ddId, index)} value={value} type="number" ddId={ddId} />
             </li>;
         }
 
@@ -104,7 +121,7 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
             return <li key={fullKey} data-tooltip-id={key}>
                 {tooltip}
                 <b>{key}</b>:&nbsp;
-                <DebouncedInput marker={obj} changeFunc={e => updateCreature(e, mapMarkerData, setMapData, obj, fullKey, ddId, index)} value={arrayStrings.includes(key) ? JSON.stringify(value) : value} ddId={ddId} />
+                <DebouncedInput config={config} marker={obj} changeFunc={e => updateCreature(e, context, obj, fullKey, ddId, index)} value={arrayStrings.includes(key) ? JSON.stringify(value) : value} ddId={ddId} />
             </li>;
         }
 
@@ -118,7 +135,7 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
             return <li key={key}>
                 <b>creatureId</b>
                 <div>
-                    <select value={value} className="w-full bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, key, ddId, index)}>
+                    <select value={value} className="w-full bg-sky-1000" onChange={e => updateCreature(e.target.value, context, obj, key, ddId, index)}>
                         {Object.entries(NameMap[obj.infoType])
                             .sort((a, b) => a[config?.internalNames ? 0 : 1].localeCompare(b[config?.internalNames ? 0 : 1]))
                             .map(([creatureKey, creatureValue]) =>
@@ -135,7 +152,7 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
             return <li key={key} data-tooltip-id={key}>
                 {tooltip}
                 <b>AGL File</b>:
-                <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, key, ddId, index)}>
+                <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, context, obj, key, ddId, index)}>
                     {getAvailableTimes(mapId).map(time => <option key={time} value={time}>{time}</option>)}
                 </select>
             </li>;
@@ -145,7 +162,7 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
             return <li key={key} data-tooltip-id={key}>
                 {tooltip}
                 <b>AGL File</b>:
-                <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, key, ddId, index)}>
+                <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, context, obj, key, ddId, index)}>
                     {getAvailableAGLs(mapId).map(agl => <option key={agl} value={agl}>{agl}</option>)}
                 </select>
             </li>;
@@ -160,7 +177,7 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
                 return <li key={fullKey} data-tooltip-id={key}>
                     {tooltip}
                     <b>{key}</b>:
-                    <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, fullKey, ddId, index)}>
+                    <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, context, obj, fullKey, ddId, index)}>
                         {Object.values(ActorPlacementAppearanceCondition).map(value => <option key={value} value={value}>{value.replace("EActorPlacementAppearanceCondition::", "")}</option>)}
                     </select>
                 </li>;
@@ -168,7 +185,7 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
             else return <li key={fullKey} data-tooltip-id={key}>
                 {tooltip}
                 <b>{key}</b>:
-                <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, mapMarkerData, setMapData, obj, fullKey, ddId, index)}>
+                <select value={value} className="bg-sky-1000" onChange={e => updateCreature(e.target.value, context, obj, fullKey, ddId, index)}>
                     {selectFields[key].map(value => <option key={value} value={value}>{value.replace(/.+::/, "")}</option>)}
                 </select>
             </li>;
@@ -182,7 +199,7 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
                     type="checkbox"
                     checked={value}
                     className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                    onChange={(e) => updateCreature(e.target.checked, mapMarkerData, setMapData, obj, fullKey, ddId, index)}
+                    onChange={(e) => updateCreature(e.target.checked, context, obj, fullKey, ddId, index)}
                 />
             </li>;
         }
@@ -198,7 +215,7 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
                                 type="checkbox"
                                 checked={disabled}
                                 className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                onChange={(e) => updateCreature(e.target.checked, mapMarkerData, setMapData, obj, `${fullKey}.${type}`, ddId, index)}
+                                onChange={(e) => updateCreature(e.target.checked, context, obj, `${fullKey}.${type}`, ddId, index)}
                             />
                             <MarkerIcon type="pikmin" override="-disable" id={PikminTypes[type].toLowerCase()} />
                         </li>
@@ -208,7 +225,7 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
                             type="checkbox"
                             checked={value[9]}
                             className="w-4 h-4 ml-2 self-center text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                            onChange={(e) => updateCreature(e.target.checked, mapMarkerData, setMapData, obj, `${fullKey}.9`, ddId, index)}
+                            onChange={(e) => updateCreature(e.target.checked, context, obj, `${fullKey}.9`, ddId, index)}
                         />
                         <MarkerIcon type="pikmin" override="-disable" id={PikminTypes[9].toLowerCase()} />
                     </li>
@@ -238,7 +255,7 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        onClick={(e) => updateCreature([...value, { ...deepCopy(objectToAdd) }], mapMarkerData, setMapData, obj, fullKey, ddId, index)}
+                        onClick={(e) => updateCreature([...value, { ...deepCopy(objectToAdd) }], context, obj, fullKey, ddId, index)}
                     >
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
@@ -249,7 +266,7 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
                             <div className="flex flex-nowrap flex-col relative ml-3 Card__footer">
                                 <svg
                                     className="absolute top-[-0.5em] right-0 left-[-0.6em] right-2 w-6 h-6 mr-1 hover:text-red-600 cursor-pointer"
-                                    onClick={(e) => deleteArrayItem(mapMarkerData, setMapData, obj, key, ddId, index)}
+                                    onClick={(e) => deleteArrayItem(context, obj, key, ddId, index)}
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
                                     viewBox="0 0 24 24"
@@ -275,7 +292,7 @@ export const CreatureInfo = ({ obj, parent, ddId, index }) => {
                     isActorSpawner={false}
                     isYamashinju={true}
                     ddId={ddId}
-                    updateDrops={(val, drop, field) => updateCreature(getAssetPathFromId(val), mapMarkerData, setMapData, obj, fullKey, ddId, index)} />
+                    updateDrops={(val, drop, field) => updateCreature(getAssetPathFromId(val), context, obj, fullKey, ddId, index)} />
             </li>;
         }
 

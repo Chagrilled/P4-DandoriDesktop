@@ -25,6 +25,11 @@ export const entityDefaults = [
         infoTypes: [InfoType.Creature],
         AIProperties: defaultCreatureAI,
         ents: ['Mush', 'Komush'],
+        moddedLife: {
+            maxLife: 0,
+            startingLife: 0,
+            regenPercent: 0.3
+        }
     },
     {
         infoTypes: [InfoType.Object],
