@@ -44,5 +44,6 @@ export default {
     fixedHotExtractDropNum: "Fixed number of spicy drops",
     portalNumber: "Portal's ID within a level",
     demoPlayParamEnter: "Cutscene played when entering",
-    bEnableFreezeBothDrop: "Frozen kills produce the normal and frozen drop"
+    bEnableFreezeBothDrop: "Frozen kills produce the normal and frozen drop",
+    moddedLife: "These life values are only supported if you are using the life mod"
 }
