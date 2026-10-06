@@ -642,9 +642,207 @@ export const creatureDefaults = [
             }
         },
     },
+    // Keeps the koganes the same for randomiser
     {
-        ents: ["Kogane", "OoKogane", "GasKogane"],
+        ents: ["GasKogane"],
+        dropLists: [
+            {
+                parsed: [
+                    {
+                        id: 1, minDrops: 1, maxDrops: 1, dropChance: 0.6, bRegistGenerator: 0,
+                        assetName: "/Game/Carrot4/Placeables/Items/GBomb.GBomb_C",
+                        customParameter: "None", customFloatParam: 0, gameRulePermissionFlag: 269, bSetTerritory: 0
+                    },
+                    {
+                        id: 2, minDrops: 10, maxDrops: 10, dropChance: 0.05, bRegistGenerator: 0,
+                        assetName: "/Game/Carrot4/Placeables/Teki/GTamagoMushi.GTamagoMushi_C",
+                        customParameter: "None", customFloatParam: 0, gameRulePermissionFlag: 269, bSetTerritory: 0
+                    },
+                    {
+                        id: 3, minDrops: 1, maxDrops: 1, dropChance: 0.35, bRegistGenerator: 0,
+                        assetName: "/Game/Carrot4/Placeables/Items/GIceBomb.GIceBomb_C",
+                        customParameter: "None", customFloatParam: 0, gameRulePermissionFlag: 0, bSetTerritory: 0
+                    }
+                ],
+                dropListProperties: {
+                    boneName: "None",
+                    localOffset: { X: 0, Y: 0, Z: 0 },
+                    vel: { X: 0, Y: 75, Z: 375 },
+                    randVel: { X: 30, Y: 30, Z: 30 },
+                    dropOption: 5,
+                    fixedHotExtractDropNum: 0,
+                    bOverrideInitLocation: 0,
+                    overrideInitLocation: { X: 0, Y: 0, Z: 0 },
+                    bEnableFreezeBothDrop: false
+                }
+            },
+            {
+                parsed: [
+                    {
+                        id: 1, minDrops: 2, maxDrops: 2, dropChance: 0.6, bRegistGenerator: 0,
+                        assetName: "/Game/Carrot4/Placeables/Items/GBomb.GBomb_C",
+                        customParameter: "None", customFloatParam: 0, gameRulePermissionFlag: 269, bSetTerritory: 0
+                    },
+                    {
+                        id: 2, minDrops: 2, maxDrops: 2, dropChance: 0.35, bRegistGenerator: 0,
+                        assetName: "/Game/Carrot4/Placeables/Items/GIceBomb.GIceBomb_C",
+                        customParameter: "None", customFloatParam: 0, gameRulePermissionFlag: 269, bSetTerritory: 0
+                    },
+                    {
+                        id: 3, minDrops: 10, maxDrops: 10, dropChance: 0.05, bRegistGenerator: 0,
+                        assetName: "/Game/Carrot4/Placeables/Teki/GTamagoMushi.GTamagoMushi_C",
+                        customParameter: "None", customFloatParam: 0, gameRulePermissionFlag: 269, bSetTerritory: 0
+                    }
+                ],
+                dropListProperties: {
+                    boneName: "None",
+                    localOffset: { X: 0, Y: 0, Z: 0 },
+                    vel: { X: 0, Y: 75, Z: 375 },
+                    randVel: { X: 30, Y: 30, Z: 30 },
+                    dropOption: 5,
+                    fixedHotExtractDropNum: 0,
+                    bOverrideInitLocation: 0,
+                    overrideInitLocation: { X: 0, Y: 0, Z: 0 },
+                    bEnableFreezeBothDrop: false
+                }
+            },
+            {
+                parsed: [
+                    {
+                        id: 1, minDrops: 3, maxDrops: 3, dropChance: 0.6, bRegistGenerator: 0,
+                        assetName: "/Game/Carrot4/Placeables/Items/GBomb.GBomb_C",
+                        customParameter: "None", customFloatParam: 0, gameRulePermissionFlag: 269, bSetTerritory: 0
+                    },
+                    {
+                        id: 2, minDrops: 3, maxDrops: 3, dropChance: 0.35, bRegistGenerator: 0,
+                        assetName: "/Game/Carrot4/Placeables/Items/GIceBomb.GIceBomb_C",
+                        customParameter: "None", customFloatParam: 0, gameRulePermissionFlag: 269, bSetTerritory: 0
+                    },
+                    {
+                        id: 3, minDrops: 10, maxDrops: 10, dropChance: 0.05, bRegistGenerator: 0,
+                        assetName: "/Game/Carrot4/Placeables/Teki/GTamagoMushi.GTamagoMushi_C",
+                        customParameter: "None", customFloatParam: 0, gameRulePermissionFlag: 269, bSetTerritory: 0
+                    }
+                ],
+                dropListProperties: {
+                    boneName: "None",
+                    localOffset: { X: 0, Y: 0, Z: 0 },
+                    vel: { X: 0, Y: 75, Z: 375 },
+                    randVel: { X: 30, Y: 30, Z: 30 },
+                    dropOption: 5,
+                    fixedHotExtractDropNum: 0,
+                    bOverrideInitLocation: 0,
+                    overrideInitLocation: { X: 0, Y: 0, Z: 0 },
+                    bEnableFreezeBothDrop: false
+                }
+            }
+        ],
+        AIProperties: {
+            canDieDropIndex: -1,
+            bAppearRotatorFixed: false,
+            turnAngleMin: 20.0,
+            turnAngleMax: 30.0,
+            searchAreaCaution: {
+                center: {
+                    ...defaultVector,
+                },
+                halfHeight: 100,
+                radius: 350,
+                angle: 180,
+                sphereRadius: 30
+            }
+        }
+    },
+    {
+        ents: ["Kogane"],
         dropLists: [],
+        AIProperties: {
+            canDieDropIndex: -1,
+            bAppearRotatorFixed: false,
+            turnAngleMin: 20.0,
+            turnAngleMax: 30.0,
+            searchAreaCaution: {
+                center: {
+                    ...defaultVector,
+                },
+                halfHeight: 100,
+                radius: 350,
+                angle: 180,
+                sphereRadius: 30
+            }
+        }
+    },
+    {
+        ents: ["OoKogane"],
+        dropLists: [
+            {
+                parsed: [
+                    {
+                        id: 1, minDrops: 1, maxDrops: 1, dropChance: 1, bRegistGenerator: 0,
+                        assetName: "/Game/Carrot4/Placeables/Items/GHotExtract.GHotExtract_C",
+                        customParameter: "None", customFloatParam: 0, gameRulePermissionFlag: 269, bSetTerritory: 0
+                    }
+                ],
+                dropListProperties: {
+                    boneName: "None",
+                    localOffset: { X: 0, Y: 0, Z: 0 },
+                    vel: { X: 0, Y: 150, Z: 375 },
+                    randVel: { X: 0, Y: 0, Z: 0 },
+                    dropOption: 0,
+                    fixedHotExtractDropNum: 0,
+                    bOverrideInitLocation: 0,
+                    overrideInitLocation: { X: 0, Y: 0, Z: 0 },
+                    bEnableFreezeBothDrop: false
+                }
+            },
+            {
+                parsed: [
+                    {
+                        id: 1, minDrops: 2, maxDrops: 2, dropChance: 1, bRegistGenerator: 0,
+                        assetName: "/Game/Carrot4/Placeables/Items/GHotExtract.GHotExtract_C",
+                        customParameter: "None", customFloatParam: 0, gameRulePermissionFlag: 269, bSetTerritory: 0
+                    }
+                ],
+                dropListProperties: {
+                    boneName: "None",
+                    localOffset: { X: 0, Y: 0, Z: 0 },
+                    vel: { X: 0, Y: 150, Z: 375 },
+                    randVel: { X: 80, Y: 50, Z: 50 },
+                    dropOption: 2,
+                    fixedHotExtractDropNum: 0,
+                    bOverrideInitLocation: 0,
+                    overrideInitLocation: { X: 0, Y: 0, Z: 0 },
+                    bEnableFreezeBothDrop: false
+                }
+            },
+            {
+                parsed: [
+                    {
+                        id: 1, minDrops: 1, maxDrops: 1, dropChance: 1, bRegistGenerator: 1,
+                        dropCondition: 5, dropCondInt: 0, dropCondName: "None",
+                        assetName: "/Game/Carrot4/Placeables/Objects/Otakara/GOtaCasinoChip50.GOtaCasinoChip50_C",
+                        customParameter: "None", customFloatParam: 0, gameRulePermissionFlag: 269, bSetTerritory: 0
+                    },
+                    {
+                        id: 2, minDrops: 1, maxDrops: 1, dropChance: 1, bRegistGenerator: 0,
+                        dropCondition: 6, dropCondInt: 0, dropCondName: "None",
+                        assetName: "/Game/Carrot4/Placeables/Items/GHotExtract.GHotExtract_C",
+                        customParameter: "None", customFloatParam: 0, gameRulePermissionFlag: 0, bSetTerritory: 0
+                    }
+                ],
+                dropListProperties: {
+                    boneName: "None",
+                    localOffset: { X: 0, Y: 0, Z: 0 },
+                    vel: { X: 0, Y: 125, Z: 375 },
+                    randVel: { X: 30, Y: 0, Z: 30 },
+                    dropOption: 0,
+                    fixedHotExtractDropNum: 0,
+                    bOverrideInitLocation: 0,
+                    overrideInitLocation: { X: 0, Y: 0, Z: 0 },
+                    bEnableFreezeBothDrop: false
+                }
+            }
+        ],
         AIProperties: {
             canDieDropIndex: -1,
             bAppearRotatorFixed: false,

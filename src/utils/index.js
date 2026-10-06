@@ -219,7 +219,7 @@ export const mutateAIProperties = (creature, newCreatureId, newInfoType = '', ol
     if (creature.infoType === InfoType.Creature)
         creatureDefaults.forEach(o => {
             if (o.ents.some(e => newCreatureId === e)) {
-                creature.drops.dropLists = deepCopy(o.dropLists);
+                if (!creature?.drops?.dropLists?.length) creature.drops.dropLists = deepCopy(o.dropLists);
                 creature.AIProperties = {
                     ...creature.AIProperties,
                     ...deepCopy(o.AIProperties)
