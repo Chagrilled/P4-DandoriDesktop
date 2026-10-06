@@ -38,7 +38,7 @@ export const regenerateAGLEntity = (actor, aglData) => {
     const aiDynamic = newAsset ? entData.AI[0].Dynamic : originalAI_Dynamic;
 
     // If the asset has changed, don't use the existing AGL ASP as it will likely be wrong
-    const { parsed, inventoryEnd, AIProperties: existingAIP, rareDrops } = getReadAIStaticFunc(actor.creatureId, actor.infoType)(aiStatic, generatorVersion, actor.creatureId);
+    const { parsed, inventoryEnd, AIProperties: existingAIP, rareDrops, dropLists } = getReadAIStaticFunc(actor.creatureId, actor.infoType)(aiStatic, generatorVersion, actor.creatureId);
     const dynamicAI = getReadAIDynamicFunc(actor.creatureId, actor.infoType)(aiDynamic);
     const AIProperties = { ...existingAIP, ...dynamicAI };
 
@@ -49,10 +49,12 @@ export const regenerateAGLEntity = (actor, aglData) => {
     const isAIEqual = deepEqual({
         parsed,
         rareDrops,
+        dropLists,
         AIProperties
     }, {
         parsed: actor.drops.parsed,
         rareDrops: actor.drops.rareDrops,
+        dropLists: actor.drops.dropLists,
         AIProperties: actor.AIProperties
     });
     let newAI = {};

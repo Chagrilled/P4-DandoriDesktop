@@ -414,13 +414,15 @@ export const creatureDefaults = [
         }
     },
     {
-        ents: ["FutakuchiAdult", "YukiFutakuchiAdult"],
+        ents: ["FutakuchiAdult"],
         AIProperties: {
             searchTagName: 'FutakuchiAdultRock',
             bSplineType: false,
             escapeSecMin: 0.0,
             escapeSecMax: 1.0,
             bCreateIcicle: 1,
+            ratioWaitToWander: 0,
+            vacuumHalfHeight: 20,
             attackArea: {
                 center: defaultVector,
                 halfHeight: 50,
@@ -449,7 +451,48 @@ export const creatureDefaults = [
                 halfHeight: 100,
                 radius: 700,
                 angle: 180,
-                sphereRadius: 0.69
+                sphereRadius: 100
+            }
+        }
+    },
+    {
+        ents: ["YukiFutakuchiAdult"],
+        AIProperties: {
+            searchTagName: 'FutakuchiAdultRock',
+            bSplineType: false,
+            escapeSecMin: 0.0,
+            escapeSecMax: 1.0,
+            bCreateIcicle: 1,
+            ratioWaitToWander: 0,
+            attackArea: {
+                center: defaultVector,
+                halfHeight: 50,
+                radius: 100,
+                angle: 90,
+                sphereRadius: 100
+            },
+            splineAttackParam: {
+                attackLoopWaitSecMin: 1.0,
+                attackLoopWaitSecMax: 1.5,
+                attackSignSecMin: 1.0,
+                attackSignSecMax: 3.0,
+                attackInterval: 2.0,
+                attackIntervalSuccess: 1.5
+            },
+            attackParam: {
+                attackLoopWaitSecMin: 1.0,
+                attackLoopWaitSecMax: 1.5,
+                attackSignSecMin: 1.0,
+                attackSignSecMax: 3.0,
+                attackInterval: 2.0,
+                attackIntervalSuccess: 1.5
+            },
+            searchAreaCaution: {
+                center: defaultVector,
+                halfHeight: 100,
+                radius: 700,
+                angle: 180,
+                sphereRadius: 100
             }
         }
     },
@@ -597,6 +640,25 @@ export const creatureDefaults = [
                 angle: 180,
                 sphereRadius: 30
             }
-        }
+        },
     },
+    {
+        ents: ["Kogane", "OoKogane", "GasKogane"],
+        dropLists: [],
+        AIProperties: {
+            canDieDropIndex: -1,
+            bAppearRotatorFixed: false,
+            turnAngleMin: 20.0,
+            turnAngleMax: 30.0,
+            searchAreaCaution: {
+                center: {
+                    ...defaultVector,
+                },
+                halfHeight: 100,
+                radius: 350,
+                angle: 180,
+                sphereRadius: 30
+            }
+        }
+    }
 ];

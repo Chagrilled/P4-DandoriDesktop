@@ -209,7 +209,7 @@ export const mutateAIProperties = (creature, newCreatureId, newInfoType = '', ol
                 else delete creature[prop];
             });
 
-            ["parsed", "parsedSubAI", "rareDrops"].forEach(prop => {
+            ["parsed", "parsedSubAI", "rareDrops", "dropLists"].forEach(prop => {
                 if (o[prop]) creature.drops[prop] = deepCopy(o[prop]);
             });
         }
@@ -219,6 +219,7 @@ export const mutateAIProperties = (creature, newCreatureId, newInfoType = '', ol
     if (creature.infoType === InfoType.Creature)
         creatureDefaults.forEach(o => {
             if (o.ents.some(e => newCreatureId === e)) {
+                creature.drops.dropLists = deepCopy(o.dropLists);
                 creature.AIProperties = {
                     ...creature.AIProperties,
                     ...deepCopy(o.AIProperties)

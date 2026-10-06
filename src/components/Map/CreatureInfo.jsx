@@ -9,7 +9,7 @@ import { Tooltip } from 'react-tooltip';
 import { DropCard } from './Card/DropCard';
 
 //#region updateCreature
-const updateCreature = (value, { mapMarkerData, setMapData, config }, obj, path, ddId, index) => {
+export const updateCreature = (value, { mapMarkerData, setMapData, config }, obj, path, ddId, index) => {
     console.log("updateObj", obj);
     let type = obj.infoType;
     const oldCreatureId = obj.creatureId;

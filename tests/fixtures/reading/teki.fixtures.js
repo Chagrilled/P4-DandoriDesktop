@@ -1853,17 +1853,19 @@ export const tekiReadingFixtures = [
                 bCreateIcicle: 1,
                 escapeSecMin: 5,
                 escapeSecMax: 5,
+                ratioWaitToWander: 0,
                 searchAreaCaution: {
                     center: {
-                        X: 20,
+                        X: 0,
                         Y: 0,
                         Z: 0
                     },
-                    halfHeight: 0,
-                    radius: 70,
-                    angle: 1200,
-                    sphereRadius: 5
-                }
+                    halfHeight: 70,
+                    radius: 1200,
+                    angle: 5,
+                    sphereRadius: 700
+                },
+                vacuumHalfHeight: 20
             },
             inventoryEnd: 448
         }
@@ -4211,6 +4213,7 @@ export const tekiReadingFixtures = [
                 bCreateIcicle: 0,
                 escapeSecMin: 0,
                 escapeSecMax: 0,
+                ratioWaitToWander: 0,
                 searchAreaCaution: {
                     center: {
                         X: 0,

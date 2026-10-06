@@ -586,7 +586,7 @@ export const readMapData = async (mapId, webContents) => {
 
         const infoType = getInfoType(subPath);
         console.log(`About to read a ${entityId} at X position ${object.InitTransform.Translation.X}`);
-        const { parsed, AIProperties: staticAI, rareDrops, spareBytes, groupingRadius, inventoryEnd, ignoreList } = getReadAIStaticFunc(entityId, infoType)(asp.AI.Static, object.GeneratorVersion, entityId);
+        const { parsed, AIProperties: staticAI, rareDrops, spareBytes, groupingRadius, inventoryEnd, ignoreList, dropLists } = getReadAIStaticFunc(entityId, infoType)(asp.AI.Static, object.GeneratorVersion, entityId);
 
         const dynamicAI = getReadAIDynamicFunc(entityId, infoType)(asp.AI.Dynamic);
         const { PortalTrigger } = getReadPortalFunc(infoType)(asp.PortalTrigger.Static);
@@ -640,7 +640,8 @@ export const readMapData = async (mapId, webContents) => {
                 rareDrops,
                 spareBytes,
                 parsedSubAI,
-                inventoryEnd
+                inventoryEnd,
+                dropLists
             },
             ddId,
             originalAGL: fileType,

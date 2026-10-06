@@ -4424,17 +4424,19 @@ export const tekiConstructingFixtures = [
             bCreateIcicle: 1,
             escapeSecMin: 5,
             escapeSecMax: 5,
+            vacuumHalfHeight: 20,
             searchAreaCaution: {
                 center: {
-                    X: 20,
+                    X: 0,
                     Y: 0,
                     Z: 0
                 },
-                halfHeight: 0,
-                radius: 70,
-                angle: 1200,
-                sphereRadius: 5
-            }
+                halfHeight: 70,
+                radius: 1200,
+                angle: 5,
+                sphereRadius: 700
+            },
+            ratioWaitToWander: 0
         },
         inventoryEnd: 448,
         transform: {
@@ -5592,7 +5594,8 @@ export const tekiConstructingFixtures = [
                 radius: 1800,
                 angle: 40,
                 sphereRadius: 240
-            }
+            },
+            ratioWaitToWander: 0
         },
         inventoryEnd: 439,
         transform: {
@@ -6108,17 +6111,19 @@ export const tekiEdgeCases = {
             bCreateIcicle: 1,
             escapeSecMin: 5,
             escapeSecMax: 5,
+            vacuumHalfHeight: 20,
             searchAreaCaution: {
                 center: {
-                    X: 20,
+                    X: 0,
                     Y: 0,
                     Z: 0
                 },
-                halfHeight: 0,
-                radius: 70,
-                angle: 300,
-                sphereRadius: 110
-            }
+                halfHeight: 70,
+                radius: 300,
+                angle: 110,
+                sphereRadius: 30
+            },
+            ratioWaitToWander: 0.7
         },
         inventoryEnd: 445,
         transform: {

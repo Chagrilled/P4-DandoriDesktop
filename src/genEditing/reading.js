@@ -150,7 +150,7 @@ export const getReadNavMeshTriggerFunc = creatureId => {
     return () => false;
 };
 
-export const getReadCreatureAIFunc = creatureId => {
+export const getReadCreatureAIFunc = (creatureId) => {
     if (['KumaChappy', 'Patroller'].includes(creatureId)) return parseKumaChappyAI;
     if (creatureId === 'HageDamagumo') return parseHageDamagumoAI;
     if (creatureId.includes('PanModoki')) return parsePanModokiAI;
@@ -165,7 +165,8 @@ export const getReadCreatureAIFunc = creatureId => {
     if (creatureId === 'Yamashinju') return parseYamashinjuAI;
     if (creatureId === 'BigChappy') return parseBigChappyAI;
     if (creatureId.includes('Kurage')) return parseKurageAI;
-    return () => { };
+    if (creatureId.includes('Kogane')) return parseKoganeAI;
+    return () => ({});
 };
 
 export const getReadPopPlaceFunc = creatureId => {
@@ -1263,10 +1264,14 @@ export const parseTekiAI = (ai, generatorVersion, creatureId) => {
     for (let i = 0; i < priorityInfoLength; i++) {
         AIProperties.optionalPointPriorityInfo.push(bytesToInt(ai.slice(index, index += 4)));
     }
-    const creatureAIProperties = getReadCreatureAIFunc(creatureId)(ai.slice(index, ai.length));
+    const {
+        dropLists,
+        ...creatureAIProperties
+    } = getReadCreatureAIFunc(creatureId)(ai.slice(index, ai.length), creatureId, generatorVersion);
 
     return {
         parsed,
+        dropLists,
         AIProperties: {
             ...AIProperties,
             ...creatureAIProperties
@@ -1526,6 +1531,88 @@ const parseKurageAI = ai => {
     return AIProperties;
 };
 
+const parseKoganeAI = (ai, _, generatorVersion) => {
+    let index = 0;
+    console.log(ai);
+    const AIProperties = {
+        canDieDropIndex: bytesToInt(ai.slice(index, index += 4))
+    };
+    const dropListSize = ai[index];
+    index += 4;
+    const dropLists = [];
+    for (let i = 0; i < dropListSize; i++) {
+        let invSize = ai[index];
+        index += 4;
+        let parsed;
+
+        ({ parsed, index } = readInventory(ai, index, invSize));
+        console.log(index);
+        const dropListProperties = {};
+        index += 4;
+
+        dropListProperties.boneName = readAsciiString(ai, index);
+        index += ai[index] + 4;
+        console.log(dropListProperties.boneName);
+        dropListProperties.localOffset = {
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        };
+
+        dropListProperties.vel = {
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        };
+        dropListProperties.randVel = {
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        };
+
+        dropListProperties.dropOption = bytesToInt(ai.slice(index, index += 2), 2);
+        dropListProperties.fixedHotExtractDropNum = bytesToInt(ai.slice(index, index += 4));
+        dropListProperties.bOverrideInitLocation = ai[index];
+        index += 4;
+        dropListProperties.overrideInitLocation = {
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        };
+        // not an object, but still long gen versions
+        index += 4;
+        if (getObjectAIOffset(generatorVersion) === 4) {
+            dropListProperties.bEnableFreezeBothDrop = ai[index];
+            index += 4;
+        }
+        dropLists.push({
+            parsed,
+            dropListProperties
+        });
+    }
+    AIProperties.bAppearRotatorFixed = ai[index];
+    index += 4;
+    AIProperties.turnAngleMin = readFloat(ai.slice(index, index += 4));
+    AIProperties.turnAngleMax = readFloat(ai.slice(index, index += 4));
+    AIProperties.searchAreaCaution = {
+        center: {
+            X: readFloat(ai.slice(index, index += 4)),
+            Y: readFloat(ai.slice(index, index += 4)),
+            Z: readFloat(ai.slice(index, index += 4))
+        },
+        halfHeight: readFloat(ai.slice(index, index += 4)),
+        radius: readFloat(ai.slice(index, index += 4)),
+        angle: readFloat(ai.slice(index, index += 4)),
+        sphereRadius: readFloat(ai.slice(index, index += 4)),
+    };
+
+    return {
+        ...AIProperties,
+        dropLists
+    };
+};
+
+
 // he needs charting properly I think
 // const parseBigKingChappyAI = ai => {
 //     let index = 0;
@@ -1539,7 +1626,7 @@ const parseKurageAI = ai => {
 //     // pressParameter bSinkFloor
 // };
 
-const parseFutakuchiAdultAI = ai => {
+const parseFutakuchiAdultAI = (ai, creatureId) => {
     let index = 0;
     const AIProperties = {
         attackArea: {
@@ -1578,6 +1665,8 @@ const parseFutakuchiAdultAI = ai => {
     index += 4;
     AIProperties.escapeSecMin = readFloat(ai.slice(index, index += 4));
     AIProperties.escapeSecMax = readFloat(ai.slice(index, index += 4));
+    // YukiFutakuchiAdult doesn't have this
+    if (creatureId === 'FutakuchiAdult') AIProperties.vacuumHalfHeight = readFloat(ai.slice(index, index += 4));
     AIProperties.searchAreaCaution = {
         center: {
             X: readFloat(ai.slice(index, index += 4)),
@@ -1589,6 +1678,7 @@ const parseFutakuchiAdultAI = ai => {
         angle: readFloat(ai.slice(index, index += 4)),
         sphereRadius: readFloat(ai.slice(index, index += 4)),
     };
+    AIProperties.ratioWaitToWander = readFloat(ai.slice(index, index += 4));
     return AIProperties;
 };
 

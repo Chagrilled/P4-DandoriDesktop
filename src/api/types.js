@@ -466,6 +466,7 @@ export const editableNumberFields = [
     "baseCampId",
     "birthDay",
     "bornSpeed",
+    "canDieDropIndex",
     "childSearchRadius",
     "deceleration",
     "deadDay",
@@ -527,6 +528,7 @@ export const editableNumberFields = [
     "pongashiChangeColorFollowNum",
     "portalNumber",
     "radius",
+    "ratioWaitToWander",
     "rebirthInterval",
     "refObstacleGenID",
     "rockBallHeightMax",
@@ -554,8 +556,11 @@ export const editableNumberFields = [
     "stateChangeDelayTime",
     "stopQueenDistXY",
     "toPortalId",
+    "turnAngleMin",
+    "turnAngleMax",
     "uniqueLife",
     "unknownInt",
+    "vacuumHalfHeight",
     "waitTime",
     "waterLevelChangeDist",
     "waterLevelChangeTime",
@@ -568,6 +573,7 @@ export const editableNumberFields = [
 //#region UI Bools
 export const editableBools = [
     "bAppearFixedLocation",
+    "bAppearRotatorFixed",
     "bAppearSearch",
     "bAlreadyAppear",
     "bAutoSpawnMush",
@@ -1066,6 +1072,34 @@ export const defaultCreatureAI = {
     bNotifyCarryNearProWrestlingPikmin: false,
     bEnableCullSearchEnemy: true,
     bUseActorLastRenderTime: false,
+};
+
+export const dropActorParameter = {
+    boneName: "None",
+    localOffset: {
+        X: 0.0,
+        Y: 0.0,
+        Z: 0.0
+    },
+    vel: {
+        X: 0.0,
+        Y: 0.0,
+        Z: 350.0
+    },
+    randVel: {
+        X: 25.0,
+        Y: 25.0,
+        Z: 25.0
+    },
+    dropOption: 1,
+    fixedHotExtractDropNum: 0,
+    bOverrideInitLocation: false,
+    overrideInitLocation: {
+        X: 0.0,
+        Y: 0.0,
+        Z: 0.0
+    },
+    bEnableFreezeBothDrop: false,
 };
 
 export const defaultTriggerAI = {

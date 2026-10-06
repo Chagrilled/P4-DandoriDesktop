@@ -2,7 +2,7 @@ import { InfoType, PikminTypes, PikminPlayType, defaultAIProperties, PortalTypes
 import { default as entityData } from '../api/entityData.json';
 import { floatToByteArr, intToByteArr, disableFlagsToInt, u64ToBytes } from '../utils/bytes';
 import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue, getObjectAIOffset } from '../utils';
-import { parseGDMDrops, parseTekiAI, parsePotDrops, readInventory } from './reading';
+import { parseGDMDrops, parseTekiAI, parsePotDrops } from './reading';
 import logger from '../utils/logger';
 import { BrowserWindow } from 'electron';
 
@@ -150,6 +150,7 @@ export const getConstructCreatureAIFunc = creatureId => {
     if (creatureId === ('Yamashinju')) return constructYamashinjuAI;
     if (creatureId === 'BigChappy') return constructBigChappyAI;
     if (creatureId.includes('Kurage')) return constructKurageAI;
+    if (creatureId.includes('Kogane')) return constructKoganeAI;
     return () => [];
 };
 
@@ -983,7 +984,7 @@ const constructActorSpawnerAI = ({ parsed: [drop] }, aiStatic) => {
 };
 
 //#region Teki
-const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd, AIProperties }, generatorVersion, creatureId) => {
+const constructCreatureAI = ({ parsed, dropLists }, aiStatic, { inventoryEnd, AIProperties }, generatorVersion, creatureId) => {
     // The -1 at the end of an inventory could be at [24] for 0 inventories
     const inventoryBytes = [
         ...writeVector(AIProperties.territory),
@@ -1078,7 +1079,7 @@ const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd, AIProperties 
     }
 
     console.log(AIProperties);
-    const creatureAIBytes = getConstructCreatureAIFunc(creatureId)(AIProperties);
+    const creatureAIBytes = getConstructCreatureAIFunc(creatureId)(AIProperties, dropLists, creatureId, generatorVersion);
 
     if (!inventoryEnd) {
         // Because we won't have an aiStatic to "edit into", we take the first in the scraped list
@@ -1087,15 +1088,11 @@ const constructCreatureAI = ({ parsed }, aiStatic, { inventoryEnd, AIProperties 
         ({ inventoryEnd } = parseTekiAI(aiStatic, generatorVersion, creatureId));
     }
 
-    // if we construct our own creature AI we don't need to slice it out of the default
-    if (creatureAIBytes.length) {
-        inventoryBytes.push(...creatureAIBytes);
-        inventoryEnd += creatureAIBytes.length;
-    }
     // If we haven't constructed creature AI ourselves, or have left params out,
-    // grab the rest of the static. This definitely breaks for variable length strings though
-    // oh well
-    return [...inventoryBytes, ...aiStatic.slice(inventoryEnd, aiStatic.length)];
+    // grab the rest of the static.
+    return creatureAIBytes.length ?
+        [...inventoryBytes, ...creatureAIBytes] :
+        [...inventoryBytes, ...aiStatic.slice(inventoryEnd)];
 };
 
 //#region Creature-Specific
@@ -1220,6 +1217,35 @@ const constructKurageAI = (AIProperties) => [
     ...bool(AIProperties.ownerSubComponentFlag)
 ];
 
+const constructKoganeAI = (AIProperties, dropLists, _, generatorVersion) => [
+    ...intToByteArr(AIProperties.canDieDropIndex),
+    ...intToByteArr(dropLists.length),
+    ...dropLists.map(dl => {
+        const bytes = [
+            ...intToByteArr(dl.parsed.length),
+        ];
+        constructInventory(dl.parsed, bytes);
+        bytes.push(255, 255, 255, 255);
+        writeAsciiString(bytes, dl.dropListProperties.boneName);
+        bytes.push(
+            ...writeVector(dl.dropListProperties.localOffset),
+            ...writeVector(dl.dropListProperties.vel),
+            ...writeVector(dl.dropListProperties.randVel),
+            ...intToByteArr(dl.dropListProperties.dropOption, 2),
+            ...intToByteArr(dl.dropListProperties.fixedHotExtractDropNum),
+            ...bool(dl.dropListProperties.bOverrideInitLocation),
+            ...writeVector(dl.dropListProperties.overrideInitLocation),
+            0, 0, 0, 0, //DebugUniqueIdList length
+            ...(getObjectAIOffset(generatorVersion) === 4 ? bool(dl.dropListProperties.bEnableFreezeBothDrop) : [])
+        );
+        return bytes;
+    }).flat(),
+    ...bool(AIProperties.bAppearRotatorFixed),
+    ...floatBytes(AIProperties.turnAngleMin),
+    ...floatBytes(AIProperties.turnAngleMax),
+    ...writeArea(AIProperties.searchAreaCaution),
+];
+
 const constructHageDamagumoAI = AIProperties => {
     const bytes = [];
     writeAsciiString(bytes, AIProperties.searchTagName);
@@ -1256,7 +1282,7 @@ const constructFutakuchiAI = AIProperties => {
     return bytes;
 };
 
-const constructFutakuchiAdultAI = AIProperties => {
+const constructFutakuchiAdultAI = (AIProperties, _, creatureId) => {
     const bytes = [
         ...writeArea(AIProperties.attackArea),
         ...bool(AIProperties.bSplineType),
@@ -1281,8 +1307,10 @@ const constructFutakuchiAdultAI = AIProperties => {
         ...bool(AIProperties.bCreateIcicle),
         ...floatBytes(AIProperties.escapeSecMin),
         ...floatBytes(AIProperties.escapeSecMax),
+        ...(creatureId === 'FutakuchiAdult' ? floatBytes(AIProperties.vacuumHalfHeight) : []),
 
         ...writeArea(AIProperties.searchAreaCaution),
+        ...floatBytes(AIProperties.ratioWaitToWander)
     );
     return bytes;
 };
@@ -1438,9 +1466,9 @@ export const writeLifeDynamic = Life => [
 
 export const writeModdedLife = life => [
 
-    ...(life.maxLife ? floatBytes(life.maxLife) : []),
-    ...(life.startingLife ? floatBytes(life.startingLife) : []),
-    ...(life.regenPercent ? floatBytes(life.regenPercent) : [])
+    ...(life.maxLife !== undefined ? floatBytes(life.maxLife) : []),
+    ...(life.startingLife !== undefined ? floatBytes(life.startingLife) : []),
+    ...(life.regenPercent !== undefined ? floatBytes(life.regenPercent) : [])
 ];
 
 export const writeAffordanceWeight = (weight, { Static }) => Static.toSpliced(Static.length - 4, 4, ...intToByteArr(weight));
@@ -1493,6 +1521,7 @@ export const defaultConstructionData = actor => {
     if (actor.infoType === InfoType.Item) return entityData.Bomb;
     if (actor.creatureId === "Pellet10") return entityData.Pellet5;
     if (actor.creatureId === 'KinkaiPick') return entityData.PiecePick;
+    if (actor.creatureId === 'GasKogane') return entityData.Kogane;
     BrowserWindow.getAllWindows().map(w => w.webContents.send(Messages.ERROR, `${actor.creatureId} doesn't have construction data or an override - report this to Noodl`));
     return undefined;
 };
