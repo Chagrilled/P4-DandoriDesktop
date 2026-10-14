@@ -152,14 +152,14 @@ export const DropConditions_Named = {
     0: "None"
 };
 
-export const GameRulePermissionFlags = [
-    0,
-    2,
-    7,
-    15,
-    269,
-    271
-];
+export const DropGameRulePermissionFlag = {
+    1: "Day",
+    2: "Night",
+    4: "Cave",
+    8: "Hero",
+    256: "Mission",
+    4096: "VS"
+}
 
 export const ActorSpawnerCustomParameter = [
     "None",

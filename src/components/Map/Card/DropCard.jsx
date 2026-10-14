@@ -1,10 +1,28 @@
 import React from "react";
-import { ActorSpawnerCustomParameter, DropConditions, DropConditions_Named, GameRulePermissionFlags, InfoType } from "../../../api/types";
+import { ActorSpawnerCustomParameter, DropConditions, DropConditions_Named, DropGameRulePermissionFlag, InfoType } from "../../../api/types";
 import { getInfoType, getNameFromAsset, getSubpathFromAsset } from "../../../utils";
 import { Card } from "./Card";
 import { DebouncedInput } from "../DebouncedInput";
 import tooltips from "../../../api/tooltips";
 import { Tooltip } from "react-tooltip";
+
+// gameRulePermissionFlag is a u16 bitmask
+const GameRuleFlags = ({ value, onChange, className }) => {
+    const flags = parseInt(value) || 0;
+    return <div className="grid grid-cols-[repeat(3,minmax(0,_0.23fr))] gap-x-2">
+        {Object.entries(DropGameRulePermissionFlag).map(([bit, name]) =>
+            <label key={bit} className="flex">
+                <input
+                    type="checkbox"
+                    checked={(flags & bit) !== 0}
+                    className={`${className} shrink-0`}
+                    onChange={(e) => onChange((e.target.checked ? flags | bit : flags & ~bit) & 0xFFFF)}
+                />
+                &nbsp;{name}
+            </label>
+        )}
+    </div>;
+};
 
 // This is actually such a terrible component and could probably be a third of the size
 export const DropCard = ({ drop, updateDrops, isActorSpawner, isYamashinju, ddId }) => {
@@ -201,9 +219,9 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, isYamashinju, ddId
                 <b>customFloatParameter</b>:&nbsp;
                 <DebouncedInput value={drop.customFloatParameter} type="number" changeFunc={(v) => updateDrops(v, drop, "customFloatParameter")} ddId={ddId} />
             </div>
-            <div className="flex">
-                <b>gameRulePermissionFlag</b>:&nbsp;
-                <DebouncedInput value={drop.gameRulePermissionFlag} type="number" changeFunc={(v) => updateDrops(v, drop, "gameRulePermissionFlag")} ddId={ddId} />
+            <div>
+                <b>gameRulePermissionFlag</b>:
+                <GameRuleFlags value={drop.gameRulePermissionFlag} className={classNameStyles} onChange={(v) => updateDrops(v, drop, "gameRulePermissionFlag")} ddId={ddId} />
             </div>
             <div className="flex">
                 <b>bSetTerritory</b>:&nbsp;
@@ -274,16 +292,8 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, isYamashinju, ddId
                     />
                 </div>
                 <div>
-                    <b>GameRulePermissionFlag</b>:&nbsp;
-                    <select
-                        className="w-full bg-sky-1000 max-w-[50%]"
-                        value={drop.gameRulePermissionFlag || 0}
-                        onChange={(e) => updateDrops(e.target.value, drop, "gameRulePermissionFlag")}
-                    >
-                        {GameRulePermissionFlags.map((flag) =>
-                            <option key={flag} value={flag}>{flag}</option>
-                        )}
-                    </select>
+                    <b>GameRulePermissionFlag</b>:
+                    <GameRuleFlags value={drop.gameRulePermissionFlag} className={classNameStyles} onChange={(v) => updateDrops(v, drop, "gameRulePermissionFlag")} />
                 </div>
                 <div>
                     <b>bSetTerritory</b>:&nbsp;
