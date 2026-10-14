@@ -340,6 +340,7 @@ export const entityDefaults = [
         ents: ["Gate"],
         rareDrops: [],
         AIProperties: {
+            ...defaultObjectAI,
             startValidWallIndex: -1
         },
         Life: {
