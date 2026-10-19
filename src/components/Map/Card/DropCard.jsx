@@ -284,7 +284,7 @@ export const DropCard = ({ drop, updateDrops, isActorSpawner, isYamashinju, ddId
                 <div>
                     <b>CustomFloatParameter</b>:&nbsp;
                     <DebouncedInput
-                        changeFunc={(v) => updateDrops(v, drop, "customFloatParameter")}
+                        changeFunc={(v) => updateDrops(v, drop, "customFloatParam")}
                         className="bg-sky-1000"
                         type="number"
                         value={drop.customFloatParam}

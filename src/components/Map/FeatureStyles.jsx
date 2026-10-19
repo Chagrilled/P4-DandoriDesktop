@@ -13,7 +13,7 @@ const ROOT_GIMMICKS_URL = 'icon://images/gimmicks';
 const ROOT_TREASURE_URL = 'icon://images/treasures';
 const ROOT_CREATURE_URL = 'icon://images/creatures';
 const plugins = await window.electron.ipcRenderer.readPlugins();
-console.log("plugins", plugins);
+
 //#region Overrides
 const SCALE_OVERRIDES = {
     egg: 0.8,
@@ -128,7 +128,6 @@ const SCALE_OVERRIDES = {
         plugins.flatMap(p => [[p.internalName.toLowerCase(), p.mapIconScale]])
     )
 };
-console.log(SCALE_OVERRIDES);
 
 export const getIconOptions = (type) => {
     const imgUrl = iconOverrides[type] || (ROOT_ICON_URL + '/' + type + '.png');
