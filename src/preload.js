@@ -21,5 +21,6 @@ contextBridge.exposeInMainWorld("electron", {
         getConfigData: (config) => ipcRenderer.invoke('getConfigData', config),
         getConfigs: () => ipcRenderer.send('getConfigs'),
         saveConfig: (config, configData) => ipcRenderer.invoke('saveConfig', config, configData),
+        readPlugins: () => ipcRenderer.invoke('readPlugins')
     }
 });

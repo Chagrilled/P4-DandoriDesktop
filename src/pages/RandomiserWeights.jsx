@@ -13,7 +13,7 @@ export const RandomiserWeights = () => {
     if (!appConfig) return;
 
     console.log("Weights page: ", state);
-    const englishNames = randCreatures.map(c => CreatureNames[c]).sort();
+    const englishNames = randCreatures().map(c => CreatureNames[c]).sort();
 
     return (
         <div className='bg-sky-1200 w-full h-full p-8 flex flex-wrap flex-row gap-4 items-center'>
@@ -27,7 +27,7 @@ export const RandomiserWeights = () => {
                 className="absolute left-0 top-0 ml-20 mt-4 bg-red-600 rounded-xl p-2 z-10"
                 onClick={() => setState({
                     ...state,
-                    weights: Object.fromEntries(randCreatures.map(c => [c, 0]))
+                    weights: Object.fromEntries(randCreatures().map(c => [c, 0]))
                 })}
             >
                 Zero
@@ -36,13 +36,13 @@ export const RandomiserWeights = () => {
                 className="absolute left-0 top-0 ml-36 mt-4 bg-green-600 rounded-xl p-2 z-10"
                 onClick={() => setState({
                     ...state,
-                    weights: Object.fromEntries(randCreatures.map(c => [c, 1]))
+                    weights: Object.fromEntries(randCreatures().map(c => [c, 1]))
                 })}
             >
                 Reset
             </button>
 
-            {(appConfig?.internalNames ? randCreatures : englishNames).map(creature => {
+            {(appConfig?.internalNames ? randCreatures() : englishNames).map(creature => {
 
                 const internalName = appConfig?.internalNames ? creature : findObjectKeyByValue(CreatureNames, creature);
 
@@ -60,7 +60,7 @@ export const RandomiserWeights = () => {
                         type="number"
                         step="1"
                         min="0"
-                        value={state.weights[internalName]}
+                        value={state.weights[internalName] ?? 1}
                         className={"text-center self-center max-w-[7em] bg-sky-1000 rounded-md px-3 py-0.5 text-[#e0e6ed] border border-[#3a4a5a] focus:ring-2 focus:ring-[#4da6ff] transition"}
                     />
                 </div>;

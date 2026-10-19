@@ -175,6 +175,20 @@ const addDropArray = (ddId, setMapData, mapMarkerData) => {
     });
 };
 
+const deleteDropArray = (ddId, setMapData, mapMarkerData, index) => {
+    const { type } = findMarkerById(ddId, mapMarkerData);
+    setMapData({
+        ...mapMarkerData,
+        [type]: mapMarkerData[type].map(c => c.ddId != ddId ? c : {
+            ...c,
+            drops: {
+                ...c.drops,
+                dropLists: c.drops.dropLists.filter((_, i) => i !== index)
+            }
+        })
+    });
+};
+
 //#region Component
 export const InfoPanel = ({ marker, setSelectedMarker }) => {
     // Getting kinda messy, but I need everything to be 
@@ -296,7 +310,7 @@ export const InfoPanel = ({ marker, setSelectedMarker }) => {
         <ExpandPanel isActorSpawner={false} addDrop={() => addDropArray(creature.ddId, setMapData, mapMarkerData, 'dropLists')} label={"Beetle Drops"}>
             {
                 creature.drops.dropLists.map((dropList, index) =>
-                    <ExpandPanel key={index} isActorSpawner={false} addDrop={() => addDrop(creature.ddId, setMapData, mapMarkerData, 'dropLists', index)} label={`Hit ${index}`}>
+                    <ExpandPanel key={index} isActorSpawner={false} removeDrop={() => deleteDropArray(creature.ddId, setMapData, mapMarkerData, index)} addDrop={() => addDrop(creature.ddId, setMapData, mapMarkerData, 'dropLists', index)} label={`Hit ${index}`}>
                         {/* Hack because dropOption is important and I cba to expose the rest in big panels yet */}
                         <li key={`drops.dropLists.${index}.dropListProperties.dropOption`} data-tooltip-id={'dropOption'}>
                             <b>dropOption</b>:&nbsp;

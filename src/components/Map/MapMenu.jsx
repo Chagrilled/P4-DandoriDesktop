@@ -79,7 +79,14 @@ export const MapMenu = ({ }) => {
             // as the entData[0] might be a long or short OAIP so GeneratorVersion should also be derived from that
         };
 
-        if (id === 'ActorSpawner') newMarker.drops.parsed[0] = deepCopy(DefaultActorSpawnerDrop);
+        if (id === 'ActorSpawner') {
+            newMarker.drops.parsed[0] = deepCopy(DefaultActorSpawnerDrop);
+            newMarker.moddedLife = {
+                maxLife: 0,
+                startingLife: 0,
+                regenPercent: 0.3
+            };
+        }
         if (id === 'GroupDropManager') {
             newMarker.infoType = InfoType.Gimmick;
             newMarker.ignoreList = "[]";

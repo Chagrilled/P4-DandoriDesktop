@@ -40,7 +40,7 @@ export const updateCreature = (value, { mapMarkerData, setMapData, config }, obj
     setMapData({ ...mapMarkerData, [type]: newMapData });
 };
 
-const deleteArrayItem = (mapMarkerData, setMapData, obj, path, ddId, index) => {
+const deleteArrayItem = ({ mapMarkerData, setMapData }, obj, path, ddId, index) => {
     let type = obj.infoType;
     if (!type) {
         ({ type } = findMarkerById(ddId, mapMarkerData));

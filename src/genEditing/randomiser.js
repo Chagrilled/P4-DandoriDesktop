@@ -3,6 +3,9 @@ import { readMapData, saveMaps, getConfigData, saveConfigs } from "../main";
 import { getInfoType, deepCopy, getSubpathFromAsset, getAssetPathFromId, getNameFromAsset, doesEntityHaveDrops, getInfoTypeFromId, mutateAIProperties } from "../utils";
 import { randomBytes } from 'crypto';
 import logger from "../utils/logger";
+import { readPlugins } from "../api/loadPlugins";
+
+const plugins = readPlugins();
 
 const initMarkers = {
     [InfoType.Creature]: [],
@@ -186,6 +189,7 @@ const bosses = [
     'SnakeCrow',
     'YukiFutakuchiAdult',
     'Yukimushi',
+    ...plugins.flatMap(p => p.isBoss ? [p.internalName] : [])
 ];
 const nonDropList = [
     'ActorSpawner',
@@ -208,7 +212,8 @@ const nonDropList = [
     "SplinePanModoki",
     "SplineBigUjinko",
     "PopPlaceActor",
-    "GenericPoolActor"
+    "GenericPoolActor",
+    ...plugins.flatMap(p => p.randomiserShouldNeverDrop ? [p.internalName] : [])
     // These two are possibly crashy - haven't replicated though
     // "Kanitama",
     // "Kogani"
@@ -218,7 +223,9 @@ const nonDropList = [
 // despite the dynamic import in main, leading to modified lists being retained between runs
 const resetLists = () => {
     randOnions = Object.keys(OnionNames).filter(k => !["OnyonBootUpRed", "Onyon", "OnyonCarryBoost", "OnyonVS"].includes(k));
-    randCreatures = randCreaturesList;
+    randCreatures = [
+        ...randCreaturesList(),
+    ];
 
     nonBosses = randCreatures.filter(c => !bosses.includes(c));
 
@@ -254,7 +261,8 @@ const resetLists = () => {
         "KumaKochappy",
         "Dodoro",
         "DodoroEgg",
-        "UjinkoB"
+        "UjinkoB",
+        ...plugins.flatMap(p => p.infoType === InfoType.Creature && p.randomiserNightList ? [p.internalName] : [])
     ];
 
 };
@@ -277,7 +285,8 @@ const hazards = Object.keys(HazardNames).filter(h => ![
     "Charcoal",
     "StickyFloorPartsMadori",
     "StickyFloorPartsOtaS",
-    "StickyFloorPartsOtaB"
+    "StickyFloorPartsOtaB",
+    ...plugins.flatMap(p => p.infoType === InfoType.Hazard && !p.randomiserShouldBeRolledInto ? [p.internalName] : [])
 ].includes(h));
 
 const objectsToRand = [
@@ -303,7 +312,9 @@ const objectsToRand = [
     "StickyMushB",
     "ExcavationS",
     "ExcavationM",
-    "ExcavationL"
+    "ExcavationL",
+    ...plugins.flatMap(p => p.infoType === InfoType.Object && p.randomiserShouldBeRolledInto ? [p.internalName] : [])
+
 ];
 const gimmicksToRand = [
     "CrackPotL",
@@ -313,7 +324,9 @@ const gimmicksToRand = [
     "CrackPotSAnother",
     "CrushJelly_S",
     "CrushJelly_M",
-    "CrushJelly_L"
+    "CrushJelly_L",
+    ...plugins.flatMap(p => p.infoType === InfoType.Gimmick && p.randomiserShouldBeRolledInto ? [p.internalName] : [])
+
 ];
 let objectRandFullList;
 // .filter((x, i) => i === objectRandFullList.indexOf(x));
@@ -354,7 +367,9 @@ const ignoreList = [
     "SplineBigUjinko",
     "OtaHeroPartsP",
     "PopPlaceActor",
-    "GenericPoolActor"
+    "GenericPoolActor",
+    ...plugins.flatMap(p => p.randomiserIgnorePlaced ? [p.internalName] : [])
+
     // All splines are added in this list already
 ];
 

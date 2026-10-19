@@ -1,11 +1,11 @@
 import 'source-map-support/register';
+import { pluginsRoot, readPlugins } from './api/loadPlugins';
 const { app, BrowserWindow, ipcMain, Menu, dialog, shell, protocol, net } = require('electron');
 import { readdir, promises, constants, readFileSync, accessSync, writeFileSync, readdirSync, mkdirSync, existsSync } from 'fs';
 import { join, sep } from 'path';
 import { randomBytes } from 'crypto';
 import swf from 'stringify-with-floats';
 import { spawn } from 'child_process';
-import { exposedGenVars, InfoType, NightMaps, Messages, AGLs } from './api/types';
 import { regenerateAGLEntity } from './genEditing';
 import { getReadAIStaticFunc, getReadPortalFunc, getReadAIDynamicFunc, getReadActorParameterFunc, getReadNavMeshTriggerFunc, getReadSubAIStaticFunc, getReadWaterTriggerFunc, getReadPopPlaceFunc, readLife, readModdedLife } from './genEditing/reading';
 import { constructActor } from './genEditing/constructing';
@@ -17,6 +17,7 @@ import logger from './utils/logger';
 import axios from 'axios';
 import AdmZip from "adm-zip";
 import { pathToFileURL } from 'node:url';
+import { exposedGenVars, InfoType, NightMaps, Messages, AGLs } from './api/types';
 
 const CONFIG_PATH = join(`${app.getPath('userData')}`, "config.json");
 const TEKI = 'Teki';
@@ -39,8 +40,10 @@ let mapsCache = {};
 let rawData = {};
 const cache = {};
 
+
 protocol.registerSchemesAsPrivileged([
-    { scheme: 'map-img', privileges: { secure: true, standard: true, supportFetchAPI: true } }
+    { scheme: 'map-img', privileges: { secure: true, standard: true, supportFetchAPI: true } },
+    { scheme: 'icon', privileges: { secure: true, standard: true, supportFetchAPI: true } }
 ]);
 
 app.whenReady().then(() => {
@@ -63,6 +66,24 @@ app.whenReady().then(() => {
         logger.info(`overridePath: ${mapPath}`);
 
         const finalPath = override ? mapPath : bundledPath;
+        logger.info(`Fetching map from ${finalPath}`);
+
+        return net.fetch(pathToFileURL(finalPath).toString());
+    });
+
+    protocol.handle('icon', (request) => {
+        logger.info(`Fetching icon protocol for ${request.url}`);
+        const fileName = decodeURIComponent(request.url.slice('icon://'.length));
+        const infotypes = Object.values(InfoType).join('|');
+        
+        const m = fileName.match(new RegExp(`images\/.+\/(?:${infotypes})-([^/]+?)(\.[^.]+)$`));
+
+        const pluginIcon = m && join(pluginsRoot, m[1], `${m[1]}${m[2]}`);
+        const bundledPath = app.isPackaged ? join(appRoot, '.webpack', 'renderer', fileName) : join(appRoot, 'src', fileName);
+        const override = existsSync(pluginIcon);
+        logger.info(`overridePath: ${pluginIcon}`);
+
+        const finalPath = override ? pluginIcon : bundledPath;
         logger.info(`Fetching map from ${finalPath}`);
 
         return net.fetch(pathToFileURL(finalPath).toString());
@@ -274,6 +295,10 @@ ipcMain.on('readMaps', (event) => {
 ipcMain.on('getConfigs', event => {
     console.log("detected getConfigs IPC");
     getConfigs();
+});
+
+ipcMain.handle('readPlugins', async (event) => {
+    return readPlugins();
 });
 
 //#region Get DT_s
@@ -721,7 +746,7 @@ const getFileData = async fileName => {
         return JSON.parse(protectNumbers(fileData));
     } catch (e) {
         mainWindow.webContents.send(Messages.ERROR, `Failed reading data from: ${fileName}`, e.stack);
-        logger.error(e.stack)
+        logger.error(e.stack);
         return undefined;
     }
 };
@@ -824,7 +849,7 @@ try {
     config = {
         ...DEFAULT_CONFIG, // Merge new config keys in to people's existing configs
         ...JSON.parse(data)
-    }
+    };
 } catch (err) {
     logger.warn(`${CONFIG_PATH} does not exist, generating`);
     writeFileSync(CONFIG_PATH, JSON.stringify(DEFAULT_CONFIG, null, 4), { encoding: "utf-8" });

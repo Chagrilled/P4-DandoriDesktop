@@ -75,9 +75,8 @@ const RandomiserProvider = ({ children }) => {
         treasureWeightMultiplier: [100, 100],
         creatureSparkliumMultiplier: [100, 100],
         freezeDamageMultiplier: [100, 100],
-        weights: Object.fromEntries(randCreatures.map(c => [c, 1]))
+        weights: Object.fromEntries(randCreatures().map(c => [c, 1]))
     });
-
 
     useEffect(() => {
         window.electron.ipcRenderer.on('getConfig', (evt, message) => { setAppConfig(message); console.log("received context config message"); });

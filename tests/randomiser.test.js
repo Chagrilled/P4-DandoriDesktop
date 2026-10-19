@@ -2,6 +2,8 @@ import './setupTests'; // Ensure this import is at the top
 import { expect, test, describe, vi, beforeEach } from 'vitest';
 import { DandoriChallengeMaps, DefaultActorSpawnerDrop, InfoType, OnionNames, PikminTypes, onionWeights, RebirthTypes, DefaultDrop, DefaultPortalTrigger, randCreatures } from '../src/api/types';
 import * as main from '../src/main';
+import { app } from 'electron';
+import * as fs from 'fs';
 
 let randomiseRegularDrops, randomiser;
 
@@ -41,7 +43,10 @@ expect.extend({
 describe('Randomiser Tests', () => {
     beforeEach(async () => {
         main.saveMaps.mockClear();
-        vi.resetAllMocks();
+        vi.restoreAllMocks();
+        vi.mocked(app.getPath).mockReturnValue('mocked/path');
+        vi.mocked(fs.readdirSync).mockReturnValue([]);
+        vi.mocked(fs.readFileSync).mockReturnValue('{}');
         vi.resetModules();
         ({ randomiseRegularDrops, randomiser } = await import('../src/genEditing/randomiser'));
     });
@@ -49,7 +54,7 @@ describe('Randomiser Tests', () => {
     test('Randomiser doesn\'t save maps when none are provided ', async () => {
         await randomiser({
             maps: [],
-            weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+            weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
         });
 
         expect(main.saveMaps).not.toHaveBeenCalled();
@@ -71,7 +76,7 @@ describe('Randomiser Tests', () => {
 
         await randomiser({
             maps: ['Area500'],
-            weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+            weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
             randStartingOnion: true,
             startingFlarlics: 1
         });
@@ -108,7 +113,7 @@ describe('Randomiser Tests', () => {
 
         await randomiser({
             maps: [...DandoriChallengeMaps, 'Area011'],
-            weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+            weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
         });
 
         expect(main.saveMaps).toHaveBeenCalledTimes(0);
@@ -167,7 +172,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Area001'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randCreatures: true,
                 randObjects: true,
                 asInfiniteChance: 30,
@@ -267,7 +272,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Area001'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randCreatures: true,
                 allCreaturesDrop: true,
                 retainSpawners: false,
@@ -330,7 +335,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Area001'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randCreatures: true
             });
 
@@ -380,7 +385,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Area001'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randCreatures: true,
                 randEnemyDrops: true,
                 randMaxDrops: 4,
@@ -434,7 +439,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Area001'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randCreatures: true,
                 randEnemyDrops: true,
                 randMaxDrops: 4,
@@ -485,7 +490,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Area001'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randCreatures: false
             });
 
@@ -527,7 +532,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Area001'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randCreatures: true,
                 randEnemyDrops: true,
                 asInfiniteChance: 30,
@@ -582,7 +587,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Area001'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randTreasures: true
             });
 
@@ -616,7 +621,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Area001'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randTreasures: false
             });
 
@@ -658,7 +663,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Area001'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randPortals: true
             });
 
@@ -698,7 +703,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Area001'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randPortals: true
             });
 
@@ -743,7 +748,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave003_F01'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randPortals: true,
                 randOverworldOnly: false
             });
@@ -786,7 +791,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave001_F00'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randPortals: true,
                 randOverworldOnly: false
             });
@@ -826,7 +831,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave001_F00'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randPortals: true,
                 randOverworldOnly: false
             });
@@ -864,7 +869,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave001_F00'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randPortals: false,
                 randOverworldOnly: false
             });
@@ -912,7 +917,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Area001'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randPortals: true,
                 randOverworldOnly: true,
                 randDisabled: true
@@ -968,7 +973,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Area001'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randObjects: true
             });
 
@@ -996,7 +1001,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave001_F00'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randObjects: true
             });
 
@@ -1024,7 +1029,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave001_F00'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randObjects: false
             });
 
@@ -1056,7 +1061,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Area001'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randObjects: true,
                 rebirthInterval: 3
             });
@@ -1087,7 +1092,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave001_F00'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randObjects: false
             });
 
@@ -1117,7 +1122,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave001_F00'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randObjects: true
             });
 
@@ -1152,7 +1157,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave001_F00'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randObjects: true
             });
 
@@ -1187,7 +1192,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave001_F00'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randObjects: true,
                 excludeGates: false
             });
@@ -1218,7 +1223,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave001_F00'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randObjects: true,
                 excludeGates: true
             });
@@ -1255,7 +1260,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave001_F00'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randObjects: true,
                 excludeGates: false,
                 allObjectsDrop: true,
@@ -1301,7 +1306,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave001_F00'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randObjects: false,
                 excludeGates: false,
                 allObjectsDrop: true,
@@ -1335,7 +1340,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave001_F00'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randObjects: false
             });
 
@@ -1367,7 +1372,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave001_F00'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randObjects: true,
                 hazardsLfL: false,
                 forceCaves: true
@@ -1400,7 +1405,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave001_F00'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randObjects: false
             });
 
@@ -1432,7 +1437,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Area001'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randObjects: true,
                 hazardsLfL: true
             });
@@ -1465,7 +1470,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave001_F00'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randObjects: true,
                 hazardsLfL: true,
                 forceCaves: false
@@ -1504,7 +1509,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave001_F00'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randAllOnions: true
             });
 
@@ -1531,7 +1536,7 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: ['Cave001_F00'],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
                 randAllOnions: false
             });
 
@@ -1598,12 +1603,12 @@ describe('Randomiser Tests', () => {
 
             await randomiser({
                 maps: [],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
             });
 
             randomiseRegularDrops(creature, {
                 randObjectDrops: true,
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1]))
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1]))
             }, 'Area001');
 
             expect(creature).toMatchObject({
@@ -1638,12 +1643,12 @@ describe('Randomiser Tests', () => {
             // Need to seed the lists now they get initialised on import
             await randomiser({
                 maps: [],
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
             });
 
             randomiseRegularDrops(creature, {
                 randObjectDrops: true,
-                weights: Object.fromEntries(randCreatures.map(c => [c, 1])),
+                weights: Object.fromEntries(randCreatures().map(c => [c, 1])),
             }, 'Area001');
 
             expect(creature).toMatchObject({

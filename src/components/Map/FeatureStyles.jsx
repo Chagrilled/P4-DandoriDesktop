@@ -8,15 +8,16 @@ import { getAngleRotation, getNameFromAsset, shouldIconRotate, isEntityOnNightMa
 
 const { Gimmick, Hazard, Portal, Onion, Base, WorkObject, Pikmin, Item, Creature, Treasure, WaterWater, WaterSwamp } = InfoType;
 
-const ROOT_ICON_URL = '../images/icons/radar';
-const ROOT_GIMMICKS_URL = '../images/gimmicks';
-const ROOT_TREASURE_URL = '../images/treasures';
-const ROOT_CREATURE_URL = '../images/creatures';
-
+const ROOT_ICON_URL = 'icon://images/icons/radar';
+const ROOT_GIMMICKS_URL = 'icon://images/gimmicks';
+const ROOT_TREASURE_URL = 'icon://images/treasures';
+const ROOT_CREATURE_URL = 'icon://images/creatures';
+const plugins = await window.electron.ipcRenderer.readPlugins();
+console.log("plugins", plugins);
 //#region Overrides
 const SCALE_OVERRIDES = {
-    egg: 0.6,
-    bigegg: 0.8,
+    egg: 0.8,
+    bigegg: 1.1,
     groupdropmanager: 0.9,
     pelplant1revive: 0.35,
     pelplant1ddb: 0.35,
@@ -114,13 +115,20 @@ const SCALE_OVERRIDES = {
     spline: 0.5,
     rockball: 0.2,
     lucky: 0.6,
-    fuurosoua: 0.15,
-    fuurosoub: 0.15,
-    ooinu: 0.4,
+    fuurosoua: 0.6,
+    fuurosoub: 0.6,
+    ooinu: 0.45,
     survivorleaf: 0.2,
     survivorolimarleaf: 0.2,
     popplaceactor: .6,
+    hiddenbox_heuchera02: 0.2,
+    hiddenbox_heuchera01: 0.2,
+    hiddenbox_amamo: 0.15,
+    ...Object.fromEntries(
+        plugins.flatMap(p => [[p.internalName.toLowerCase(), p.mapIconScale]])
+    )
 };
+console.log(SCALE_OVERRIDES);
 
 export const getIconOptions = (type) => {
     const imgUrl = iconOverrides[type] || (ROOT_ICON_URL + '/' + type + '.png');
@@ -216,7 +224,7 @@ const getFeatureStyle = async (marker, globalMarkerStyle) => {
         if (marker.creatureId === 'ActorSpawner') {
             infoType = getInfoType(getSubpathFromAsset(drop.assetName));
             scale = SCALE_OVERRIDES[getNameFromAsset(drop.assetName).toLowerCase()] || [Creature, Treasure].includes(infoType) ? 0.35 : 0.9;
-            src = `../images/${infoType}s/${infoType}-${creatureId.toLowerCase()}.png`;
+            src = `icon://images/${infoType}s/${infoType}-${creatureId.toLowerCase()}.png`;
         }
         globalMarkerStyle = new Style({
             image: new Icon({
@@ -245,7 +253,7 @@ const getFeatureStyle = async (marker, globalMarkerStyle) => {
 
         globalMarkerStyle = new Style({
             image: new Icon({
-                src: await getIcon(`../images/${infoType}s/${infoType}-${id || marker.creatureId.toLowerCase()}.png`, infoType),
+                src: await getIcon(`icon://images/${infoType}s/${infoType}-${id || marker.creatureId.toLowerCase()}.png`, infoType),
                 scale,
                 ...rotationProps
             }),

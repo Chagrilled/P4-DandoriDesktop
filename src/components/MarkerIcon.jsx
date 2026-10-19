@@ -23,7 +23,7 @@ export const MarkerIcon = ({ type, id, size = 'small', card, override, flip }) =
 
     const src = !id
         ? getIconOptions(type).src
-        : `../images/${type}s/${type}-${id.toLowerCase()}.png`;
+        : `icon://images/${type}s/${type}-${id.toLowerCase()}.png`;
 
     const sizes = {
         'xs': "w-10 h-10 mr-2 inline self-center",

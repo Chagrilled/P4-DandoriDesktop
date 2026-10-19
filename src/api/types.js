@@ -1607,7 +1607,6 @@ export const TreasureNames = {
     OtaZucchini: "Crew-Cut Gourd"
 };
 
-
 export const ItemNames = {
     Bomb: "Bomb Rock",
     IceBomb: "Ice Blast",
@@ -1691,9 +1690,9 @@ export const GimmickNames = {
     FenceNoSideCol: 'Iron Fence (No Side Collision?)',
     FormationAlignBox: 'FormationAlignBox',
     Geyser: 'Air Geyser',
-    HIddenBox_Amamo: 'HIddenBox_Amamo',
-    HIddenBox_Heuchera01: 'HIddenBox_Heuchera01',
-    HIddenBox_Heuchera02: 'HIddenBox_Heuchera01',
+    HIddenBox_Amamo: 'Seagrass',
+    HIddenBox_Heuchera01: 'Yellow Heuchera',
+    HIddenBox_Heuchera02: 'Red Heuchera',
     HappyDoor: 'Oatchi Tunnel',
     HiddenBoxRoom: 'HiddenBoxRoom',
     HiddenBoxRoomDark: 'HiddenBoxRoomDark',
@@ -1860,7 +1859,7 @@ export const ObjectNames = {
     OjamaBlockRoomDuo: "2 Books",
     OjamaBlockWoodParts: "OjamaBlock (?)",
     OjamaBlockWoodPartsB: "OjamaBlock (?)",
-    Ooinu: "Daisy Plant?",
+    Ooinu: "Figwort",
     PelplantTable: "Pellet Posy Platform",
     PerchTakeOff: "PerchTakeOff",
     Perch: "Perch",
@@ -2166,8 +2165,6 @@ export const iconOverrides = {
     splinepanmodoki: 'spline',
     splinebigujinko: 'spline',
     splinedodoro: 'spline',
-    hiddenbox_heuchera01: "default",
-    hiddenbox_heuchera02: "default",
     narrowspaceboxlinkobj: "default",
     vehiclebox: "default",
     narrowspacebox: "default",
@@ -2183,7 +2180,6 @@ export const iconOverrides = {
     warptriggerlinkobj: 'default',
     excavationunder: 'default',
     vargatesofthalf: 'vargatesoftnopillar',
-    hiddenbox_amamo: 'default',
     addland01_area003_l01: 'default',
     addland02_area003_l: 'default',
     burrowdemejako: 'default',
@@ -2745,7 +2741,7 @@ export const ItemTypeIDEditor = {
     VitalSystem3Happy: "EItemTypeIDEditor::VitalSystem3Happy"
 };
 
-export const randCreatures = Object.keys(CreatureNames).filter(k => ![
+export const randCreatures = () => Object.keys(CreatureNames).filter(k => ![
     "BossInu",
     "BossInu2",
     "Chaser",

@@ -5,6 +5,7 @@ import { setFloats, getNameFromAsset, getAssetPathFromId, findObjectKeyByValue, 
 import { parseGDMDrops, parseTekiAI, parsePotDrops } from './reading';
 import logger from '../utils/logger';
 import { BrowserWindow } from 'electron';
+import { readPlugins } from '../api/loadPlugins';
 
 const defaultAI = (_, ai) => ai;
 
@@ -1522,6 +1523,10 @@ export const defaultConstructionData = actor => {
     if (actor.creatureId === "Pellet10") return entityData.Pellet5;
     if (actor.creatureId === 'KinkaiPick') return entityData.PiecePick;
     if (actor.creatureId === 'GasKogane') return entityData.Kogane;
+
+    const plugin = readPlugins().find(p => p.internalName === actor.creatureId);
+    if (plugin) return entityData[plugin.defaultEntityData];
+
     BrowserWindow.getAllWindows().map(w => w.webContents.send(Messages.ERROR, `${actor.creatureId} doesn't have construction data or an override - report this to Noodl`));
     return undefined;
 };
